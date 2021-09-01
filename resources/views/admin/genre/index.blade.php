@@ -34,17 +34,10 @@
                                         </td>
                                         <td class="text-right">
                                             <a href="{{route('admin.genre.edit', $item->id)}}" class="badge badge-dark rounded-0">Edit</a>
-                                            <a href="#" class="badge badge-danger rounded-0">Delete</a>
+                                            <a href="javascript: void(0)" class="badge badge-danger rounded-0 genreDelete" data-id="{{$item->id}}">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
-                            	{{-- @foreach($genre as $key => $cat)
-                            		<tr>
-                            			<td><img src="{{asset($cat->image)}}" height="200" width="200"></td>
-                            			<td>{{$cat->name}}</td>
-                            			<td><a href="{{route('admin.guitar.category.edit',$cat->id)}}">Edit</a> | <a href="javascript:void(0)" class="text-danger categoryDelete" data-id="{{$cat->id}}">Delete</a></td>
-                            		</tr>
-                            	@endforeach --}}
                             </tbody>
                         </table>
                     </div>
@@ -60,32 +53,30 @@
         $('#example4').DataTable();
     });
 
-    $(document).on('click','.categoryDelete',function(){
-        var categoryDelete = $(this);
-        var categoryId = $(this).attr('data-id');
+    $(document).on('click','.genreDelete',function(){
+        var genreDelete = $(this);
+        var genreId = $(this).attr('data-id');
         swal({
             title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this category!",
+            text: "Once deleted, you will not be able to recover this genre!",
             buttons: true,
             dangerMode: true,
-        })
-        .then((willDelete) => {
+        }).then((willDelete) => {
             if (willDelete) {
                 $.ajax({
-                    type:'POST',
-                    dataType:'JSON',
-                    url:"{{route('admin.guitar.category.delete',"+categoryId+")}}",
-                    data: {id:categoryId,'_token': $('input[name=_token]').val()},
+                    type: 'POST',
+                    dataType: 'JSON',
+                    url: "{{route('admin.genre.delete',"+genreId+")}}",
+                    data: {id:genreId,'_token': $('input[name=_token]').val()},
                     success:function(data){
-                        if(data.error == false){
-                            categoryDelete.closest('tr').remove();
-                            swal('Success',"Poof! Your Category has been deleted!");
-                        }else{
-                            swal('Error',data.message);
+                        if(data.error == false) {
+                            genreDelete.closest('tr').remove();
+                            swal('Success',"Poof! Genre has been deleted!");
+                        } else {
+                            swal('Error', data.message);
                         }
                     }
                 });
-                
             }
         });
     });

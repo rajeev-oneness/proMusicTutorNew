@@ -10,23 +10,27 @@
                     <h5 class="mb-0">Edit Genre
                         <a class="headerbuttonforAdd" href="{{route('admin.guitar.category')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
-                    <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{route('admin.guitar.category.update',$category->id)}}" enctype="multipart/form-data">
+                    <form action="{{route('admin.genre.update', $genre->id)}}" method="post">
+                    @csrf
+                        <div class="form-group">
+                            <label for="name">Genre</label>
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Genre name" value="{{$genre->name}}">
+                            @error('name') <small class="text-danger">{{$message}}</small> @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <input type="hidden" name="genreId" value="{{$genre->id}}">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                    {{-- <form method="post" action="{{route('admin.guitar.category.update',$category->id)}}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="categoryId" value="{{$category->id}}">
                         @error('categoryId')
                             <span class="text-danger" role="alert">{{ $message }}</span>
                         @enderror
-                        <img src="{{$category->image}}" height="300" width="300">
-                        <div class="form-group">
-                            <label for="image" class="col-form-label">Update Image:</label>
-                            <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
-                            @error('image')
-                                <span class="text-danger" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
 
                         <div class="form-group">
                             <label for="image" class="col-form-label">Instrument Name:</label>
@@ -35,11 +39,11 @@
                                 <span class="text-danger" role="alert">{{ $message }}</span>
                             @enderror
                         </div>
-                        
+
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Update</button>
                         </div>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
         </div>

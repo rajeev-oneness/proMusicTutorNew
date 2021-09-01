@@ -540,6 +540,51 @@ class CrudController extends Controller
     }
     public function genreEdit($id)
     {
-        # code...
+        $genre = Genre::where('id', $id)->first();
+        return view('admin.genre.edit', compact('genre'));
     }
+    public function genreUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'genreId' => 'required|numeric|min:1|in:'.$id,
+            'name' => 'required|string|max:200',
+        ]);
+
+        $genre = Genre::where('id', $id)->first();
+        $genre->name = $request->name;
+        $genre->save();
+        return redirect(route('admin.genre'))->with('success', 'Genre updated successfully');
+    }
+    public function genreDelete(Request $request)
+    {
+        $rules = [
+            'id' => 'required|numeric|min:1',
+        ];
+        $validator = validator()->make($request->all(), $rules);
+        if(!$validator->fails()) {
+            $genre = Genre::find($request->id);
+            if($genre) {
+                $genre->delete();
+                return successResponse('Genre Deleted Success');  
+            }
+            return errorResponse('Invalid Genre Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+    // public function guitarCategoryDelete(Request $req)
+    // {
+    //     $rules = [
+    //         'id' => 'required|numeric|min:1',
+    //     ];
+    //     $validator = validator()->make($req->all(),$rules);
+    //     if(!$validator->fails()){
+    //         $category = Category::find($req->id);
+    //         if($category){
+    //             $category->delete();
+    //             return successResponse('Category Deleted Success');  
+    //         }
+    //         return errorResponse('Invalid Category Id');
+    //     }
+    //     return errorResponse($validator->errors()->first());
+    // }
 }

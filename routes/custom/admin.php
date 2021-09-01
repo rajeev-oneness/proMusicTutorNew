@@ -38,16 +38,13 @@
 	});
 
 	// Genre
-	Route::group(['prefix' => 'genre'],function(){
-		Route::get('/',[CrudController::class, 'genreIndex'])->name('admin.genre');
-		Route::get('/create',[CrudController::class, 'genreCreate'])->name('admin.genre.create');
-		Route::post('/save',[CrudController::class, 'genreSave'])->name('admin.genre.save');
-		Route::get('/{id}/edit',[CrudController::class, 'genreEdit'])->name('admin.genre.edit');
-		// Route::get('/create',[CrudController::class,'guitarCategoryCreate'])->name('admin.guitar.category.create');
-		// Route::post('/store',[CrudController::class,'guitarCategoryStore'])->name('admin.guitar.category.save');
-		// Route::get('/{id}/edit',[CrudController::class,'guitarCategoryEdit'])->name('admin.guitar.category.edit');
-		// Route::post('/{id}/update',[CrudController::class,'guitarCategoryUpdate'])->name('admin.guitar.category.update');
-		// Route::post('/{id}/delete',[CrudController::class,'guitarCategoryDelete'])->name('admin.guitar.category.delete');
+	Route::group(['prefix' => 'genre'],function() {
+		Route::get('/', [CrudController::class, 'genreIndex'])->name('admin.genre');
+		Route::get('/create', [CrudController::class, 'genreCreate'])->name('admin.genre.create');
+		Route::post('/save', [CrudController::class, 'genreSave'])->name('admin.genre.save');
+		Route::get('/{id}/edit', [CrudController::class, 'genreEdit'])->name('admin.genre.edit');
+		Route::post('/{id}/update', [CrudController::class, 'genreUpdate'])->name('admin.genre.update');
+		Route::post('/{id}/delete', [CrudController::class, 'genreDelete'])->name('admin.genre.delete');
 	});
 
 	// Guitar Series and Their Lession
