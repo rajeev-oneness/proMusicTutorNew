@@ -38,6 +38,59 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="gbp" class="col-form-label">GBP:</label>
+                                <input type="text" class="form-control @error('gbp') is-invalid @enderror" id="gbp" name="gbp" placeholder="GBP" value="{{$guitarLession->gbp}}">
+                                @error('gbp')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="price_usd" class="col-form-label">USD:</label>
+                                <input type="text" class="form-control @error('price_usd') is-invalid @enderror" id="price_usd" name="price_usd" placeholder="Price in USD" value="{{$guitarLession->price_usd}}">
+                                @error('price_usd')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="price_euro" class="col-form-label">EURO:</label>
+                                <input type="text" class="form-control @error('price_euro') is-invalid @enderror" id="price_euro" name="price_euro" placeholder="Price in EURO" value="{{$guitarLession->price_euro}}">
+                                @error('price_euro')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label for="keywords" class="col-form-label">Keywords:</label>
+                                <input type="text" class="form-control @error('keywords') is-invalid @enderror" id="keywords" name="keywords" placeholder="PROVIDE A COMMA-SEPARATED LIST OF KEYWORDS" value="{{$guitarLession->keywords}}">
+                                @error('keywords')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="genre" class="col-form-label">Genre:</label>
+                                <select class="form-control @error('genre') is-invalid @enderror" name="genre" id="genre">
+                                    <option value="" hidden="" selected="">Select Genre</option>
+                                    @foreach($genre as $item)
+                                        <option value="{{$item->id}}" {{ $guitarLession->genre == $item->id ? 'selected' : '' }}>{{ ucwords($item->name) }}</option>
+                                    @endforeach
+                                </select>
+                                @error('genre')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="item_clean_url" class="col-form-label">Item clean URL:</label>
+                                <input type="text" class="form-control @error('item_clean_url') is-invalid @enderror" id="item_clean_url" name="item_clean_url" placeholder="Item clean URL" value="{{$guitarLession->item_clean_url}}">
+                                @error('item_clean_url')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="product_code" class="col-form-label">Product code:</label>
+                                <input type="text" class="form-control @error('product_code') is-invalid @enderror" id="product_code" name="product_code" placeholder="Product code" value="{{$guitarLession->product_code}}">
+                                @error('product_code')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="description" class="col-form-label">Description:</label>
                             <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Description">{{$guitarLession->description}}</textarea>

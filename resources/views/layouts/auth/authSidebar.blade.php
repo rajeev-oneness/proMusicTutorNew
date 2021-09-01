@@ -49,7 +49,9 @@
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.guitar.category')?'active':''}}" href="{{route('admin.guitar.category')}}"><i class="fa fa-fw fa-user-circle"></i>Category</a>
                             </li>
-
+                            <li class="nav-item">
+                                <a class="nav-link {{request()->routeIs('admin.genre')?'active':''}}" href="{{route('admin.genre')}}"><i class="fa fa-fw fa-user-circle"></i>Genre</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.guitar.series.*')?'active':''}}" href="{{route('admin.guitar.series.view')}}"><i class="fa fa-fw fa-user-circle"></i>Guitar Series</a>
                             </li>

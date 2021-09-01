@@ -8,15 +8,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class GuitarLession extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     public function currency()
     {
-        return $this->belongsTo('App\Models\Currency','currencyId','id');
+        return $this->belongsTo('App\Models\Currency', 'currencyId', 'id');
     }
 
     public function guitar_series()
     {
-        return $this->belongsTo('App\Models\GuitarSeries','guitarSeriesId','id');
+        return $this->belongsTo('App\Models\GuitarSeries', 'guitarSeriesId', 'id');
+    }
+
+    public function genre_data()
+    {
+        return $this->belongsTo('App\Models\Genre', 'genre', 'id');
     }
 }

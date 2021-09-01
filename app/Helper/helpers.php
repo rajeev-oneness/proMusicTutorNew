@@ -102,6 +102,3 @@
     	}
     	return $return;	
     }
-
-
- ?>

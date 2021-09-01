@@ -8,20 +8,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class GuitarSeries extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     public function category()
     {
-        return $this->belongsTo('App\Models\Category','categoryId','id');
+        return $this->belongsTo('App\Models\Category', 'categoryId', 'id');
     }
 
     public function lession()
     {
-        return $this->hasMany('App\Models\GuitarLession','guitarSeriesId','id');
+        return $this->hasMany('App\Models\GuitarLession', 'guitarSeriesId', 'id');
     }
 
     public function author()
     {
-        return $this->belongsTo('App\Models\User','createdBy','id');
+        return $this->belongsTo('App\Models\User', 'createdBy', 'id');
+    }
+
+    public function genre_data()
+    {
+        return $this->belongsTo('App\Models\Genre', 'genre', 'id');
     }
 }

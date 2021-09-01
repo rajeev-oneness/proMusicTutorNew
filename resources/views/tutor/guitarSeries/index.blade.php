@@ -20,7 +20,15 @@
                                     <th>Category</th>
                                     <th>Image</th>
                                     <th>Series Name</th>
+                                    <th>Genre</th>
+                                    <th>GBP</th>
+                                    <th>USD</th>
+                                    <th>EURO</th>
+                                    <th>Difficulty</th>
                                     <th>Series Lession</th>
+                                    <th>URL</th>
+                                    <th>Meta Description</th>
+                                    <th>Meta Keyword</th>
                                     <th>Description</th>
                                     <th>Media</th>
                                     <th>Action</th>
@@ -28,15 +36,26 @@
                             </thead>
                             <tbody>
                                 @foreach($guitarSeries as $key => $series)
-                                    <?php   
-                                        $catgeory = $series->category;
+                                    <?php
+                                        $category = $series->category;
+                                        // $genre = $series->genre;
                                         $lession = $series->lession;
                                     ?>
                                     <tr>
-                                        <td>{{$catgeory->name}}</td>
+                                        <td>{{$category->name}}</td>
                                         <td><img src="{{asset($series->image)}}" height="200" width="200"></td>
                                         <td>{{ $series->title }}</td>
+                                        <td>{{ ($series->genre_data ? $series->genre_data->name : '') }}</td>
+                                        <td>{{ $series->gbp }}</td>
+                                        <td>{{ $series->price_usd }}</td>
+                                        <td>{{ $series->price_euro }}</td>
+                                        <td>{{ strtoupper($series->difficulty) }}</td>
                                         <td><a href="{{route('tutor.guitar.series.lession',$series->id)}}">{{count($lession)}}</a></td>
+                                        <td>
+                                            <a href="{{ $series->item_clean_url }}">URL</a>
+                                        </td>
+                                        <td>{{ $series->seo_meta_description }}</td>
+                                        <td>{{ $series->seo_meta_keywords }}</td>
                                         <td>{!! $series->description !!}</td>
                                         <td><a href="{{$series->video_url}}" target="_blank">Link</a></td>
                                         <td><a href="{{route('tutor.guitar.series.edit',$series->id)}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesDelete" data-id="{{$series->id}}">Delete</a></td>

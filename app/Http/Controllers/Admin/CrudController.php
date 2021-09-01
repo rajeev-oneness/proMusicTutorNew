@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request,Hash,DB;
+use Illuminate\Http\Request;
 use App\Models\User,App\Models\UserType;
 use App\Models\ContactUs,App\Models\Faq;
 use App\Models\Testimonial,App\Models\Setting;
 use App\Models\Instrument,App\Models\Category;
+use Carbon\Exceptions\Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Genre;
 
 class CrudController extends Controller
 {
@@ -510,5 +514,32 @@ class CrudController extends Controller
             return errorResponse('Invalid Category Id');
         }
         return errorResponse($validator->errors()->first());
+    }
+
+/*********************************** Genre ****************************/
+
+    public function genreIndex()
+    {
+        $genre = Genre::get();
+        return view('admin.genre.index', compact('genre'));
+    }
+    public function genreCreate()
+    {
+        return view('admin.genre.create');
+    }
+    public function genreSave(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|min:1|max:200|string'
+        ]);
+
+        $genre = new Genre();
+        $genre->name = $request->name;
+        $genre->save();
+        return redirect()->route('admin.genre')->with('success', 'Genre added sucessfully');
+    }
+    public function genreEdit($id)
+    {
+        # code...
     }
 }

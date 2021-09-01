@@ -21,6 +21,13 @@
                                         <th>Image</th>
                                         <th>Title</th>
                                         <th>Price</th>
+                                        <th>GBP</th>
+                                        <th>USD</th>
+                                        <th>EURO</th>
+                                        <th>Keywords</th>
+                                        <th>Genre</th>
+                                        <th>Item clean URL</th>
+                                        <th>Product code</th>
                                         <th>Description</th>
                                         <th>Action</th>
                                     </tr>
@@ -30,8 +37,15 @@
                                         <tr>
                                             <td><img src="{{asset($lession->image)}}" height="200" width="200"></td>
                                             <td>{{$lession->title}}</td>
-                                            <td>£{{$lession->price}}</td>
-                                            <td>{!! $lession->description !!}</td>
+                                            <td>{{$lession->price}}</td>
+                                            <td>{{$lession->gbp}}</td>
+                                            <td>{{$lession->price_usd}}</td>
+                                            <td>{{$lession->price_euro}}</td>
+                                            <td>{{$lession->keywords}}</td>
+                                            <td>{{ ($lession->genre_data ? $lession->genre_data->name : '') }}</td>
+                                            <td>{{$lession->item_clean_url}}</td>
+                                            <td>{{$lession->product_code}}</td>
+                                            <td>{!! words($lession->description,20) !!}</td>
                                             <td><a href="{{route('tutor.guitar.series.lession.edit',[$guitarSeries->id,$lession->id])}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesLessionDelete" data-id="{{$lession->id}}">Delete</a></td>
                                         </tr>
                                     @endforeach
