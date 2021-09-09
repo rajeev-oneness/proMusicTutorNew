@@ -35,7 +35,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center title-inner">
-                        <h1 class="mb-5">Choose Your Guitar Series Category</h1>
+                        <h1 class="mb-5">Choose Your Category</h1>
+                        <!-- <h1 class="mb-5">Choose Your Guitar Series Category</h1> -->
                     </div>
                 </div>
                 <div class="row m-0">

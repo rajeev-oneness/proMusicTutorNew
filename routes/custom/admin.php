@@ -3,9 +3,7 @@
 	namespace App\Http\Controllers\Admin;
 	use Illuminate\Support\Facades\Route;
 
-	Route::get('dashboard',function(){
-		return view('admin.dashboard');
-	})->name('home');
+	Route::get('dashboard',function(){return view('admin.dashboard');})->name('home');
 
 	Route::group(['prefix'=>'users'],function(){
 		Route::get('/',[CrudController::class,'getUsers'])->name('admin.users');

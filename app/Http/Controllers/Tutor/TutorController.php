@@ -33,28 +33,28 @@ class TutorController extends Controller
             'title' => 'required|string|max:200',
             'media_link' => 'required|url',
             'description' => 'required|string',
-            'gbp' => 'sometimes',
-            'price_usd' => 'sometimes',
-            'price_euro' => 'sometimes',
-            'genre' => 'sometimes',
-            'difficulty' => 'sometimes',
-            'item_clean_url' => 'sometimes|url',
-            'seo_meta_description' => 'sometimes',
-            'seo_meta_keywords' => 'sometimes',
+            'gbp' => 'nullable|min:1|numeric',
+            'price_usd' => 'nullable|min:1|numeric',
+            'price_euro' => 'nullable|min:1|numeric',
+            'genre' => 'nullable|min:1',
+            'difficulty' => 'required',
+            'item_clean_url' => 'nullable|url',
+            'seo_meta_description' => 'nullable',
+            'seo_meta_keywords' => 'nullable',
         ]);
 
         $newSeries = new GuitarSeries();
         $newSeries->categoryId = $req->category;
         $newSeries->title = $req->title;
         $newSeries->description = $req->description;
-        $newSeries->gbp = $req->gbp;
-        $newSeries->price_usd = $req->price_usd;
-        $newSeries->price_euro = $req->price_euro;
-        $newSeries->genre = $req->genre;
         $newSeries->difficulty = $req->difficulty;
-        $newSeries->item_clean_url = $req->item_clean_url;
-        $newSeries->seo_meta_description = $req->seo_meta_description;
-        $newSeries->seo_meta_keywords = $req->seo_meta_keywords;
+        $newSeries->gbp = !empty($req->gbp) ? $req->gbp : 0;
+        $newSeries->price_usd = !empty($req->price_usd) ? $req->price_usd : 0;
+        $newSeries->price_euro = !empty($req->price_euro) ? $req->price_euro : 0;
+        $newSeries->genre = !empty($req->genre) ? $req->genre : 0;
+        $newSeries->item_clean_url = emptyCheck($req->item_clean_url);
+        $newSeries->seo_meta_description = emptyCheck($req->seo_meta_description);
+        $newSeries->seo_meta_keywords = emptyCheck($req->seo_meta_keywords);
 
         if ($req->hasFile('image')) {
             $image = $req->file('image');
@@ -84,29 +84,28 @@ class TutorController extends Controller
             'title' => 'required|string|max:200',
             'media_link' => 'required|url',
             'description' => 'required|string',
-            'gbp' => 'sometimes',
-            'price_usd' => 'sometimes',
-            'price_euro' => 'sometimes',
-            'genre' => 'required',
-            'difficulty' => 'sometimes',
-            'item_clean_url' => 'sometimes|url',
-            'seo_meta_description' => 'sometimes',
-            'seo_meta_keywords' => 'sometimes',
+            'gbp' => 'nullable|min:1|numeric',
+            'price_usd' => 'nullable|min:1|numeric',
+            'price_euro' => 'nullable|min:1|numeric',
+            'genre' => 'nullable|min:1',
+            'difficulty' => 'required',
+            'item_clean_url' => 'nullable|url',
+            'seo_meta_description' => 'nullable',
+            'seo_meta_keywords' => 'nullable',
         ]);
 
         $updateSeries = GuitarSeries::where('id', $seriesId)->first();
         $updateSeries->categoryId = $req->category;
         $updateSeries->title = $req->title;
         $updateSeries->description = $req->description;
-        $updateSeries->gbp = $req->gbp;
-        $updateSeries->price_usd = $req->price_usd;
-        $updateSeries->price_euro = $req->price_euro;
-        $updateSeries->genre = $req->genre;
         $updateSeries->difficulty = $req->difficulty;
-        $updateSeries->item_clean_url = $req->item_clean_url;
-        $updateSeries->seo_meta_description = $req->seo_meta_description;
-        $updateSeries->seo_meta_keywords = $req->seo_meta_keywords;
-
+        $updateSeries->gbp = !empty($req->gbp) ? $req->gbp : 0;
+        $updateSeries->price_usd = !empty($req->price_usd) ? $req->price_usd : 0;
+        $updateSeries->price_euro = !empty($req->price_euro) ? $req->price_euro : 0;
+        $updateSeries->genre = !empty($req->genre) ? $req->genre : 0;
+        $updateSeries->item_clean_url = emptyCheck($req->item_clean_url);
+        $updateSeries->seo_meta_description = emptyCheck($req->seo_meta_description);
+        $updateSeries->seo_meta_keywords = emptyCheck($req->seo_meta_keywords);
         if ($req->hasFile('image')) {
             $image = $req->file('image');
             $updateSeries->image = imageUpload($image);
@@ -157,13 +156,13 @@ class TutorController extends Controller
             'price' => 'required|numeric|min:1',
             'description' => 'required|string',
             'image' => 'required|image',
-            'gbp' => 'sometimes',
-            'price_usd' => 'sometimes',
-            'price_euro' => 'sometimes',
-            'keywords' => 'required',
-            'genre' => 'required',
-            'item_clean_url' => 'required|url',
-            'product_code' => 'required',
+            'gbp' => 'nullable|min:1|numeric',
+            'price_usd' => 'nullable|min:1|numeric',
+            'price_euro' => 'nullable|min:1|numeric',
+            'keywords' => 'nullable|max:255',
+            'genre' => 'required|min:1|numeric',
+            'item_clean_url' => 'nullable|url',
+            'product_code' => 'nullable',
         ]);
 
         $series = GuitarSeries::where('id', $seriesId)->first();
@@ -178,15 +177,14 @@ class TutorController extends Controller
         $newLession->currencyId = 3;
         $newLession->price = $req->price;
         $newLession->description = $req->description;
-        $newLession->gbp = $req->gbp;
-        $newLession->price_usd = $req->price_usd;
-        $newLession->price_euro = $req->price_euro;
-        $newLession->keywords = $req->keywords;
-        $newLession->genre = $req->genre;
-        $newLession->item_clean_url = $req->item_clean_url;
-        $newLession->product_code = $req->product_code;
+        $newLession->gbp = !empty($req->gbp) ? $req->gbp : 0;
+        $newLession->price_usd = !empty($req->price_usd) ? $req->price_usd : 0;
+        $newLession->price_euro = !empty($req->price_euro) ? $req->price_euro : 0;
+        $newLession->keywords = emptyCheck($req->keywords);
+        $newLession->genre = !empty($req->genre) ? $req->genre : 0;
+        $newLession->item_clean_url = emptyCheck($req->item_clean_url);
+        $newLession->product_code = emptyCheck($req->product_code);
         $newLession->createdBy = auth()->user()->id;
-
         $newLession->save();
         return redirect(route('tutor.guitar.series.lession', $seriesId))->with('Success', 'Guitar Lession Added SuccessFully');
     }
@@ -208,12 +206,12 @@ class TutorController extends Controller
             'price' => 'required|numeric|min:1',
             'description' => 'required|string',
             'image' => 'nullable|image',
-            'gbp' => 'nullable',
-            'price_usd' => 'nullable',
-            'price_euro' => 'nullable',
-            'keywords' => 'nullable',
-            'genre' => 'required',
-            'item_clean_url' => 'required|url',
+            'gbp' => 'nullable|min:1|numeric',
+            'price_usd' => 'nullable|min:1|numeric',
+            'price_euro' => 'nullable|min:1|numeric',
+            'keywords' => 'nullable|max:255',
+            'genre' => 'required|min:1|numeric',
+            'item_clean_url' => 'nullable|url',
             'product_code' => 'nullable',
         ]);
         $updateLession = GuitarLession::where('id', $lessionId)->first();
@@ -224,14 +222,13 @@ class TutorController extends Controller
         }
         $updateLession->price = $req->price;
         $updateLession->description = $req->description;
-        $updateLession->gbp = $req->gbp;
-        $updateLession->price_usd = $req->price_usd;
-        $updateLession->price_euro = $req->price_euro;
-        $updateLession->keywords = $req->keywords;
-        $updateLession->genre = $req->genre;
-        $updateLession->item_clean_url = $req->item_clean_url;
-        $updateLession->product_code = $req->product_code;
-
+        $updateLession->gbp = !empty($req->gbp) ? $req->gbp : 0;
+        $updateLession->price_usd = !empty($req->price_usd) ? $req->price_usd : 0;
+        $updateLession->price_euro = !empty($req->price_euro) ? $req->price_euro : 0;
+        $updateLession->keywords = emptyCheck($req->keywords);
+        $updateLession->genre = !empty($req->genre) ? $req->genre : 0;
+        $updateLession->item_clean_url = emptyCheck($req->item_clean_url);
+        $updateLession->product_code = emptyCheck($req->product_code);\
         $updateLession->save();
         return redirect(route('tutor.guitar.series.lession', $seriesId))->with('Success', 'Guitar Lession Updated SuccessFully');
     }
