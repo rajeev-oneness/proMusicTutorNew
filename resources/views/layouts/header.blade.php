@@ -22,6 +22,9 @@
                             </li>
                         @endif
                     @else
+                        <li class="nav-item">
+                            <a class="nav-link signup-bg login-bg {{ Route::currentRouteName() == 'home' ? 'bg-orange' : '' }}" href="{{route('home')}}"><i class="fas fa-user mr-1"></i> Home</a>
+                        </li>
                         <!-- <li class="nav-item position-relative">
                             <a class="nav-link signup-bg" href="javascript:void(0"><img src="{{asset('design/img/cart_icon.png')}}"></a>
                             <div class="cart-count">0</div>

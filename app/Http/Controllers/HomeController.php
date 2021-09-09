@@ -25,7 +25,8 @@ class HomeController extends Controller
             case 2:
                 return redirect('tutor/dashboard');break;
             case 3:
-                return redirect('user/dashboard');break;
+                return redirect(route('welcome'));break;
+                // return redirect('user/dashboard');break;
         }
         return view('home');
     }
