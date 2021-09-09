@@ -228,7 +228,7 @@ class TutorController extends Controller
         $updateLession->keywords = emptyCheck($req->keywords);
         $updateLession->genre = !empty($req->genre) ? $req->genre : 0;
         $updateLession->item_clean_url = emptyCheck($req->item_clean_url);
-        $updateLession->product_code = emptyCheck($req->product_code);\
+        $updateLession->product_code = emptyCheck($req->product_code);
         $updateLession->save();
         return redirect(route('tutor.guitar.series.lession', $seriesId))->with('Success', 'Guitar Lession Updated SuccessFully');
     }
