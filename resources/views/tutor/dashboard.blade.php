@@ -40,8 +40,10 @@
                 <div class="card-body">
                     <!-- <p>Welcome to the Dashboard</p> -->
                     <div class="dashboard-body-content-upper p-0">
+                        <h5 class="mb-0">Instrument Product Series</h5><br>
                         <div class="row m-0">
                             @foreach($data->instrument as $key => $instrument)
+                                @php  @endphp
                                 <div class="col-12 col-md-3 mb-3">
                                     <div class="card shadow-sm border-0">
                                        <div class="card-body">
