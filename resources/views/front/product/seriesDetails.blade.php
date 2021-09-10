@@ -70,7 +70,7 @@
                     </div>
                     <div class="col-12 pt-4 pl-0 pl-md-3">
                         <h6 class="mb-3">Series Description</h6>
-                        <p>{!! $data->description !!}</p>
+                        <p>{!! words($data->description,600) !!}</p>
                     </div>
                 </div>
                 <!-- <div class="col-12 mt-4 p-3 p-md-0">
@@ -124,7 +124,7 @@
                                 <div class="col-md-8">
                                     <div class="card-body position-relative">
                                         <h5 class="card-title">{{$less->title}}</h5>
-                                        <p class="card-text">{!! $less->description !!}</p>
+                                        <p class="card-text">{!! words($less->description,1000) !!}</p>
                                         <div class="float-right buynow-btn">
                                             @guest
                                                 <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">Buy Now - £ {{$less->price}}</a>
@@ -181,7 +181,7 @@
                                 <img src="{{asset($otherSeries->image)}}" class="card-img-top" alt="...">
                                 <div class="card-body text-center">
                                     <h5 class="card-title">{{$otherSeries->title}}</h5>
-                                    <p class="card-text">{!! $otherSeries->description !!}</p>
+                                    <p class="card-text">{!! words($otherSeries->description,200) !!}</p>
                                     <?php $seriesPrice = calculateLessionPrice($otherSeries->lession); ?>
                                     @guest
                                         <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - &pound;  {{$seriesPrice}}</a>

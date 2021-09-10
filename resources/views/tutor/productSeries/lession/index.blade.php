@@ -1,14 +1,14 @@
 @extends('layouts.auth.authMaster')
-@section('title','Product Lession')
+@section('title',ucwords($instrument->name).' Lession')
 @section('content')
     <div class="container-fluid dashboard-content">
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="mb-0">Product Lession List ({{$productSeries->title}})
-                            <a class="headerbuttonforAdd" href="{{route('tutor.product.series')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
-                            <a class="headerbuttonforAdd" href="{{route('tutor.product.series.lession.create',$productSeries->id)}}">
+                        <h5 class="mb-0">{{ucwords($instrument->name)}} Lession List ({{$productSeries->title}})
+                            <a class="headerbuttonforAdd" href="{{route('tutor.product.series.list',[$instrument->id])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                            <a class="headerbuttonforAdd" href="{{route('tutor.product.series.lession.create',[$instrument->id,$productSeries->id])}}">
                                 <i class="fa fa-plus" aria-hidden="true"></i>Add Lession
                             </a>
                         </h5>
@@ -21,32 +21,20 @@
                                         <th>Image</th>
                                         <th>Title</th>
                                         <th>Price</th>
-                                        <th>GBP</th>
-                                        <th>USD</th>
-                                        <th>EURO</th>
-                                        <th>Keywords</th>
-                                        <th>Genre</th>
-                                        <th>Item clean URL</th>
-                                        <th>Product code</th>
+                                        <th>Difficulty</th>
                                         <th>Description</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($productSeries->lession as $key => $lession)
+                                    @foreach($productSeries->lession_data as $key => $lession)
                                         <tr>
                                             <td><img src="{{asset($lession->image)}}" height="200" width="200"></td>
                                             <td>{{$lession->title}}</td>
-                                            <td>{{$lession->price}}</td>
-                                            <td>{{$lession->gbp}}</td>
-                                            <td>{{$lession->price_usd}}</td>
-                                            <td>{{$lession->price_euro}}</td>
-                                            <td>{{$lession->keywords}}</td>
-                                            <td>{{ ($lession->genre_data ? $lession->genre_data->name : '') }}</td>
-                                            <td>{{$lession->item_clean_url}}</td>
-                                            <td>{{$lession->product_code}}</td>
-                                            <td>{!! words($lession->description,20) !!}</td>
-                                            <td><a href="{{route('tutor.product.series.lession.edit',[$productSeries->id,$lession->id])}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesLessionDelete" data-id="{{$lession->id}}">Delete</a></td>
+                                            <td>€ {{$lession->price}}</td>
+                                            <td>{{ucwords($lession->difficulty)}}</td>
+                                            <td>{!! words($lession->description,500) !!}</td>
+                                            <td><a href="{{route('tutor.product.series.lession.edit',[$instrument->id,$productSeries->id,$lession->id])}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesLessionDelete" data-id="{{$lession->id}}">Delete</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -77,8 +65,8 @@
                     $.ajax({
                         type:'POST',
                         dataType:'JSON',
-                        url:"{{route('tutor.product.series.lession.delete',[$productSeries->id,"+seriesLessionId+"])}}",
-                        data: {id:seriesLessionId,'_token': $('input[name=_token]').val()},
+                        url:"{{route('tutor.product.series.lession.delete',[$instrument->id,$productSeries->id,"+seriesLessionId+"])}}",
+                        data: {instrumentId:'{{$instrument->id}}',productSeriesId:'{{$productSeries->id}}',seriesLessionId:seriesLessionId,userId:'{{$user->id}}','_token': $('input[name=_token]').val()},
                         success:function(data){
                             if(data.error == false){
                                 seriesLessionDelete.closest('tr').remove();

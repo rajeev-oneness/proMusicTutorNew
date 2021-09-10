@@ -70,7 +70,7 @@
                                 <img src="{{asset($series->image)}}" class="card-img-top">
                                 <div class="card-body text-center">
                                     <h5 class="card-title">{{$series->title}}</h5>
-                                    <p class="card-text">{!! $series->description !!}</p>
+                                    <p class="card-text">{!! words($series->description,200) !!}</p>
                                     <?php $seriesPrice = calculateLessionPrice($series->lession); ?>
                                     @guest
                                         <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - &pound;  {{$seriesPrice}}</a>

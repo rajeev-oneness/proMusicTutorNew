@@ -10,10 +10,13 @@ use App\Models\Genre,App\Models\Instrument;
 
 class ProductController extends Controller
 {
-    public function getInstrument($instrumentId){
+    // Get Instrument by Providing InstrumentId
+    public function getInstrument($instrumentId)
+    {
         $instrument = Instrument::where('id',$instrumentId)->first();
         return $instrument;
     }
+
     /************************** Product Series *****************************/
     public function productSeriesView(Request $req,$instrumentId)
     {
@@ -26,6 +29,7 @@ class ProductController extends Controller
         return abort(404);
     }
 
+    // Create Series Template
     public function productSeriesCreate(Request $req,$instrumentId)
     {
         $instrument = $this->getInstrument($instrumentId);
@@ -36,6 +40,7 @@ class ProductController extends Controller
         return abort(404);
     }
 
+    // Save Series Data
     public function productSeriesSave(Request $req,$instrumentId)
     {
         $req->validate([
@@ -148,11 +153,18 @@ class ProductController extends Controller
     }
 
     /****************************** Product Series Lession *******************************/
-    public function productSeriesLessionView(Request $req, $seriesId)
+    public function productSeriesLessionView(Request $req,$instrumentId,$seriesId)
     {
-        $user = auth()->user();
-        $productSeries = ProductSeries::where('id', $seriesId)->where('createdBy', $user->id)->first();
-        return view('tutor.productSeries.lession.index', compact('productSeries'));
+        $instrument = $this->getInstrument($instrumentId);
+        if($instrument){
+            $user = $req->user();
+            $productSeries = ProductSeries::where('id',$seriesId)->where('instrumentId',$instrumentId)->where('createdBy',$user->id)->first();
+            if($productSeries){
+                $productSeries->lession_data = ProductSeriesLession::where('instrumentId',$instrument->id)->where('categoryId',$productSeries->categoryId)->where('productSeriesId',$productSeries->id)->where('createdBy',$user->id)->get();
+                return view('tutor.productSeries.lession.index', compact('productSeries','instrument'));    
+            }
+        }
+        return abort(404);
     }
 
     public function productSeriesLessionCreate(Request $req, $seriesId)
@@ -251,16 +263,19 @@ class ProductController extends Controller
     public function productSeriesLessionDelete(Request $req)
     {
         $rules = [
-            'id' => 'required|numeric|min:1',
+            'instrumentId' => 'required|numeric|min:1',
+            'productSeriesId' => 'required|numeric|min:1',
+            'seriesLessionId' => 'required|numeric|min:1',
+            'userId' => 'required|numeric|min:1',
         ];
         $validator = validator()->make($req->all(), $rules);
         if (!$validator->fails()) {
-            $lession = ProductSeriesLession::find($req->id);
+            $lession = ProductSeriesLession::where('id',$req->seriesLessionId)->where('instrumentId',$req->instrumentId)->where('productSeriesId',$req->productSeriesId)->where('createdBy',$req->userId)->first();
             if ($lession) {
                 $lession->delete();
                 return successResponse('Product Series Lession Deleted Success');
             }
-            return errorResponse('Invalid Product Series Lession Id');
+            return errorResponse('You donot have permission to delete');
         }
         return errorResponse($validator->errors()->first());
     }
