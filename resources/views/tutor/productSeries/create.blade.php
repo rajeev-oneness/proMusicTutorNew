@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Add Product Series
-                        <a class="headerbuttonforAdd" href="{{route('tutor.product.series',[$instrument->id])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                        <a class="headerbuttonforAdd" href="{{route('tutor.product.series.list',[$instrument->id])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>
                 <div class="card-body">

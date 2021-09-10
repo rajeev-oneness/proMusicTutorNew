@@ -42,6 +42,14 @@
 		return response()->json(['error'=>true,'status'=>$status,'message'=>$msg,'data'=>$data]);
 	}
 
+	function zeroGoesToBlank($value)
+	{
+		if($value == 0){
+			return '';
+		}
+		return $value;
+	}
+
 	function emptyCheck($string,$date=false)
 	{
 		if($date){

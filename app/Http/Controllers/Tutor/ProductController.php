@@ -73,56 +73,60 @@ class ProductController extends Controller
         $newSeries->seo_meta_description = emptyCheck($req->seo_meta_description);
         $newSeries->seo_meta_keywords = emptyCheck($req->seo_meta_keywords);
         $newSeries->save();
-        return redirect(route('tutor.product.series',[$instrumentId]))->with('Success', 'Product Series Added SuccessFully');
+        return redirect(route('tutor.product.series.list',[$instrumentId]))->with('Success', 'Product Series Added SuccessFully');
     }
 
-    public function productSeriesEdit(Request $req, $seriesId)
+    public function productSeriesEdit(Request $req,$instrumentId,$seriesId)
     {
-        $category = Category::get();
-        $genre = Genre::orderBy('name')->get();
-        $user = auth()->user();
-        $productSeries = ProductSeries::where('id', $seriesId)->where('createdBy', $user->id)->first();
-        return view('tutor.productSeries.edit', compact('category', 'productSeries', 'genre'));
+        $instrument = $this->getInstrument($instrumentId);
+        if($instrument){
+            $category = Category::where('instrumentId',$instrument->id)->get();
+            $user = $req->user();$genre = Genre::orderBy('name')->get();
+            $productSeries = ProductSeries::where('id',$seriesId)->where('instrumentId',$instrument->id)->where('createdBy', $user->id)->first();
+            return view('tutor.productSeries.edit', compact('category','instrument','productSeries','genre'));
+        }
+        return abort(404);
     }
 
-    public function productSeriesUpdate(Request $req, $seriesId)
+    public function productSeriesUpdate(Request $req, $instrumentId, $seriesId)
     {
         $req->validate([
             'productSeriesId' => 'required|min:1|numeric|in:' . $seriesId,
+            'instrumentId' => 'required|min:1|numeric|in:'.$instrumentId,
             'category' => 'required|min:1|numeric',
             'image' => 'nullable|image',
             'title' => 'required|string|max:200',
+            'description' => 'nullable|string',
             'media_link' => 'required|url',
-            'description' => 'required|string',
+            'genre' => 'nullable|min:1|numeric',
             'gbp' => 'nullable|min:1|numeric',
             'price_usd' => 'nullable|min:1|numeric',
             'price_euro' => 'nullable|min:1|numeric',
-            'genre' => 'nullable|min:1',
-            'difficulty' => 'required',
             'item_clean_url' => 'nullable|url',
-            'seo_meta_description' => 'nullable',
-            'seo_meta_keywords' => 'nullable',
+            'seo_meta_description' => 'nullable|string',
+            'seo_meta_keywords' => 'nullable|string|max:255',
         ]);
 
         $updateSeries = ProductSeries::where('id', $seriesId)->first();
+        $updateSeries->instrumentId = $req->instrumentId;
         $updateSeries->categoryId = $req->category;
         $updateSeries->title = $req->title;
-        $updateSeries->description = $req->description;
-        $updateSeries->difficulty = $req->difficulty;
+        $updateSeries->description = emptyCheck($req->description);
+        if ($req->hasFile('image')) {
+            $image = $req->file('image');
+            $updateSeries->image = imageUpload($image, 'product/series');
+        }
+        $updateSeries->video_url = $req->media_link;
+        // New Addition
+        $updateSeries->genre = !empty($req->genre) ? $req->genre : 0;
         $updateSeries->gbp = !empty($req->gbp) ? $req->gbp : 0;
         $updateSeries->price_usd = !empty($req->price_usd) ? $req->price_usd : 0;
         $updateSeries->price_euro = !empty($req->price_euro) ? $req->price_euro : 0;
-        $updateSeries->genre = !empty($req->genre) ? $req->genre : 0;
         $updateSeries->item_clean_url = emptyCheck($req->item_clean_url);
         $updateSeries->seo_meta_description = emptyCheck($req->seo_meta_description);
         $updateSeries->seo_meta_keywords = emptyCheck($req->seo_meta_keywords);
-        if ($req->hasFile('image')) {
-            $image = $req->file('image');
-            $updateSeries->image = imageUpload($image);
-        }
-        $updateSeries->video_url = $req->media_link;
         $updateSeries->save();
-        return redirect(route('tutor.product.series'))->with('Success', 'Product Series Updated SuccessFully');
+        return redirect(route('tutor.product.series.list',[$instrumentId]))->with('Success', 'Product Series Updated SuccessFully');
     }
 
     public function productSeriesDelete(Request $req)
@@ -197,7 +201,7 @@ class ProductController extends Controller
         $newLession->product_code = emptyCheck($req->product_code);
         $newLession->createdBy = auth()->user()->id;
         $newLession->save();
-        return redirect(route('tutor.product.series.lession', $seriesId))->with('Success', 'Product Lession Added SuccessFully');
+        return redirect(route('tutor.product.series.lession.list', $seriesId))->with('Success', 'Product Lession Added SuccessFully');
     }
 
     public function productSeriesLessionEdit(Request $req, $seriesId, $lessionId)
@@ -241,7 +245,7 @@ class ProductController extends Controller
         $updateLession->item_clean_url = emptyCheck($req->item_clean_url);
         $updateLession->product_code = emptyCheck($req->product_code);
         $updateLession->save();
-        return redirect(route('tutor.product.series.lession', $seriesId))->with('Success', 'Product Series Lession Updated SuccessFully');
+        return redirect(route('tutor.product.series.lession.list', $seriesId))->with('Success', 'Product Series Lession Updated SuccessFully');
     }
 
     public function productSeriesLessionDelete(Request $req)

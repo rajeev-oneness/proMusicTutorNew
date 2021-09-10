@@ -36,7 +36,7 @@
                                         <td>{{$category->name}}</td>
                                         <td><img src="{{asset($series->image)}}" height="200" width="200"></td>
                                         <td>{{ $series->title }}</td>
-                                        <td><a href="{{route('tutor.product.series.lession',[$instrument->id,$series->id])}}">{{count($lession)}}</a></td>
+                                        <td><a href="{{route('tutor.product.series.lession.list',[$instrument->id,$series->id])}}">{{count($lession)}}</a></td>
                                         <td>{!! words($series->description,350) !!}</td>
                                         <td><a href="{{$series->video_url}}" target="_blank">Link</a></td>
                                         <td><a href="{{route('tutor.product.series.edit',[$instrument->id,$series->id])}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesDelete" data-id="{{$series->id}}">Delete</a></td>
