@@ -6,16 +6,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category,Auth;
 use App\Models\ProductSeries,App\Models\ProductSeriesLession;
-use App\Models\Genre;
+use App\Models\Genre,App\Models\Instrument;
 
-class TutorController extends Controller
+class ProductController extends Controller
 {
+    public function getInstrument($instrumentId){
+        $instrument = Instrument::where('id',$instrumentId)->first();
+        return $instrument;
+    }
     /************************** Product Series *****************************/
-    public function productSeriesView(Request $req)
+    public function productSeriesView(Request $req,$instrumentId)
     {
-        $user = auth()->user();
+        $user = auth()->user();$instrument = $this->getInstrument($instrumentId);
         $productSeries = ProductSeries::where('createdBy', $user->id)->get();
-        return view('tutor.productSeries.index', compact('productSeries'));
+        return view('tutor.productSeries.index', compact('productSeries','instrument'));
     }
 
     public function productSeriesCreate(Request $req)

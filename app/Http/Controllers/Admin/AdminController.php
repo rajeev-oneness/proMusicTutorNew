@@ -4,20 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\GuitarSeries,App\Models\GuitarLession;
+use App\Models\ProductSeries,App\Models\ProductSeriesLession;
 
 
 class AdminController extends Controller
 {
-    public function guitarSeriesList(Request $req)
+    public function productSeriesList(Request $req)
     {
-    	$guitarSeries = GuitarSeries::get();
-    	return view('admin.guitar.index',compact('guitarSeries'));
+    	$productSeries = ProductSeries::get();
+    	return view('admin.product.index',compact('productSeries'));
     }
 
-    public function guitarLessionList(Request $req,$seriesId)
+    public function productLessionList(Request $req,$seriesId)
     {
-    	$guitarSeries = GuitarSeries::where('id',$seriesId)->first();
-    	return view('admin.guitar.lession.index',compact('guitarSeries'));
+    	$productSeries = ProductSeries::where('id',$seriesId)->first();
+    	return view('admin.product.lession.index',compact('productSeries'));
     }
 }

@@ -45,7 +45,7 @@
 		Route::post('/{id}/delete', [CrudController::class, 'genreDelete'])->name('admin.master.genre.delete');
 	});
 
-	// Guitar Series and Their Lession
+	// Product Series and Their Lession
 	Route::group(['prefix' => 'guitar/series'],function(){
 		Route::get('/list',[AdminController::class,'guitarSeriesList'])->name('admin.guitar.series.view');
 		Route::group(['prefix' => '{seriesId}/lession'],function(){

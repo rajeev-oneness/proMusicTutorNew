@@ -25,14 +25,14 @@
                             <a class="nav-link {{request()->routeIs('user.profile')?'active':''}}" href="{{route('user.profile')}}"><i class="fa fa-fw fa-user-circle"></i>Profile</a>
                         </li>
                         @if($userType != 1)
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('user.points')?'active':''}}" href="{{route('user.points')}}"><i class="fa fa-fw fa-user-circle"></i>Your Points</a>
-                            </li>
+                            </li> -->
                             @if(count($instruments) > 0)
                                 <li class="nav-divider">Products</li>
                                 @foreach($instruments as $index => $instru)
                                     <li class="nav-item">
-                                        <a class="nav-link {{request()->routeIs('tutor.product.series')?'active':''}}" href="{{route('tutor.product.series')}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a>
+                                        <a class="nav-link {{request()->routeIs('tutor.product.series.*',[$instru->id,'instrument='.$instru->name])?'active':''}}" href="{{route('tutor.product.series',[$instru->id,'instrument='.$instru->name])}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a>
                                     </li>
                                 @endforeach
                             @endif

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','Guitar Series')
+@section('title','Product Series')
 @section('content')
     <!-- <section class="banner guitar_banner">
         <div class="container">
@@ -60,7 +60,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center title-inner">
-                        <h1 class="mb-5">Browse All Guitar Series</h1>
+                        <h1 class="mb-5">Browse All Series</h1>
                     </div>
                 </div>
                 <div class="row m-0">

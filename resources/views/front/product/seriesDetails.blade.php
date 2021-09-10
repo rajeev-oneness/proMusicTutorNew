@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','Guitar Series')
+@section('title','Product Series')
 @section('content')
     <!-- <section class="banner series_details">
         <div class="container">

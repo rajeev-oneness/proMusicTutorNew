@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Guitar Series List
-                        <a class="headerbuttonforAdd" href="{{route('tutor.product.series.create')}}">
+                        <a class="headerbuttonforAdd" href="{{route('tutor.product.series.create',[$instrument->id])}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add Series
                         </a>
                     </h5>
@@ -50,7 +50,7 @@
                                         <td>{{ $series->price_usd }}</td>
                                         <td>{{ $series->price_euro }}</td>
                                         <td>{{ strtoupper($series->difficulty) }}</td>
-                                        <td><a href="{{route('tutor.product.series.lession',$series->id)}}">{{count($lession)}}</a></td>
+                                        <td><a href="{{route('tutor.product.series.lession',[$instrument->id,$series->id])}}">{{count($lession)}}</a></td>
                                         <td>
                                             <a href="{{ $series->item_clean_url }}">URL</a>
                                         </td>
@@ -58,7 +58,7 @@
                                         <td>{{ $series->seo_meta_keywords }}</td>
                                         <td>{!! $series->description !!}</td>
                                         <td><a href="{{$series->video_url}}" target="_blank">Link</a></td>
-                                        <td><a href="{{route('tutor.product.series.edit',$series->id)}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesDelete" data-id="{{$series->id}}">Delete</a></td>
+                                        <td><a href="{{route('tutor.product.series.edit',[$instrument->id,$series->id])}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesDelete" data-id="{{$series->id}}">Delete</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -89,7 +89,7 @@
                     $.ajax({
                         type:'POST',
                         dataType:'JSON',
-                        url:"{{route('tutor.product.series.delete',"+seriesId+")}}",
+                        url:"{{route('tutor.product.series.delete',[$instrument->id,"+seriesId+"])}}",
                         data: {id:seriesId,'_token': $('input[name=_token]').val()},
                         success:function(data){
                             if(data.error == false){
