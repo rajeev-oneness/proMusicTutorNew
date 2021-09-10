@@ -15,6 +15,7 @@ class CreateGuitarSeriesCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('instrumentId');
             $table->string('name',150);
             $table->string('image',150);
             $table->longText('description')->comment('Optional');
@@ -24,14 +25,32 @@ class CreateGuitarSeriesCategoriesTable extends Migration
         });
         $data = [
             [
+                'instrumentId' => 1,
                 'name' => 'Pro Licks',
                 'image' => '/design/img/guitar_1.png'
             ],
             [
+                'instrumentId' => 1,
                 'name' => 'Techniques',
                 'image' => '/design/img/guitar_2.png'
             ],
             [
+                'instrumentId' => 1,
+                'name' => 'Popular Songs',
+                'image' => '/design/img/guitar_3.png'
+            ],
+            [
+                'instrumentId' => 2,
+                'name' => 'Pro Licks',
+                'image' => '/design/img/guitar_1.png'
+            ],
+            [
+                'instrumentId' => 2,
+                'name' => 'Techniques',
+                'image' => '/design/img/guitar_2.png'
+            ],
+            [
+                'instrumentId' => 2,
                 'name' => 'Popular Songs',
                 'image' => '/design/img/guitar_3.png'
             ]

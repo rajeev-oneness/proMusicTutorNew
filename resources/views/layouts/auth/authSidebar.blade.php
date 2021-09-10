@@ -1,5 +1,12 @@
 @auth
-    <?php $userType = auth()->user()->user_type; ?>
+    @php
+        $userType = auth()->user()->user_type;
+        $instruments = [];
+        if($userType != 3){ // Skipping Student type users
+            $instruments = \App\Models\Instrument::get();
+        }
+    @endphp
+
     <div class="nav-left-sidebar sidebar-dark">
         <div class="menu-list">
             <nav class="navbar navbar-expand-lg navbar-light">
@@ -21,12 +28,18 @@
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('user.points')?'active':''}}" href="{{route('user.points')}}"><i class="fa fa-fw fa-user-circle"></i>Your Points</a>
                             </li>
+                            @if(count($instruments) > 0)
+                                <li class="nav-divider">Products</li>
+                                @foreach($instruments as $index => $instru)
+                                    <li class="nav-item">
+                                        <a class="nav-link {{request()->routeIs('tutor.guitar.series')?'active':''}}" href="{{route('tutor.guitar.series')}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a>
+                                    </li>
+                                @endforeach
+                            @endif
+                            
                             <!-- Tutor Sidebar -->
                             @if($userType == 2)
-                                <li class="nav-divider">Features</li>
-                                <li class="nav-item">
-                                    <a class="nav-link {{request()->routeIs('tutor.guitar.series')?'active':''}}" href="{{route('tutor.guitar.series')}}"><i class="fa fa-fw fa-user-circle"></i>Guitar Series</a>
-                                </li>
+                                
                             @endif
                             <li class="nav-divider">Purchase History</li>
                             <li class="nav-item">
@@ -42,10 +55,14 @@
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Users</a>
                             </li>
-                            <li class="nav-divider">Products</li>
-                            <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.guitar.series.*')?'active':''}}" href="{{route('admin.guitar.series.view')}}"><i class="fa fa-fw fa-user-circle"></i>Guitar Series</a>
-                            </li>
+                            @if(count($instruments) > 0)
+                                <li class="nav-divider">Products</li>
+                                @foreach($instruments as $index => $instru)
+                                    <li class="nav-item">
+                                        <a class="nav-link {{request()->routeIs('admin.guitar.series.*')?'active':''}}" href="{{route('admin.guitar.series.view')}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a>
+                                    </li>
+                                @endforeach
+                            @endif
 
                             <li class="nav-item">
                                 <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('admin.master.*')?'true':'false'}}" data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-fw fa-file"></i>Master </a>

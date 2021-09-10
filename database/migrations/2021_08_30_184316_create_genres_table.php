@@ -23,21 +23,11 @@ class CreateGenresTable extends Migration
         });
 
         $data = [
-            [
-                "name" => "rock"
-            ],
-            [
-                "name" => "blues"
-            ],
-            [
-                "name" => "funk"
-            ],
-            [
-                "name" => "jazz"
-            ],
-            [
-                "name" => "rap"
-            ],
+            ["name" => "rock"],
+            ["name" => "blues"],
+            ["name" => "funk"],
+            ["name" => "jazz"],
+            ["name" => "rap"]
         ];
 
         DB::table('genres')->insert($data);

@@ -13,7 +13,7 @@ class CreateGuitarSeriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('guitar_series', function (Blueprint $table) {
+        Schema::create('product_series', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('categoryId');
             $table->string('title');
@@ -76,7 +76,7 @@ class CreateGuitarSeriesTable extends Migration
                 'createdBy' => 4,
             ],
         ];
-        DB::table('guitar_series')->insert($data);
+        DB::table('product_series')->insert($data);
     }
 
     /**
@@ -86,6 +86,6 @@ class CreateGuitarSeriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('guitar_series');
+        Schema::dropIfExists('product_series');
     }
 }

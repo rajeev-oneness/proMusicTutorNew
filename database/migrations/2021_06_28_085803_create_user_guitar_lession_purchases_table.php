@@ -13,11 +13,11 @@ class CreateUserGuitarLessionPurchasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_guitar_lession_purchases', function (Blueprint $table) {
+        Schema::create('user_product_lession_purchases', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('userId');
-            $table->bigInteger('guitarSeriesId');
-            $table->bigInteger('guitarSeriesLessionId');
+            $table->bigInteger('productSeriesId');
+            $table->bigInteger('productSeriesLessionId');
             $table->bigInteger('transactionId');
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

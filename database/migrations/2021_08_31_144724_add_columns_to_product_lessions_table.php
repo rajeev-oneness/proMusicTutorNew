@@ -13,7 +13,7 @@ class AddColumnsToGuitarLessionsTable extends Migration
      */
     public function up()
     {
-        Schema::table('guitar_lessions', function (Blueprint $table) {
+        Schema::table('product_series_lessions', function (Blueprint $table) {
             $table->double('gbp', 8, 2)->default('0.00')->after('price');
             $table->double('price_usd', 8, 2)->default('0.00')->after('gbp');
             $table->double('price_euro', 8, 2)->default('0.00')->after('price_usd');
@@ -32,7 +32,7 @@ class AddColumnsToGuitarLessionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('guitar_lessions', function (Blueprint $table) {
+        Schema::table('product_series_lessions', function (Blueprint $table) {
             $table->dropColumn('gbp');
             $table->dropColumn('price_usd');
             $table->dropColumn('price_euro');

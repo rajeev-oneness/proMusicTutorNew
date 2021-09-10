@@ -13,10 +13,10 @@ class CreateGuitarLessionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('guitar_lessions', function (Blueprint $table) {
+        Schema::create('product_series_lessions', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('categoryId');
-            $table->bigInteger('guitarSeriesId');
+            $table->bigInteger('productSeriesId');
             $table->string('title');
             $table->string('image');
             $table->integer('currencyId');
@@ -33,7 +33,7 @@ class CreateGuitarLessionsTable extends Migration
                 for ($k=0; $k < 3 ; $k++) {
                     $data[] = [
                         'categoryId' => ($i+1),
-                        'guitarSeriesId' => ($j+1),
+                        'productSeriesId' => ($j+1),
                         'title' => 'Series '.($i+1).' - Lesson '.($k+1),
                         'image' => '/design/img/guitar_'.(4+$k).'.png',
                         'currencyId' => 3,
@@ -44,7 +44,7 @@ class CreateGuitarLessionsTable extends Migration
                 }
             }
         }
-        DB::table('guitar_lessions')->insert($data);
+        DB::table('product_series_lessions')->insert($data);
     }
 
     /**
@@ -54,6 +54,6 @@ class CreateGuitarLessionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('guitar_lessions');
+        Schema::dropIfExists('product_series_lessions');
     }
 }
