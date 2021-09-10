@@ -35,7 +35,7 @@
                                     <td>{{$lession->title}}</td>
                                     <td>{{$productSeries->title}}</td>
                                     <td>£{{$lession->price}}</td>
-                                    <td>{!! $lession->description !!}</td>
+                                    <td>{!! words($lession->description,200) !!}</td>
                                     <td>{{$purchase_lession->created_at}}</td>
                                     <td>{{$transaction->transactionId}}</td>
                                     <td><a href="{{route('product.series.details',$lession->productSeriesId)}}">View</a></td>

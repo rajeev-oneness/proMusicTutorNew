@@ -61,9 +61,9 @@
 		return $amount;
 	}
 
-	function words($value, $words = 100, $end = '...')
+	function words($string, $words = 100)
     {
-        return Str::words($value, $words, $end);
+        return Str::limit($string, $words);
     }
     
 	function generateUniqueAlphaNumeric($length = 7)

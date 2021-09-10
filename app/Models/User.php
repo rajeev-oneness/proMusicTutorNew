@@ -70,6 +70,6 @@ class User extends Authenticatable
 
     public function product_purchase_lession()
     {
-        return $this->hasMany('App\Models\UserProductLessionPurchase','userId','id');
+        return $this->hasMany('App\Models\UserProductLessionPurchase','userId','id')->latest();
     }
 }
