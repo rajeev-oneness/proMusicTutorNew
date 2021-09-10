@@ -10,8 +10,13 @@ class Category extends Model
 {
     use HasFactory,SoftDeletes;
 
-    public function guitar_series()
+    public function instrument()
     {
-        return $this->hasMany('App\Models\GuitarSeries','categoryId','id');
+        return $this->belongsTo('App\Models\Instrument','instrumentId','id')->withTrashed();
+    }
+
+    public function product_series()
+    {
+        return $this->hasMany('App\Models\ProductSeries','categoryId','id');
     }
 }

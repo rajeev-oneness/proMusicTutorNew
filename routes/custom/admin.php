@@ -17,7 +17,7 @@
 
 	// Instruments
 	Route::group(['prefix' => 'master/instrument'],function(){
-		Route::get('/',[CrudController::class,'instrument'])->name('admin.master.instrument');
+		Route::get('/list',[CrudController::class,'instrument'])->name('admin.master.instrument.list');
 		Route::get('/create',[CrudController::class,'instrumentCreate'])->name('admin.master.instrument.create');
 		Route::post('/store',[CrudController::class,'instrumentStore'])->name('admin.master.instrument.save');
 		Route::get('/{id}/edit',[CrudController::class,'instrumentEdit'])->name('admin.master.instrument.edit');
@@ -27,17 +27,17 @@
 
 	// category
 	Route::group(['prefix' => 'master/category'],function(){
-		Route::get('/',[CrudController::class,'guitarCategory'])->name('admin.master.category');
-		Route::get('/create',[CrudController::class,'guitarCategoryCreate'])->name('admin.master.category.create');
-		Route::post('/store',[CrudController::class,'guitarCategoryStore'])->name('admin.master.category.save');
-		Route::get('/{id}/edit',[CrudController::class,'guitarCategoryEdit'])->name('admin.master.category.edit');
-		Route::post('/{id}/update',[CrudController::class,'guitarCategoryUpdate'])->name('admin.master.category.update');
-		Route::post('/{id}/delete',[CrudController::class,'guitarCategoryDelete'])->name('admin.master.category.delete');
+		Route::get('/list',[CrudController::class,'category'])->name('admin.master.category.list');
+		Route::get('/create',[CrudController::class,'categoryCreate'])->name('admin.master.category.create');
+		Route::post('/store',[CrudController::class,'categoryStore'])->name('admin.master.category.save');
+		Route::get('/{id}/edit',[CrudController::class,'categoryEdit'])->name('admin.master.category.edit');
+		Route::post('/{id}/update',[CrudController::class,'categoryUpdate'])->name('admin.master.category.update');
+		Route::post('/{id}/delete',[CrudController::class,'categoryDelete'])->name('admin.master.category.delete');
 	});
 
 	// Genre
 	Route::group(['prefix' => 'master/genre'],function() {
-		Route::get('/', [CrudController::class, 'genreIndex'])->name('admin.master.genre');
+		Route::get('/list', [CrudController::class, 'genreIndex'])->name('admin.master.genre.list');
 		Route::get('/create', [CrudController::class, 'genreCreate'])->name('admin.master.genre.create');
 		Route::post('/save', [CrudController::class, 'genreSave'])->name('admin.master.genre.save');
 		Route::get('/{id}/edit', [CrudController::class, 'genreEdit'])->name('admin.master.genre.edit');

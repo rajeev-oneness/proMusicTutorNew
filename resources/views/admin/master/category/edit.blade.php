@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Edit Category
-                        <a class="headerbuttonforAdd" href="{{route('admin.master.category')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                        <a class="headerbuttonforAdd" href="{{route('admin.master.category.list')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
                 </div>
@@ -18,11 +18,24 @@
                         @error('categoryId')
                             <span class="text-danger" role="alert">{{ $message }}</span>
                         @enderror
-                        <img src="{{$category->image}}" height="300" width="300">
+                        <img src="{{asset($category->image)}}" height="300" width="300">
                         <div class="form-group">
                             <label for="image" class="col-form-label">Update Image:</label>
                             <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
                             @error('image')
+                                <span class="text-danger" role="alert">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="instrument" class="col-form-label">Instrument:</label>
+                            <select class="form-control @error('image') is-invalid @enderror" name="instrument" id="instrument">
+                                <option value="" selected="" hidden="">Select Instrument</option>
+                                @foreach($instrument as $key => $ins)
+                                    <option value="{{$ins->id}}" @if((old('instrument') ? old('instrument') : $category->instrumentId) == $ins->id){{('selected')}}@endif>{{$ins->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('instrument')
                                 <span class="text-danger" role="alert">{{ $message }}</span>
                             @enderror
                         </div>

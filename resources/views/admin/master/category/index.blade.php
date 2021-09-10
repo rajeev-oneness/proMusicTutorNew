@@ -17,6 +17,7 @@
                         <table id="example4" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>Instrument</th>
                                 	<th>Image</th>
                                     <th>Name</th>
                                     <th>Action</th>
@@ -25,6 +26,7 @@
                             <tbody>
                             	@foreach($category as $key => $cat)
                             		<tr>
+                                        <td>{{$cat->instrument->name}}</td>
                             			<td><img src="{{asset($cat->image)}}" height="200" width="200"></td>
                             			<td>{{$cat->name}}</td>
                             			<td><a href="{{route('admin.master.category.edit',$cat->id)}}">Edit</a> | <a href="javascript:void(0)" class="text-danger categoryDelete" data-id="{{$cat->id}}">Delete</a></td>

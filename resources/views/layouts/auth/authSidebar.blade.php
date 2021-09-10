@@ -55,27 +55,27 @@
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Users</a>
                             </li>
-                            @if(count($instruments) > 0)
+                            {{-- @if(count($instruments) > 0)
                                 <li class="nav-divider">Products</li>
                                 @foreach($instruments as $index => $instru)
                                     <li class="nav-item">
                                         <a class="nav-link {{request()->routeIs('admin.guitar.series.*')?'active':''}}" href="{{route('admin.guitar.series.view')}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a>
                                     </li>
                                 @endforeach
-                            @endif
+                            @endif --}}
 
                             <li class="nav-item">
                                 <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('admin.master.*')?'true':'false'}}" data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-fw fa-file"></i>Master </a>
                                 <div id="submenu-1" class="collapse submenu {{request()->routeIs('admin.master.*')?'show':''}}">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link {{request()->routeIs('admin.master.instrument')?'active':''}}" href="{{route('admin.master.instrument')}}"><i class="fa fa-fw fa-user-circle"></i>Instrument</a>
+                                            <a class="nav-link {{request()->routeIs('admin.master.instrument.*')?'active':''}}" href="{{route('admin.master.instrument.list')}}"><i class="fa fa-fw fa-user-circle"></i>Instrument</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link {{request()->routeIs('admin.master.category')?'active':''}}" href="{{route('admin.master.category')}}"><i class="fa fa-fw fa-user-circle"></i>Category</a>
+                                            <a class="nav-link {{request()->routeIs('admin.master.category.*')?'active':''}}" href="{{route('admin.master.category.list')}}"><i class="fa fa-fw fa-user-circle"></i>Category</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link {{request()->routeIs('admin.master.genre')?'active':''}}" href="{{route('admin.master.genre')}}"><i class="fa fa-fw fa-user-circle"></i>Genre</a>
+                                            <a class="nav-link {{request()->routeIs('admin.master.genre.*')?'active':''}}" href="{{route('admin.master.genre.list')}}"><i class="fa fa-fw fa-user-circle"></i>Genre</a>
                                         </li>
                                     </ul>
                                 </div>

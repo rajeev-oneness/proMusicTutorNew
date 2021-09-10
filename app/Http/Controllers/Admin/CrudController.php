@@ -405,7 +405,7 @@ class CrudController extends Controller
             $new->image = imageUpload($image);
         }
         $new->save();
-        return redirect(route('admin.master.instrument'))->with('Success','Instrument Added SuccessFully');
+        return redirect(route('admin.master.instrument.list'))->with('Success','Instrument Added SuccessFully');
     }
 
     public function instrumentEdit(Request $req,$instrumentId)
@@ -428,7 +428,7 @@ class CrudController extends Controller
             $update->image = imageUpload($image);
         }
         $update->save();
-        return redirect(route('admin.master.instrument'))->with('Success','Instrument Updated SuccessFully');
+        return redirect(route('admin.master.instrument.list'))->with('Success','Instrument Updated SuccessFully');
     }
 
     public function instrumentDelete(Request $req)
@@ -449,57 +449,63 @@ class CrudController extends Controller
     }
 
 /*********************************** Guitar category ****************************/
-    public function guitarCategory(Request $req)
+    public function category(Request $req)
     {
         $category = Category::get();
         return view('admin.master.category.index',compact('category'));
     }
 
-    public function guitarCategoryCreate(Request $req)
+    public function categoryCreate(Request $req)
     {
-        return view('admin.master.category.create');
+        $instrument = Instrument::get();
+        return view('admin.master.category.create',compact('instrument'));
     }
 
-    public function guitarCategoryStore(Request $req)
+    public function categoryStore(Request $req)
     {
         $req->validate([
             'image' => 'required',
+            'instrument' => 'required|min:1|numeric',
             'name' => 'required|string|max:200',
         ]);
         $new = new Category();
+        $new->instrumentId = $req->instrument;
         $new->name = strtoupper($req->name);
         if($req->hasFile('image')){
             $image = $req->file('image');
             $new->image = imageUpload($image);
         }
         $new->save();
-        return redirect(route('admin.master.category'))->with('Success','Category Added SuccessFully');
+        return redirect(route('admin.master.category.list'))->with('Success','Category Added SuccessFully');
     }
 
-    public function guitarCategoryEdit(Request $req,$guitarCategoryId)
+    public function categoryEdit(Request $req,$categoryId)
     {
-        $category = Category::where('id',$guitarCategoryId)->first();
-        return view('admin.master.category.edit',compact('category'));
+        $category = Category::where('id',$categoryId)->first();
+        $instrument = Instrument::get();
+        return view('admin.master.category.edit',compact('category','instrument'));
     }
 
-    public function guitarCategoryUpdate(Request $req,$guitarCategoryId)
+    public function categoryUpdate(Request $req,$categoryId)
     {
         $req->validate([
-            'categoryId' => 'required|min:1|numeric|in:'.$guitarCategoryId,
+            'categoryId' => 'required|min:1|numeric|in:'.$categoryId,
+            'instrument' => 'required|min:1|numeric',
             'image' => '',
             'name' => 'required|string|max:200',
         ]);
-        $update = Category::where('id',$guitarCategoryId)->first();
+        $update = Category::where('id',$categoryId)->first();
         $update->name = strtoupper($req->name);
+        $update->instrumentId = $req->instrument;
         if($req->hasFile('image')){
             $image = $req->file('image');
             $update->image = imageUpload($image);
         }
         $update->save();
-        return redirect(route('admin.master.category'))->with('Success','Category Updated SuccessFully');
+        return redirect(route('admin.master.category.list'))->with('Success','Category Updated SuccessFully');
     }
 
-    public function guitarCategoryDelete(Request $req)
+    public function categoryDelete(Request $req)
     {
         $rules = [
             'id' => 'required|numeric|min:1',
@@ -536,7 +542,7 @@ class CrudController extends Controller
         $genre = new Genre();
         $genre->name = $request->name;
         $genre->save();
-        return redirect()->route('admin.master.genre')->with('success', 'Genre added sucessfully');
+        return redirect()->route('admin.master.genre.list')->with('Success', 'Genre added sucessfully');
     }
     public function genreEdit($id)
     {
@@ -553,7 +559,7 @@ class CrudController extends Controller
         $genre = Genre::where('id', $id)->first();
         $genre->name = $request->name;
         $genre->save();
-        return redirect(route('admin.master.genre'))->with('success', 'Genre updated successfully');
+        return redirect(route('admin.master.genre.list'))->with('Success', 'Genre updated successfully');
     }
     public function genreDelete(Request $request)
     {

@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Edit Genre
-                        <a class="headerbuttonforAdd" href="{{route('admin.master.genre')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                        <a class="headerbuttonforAdd" href="{{route('admin.master.genre.list')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>
                 <div class="card-body">

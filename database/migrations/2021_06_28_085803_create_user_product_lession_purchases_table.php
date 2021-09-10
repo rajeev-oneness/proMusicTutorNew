@@ -32,6 +32,6 @@ class CreateUserProductLessionPurchasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_guitar_lession_purchases');
+        Schema::dropIfExists('user_product_lession_purchases');
     }
 }

@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Edit Instrument
-                        <a class="headerbuttonforAdd" href="{{route('admin.master.instrument')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                        <a class="headerbuttonforAdd" href="{{route('admin.master.instrument.list')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
                 </div>
@@ -18,7 +18,7 @@
                         @error('instrumentId')
                             <span class="text-danger" role="alert">{{ $message }}</span>
                         @enderror
-                        <img src="{{$instrument->image}}" height="300" width="300">
+                        <img src="{{asset($instrument->image)}}" height="300" width="300">
                         <div class="form-group">
                             <label for="image" class="col-form-label">Update Image:</label>
                             <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
