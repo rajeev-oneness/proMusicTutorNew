@@ -26,9 +26,8 @@ class CreateProductSeriesTable extends Migration
             $table->double('price_usd', 8, 2);
             $table->double('price_euro', 8, 2);
             $table->integer('genre');
-            $table->string('difficulty', 20);
-            $table->string('item_clean_url');
-            $table->string('seo_meta_description');
+            $table->longText('item_clean_url');
+            $table->longText('seo_meta_description');
             $table->string('seo_meta_keywords');
             // End
             $table->bigInteger('createdBy');

@@ -7,12 +7,14 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Add Product Series
-                        <a class="headerbuttonforAdd" href="{{route('tutor.product.series')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                        <a class="headerbuttonforAdd" href="{{route('tutor.product.series',[$instrument->id])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{route('tutor.product.series.save')}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('tutor.product.series.save',[$instrument->id])}}" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="instrumentId" value="{{$instrument->id}}">
+                        @error('instrumentId')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="category" class="col-form-label">Category:</label>
@@ -49,7 +51,7 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="genre" class="col-form-label">Genre:</label>
-                                <select class="form-control @error('genre') is-invalid @enderror" name="genre" id="genre" required>
+                                <select class="form-control @error('genre') is-invalid @enderror" name="genre" id="genre">
                                     <option value="" hidden="" selected="">Select Genre</option>
                                     @foreach($genre as $item)
                                         <option value="{{$item->id}}" {{old('genre') == $item->id ? 'selected' : ''}}>{{ ucwords($item->name) }}</option>
@@ -59,33 +61,22 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="difficulty" class="col-form-label">Difficulty:</label>
-                                <select class="form-control @error('difficulty') is-invalid @enderror" name="difficulty" id="difficulty">
-                                    <option value="" hidden="" selected="">Select Difficulty</option>
-                                    <option value="easy" {{old('difficulty') == 'easy' ? 'selected' : ''}}>Easy</option>
-                                    <option value="medium" {{old('difficulty') == 'medium' ? 'selected' : ''}}>Medium</option>
-                                    <option value="hard" {{old('difficulty') == 'hard' ? 'selected' : ''}}>Hard</option>
-                                </select>
-                                @error('difficulty')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                                <label for="gbp" class="col-form-label">GBP:</label>
+                                <input type="text" class="form-control @error('gbp') is-invalid @enderror" id="gbp" name="gbp" placeholder="GBP" value="{{old('gbp')}}" onkeypress="return isNumberKey(event);" maxlength="7">
+                                @error('gbp')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="form-group col-md-4">
-                                <label for="gbp" class="col-form-label">GBP:</label>
-                                <input type="text" class="form-control @error('gbp') is-invalid @enderror" id="gbp" name="gbp" placeholder="GBP" value="{{old('gbp')}}">
-                                @error('gbp')<span class="text-danger" role="alert">{{$message}}</span>@enderror
-                            </div>
-
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="price_usd" class="col-form-label">USD:</label>
-                                <input type="text" class="form-control @error('price_usd') is-invalid @enderror" id="price_usd" name="price_usd" placeholder="Price in USD" value="{{old('price_usd')}}">
+                                <input type="text" class="form-control @error('price_usd') is-invalid @enderror" id="price_usd" name="price_usd" placeholder="Price in USD" value="{{old('price_usd')}}" onkeypress="return isNumberKey(event);" maxlength="7">
                                 @error('price_usd')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="price_euro" class="col-form-label">EURO:</label>
-                                <input type="text" class="form-control @error('price_euro') is-invalid @enderror" id="price_euro" name="price_euro" placeholder="Price in EURO" value="{{old('price_euro')}}">
+                                <input type="text" class="form-control @error('price_euro') is-invalid @enderror" id="price_euro" name="price_euro" placeholder="Price in EURO" value="{{old('price_euro')}}" onkeypress="return isNumberKey(event);" maxlength="7">
                                 @error('price_euro')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
                         </div>
@@ -93,7 +84,7 @@
                         <div class="row">
                             <div class="form-group col-md-12">
                                 <label for="item_clean_url">Item clean URL</label>
-                                <input type="text" name="item_clean_url" id="item_clean_url" placeholder="Item clean URL" class="form-control" value="{{ old('item_clean_url') }}">
+                                <input type="url" name="item_clean_url" id="item_clean_url" placeholder="Item clean URL" class="form-control" value="{{ old('item_clean_url') }}">
                                 @error('item_clean_url')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
                         </div>

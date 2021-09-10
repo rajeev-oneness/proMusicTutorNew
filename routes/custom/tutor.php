@@ -11,7 +11,7 @@
         Route::post('/save',[ProductController::class,'productSeriesSave'])->name('tutor.product.series.save');
         Route::get('/{id}/edit',[ProductController::class,'productSeriesEdit'])->name('tutor.product.series.edit');
         Route::post('/{id}/update',[ProductController::class,'productSeriesUpdate'])->name('tutor.product.series.update');
-        Route::post('/{id}/delete',[ProductController::class,'productSeriesDelete'])->name('tutor.product.series.delete');
+        Route::post('/delete',[ProductController::class,'productSeriesDelete'])->name('tutor.product.series.delete');
 
         Route::group(['prefix' => '{productSeriesId}/lession'],function(){
             Route::get('/',[ProductController::class,'productSeriesLessionView'])->name('tutor.product.series.lession');

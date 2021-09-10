@@ -24,14 +24,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $tableCheck = \Schema::hasTable('contact_us');
-        if($tableCheck){
-            $contact = ContactUs::where('id',1)->first();
-            if(!$contact)$contact = $this->contactData();
-        }else{
+        \View::composer('*', function($view){
+            if($user = auth()->user()){
+                $view->with('user',$user);
+            }
             $contact = $this->contactData();
-        }
-        view()->share('contact',$contact);
+            $tableCheck = \Schema::hasTable('contact_us');
+            if($tableCheck){
+                $contact = ContactUs::where('id',1)->first();
+                if(!$contact)$contact = $this->contactData();
+            }
+            $view->with('contact', $contact);
+        });
     }
 
     public function contactData()

@@ -23,10 +23,11 @@ class CreateProductSeriesLessionsTable extends Migration
             $table->integer('currencyId');
             $table->float('price',8,2);
             $table->longText('description');
+            $table->string('difficulty', 20);
             // New Column Addition
-            $table->double('gbp', 8, 2);
-            $table->double('price_usd', 8, 2);
-            $table->double('price_euro', 8, 2);
+            $table->float('gbp', 8, 2);
+            $table->float('price_usd', 8, 2);
+            $table->float('price_euro', 8, 2);
             $table->string('keywords');
             $table->integer('genre');
             $table->string('item_clean_url');
@@ -49,6 +50,7 @@ class CreateProductSeriesLessionsTable extends Migration
                 'currencyId' => 3,
                 'price' => rand(2,9).'.99',
                 'description' => "During this series you will be taught and directed by the legendary 'Whitesnake' guitarist, Micky Moody. Throughtout the lessons he'll demonstrate valuable riffs, licks and ideas across a number of styles, including; Bluegrass, Blues, slide and will demonstrate some of his own work using unusual tuning methods. He will demonstrate some of the methods he uses and goes into detail as to slide and picking techniques This series is perfect for the seasoned guitarist - so bring your bottleneck, capo and don't worry - you're in good hands with Micky Moody",
+                'difficulty' => 'Easy',
                 'createdBy' => $value->createdBy,
             ];
             $data[] = [
@@ -60,6 +62,7 @@ class CreateProductSeriesLessionsTable extends Migration
                 'currencyId' => 3,
                 'price' => rand(2,9).'.99',
                 'description' => "During this series you will be taught and directed by the legendary 'Whitesnake' guitarist, Micky Moody. Throughtout the lessons he'll demonstrate valuable riffs, licks and ideas across a number of styles, including; Bluegrass, Blues, slide and will demonstrate some of his own work using unusual tuning methods. He will demonstrate some of the methods he uses and goes into detail as to slide and picking techniques This series is perfect for the seasoned guitarist - so bring your bottleneck, capo and don't worry - you're in good hands with Micky Moody",
+                'difficulty' => 'Easy',
                 'createdBy' => $value->createdBy,
             ];
             $data[] = [
@@ -71,6 +74,7 @@ class CreateProductSeriesLessionsTable extends Migration
                 'currencyId' => 3,
                 'price' => rand(2,9).'.99',
                 'description' => "During this series you will be taught and directed by the legendary 'Whitesnake' guitarist, Micky Moody. Throughtout the lessons he'll demonstrate valuable riffs, licks and ideas across a number of styles, including; Bluegrass, Blues, slide and will demonstrate some of his own work using unusual tuning methods. He will demonstrate some of the methods he uses and goes into detail as to slide and picking techniques This series is perfect for the seasoned guitarist - so bring your bottleneck, capo and don't worry - you're in good hands with Micky Moody",
+                'difficulty' => 'Medium',
                 'createdBy' => $value->createdBy,
             ];
             $data[] = [
@@ -82,6 +86,7 @@ class CreateProductSeriesLessionsTable extends Migration
                 'currencyId' => 3,
                 'price' => rand(2,9).'.99',
                 'description' => "During this series you will be taught and directed by the legendary 'Whitesnake' guitarist, Micky Moody. Throughtout the lessons he'll demonstrate valuable riffs, licks and ideas across a number of styles, including; Bluegrass, Blues, slide and will demonstrate some of his own work using unusual tuning methods. He will demonstrate some of the methods he uses and goes into detail as to slide and picking techniques This series is perfect for the seasoned guitarist - so bring your bottleneck, capo and don't worry - you're in good hands with Micky Moody",
+                'difficulty' => 'Medium',
                 'createdBy' => $value->createdBy,
             ];
             $data[] = [
@@ -93,6 +98,7 @@ class CreateProductSeriesLessionsTable extends Migration
                 'currencyId' => 3,
                 'price' => rand(2,9).'.99',
                 'description' => "During this series you will be taught and directed by the legendary 'Whitesnake' guitarist, Micky Moody. Throughtout the lessons he'll demonstrate valuable riffs, licks and ideas across a number of styles, including; Bluegrass, Blues, slide and will demonstrate some of his own work using unusual tuning methods. He will demonstrate some of the methods he uses and goes into detail as to slide and picking techniques This series is perfect for the seasoned guitarist - so bring your bottleneck, capo and don't worry - you're in good hands with Micky Moody",
+                'difficulty' => 'Hard',
                 'createdBy' => $value->createdBy,
             ];
             $data[] = [
@@ -104,6 +110,7 @@ class CreateProductSeriesLessionsTable extends Migration
                 'currencyId' => 3,
                 'price' => rand(2,9).'.99',
                 'description' => "During this series you will be taught and directed by the legendary 'Whitesnake' guitarist, Micky Moody. Throughtout the lessons he'll demonstrate valuable riffs, licks and ideas across a number of styles, including; Bluegrass, Blues, slide and will demonstrate some of his own work using unusual tuning methods. He will demonstrate some of the methods he uses and goes into detail as to slide and picking techniques This series is perfect for the seasoned guitarist - so bring your bottleneck, capo and don't worry - you're in good hands with Micky Moody",
+                'difficulty' => 'Easy',
                 'createdBy' => $value->createdBy,
             ];
         }
