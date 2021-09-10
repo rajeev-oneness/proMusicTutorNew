@@ -10,12 +10,12 @@ class UserProductLessionPurchase extends Model
 {
     use HasFactory,SoftDeletes;
 
-    public function guitar_series()
+    public function product_series()
     {
         return $this->belongsTo('App\Models\ProductSeries','productSeriesId','id');
     }
 
-    public function guitar_lession()
+    public function product_series_lession()
     {
         return $this->belongsTo('App\Models\ProductSeriesLession','productSeriesLessionId','id');
     }

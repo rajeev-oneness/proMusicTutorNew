@@ -52,7 +52,7 @@
                                     <div class="tab-pane fade show active" id="guitar" role="tabpanel" aria-labelledby="guitar-tab">
                                         <ul class="r_menu_ul">
                                             <li><a href="javascript:void(0)">OFFERS</a></li>
-                                            <li><a href="{{route('guitar.series')}}">ALL SERIES & PREVIEWS</a></li>
+                                            <li><a href="{{route('product.series')}}">ALL SERIES & PREVIEWS</a></li>
                                             <li><a href="javascript:void(0)">MEET THE PROS</a></li>
                                             <li><a href="{{route('howitworks')}}">HOW IT WORKS</a></li>
                                             <li><a class="{{Route::currentRouteName()=='subscription.plan'?'active':''}}" href="{{route('subscription.plan')}}">SUBSCRIPTIONS</a></li>

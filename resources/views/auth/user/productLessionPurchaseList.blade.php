@@ -24,21 +24,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            	@foreach($user->purchase_guitar_lession as $key => $purchase_lession)
+                            	@foreach($user->product_purchase_lession as $key => $purchase_lession)
                                 <?php   
-                                    $lession = $purchase_lession->guitar_lession;
+                                    $lession = $purchase_lession->product_series_lession;
                                     $transaction = $purchase_lession->transaction;
-                                    $guitarSeries = $purchase_lession->guitar_series;
+                                    $productSeries = $purchase_lession->product_series;
                                 ?>
                                 <tr>
                                     <td><img src="{{asset($lession->image)}}" height="200" width="200"></td>
                                     <td>{{$lession->title}}</td>
-                                    <td>{{$guitarSeries->title}}</td>
+                                    <td>{{$productSeries->title}}</td>
                                     <td>£{{$lession->price}}</td>
                                     <td>{!! $lession->description !!}</td>
                                     <td>{{$purchase_lession->created_at}}</td>
                                     <td>{{$transaction->transactionId}}</td>
-                                    <td><a href="{{route('guitar.series.details',$lession->guitarSeriesId)}}">View</a></td>
+                                    <td><a href="{{route('product.series.details',$lession->productSeriesId)}}">View</a></td>
                                 </tr>
                             	@endforeach
                             </tbody>

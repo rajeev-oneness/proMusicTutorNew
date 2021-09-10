@@ -47,7 +47,7 @@ class DefaultController extends Controller
         return back()->withErrors($error);
     }
 
-    public function browserGuitar(Request $req)
+    public function browserProduct(Request $req)
     {
         $data = (object)[];$user = auth()->user();
         $data->category = Category::get();
@@ -72,7 +72,7 @@ class DefaultController extends Controller
         return view('front.product.series',compact('data'));
     }
 
-    public function browserGuitarDetails(Request $req,$seriesId)
+    public function browserProductDetails(Request $req,$seriesId)
     {
         $user = auth()->user();
         $data = ProductSeries::where('id',$seriesId)->first();
@@ -158,24 +158,24 @@ class DefaultController extends Controller
 
 /************************************* product Series and Their Lession Purchase **************************************/
     
-    public function afterPaymentGuitarSeries(Request $req,$seriesId)
+    public function afterPaymentProductSeries(Request $req,$seriesId)
     {
         if(!empty($req->transactionId)){
             $transaction = Transaction::where('id',$req->transactionId)->first();
             if($transaction){
-                $guitarSeries = ProductSeries::where('id',$seriesId)->first();
-                if($guitarSeries){
-                    foreach ($guitarSeries->lession as $key => $lession){
+                $productSeries = ProductSeries::where('id',$seriesId)->first();
+                if($productSeries){
+                    foreach ($productSeries->lession as $key => $lession){
                         $newLessionPurchase = new UserProductLessionPurchase();
                             $newLessionPurchase->userId = auth()->user()->id;
-                            $newLessionPurchase->productSeriesId = $guitarSeries->id;
+                            $newLessionPurchase->productSeriesId = $productSeries->id;
                             $newLessionPurchase->productSeriesLessionId = $lession->id;
                             $newLessionPurchase->transactionId = $transaction->id;
                         $newLessionPurchase->save();
                     }
-                    return redirect(route('guitar.series.purchase.thankyou').'?guitarSeriesId='.$guitarSeries->id);
+                    return redirect(route('product.series.purchase.thankyou').'?productSeriesId='.$productSeries->id);
                 }else{
-                    $message = 'Invalid Guitar Series Plan Selected';
+                    $message = 'Invalid Product Series Plan Selected';
                 }
             }else{
                 $message = 'Invalid Transaction Id';
@@ -191,17 +191,17 @@ class DefaultController extends Controller
         if(!empty($req->transactionId)){
             $transaction = Transaction::where('id',$req->transactionId)->first();
             if($transaction){
-                $guitarLession = ProductSeriesLession::where('id',$lessionId)->first();
-                if($guitarLession){
+                $productLession = ProductSeriesLession::where('id',$lessionId)->first();
+                if($productLession){
                         $newLessionPurchase = new UserProductLessionPurchase();
                             $newLessionPurchase->userId = auth()->user()->id;
-                            $newLessionPurchase->productSeriesId = $guitarLession->productSeriesId;
-                            $newLessionPurchase->productSeriesLessionId = $guitarLession->id;
+                            $newLessionPurchase->productSeriesId = $productLession->productSeriesId;
+                            $newLessionPurchase->productSeriesLessionId = $productLession->id;
                             $newLessionPurchase->transactionId = $transaction->id;
                         $newLessionPurchase->save();
-                    return redirect(route('guitar.series.purchase.thankyou').'?guitarSeriesId='.$guitarLession->productSeriesId.'&guitarLessionId='.$guitarLession->id);
+                    return redirect(route('product.series.purchase.thankyou').'?productSeriesId='.$productLession->productSeriesId.'&productLessionId='.$productLession->id);
                 }else{
-                    $message = 'Invalid Guitar Series Plan Selected';
+                    $message = 'Invalid Product Series Plan Selected';
                 }
             }else{
                 $message = 'Invalid Transaction Id';
@@ -212,18 +212,18 @@ class DefaultController extends Controller
         return response()->json(['error' => true,'message' => $message]);
     }
 
-    public function thankyouGuitarSeries(Request $req)
+    public function thankyouProductSeries(Request $req)
     {
-        $purchaseGuitarSeries = UserProductLessionPurchase::select('*')->where('userId',auth()->user()->id);
-        if(!empty($req->guitarSeriesId)){
-            $purchaseGuitarSeries = $purchaseGuitarSeries->where('guitarSeriesId',$req->guitarSeriesId);
+        $purchaseSeries = UserProductLessionPurchase::select('*')->where('userId',auth()->user()->id);
+        if(!empty($req->productSeriesId)){
+            $purchaseSeries = $purchaseSeries->where('productSeriesId',$req->productSeriesId);
         }
-        if(!empty($req->guitarLessionId)){
-            $purchaseGuitarSeries = $purchaseGuitarSeries->where('guitarSeriesLessionId',$req->guitarLessionId);
+        if(!empty($req->productLessionId)){
+            $purchaseSeries = $purchaseSeries->where('productSeriesLessionId',$req->productLessionId);
         }
-        $purchaseGuitarSeries = $purchaseGuitarSeries->get();
-        if(count($purchaseGuitarSeries) > 0){
-            return view('payment.razorpay.guitar.thankyou',compact('purchaseGuitarSeries'));
+        $purchaseSeries = $purchaseSeries->get();
+        if(count($purchaseSeries) > 0){
+            return view('payment.razorpay.guitar.thankyou',compact('purchaseSeries'));
         }
         return response()->json(['error' => true,'message' => 'Invalid Request Found']);
     }
@@ -236,10 +236,10 @@ class DefaultController extends Controller
         return view('auth.user.subscription',compact('user'));
     }
 
-    public function userGuitarLessionPurchaseList()
+    public function userProductLessionPurchaseList()
     {
         $user = auth()->user();
-        return view('auth.user.guitarLessionPurchaseList',compact('user'));
+        return view('auth.user.productLessionPurchaseList',compact('user'));
     }
 
 

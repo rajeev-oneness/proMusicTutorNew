@@ -45,7 +45,7 @@
                             <div class="card border-0 ">
                                 <img src="{{asset($cat->image)}}" class="card-img-top">
                                 <div class="card-body p-0">
-                                  <a href="{{route('guitar.series')}}?categoryId={{$cat->id}}" class="btn signbtn ">{{$cat->name}}</a>
+                                  <a href="{{route('product.series')}}?categoryId={{$cat->id}}" class="btn signbtn ">{{$cat->name}}</a>
                                 </div>
                               </div>
                         </div>
@@ -99,7 +99,7 @@
                                     @endguest
                                 </div>
                                 <div class="card-footer d-flex border-0 p-0">
-                                    <a href="{{route('guitar.series.details',$series->id)}}" class="btn detail col-6">Details</a>
+                                    <a href="{{route('product.series.details',$series->id)}}" class="btn detail col-6">Details</a>
                                     <a href="javascript:void(0)" class="btn preview col-6">PREVIEW</a>
                                 </div>
                             </div>

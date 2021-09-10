@@ -65,7 +65,7 @@
                             @endif --}}
 
                             <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('admin.master.*')?'true':'false'}}" data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-fw fa-file"></i>Master </a>
+                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('admin.master.*')?'true':'false'}}" data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-fw fa-file"></i>Master Data</a>
                                 <div id="submenu-1" class="collapse submenu {{request()->routeIs('admin.master.*')?'show':''}}">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">

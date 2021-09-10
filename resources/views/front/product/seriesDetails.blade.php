@@ -210,7 +210,7 @@
                                     @endif
                                 </div>
                                 <div class="card-footer d-flex border-0 p-0">
-                                    <a href="{{route('guitar.series.details',$otherSeries->id)}}" class="btn detail col-6">Details</a>
+                                    <a href="{{route('product.series.details',$otherSeries->id)}}" class="btn detail col-6">Details</a>
                                     <a href="javascript:void(0)" class="btn preview col-6">PREVIEW</a>
                                 </div>
                             </div>

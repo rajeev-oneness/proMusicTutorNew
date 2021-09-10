@@ -96,7 +96,7 @@
     function userLessionPurchased($lession_data = [])
     {
     	$return = false;
-    	$check = \App\Models\UserGuitarLessionPurchase::where('userId',auth()->user()->id)->where('guitarSeriesLessionId',$lession_data->id)->where('guitarSeriesId',$lession_data->guitarSeriesId)->first();
+    	$check = \App\Models\UserProductLessionPurchase::where('userId',auth()->user()->id)->where('productSeriesLessionId',$lession_data->id)->where('productSeriesId',$lession_data->productSeriesId)->first();
     	if($check){
     		$return = true;
     	}
