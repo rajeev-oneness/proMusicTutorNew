@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class GuitarSeries extends Model
+class ProductSeries extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -17,7 +17,7 @@ class GuitarSeries extends Model
 
     public function lession()
     {
-        return $this->hasMany('App\Models\GuitarLession', 'guitarSeriesId', 'id');
+        return $this->hasMany('App\Models\ProductSeriesLession', 'productSeriesId', 'id');
     }
 
     public function author()
