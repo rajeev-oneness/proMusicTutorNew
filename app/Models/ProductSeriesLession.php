@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProductLession extends Model
+class ProductSeriesLession extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -15,7 +15,7 @@ class ProductLession extends Model
         return $this->belongsTo('App\Models\Currency', 'currencyId', 'id');
     }
 
-    public function guitar_series()
+    public function product_series()
     {
         return $this->belongsTo('App\Models\ProductSeries', 'productSeriesId', 'id');
     }

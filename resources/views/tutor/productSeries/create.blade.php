@@ -1,17 +1,17 @@
 @extends('layouts.auth.authMaster')
-@section('title','Add Guitar Series')
+@section('title','Product Series')
 @section('content')
 <div class="container-fluid dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Add Guitar Series
-                        <a class="headerbuttonforAdd" href="{{route('tutor.guitar.series')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                    <h5 class="mb-0">Add Product Series
+                        <a class="headerbuttonforAdd" href="{{route('tutor.product.series')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{route('tutor.guitar.series.save')}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('tutor.product.series.save')}}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="form-group col-md-6">

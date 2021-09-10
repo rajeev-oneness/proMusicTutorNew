@@ -10,7 +10,7 @@ use App\Models\Genre;
 
 class TutorController extends Controller
 {
-    /************************** Guitar Series *****************************/
+    /************************** Product Series *****************************/
     public function productSeriesView(Request $req)
     {
         $user = auth()->user();
@@ -43,7 +43,7 @@ class TutorController extends Controller
             'seo_meta_keywords' => 'nullable',
         ]);
 
-        $newSeries = new GuitarSeries();
+        $newSeries = new ProductSeries();
         $newSeries->categoryId = $req->category;
         $newSeries->title = $req->title;
         $newSeries->description = $req->description;
@@ -58,12 +58,12 @@ class TutorController extends Controller
 
         if ($req->hasFile('image')) {
             $image = $req->file('image');
-            $newSeries->image = imageUpload($image, 'guitar/series');
+            $newSeries->image = imageUpload($image, 'product/series');
         }
         $newSeries->video_url = $req->media_link;
         $newSeries->createdBy = auth()->user()->id;
         $newSeries->save();
-        return redirect(route('tutor.guitar.series'))->with('Success', 'Guitar Series Added SuccessFully');
+        return redirect(route('tutor.product.series'))->with('Success', 'Product Series Added SuccessFully');
     }
 
     public function productSeriesEdit(Request $req, $seriesId)
@@ -71,14 +71,14 @@ class TutorController extends Controller
         $category = Category::get();
         $genre = Genre::orderBy('name')->get();
         $user = auth()->user();
-        $guitarSeries = GuitarSeries::where('id', $seriesId)->where('createdBy', $user->id)->first();
-        return view('tutor.guitarSeries.edit', compact('category', 'guitarSeries', 'genre'));
+        $productSeries = ProductSeries::where('id', $seriesId)->where('createdBy', $user->id)->first();
+        return view('tutor.productSeries.edit', compact('category', 'productSeries', 'genre'));
     }
 
     public function productSeriesUpdate(Request $req, $seriesId)
     {
         $req->validate([
-            'guitarSeriesId' => 'required|min:1|numeric|in:' . $seriesId,
+            'productSeriesId' => 'required|min:1|numeric|in:' . $seriesId,
             'category' => 'required|min:1|numeric',
             'image' => 'nullable|image',
             'title' => 'required|string|max:200',
@@ -94,7 +94,7 @@ class TutorController extends Controller
             'seo_meta_keywords' => 'nullable',
         ]);
 
-        $updateSeries = GuitarSeries::where('id', $seriesId)->first();
+        $updateSeries = ProductSeries::where('id', $seriesId)->first();
         $updateSeries->categoryId = $req->category;
         $updateSeries->title = $req->title;
         $updateSeries->description = $req->description;
@@ -112,7 +112,7 @@ class TutorController extends Controller
         }
         $updateSeries->video_url = $req->media_link;
         $updateSeries->save();
-        return redirect(route('tutor.guitar.series'))->with('Success', 'Guitar Series Updated SuccessFully');
+        return redirect(route('tutor.product.series'))->with('Success', 'Product Series Updated SuccessFully');
     }
 
     public function productSeriesDelete(Request $req)
@@ -122,36 +122,36 @@ class TutorController extends Controller
         ];
         $validator = validator()->make($req->all(), $rules);
         if (!$validator->fails()) {
-            $series = GuitarSeries::find($req->id);
+            $series = ProductSeries::find($req->id);
             if ($series) {
                 $series->delete();
-                return successResponse('GuitarSeries Deleted Success');
+                return successResponse('ProductSeries Deleted Success');
             }
-            return errorResponse('Invalid GuitarSeries Id');
+            return errorResponse('Invalid ProductSeries Id');
         }
         return errorResponse($validator->errors()->first());
     }
 
-    /****************************** Guitar Series Lession *******************************/
+    /****************************** Product Series Lession *******************************/
     public function productSeriesLessionView(Request $req, $seriesId)
     {
         $user = auth()->user();
-        $guitarSeries = GuitarSeries::where('id', $seriesId)->where('createdBy', $user->id)->first();
-        return view('tutor.guitarSeries.lession.index', compact('guitarSeries'));
+        $productSeries = ProductSeries::where('id', $seriesId)->where('createdBy', $user->id)->first();
+        return view('tutor.productSeries.lession.index', compact('productSeries'));
     }
 
     public function productSeriesLessionCreate(Request $req, $seriesId)
     {
         $user = auth()->user();
         $genre = Genre::orderBy('name')->get();
-        $guitarSeries = GuitarSeries::where('id', $seriesId)->where('createdBy', $user->id)->first();
-        return view('tutor.guitarSeries.lession.create', compact('guitarSeries', 'genre'));
+        $productSeries = ProductSeries::where('id', $seriesId)->where('createdBy', $user->id)->first();
+        return view('tutor.productSeries.lession.create', compact('productSeries', 'genre'));
     }
 
     public function productSeriesLessionSave(Request $req, $seriesId)
     {
         $req->validate([
-            'guitarSeriesId' => 'required|min:1|numeric|in:' . $seriesId,
+            'productSeriesId' => 'required|min:1|numeric|in:' . $seriesId,
             'title' => 'required|string|max:200',
             'price' => 'required|numeric|min:1',
             'description' => 'required|string',
@@ -165,14 +165,14 @@ class TutorController extends Controller
             'product_code' => 'nullable',
         ]);
 
-        $series = GuitarSeries::where('id', $seriesId)->first();
-        $newLession = new GuitarLession();
+        $series = ProductSeries::where('id', $seriesId)->first();
+        $newLession = new ProductSeriesLession();
         $newLession->categoryId = $series->categoryId;
-        $newLession->guitarSeriesId = $series->id;
+        $newLession->productSeriesId = $series->id;
         $newLession->title = $req->title;
         if ($req->hasFile('image')) {
             $image = $req->file('image');
-            $newLession->image = imageUpload($image, 'guitar/lession');
+            $newLession->image = imageUpload($image, 'product/lession');
         }
         $newLession->currencyId = 3;
         $newLession->price = $req->price;
@@ -186,22 +186,22 @@ class TutorController extends Controller
         $newLession->product_code = emptyCheck($req->product_code);
         $newLession->createdBy = auth()->user()->id;
         $newLession->save();
-        return redirect(route('tutor.guitar.series.lession', $seriesId))->with('Success', 'Guitar Lession Added SuccessFully');
+        return redirect(route('tutor.product.series.lession', $seriesId))->with('Success', 'Product Lession Added SuccessFully');
     }
 
     public function productSeriesLessionEdit(Request $req, $seriesId, $lessionId)
     {
         $user = auth()->user();
         $genre = Genre::orderBy('name')->get();
-        $guitarLession = GuitarLession::where('id', $lessionId)->where('guitarSeriesId', $seriesId)->where('createdBy', $user->id)->first();
-        return view('tutor.guitarSeries.lession.edit', compact('guitarLession', 'genre'));
+        $productLession = ProductSeriesLession::where('id', $lessionId)->where('productSeriesId', $seriesId)->where('createdBy', $user->id)->first();
+        return view('tutor.productSeries.lession.edit', compact('productLession', 'genre'));
     }
 
     public function productSeriesLessionUpdate(Request $req, $seriesId, $lessionId)
     {
         $req->validate([
-            'guitarSeriesId' => 'required|min:1|numeric|in:' . $seriesId,
-            'guitarLessionId' => 'required|min:1|numeric|in:' . $lessionId,
+            'productSeriesId' => 'required|min:1|numeric|in:' . $seriesId,
+            'productLessionId' => 'required|min:1|numeric|in:' . $lessionId,
             'title' => 'required|string|max:200',
             'price' => 'required|numeric|min:1',
             'description' => 'required|string',
@@ -214,11 +214,11 @@ class TutorController extends Controller
             'item_clean_url' => 'nullable|url',
             'product_code' => 'nullable',
         ]);
-        $updateLession = GuitarLession::where('id', $lessionId)->first();
+        $updateLession = ProductSeriesLession::where('id', $lessionId)->first();
         $updateLession->title = $req->title;
         if ($req->hasFile('image')) {
             $image = $req->file('image');
-            $updateLession->image = imageUpload($image, 'guitar/lession');
+            $updateLession->image = imageUpload($image, 'product/lession');
         }
         $updateLession->price = $req->price;
         $updateLession->description = $req->description;
@@ -230,7 +230,7 @@ class TutorController extends Controller
         $updateLession->item_clean_url = emptyCheck($req->item_clean_url);
         $updateLession->product_code = emptyCheck($req->product_code);
         $updateLession->save();
-        return redirect(route('tutor.guitar.series.lession', $seriesId))->with('Success', 'Guitar Lession Updated SuccessFully');
+        return redirect(route('tutor.product.series.lession', $seriesId))->with('Success', 'Product Series Lession Updated SuccessFully');
     }
 
     public function productSeriesLessionDelete(Request $req)
@@ -240,12 +240,12 @@ class TutorController extends Controller
         ];
         $validator = validator()->make($req->all(), $rules);
         if (!$validator->fails()) {
-            $lession = GuitarLession::find($req->id);
+            $lession = ProductSeriesLession::find($req->id);
             if ($lession) {
                 $lession->delete();
-                return successResponse('Guitar Lession Deleted Success');
+                return successResponse('Product Series Lession Deleted Success');
             }
-            return errorResponse('Invalid Guitar Lession Id');
+            return errorResponse('Invalid Product Series Lession Id');
         }
         return errorResponse($validator->errors()->first());
     }

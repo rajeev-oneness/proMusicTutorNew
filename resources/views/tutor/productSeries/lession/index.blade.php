@@ -1,14 +1,14 @@
 @extends('layouts.auth.authMaster')
-@section('title','Guitar Lession')
+@section('title','Product Lession')
 @section('content')
     <div class="container-fluid dashboard-content">
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="mb-0">Guitar Lession List ({{$guitarSeries->title}})
-                            <a class="headerbuttonforAdd" href="{{route('tutor.guitar.series')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
-                            <a class="headerbuttonforAdd" href="{{route('tutor.guitar.series.lession.create',$guitarSeries->id)}}">
+                        <h5 class="mb-0">Product Lession List ({{$productSeries->title}})
+                            <a class="headerbuttonforAdd" href="{{route('tutor.product.series')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                            <a class="headerbuttonforAdd" href="{{route('tutor.product.series.lession.create',$productSeries->id)}}">
                                 <i class="fa fa-plus" aria-hidden="true"></i>Add Lession
                             </a>
                         </h5>
@@ -33,7 +33,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($guitarSeries->lession as $key => $lession)
+                                    @foreach($productSeries->lession as $key => $lession)
                                         <tr>
                                             <td><img src="{{asset($lession->image)}}" height="200" width="200"></td>
                                             <td>{{$lession->title}}</td>
@@ -46,7 +46,7 @@
                                             <td>{{$lession->item_clean_url}}</td>
                                             <td>{{$lession->product_code}}</td>
                                             <td>{!! words($lession->description,20) !!}</td>
-                                            <td><a href="{{route('tutor.guitar.series.lession.edit',[$guitarSeries->id,$lession->id])}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesLessionDelete" data-id="{{$lession->id}}">Delete</a></td>
+                                            <td><a href="{{route('tutor.product.series.lession.edit',[$productSeries->id,$lession->id])}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesLessionDelete" data-id="{{$lession->id}}">Delete</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -68,7 +68,7 @@
             var seriesLessionId = $(this).attr('data-id');
             swal({
                 title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this Guitar Lession!",
+                text: "Once deleted, you will not be able to recover this Product Lession!",
                 buttons: true,
                 dangerMode: true,
             })
@@ -77,12 +77,12 @@
                     $.ajax({
                         type:'POST',
                         dataType:'JSON',
-                        url:"{{route('tutor.guitar.series.lession.delete',[$guitarSeries->id,"+seriesLessionId+"])}}",
+                        url:"{{route('tutor.product.series.lession.delete',[$productSeries->id,"+seriesLessionId+"])}}",
                         data: {id:seriesLessionId,'_token': $('input[name=_token]').val()},
                         success:function(data){
                             if(data.error == false){
                                 seriesLessionDelete.closest('tr').remove();
-                                swal('Success',"Poof! Your Guitar Series Lession has been deleted!");
+                                swal('Success',"Poof! Your Product Series Lession has been deleted!");
                             }else{
                                 swal('Error',data.message);
                             }

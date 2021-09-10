@@ -1,19 +1,19 @@
 @extends('layouts.auth.authMaster')
-@section('title','Add Guitar Lession')
+@section('title','Add Product Lession')
 @section('content')
 <div class="container-fluid dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Add Guitar Lession ({{$guitarSeries->title}})
-                        <a class="headerbuttonforAdd" href="{{route('tutor.guitar.series.lession',$guitarSeries->id)}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                    <h5 class="mb-0">Add Product Lession ({{$productSeries->title}})
+                        <a class="headerbuttonforAdd" href="{{route('tutor.product.series.lession',$productSeries->id)}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{route('tutor.guitar.series.lession.save',$guitarSeries->id)}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('tutor.product.series.lession.save',$productSeries->id)}}" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="guitarSeriesId" value="{{$guitarSeries->id}}">
+                        <input type="hidden" name="productSeriesId" value="{{$productSeries->id}}">
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label for="image" class="col-form-label">Image:</label>
