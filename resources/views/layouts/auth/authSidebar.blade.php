@@ -42,18 +42,26 @@
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Users</a>
                             </li>
-                            <li class="nav-divider">Features</li>
-                            <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.instrument')?'active':''}}" href="{{route('admin.instrument')}}"><i class="fa fa-fw fa-user-circle"></i>Instrument</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.guitar.category')?'active':''}}" href="{{route('admin.guitar.category')}}"><i class="fa fa-fw fa-user-circle"></i>Category</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.genre')?'active':''}}" href="{{route('admin.genre')}}"><i class="fa fa-fw fa-user-circle"></i>Genre</a>
-                            </li>
+                            <li class="nav-divider">Products</li>
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.guitar.series.*')?'active':''}}" href="{{route('admin.guitar.series.view')}}"><i class="fa fa-fw fa-user-circle"></i>Guitar Series</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('admin.master.*')?'true':'false'}}" data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-fw fa-file"></i>Master </a>
+                                <div id="submenu-1" class="collapse submenu {{request()->routeIs('admin.master.*')?'show':''}}">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link {{request()->routeIs('admin.master.instrument')?'active':''}}" href="{{route('admin.master.instrument')}}"><i class="fa fa-fw fa-user-circle"></i>Instrument</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link {{request()->routeIs('admin.master.category')?'active':''}}" href="{{route('admin.master.category')}}"><i class="fa fa-fw fa-user-circle"></i>Category</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link {{request()->routeIs('admin.master.genre')?'active':''}}" href="{{route('admin.master.genre')}}"><i class="fa fa-fw fa-user-circle"></i>Genre</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
 
                             <!-- Report Section -->

@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Category List
-                        <a class="headerbuttonforAdd" href="{{route('admin.guitar.category.create')}}">
+                        <a class="headerbuttonforAdd" href="{{route('admin.master.category.create')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add Category
                         </a>
                     </h5>
@@ -27,7 +27,7 @@
                             		<tr>
                             			<td><img src="{{asset($cat->image)}}" height="200" width="200"></td>
                             			<td>{{$cat->name}}</td>
-                            			<td><a href="{{route('admin.guitar.category.edit',$cat->id)}}">Edit</a> | <a href="javascript:void(0)" class="text-danger categoryDelete" data-id="{{$cat->id}}">Delete</a></td>
+                            			<td><a href="{{route('admin.master.category.edit',$cat->id)}}">Edit</a> | <a href="javascript:void(0)" class="text-danger categoryDelete" data-id="{{$cat->id}}">Delete</a></td>
                             		</tr>
                             	@endforeach
                             </tbody>
@@ -58,7 +58,7 @@
                     $.ajax({
                         type:'POST',
                         dataType:'JSON',
-                        url:"{{route('admin.guitar.category.delete',"+categoryId+")}}",
+                        url:"{{route('admin.master.category.delete',"+categoryId+")}}",
                         data: {id:categoryId,'_token': $('input[name=_token]').val()},
                         success:function(data){
                             if(data.error == false){

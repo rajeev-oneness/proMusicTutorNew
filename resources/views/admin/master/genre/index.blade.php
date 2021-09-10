@@ -7,8 +7,8 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Genre
-                        <a class="headerbuttonforAdd" href="{{route('admin.genre.create')}}">
+                    <h5 class="mb-0">Genre List
+                        <a class="headerbuttonforAdd" href="{{route('admin.master.genre.create')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add Genre
                         </a>
                     </h5>
@@ -29,11 +29,9 @@
                                         <td>
                                             <span class="badge badge-primary rounded-0">{{$key+1}}</span>
                                         </td>
-                                        <td>
-                                            {{ucwords($item->name)}}
-                                        </td>
+                                        <td>{{ucwords($item->name)}}</td>
                                         <td class="text-right">
-                                            <a href="{{route('admin.genre.edit', $item->id)}}" class="badge badge-dark rounded-0">Edit</a>
+                                            <a href="{{route('admin.master.genre.edit', $item->id)}}" class="badge badge-dark rounded-0">Edit</a>
                                             <a href="javascript: void(0)" class="badge badge-danger rounded-0 genreDelete" data-id="{{$item->id}}">Delete</a>
                                         </td>
                                     </tr>
@@ -66,7 +64,7 @@
                 $.ajax({
                     type: 'POST',
                     dataType: 'JSON',
-                    url: "{{route('admin.genre.delete',"+genreId+")}}",
+                    url: "{{route('admin.master.genre.delete',"+genreId+")}}",
                     data: {id:genreId,'_token': $('input[name=_token]').val()},
                     success:function(data){
                         if(data.error == false) {

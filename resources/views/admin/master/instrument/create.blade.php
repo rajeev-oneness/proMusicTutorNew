@@ -7,12 +7,12 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Add New Instrument
-                        <a class="headerbuttonforAdd" href="{{route('admin.instrument')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                        <a class="headerbuttonforAdd" href="{{route('admin.master.instrument')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{route('admin.instrument.save')}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('admin.master.instrument.save')}}" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="form-group">

@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Instrument List
-                        <a class="headerbuttonforAdd" href="{{route('admin.instrument.create')}}">
+                        <a class="headerbuttonforAdd" href="{{route('admin.master.instrument.create')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add Instrument
                         </a>
                     </h5>
@@ -27,7 +27,7 @@
                             		<tr>
                             			<td><img src="{{asset($ins->image)}}" height="200" width="200"></td>
                             			<td>{{$ins->name}}</td>
-                            			<td><a href="{{route('admin.instrument.edit',$ins->id)}}">Edit</a> | <a href="javascript:void(0)" class="text-danger instrumentDelete" data-id="{{$ins->id}}">Delete</a></td>
+                            			<td><a href="{{route('admin.master.instrument.edit',$ins->id)}}">Edit</a> | <a href="javascript:void(0)" class="text-danger instrumentDelete" data-id="{{$ins->id}}">Delete</a></td>
                             		</tr>
                             	@endforeach
                             </tbody>
@@ -58,7 +58,7 @@
                     $.ajax({
                         type:'POST',
                         dataType:'JSON',
-                        url:"{{route('admin.instrument.delete',"+instrumentId+")}}",
+                        url:"{{route('admin.master.instrument.delete',"+instrumentId+")}}",
                         data: {id:instrumentId,'_token': $('input[name=_token]').val()},
                         success:function(data){
                             if(data.error == false){

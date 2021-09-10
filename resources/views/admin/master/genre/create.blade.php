@@ -8,11 +8,11 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Add New Genre
-                        <a class="headerbuttonforAdd" href="{{route('admin.genre')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                        <a class="headerbuttonforAdd" href="{{route('admin.master.genre')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{route('admin.genre.save')}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('admin.master.genre.save')}}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="image" class="col-form-label">Genre Name:</label>
