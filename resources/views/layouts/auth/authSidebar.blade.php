@@ -32,7 +32,7 @@
                                 <li class="nav-divider">Products</li>
                                 @foreach($instruments as $index => $instru)
                                     <li class="nav-item">
-                                        <a class="nav-link {{request()->routeIs('tutor.guitar.series')?'active':''}}" href="{{route('tutor.guitar.series')}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a>
+                                        <a class="nav-link {{request()->routeIs('tutor.product.series')?'active':''}}" href="{{route('tutor.product.series')}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a>
                                     </li>
                                 @endforeach
                             @endif

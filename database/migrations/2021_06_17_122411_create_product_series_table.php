@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGuitarSeriesTable extends Migration
+class CreateProductSeriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -20,6 +20,16 @@ class CreateGuitarSeriesTable extends Migration
             $table->longText('description');
             $table->string('image');
             $table->string('video_url');
+            // New Column Addition
+            $table->double('gbp', 8, 2);
+            $table->double('price_usd', 8, 2);
+            $table->double('price_euro', 8, 2);
+            $table->integer('genre');
+            $table->string('difficulty', 20);
+            $table->string('item_clean_url');
+            $table->string('seo_meta_description');
+            $table->string('seo_meta_keywords');
+            // End
             $table->bigInteger('createdBy');
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

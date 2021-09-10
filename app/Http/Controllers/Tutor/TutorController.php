@@ -4,28 +4,28 @@ namespace App\Http\Controllers\Tutor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\GuitarSeries, Auth;
-use App\Models\Category, App\Models\GuitarLession;
+use App\Models\Category,Auth;
+use App\Models\ProductSeries,App\Models\ProductSeriesLession;
 use App\Models\Genre;
 
 class TutorController extends Controller
 {
     /************************** Guitar Series *****************************/
-    public function guitarSeriesView(Request $req)
+    public function productSeriesView(Request $req)
     {
         $user = auth()->user();
-        $guitarSeries = GuitarSeries::where('createdBy', $user->id)->get();
-        return view('tutor.guitarSeries.index', compact('guitarSeries'));
+        $productSeries = ProductSeries::where('createdBy', $user->id)->get();
+        return view('tutor.productSeries.index', compact('productSeries'));
     }
 
-    public function guitarSeriesCreate(Request $req)
+    public function productSeriesCreate(Request $req)
     {
         $category = Category::get();
         $genre = Genre::orderBy('name')->get();
-        return view('tutor.guitarSeries.create', compact('category', 'genre'));
+        return view('tutor.productSeries.create', compact('category', 'genre'));
     }
 
-    public function guitarSeriesSave(Request $req)
+    public function productSeriesSave(Request $req)
     {
         $req->validate([
             'category' => 'required|min:1|numeric',
@@ -66,7 +66,7 @@ class TutorController extends Controller
         return redirect(route('tutor.guitar.series'))->with('Success', 'Guitar Series Added SuccessFully');
     }
 
-    public function guitarSeriesEdit(Request $req, $seriesId)
+    public function productSeriesEdit(Request $req, $seriesId)
     {
         $category = Category::get();
         $genre = Genre::orderBy('name')->get();
@@ -75,7 +75,7 @@ class TutorController extends Controller
         return view('tutor.guitarSeries.edit', compact('category', 'guitarSeries', 'genre'));
     }
 
-    public function guitarSeriesUpdate(Request $req, $seriesId)
+    public function productSeriesUpdate(Request $req, $seriesId)
     {
         $req->validate([
             'guitarSeriesId' => 'required|min:1|numeric|in:' . $seriesId,
@@ -115,7 +115,7 @@ class TutorController extends Controller
         return redirect(route('tutor.guitar.series'))->with('Success', 'Guitar Series Updated SuccessFully');
     }
 
-    public function guitarSeriesDelete(Request $req)
+    public function productSeriesDelete(Request $req)
     {
         $rules = [
             'id' => 'required|numeric|min:1',
@@ -133,14 +133,14 @@ class TutorController extends Controller
     }
 
     /****************************** Guitar Series Lession *******************************/
-    public function guitarSeriesLessionView(Request $req, $seriesId)
+    public function productSeriesLessionView(Request $req, $seriesId)
     {
         $user = auth()->user();
         $guitarSeries = GuitarSeries::where('id', $seriesId)->where('createdBy', $user->id)->first();
         return view('tutor.guitarSeries.lession.index', compact('guitarSeries'));
     }
 
-    public function guitarSeriesLessionCreate(Request $req, $seriesId)
+    public function productSeriesLessionCreate(Request $req, $seriesId)
     {
         $user = auth()->user();
         $genre = Genre::orderBy('name')->get();
@@ -148,7 +148,7 @@ class TutorController extends Controller
         return view('tutor.guitarSeries.lession.create', compact('guitarSeries', 'genre'));
     }
 
-    public function guitarSeriesLessionSave(Request $req, $seriesId)
+    public function productSeriesLessionSave(Request $req, $seriesId)
     {
         $req->validate([
             'guitarSeriesId' => 'required|min:1|numeric|in:' . $seriesId,
@@ -189,7 +189,7 @@ class TutorController extends Controller
         return redirect(route('tutor.guitar.series.lession', $seriesId))->with('Success', 'Guitar Lession Added SuccessFully');
     }
 
-    public function guitarSeriesLessionEdit(Request $req, $seriesId, $lessionId)
+    public function productSeriesLessionEdit(Request $req, $seriesId, $lessionId)
     {
         $user = auth()->user();
         $genre = Genre::orderBy('name')->get();
@@ -197,7 +197,7 @@ class TutorController extends Controller
         return view('tutor.guitarSeries.lession.edit', compact('guitarLession', 'genre'));
     }
 
-    public function guitarSeriesLessionUpdate(Request $req, $seriesId, $lessionId)
+    public function productSeriesLessionUpdate(Request $req, $seriesId, $lessionId)
     {
         $req->validate([
             'guitarSeriesId' => 'required|min:1|numeric|in:' . $seriesId,
@@ -233,7 +233,7 @@ class TutorController extends Controller
         return redirect(route('tutor.guitar.series.lession', $seriesId))->with('Success', 'Guitar Lession Updated SuccessFully');
     }
 
-    public function guitarSeriesLessionDelete(Request $req)
+    public function productSeriesLessionDelete(Request $req)
     {
         $rules = [
             'id' => 'required|numeric|min:1',
