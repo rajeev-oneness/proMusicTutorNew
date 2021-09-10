@@ -9,6 +9,12 @@ use App\Models\ProductSeries,App\Models\ProductSeriesLession;
 
 class AdminController extends Controller
 {
+    public function dashboard(Request $req)
+    {
+        $data = (object)[];
+        return view('admin.dashboard',compact('data'));
+    }
+
     public function productSeriesList(Request $req)
     {
     	$productSeries = ProductSeries::get();

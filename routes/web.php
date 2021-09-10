@@ -62,7 +62,7 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::get('after/purchase/guitar/series/lession/{lessionId}',[DefaultController::class,'afterPaymentGuitarSeriesLession'])->name('after.purchase.guitar_lession_series');
 
 	Route::get('user/subscription',[DefaultController::class,'userSubscription'])->name('user.subscription');
-	Route::get('user/guitar',[DefaultController::class,'userProductLessionPurchaseList'])->name('user.guitar');
+	Route::get('user/instrument/lession',[DefaultController::class,'userProductLessionPurchaseList'])->name('user.instrument.lession');
 	// Razorpay Payment Route
 	Route::post('razorpay/payment', [PaymentController::class, 'storerazorePayPayment'])->name('razorpay.payment.store');
 });

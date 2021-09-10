@@ -46,7 +46,7 @@
                                 <a class="nav-link {{request()->routeIs('user.subscription')?'active':''}}" href="{{route('user.subscription')}}"><i class="fa fa-fw fa-user-circle"></i>Subscription</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('user.guitar')?'active':''}}" href="{{route('user.guitar')}}"><i class="fa fa-fw fa-user-circle"></i>Guitar Lession</a>
+                                <a class="nav-link {{request()->routeIs('user.instrument.lession')?'active':''}}" href="{{route('user.instrument.lession')}}"><i class="fa fa-fw fa-user-circle"></i>Instrument Lession</a>
                             </li>
                         @endif
 
