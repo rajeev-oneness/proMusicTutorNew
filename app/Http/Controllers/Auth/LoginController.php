@@ -90,16 +90,13 @@ class LoginController extends Controller
         if(!$user){
             DB::beginTransaction();
             try {
-                $data = [
-                    'name' => emptyCheck($socialiteUser->name),
-                    'email' => $socialiteUser->email,
-                    'password' => generateUniqueAlphaNumeric(8),
-                    'user_type' => 3,
-                    'referral' => '',
-                    'image' => emptyCheck($socialiteUser->avatar),
-                ];
-                $userObject = (object)$data;
-                $user = $this->createNewUser($userObject);
+                $user = new User();
+                    $user->name = emptyCheck($socialiteUser->name);
+                    $user->email = $socialiteUser->email;
+                    $user->user_type = 3;
+                    $user->referral_code = referralCodeGenerate();
+                    $user->image = emptyCheck($socialiteUser->avatar);
+                $user->save();
             } catch (Exception $e) {
                 DB::rollback();
                 $error['socialite'] = 'Something went wrong please try after some time';

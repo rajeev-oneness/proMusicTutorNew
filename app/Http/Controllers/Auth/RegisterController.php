@@ -53,7 +53,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'referral' => ['nullable','string','exists:referrals,code'],
+            'referral_code' => ['nullable','string','exists:users,referral_code'],
             'user_type' => ['required','min:1','numeric','in:2,3'],
         ]);
     }
@@ -66,7 +66,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $userObject = (object)$data;
-        return $this->createNewUser($userObject);
+        $user = new User();
+            $user->name = $data['name'];
+            $user->email = $data['email'];
+            $user->user_type = $data['user_type'];
+            $user->password = Hash::make($data['password']);
+            $user->referral_code = referralCodeGenerate();
+        $user->save();
+        $this->setReferrerBy($user,$data['referral_code']);
+        return $user;
     }
 }

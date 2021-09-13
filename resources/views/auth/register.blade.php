@@ -31,7 +31,7 @@
                 <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
                     <div class="signup-area">
                         <div class="under-formarea">
-<!--                             <div class="google-login">
+                            <!-- <div class="google-login">
                                 <a href="{{route('socialite.login','google')}}">Login with Google</a>
                             </div>
                             <div class="text-center">
@@ -74,6 +74,14 @@
                                     <label for="inputAddress"> <img src="{{asset('design/img/password.png')}}"> CONFIRM PASSWORD </label>
                                     <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password">
                                     <a class="confirmpw" href="javascript:void(0)"><img src="{{asset('design/img/eye.png')}}"></a>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputAddress"> <img src="{{asset('design/img/password.png')}}"> Referral Code (optional) </label>
+                                    <input type="text" class="form-control" name="referral_code" placeholder="Referral Code (optional)">
+                                    @error('referral_code')
+                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="already-have">

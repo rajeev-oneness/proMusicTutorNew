@@ -1,5 +1,15 @@
 <?php 
 
+	function successResponse($msg='',$data=[],$status=200)
+	{
+		return response()->json(['error'=>false,'status'=>$status,'message'=>$msg,'data'=>$data]);
+	}
+
+	function errorResponse($msg='',$data=[],$status=200)
+	{
+		return response()->json(['error'=>true,'status'=>$status,'message'=>$msg,'data'=>$data]);
+	}
+
 	function razorpayPaymentForm($price = 1,$redirectURL=''){
 		$key = env('RAZORPAY_KEY');
         $route = route('razorpay.payment.store');
@@ -24,6 +34,21 @@
             </form>";
 	}
 
+	function sendMail($data,$templateName,$to,$subject)
+	{
+	    $newMail = new \App\Models\EmailLog();
+	    $newMail->from = 'onenesstechsolution@gmail.com';
+	    $newMail->to = $to;
+	    $newMail->subject = $subject;
+	    $newMail->view_file = $templateName;
+	    $newMail->payload = json_encode($data);
+	    $newMail->save();
+	    Mail::send('emails/'.$templateName, $data, function($message)use ($data,$to,$subject) {
+	        $message->to($to, $data['name'])->subject($subject);
+	        $message->from('onenesstechsolution@gmail.com','Pro Music Tutor');
+	    });
+	}
+
 	function imageUpload($image,$folder='image')
 	{
 		$random = randomGenerator();
@@ -31,16 +56,27 @@
         $imageurl = 'upload/'.$folder.'/'.$random.'.'.$image->getClientOriginalExtension();
         return $imageurl;
 	}
-	
-	function successResponse($msg='',$data=[],$status=200)
-	{
-		return response()->json(['error'=>false,'status'=>$status,'message'=>$msg,'data'=>$data]);
-	}
 
-	function errorResponse($msg='',$data=[],$status=200)
-	{
-		return response()->json(['error'=>true,'status'=>$status,'message'=>$msg,'data'=>$data]);
-	}
+	function generateUniqueAlphaNumeric($length = 8)
+    {
+    	$random_string = '';
+    	for($i = 0; $i < $length; $i++) {
+    		$number = random_int(0, 36);
+    		$character = base_convert($number, 10, 36);
+    		$random_string .= $character;
+    	}
+    	return $random_string;
+    }
+
+	function referralCodeGenerate()
+    {
+    	$newReferralCode = generateUniqueAlphaNumeric(8);
+    	$referralMatch = \App\Models\User::where('referral_code',$newReferralCode)->withTrashed()->first();
+    	if(!$referralMatch){
+    		return strtoupper($newReferralCode);
+        }
+        return $this->generateUniqueReferral();
+    }
 
 	function zeroGoesToBlank($value)
 	{
@@ -72,17 +108,6 @@
 	function words($string, $words = 100)
     {
         return Str::limit($string, $words);
-    }
-    
-	function generateUniqueAlphaNumeric($length = 7)
-    {
-    	$random_string = '';
-    	for($i = 0; $i < $length; $i++) {
-    		$number = random_int(0, 36);
-    		$character = base_convert($number, 10, 36);
-    		$random_string .= $character;
-    	}
-    	return $random_string;
     }
 
     function calculateLessionPrice($lessionObject=[]){

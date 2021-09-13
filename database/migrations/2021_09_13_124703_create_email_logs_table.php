@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReferralsTable extends Migration
+class CreateEmailLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,17 @@ class CreateReferralsTable extends Migration
      */
     public function up()
     {
-        Schema::create('referrals', function (Blueprint $table) {
+        Schema::create('email_logs', function (Blueprint $table) {
             $table->id();
-            $table->string('code',20)->unique();
-            $table->bigInteger('userId');
+            $table->string('from');
+            $table->string('to');
+            $table->longText('subject');
+            $table->string('view_file');
+            $table->longText('payload');
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
-        $data = [
-            ['code' => 'AAAAAAA','userId'=>1],
-            ['code' => 'AAAAAAB','userId'=>2],
-            ['code' => 'AAAAAAC','userId'=>3],
-            ['code' => 'AAAAAAD','userId'=>4],
-            ['code' => 'AAAAAAE','userId'=>5],
-            ['code' => 'AAAAAAF','userId'=>5],
-        ];
-        DB::table('referrals')->insert($data);
     }
 
     /**
@@ -39,6 +33,6 @@ class CreateReferralsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('referrals');
+        Schema::dropIfExists('email_logs');
     }
 }
