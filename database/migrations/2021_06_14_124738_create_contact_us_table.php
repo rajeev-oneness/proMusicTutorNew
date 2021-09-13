@@ -40,7 +40,7 @@ class CreateContactUsTable extends Migration
                 'address' => '5/13 Fielden Way, Port Kennedy,WA, 6172, Dummy location',
                 'phone' => '[88] 657 524 332',
                 'email' => 'info@example.com',
-                'image' => '/design/img/pic-1.png',
+                'image' => 'design/img/pic-1.png',
                 'facebook' => 'https://www.facebook.com/',
                 'linkedin' => 'https://www.linkedin.com/',
                 'youtube' => 'https://www.youtube.com/',

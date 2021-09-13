@@ -49,6 +49,8 @@ Route::group(['middleware' => 'auth'],function(){
 	// Route::get('user/change/password',[HomeController::class, 'index'])->name('user.changepassword');
 	Route::post('user/change/password',[HomeController::class, 'updateUserPassword'])->name('user.changepassword.save');
 	Route::get('user/points',[HomeController::class, 'userPoints'])->name('user.points');
+
+	Route::post('tutor/rating/post',[DefaultController::class,'ratingTutor'])->name('tutor.rating.post');
 	
 	// Subscription Purchase
 	Route::get('after/purchase/subscription/{subscriptionId}',[DefaultController::class,'afterPaymentSubscription'])->name('after.purchase.subscribe');

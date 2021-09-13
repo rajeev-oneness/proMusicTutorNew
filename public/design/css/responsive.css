@@ -292,49 +292,38 @@
       font-size: 14px;
       padding: 15px 65px 15px 30px;
    }
-
-
-
-
-
+   .testimonial .quote_icon {
+      margin-top: -28px;
+      width: 44px;
+  }
 }
 
 /*SignUp Style*/
 /***********Responsive**************/
 @media only screen and (max-width: 576px) 
 {
-  .padd-area {
-      padding-left: 20px;
-  }
-  .signupacc-text h3 {
-      font-size: 30px;
-      margin-bottom: 20px;
-  }
-
-
-.flex-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-flow: wrap;
-}
-
-
-.admin-left {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    justify-content: flex-start;
-}
-
-.admin-right 
-{
-   width: 100%;
-   flex: 0 0 100%;
-}
-
-
-
-
-
+    .padd-area {
+        padding-left: 20px;
+    }
+    .signupacc-text h3 {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+    .flex-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-flow: wrap;
+    }
+    .admin-left {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: flex-start;
+    }
+    .admin-right 
+    {
+       width: 100%;
+       flex: 0 0 100%;
+    }
 }

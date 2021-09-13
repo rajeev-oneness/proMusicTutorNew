@@ -43,7 +43,7 @@ class CreateProductSeriesTable extends Migration
                 'instrumentId' => $cat->instrumentId,
                 'title' => 'Building The Blues Series '.($key + 1),
                 'description' => "Learn from Micky Moody the legendary Whitesnake guitarist. In this series Micky 's aim is to pass on ....",
-                'image' => '/design/img/guitar_'.($key+1).'.png',
+                'image' => 'design/img/guitar_'.($key+1).'.png',
                 'video_url' => 'https://player.vimeo.com/video/137857207',
                 'createdBy' => 2,
             ];

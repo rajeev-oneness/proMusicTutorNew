@@ -29,17 +29,17 @@ class CreateCategoriesTable extends Migration
             $data[] = [
                 'instrumentId' => $ins->id,
                 'name' => 'Pro Licks',
-                'image' => '/design/img/guitar_1.png'
+                'image' => 'design/img/guitar_1.png'
             ];
             $data[] = [
                 'instrumentId' => $ins->id,
                 'name' => 'Techniques',
-                'image' => '/design/img/guitar_2.png'
+                'image' => 'design/img/guitar_2.png'
             ];
             $data[] = [
                 'instrumentId' => $ins->id,
                 'name' => 'Popular Songs',
-                'image' => '/design/img/guitar_3.png'
+                'image' => 'design/img/guitar_3.png'
             ];
         }
         DB::table('categories')->insert($data);

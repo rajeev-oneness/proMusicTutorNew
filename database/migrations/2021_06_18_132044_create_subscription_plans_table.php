@@ -28,7 +28,7 @@ class CreateSubscriptionPlansTable extends Migration
         for ($i=0; $i < 6; $i++) { 
             $data[] = [
                 'title' => 'Monthly Subscripton - Saxophone',
-                'image' => '/design/img/guitar_'.($i+1).'.png',
+                'image' => 'design/img/guitar_'.($i+1).'.png',
                 'currencyId' => 3,
                 'price' => rand(5,9).'.99',
                 'valid_for' => 1,

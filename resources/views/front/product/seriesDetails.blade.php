@@ -90,7 +90,7 @@
                 <div class="row m-0 mt-5 col-12 p-0 pl-3 pl-md-0">
                     <?php $tutor = $data->author;?>
                     @if($tutor)
-                        <h6>TUTOR: <a href="{{route('explore.tutor',base64_encode($tutor->id))}}" style="font-size: 18px;"><span style="color: #e40054 !important;">{{strtoupper($tutor->name)}}</span></a></h6>
+                        <h6>TUTOR: <a href="{{route('explore.tutor',[base64_encode($tutor->id),'tutor'=>$tutor->name])}}" style="font-size: 18px;"><span style="color: #e40054 !important;">{{strtoupper($tutor->name)}}</span></a></h6>
                     @endif
                 </div>
             </div>

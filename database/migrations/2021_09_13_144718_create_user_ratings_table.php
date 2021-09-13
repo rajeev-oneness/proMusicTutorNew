@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserPointsTable extends Migration
+class CreateUserRatingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateUserPointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_points', function (Blueprint $table) {
+        Schema::create('user_ratings', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('userId');
-            $table->float('points',8,2);
-            $table->date('valid_till');
-            $table->string('remarks')->comment('point Credit For');
+            $table->float('rating',8,2);
+            $table->longText('comment');
+            $table->bigInteger('ratedUserId');
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
@@ -32,6 +32,6 @@ class CreateUserPointsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_points');
+        Schema::dropIfExists('user_ratings');
     }
 }

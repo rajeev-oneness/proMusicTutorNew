@@ -1620,30 +1620,22 @@ footer{
     bottom: 0;
 }
 
-
-
-
 /**************** Contact Us *********************/
-
 .under-contact 
 {
   background: #262c32;
   padding-top: 75px;
   padding-bottom: 100px;
 }
-
-
 .con-formarea 
 {
   background: #171d23;
   padding: 50px 30px;
 }
-
 .full-image 
 {
   width: 100%;
 }
-
 .top-infocon a
 {
   display: block;
@@ -1651,18 +1643,15 @@ footer{
   color: #FFF !important;
   line-height: 2;
 }
-
 .blue-text 
 {
   font-size: 21px;
   color: #3e8ac8 !important;
 }
-
 .top-infocon a span,.top-infocon p span
 {
   color: #f43600 !important;
 }
-
 .top-infocon p 
 {
   font-size: 21px;
@@ -1670,20 +1659,16 @@ footer{
   margin: 0;
   line-height: 2;
 }
-
-
 .con-formarea .form-control
 {
   background: #252a30;
   border: none;
 }
-
 .con-formarea input[type="text"] 
 {
   height: 58px;
   padding: 0 15px;
 }
-
 .contact-btn {
     background: #f43600;
     font-size: 18px;
@@ -1693,34 +1678,27 @@ footer{
     border: none;
     height: 55px;
 }
-
-
 .contact-btn:hover {
     color: #fff;
     background-color: #f43600;
     border-color: transparent;
 }
-
-
 .contact-btn:not(:disabled):not(.disabled).active, .contact-btn:not(:disabled):not(.disabled):active, .show>.contact-btn.dropdown-toggle {
     color: #fff;
     background-color: #f43600;
     border-color: transparent;
 }
-
 .contact-btn.focus, .contact-btn:focus {
     color: #fff;
     background-color: #f43600;
     border-color: transparent;
     box-shadow: none;
 }
-
 .policy {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
 }
-
 .lightgray 
 {
   background: #f7f8fa;
@@ -1733,7 +1711,6 @@ footer{
 {
   width: 100%;
 }
-
 .content-priv h3 
 {
   font-size: 60px;
@@ -1773,21 +1750,17 @@ footer{
   background: url('../img/check-icon.png') no-repeat left;
   background-position-y: top;
 }
-
 /**************** Thank You   *********************/
-
 .thank-you 
 {
   background: url('../img/thank-you-image.jpg') no-repeat center;
   background-size: cover;
   padding: 150px 0;
 }
-
 .thamk-youmiddle {
     width: 670px;
     margin: 0 auto;
 }
-
 .area-thank h2  
 {
   font-size: 90px;
@@ -1795,28 +1768,23 @@ footer{
   font-weight: bold;
   line-height: 1;
 }
-
 .area-thank h3 {
     font-size: 68px;
     color: #161e1e;
     font-weight: 400;
     line-height: 1;
 }
-
 .area-thank h3 span 
 {
   color: #f43600;
   font-weight: bold;
 }
-
 .area-thank  
 {
   padding-left: 20px;
   border-left: 5px solid #f43600;
   margin: 40px 0;
 }
-
-
 .client-pic {
     width: 60px;
     height: 60px;
@@ -1824,21 +1792,16 @@ footer{
     overflow: hidden;
     flex: 0 0 60px;
 }
-
 .client-pic img 
 {
   width: 100%;
 }
-
-
 .client-details 
 {
   display: flex;
   align-items: center;
   margin-right: 30px;
 }
-
-
 .client-details h4 {
     color: #FFF;
     font-size: 22px;
@@ -1847,8 +1810,313 @@ footer{
 }
 
 
+/*==============10/09/2021===============*/
 
+.tutor-list .item .card .card-text {
+  height: 76px;
+  overflow: hidden;
+}
 
+.instrument_list .item{
+  padding: 10px 15px;
+  overflow: hidden;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+  border: 1px solid #f1f1f1;
+  position: relative;
+}
+.instrument_list .item .image_item{
+    background-size: cover !important;
+    width: 100%;
+    padding-bottom: 150%;
+    display: block;
+    overflow: hidden;
+    background-position: center center !important;
+    background-repeat: no-repeat;
+    margin-bottom: 0;
+    border-radius: 8px;
+}
+.instrument_list .item:hover{
+  box-shadow: 0 .145rem .25rem rgba(0,0,0,.15)!important;
+}
 
+.sortby label{
+      font-size: 15px;
+      font-weight: 500;
+      color: #000;
+}
+.sortby select{
+    font-size: 15px;
+    border-radius: 0;
+    font-weight: 400;
+    font-family: "Mulish", sans-serif;
+    background: #fff;
+    border: 1px solid #cfcfcf !important;
+}
 
+.bredcamb {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.bredcamb li{
+  margin: 0 5px;
+  color: #808080;
+  display: inline-flex;
+  font-size: 15px;
+}
+.bredcamb a{
+  color: #808080;
+  font-size: 15px;
+  line-height: 25px;
+  display: block;
+  font-weight: 400;
+}
+.bredcamb li .active{
+  color: #f43600;
+  opacity: 1;
+}
+.text-item h5{
+    font-size: 18px;
+    text-align: center;
+    line-height: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 15px 0 25px 0;
+    color: #384a58;
+    letter-spacing: 0.85px;
+}
+.testimonial .testitext{
+  left: 0;
+}
+.testimonial .quote_icon {
+  position: absolute;
+  margin-top: -70px;
+}
+.testimonial .testitext h6{
+  margin-top: 0;
+}
+.testimonial .user_pic{
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+.testimonial .user_pic img{ 
+  width: 100%;
+  object-fit: cover;
+}
 
+.tutoe_detail{
+  background: #394b59;
+  padding: 25px 0;
+}
+.tutor_detail h3{
+  color: #fff;
+  font-size: 20px;
+  letter-spacing: 0.85px;
+}
+.tutor_detail h3 span{
+  font-weight: 500;
+  font-size: 14px;
+  display: block;
+  margin: 8px 0 10px 0;
+}
+.tutor_detail span{
+  align-items: center;
+  align-content: center;
+  display: flex;
+}
+.tutor_detail span i{
+  font-size: 13px;
+  color: #ffc107;
+}
+.tutor_detail span small{
+  color: #fff;
+  padding: 2px 4px 2px 6px;
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 12px;
+  vertical-align: middle;
+  background-color: #388e3c;
+  margin-left: 10px;
+  width: 45px;
+
+}
+.tutor_detail span small i{
+  font-size: 9px;
+  color: #fff;
+}
+.tutor_detail p{
+  color: #fff;
+  font-size: 18px;
+  letter-spacing: 0.85px;
+  margin-top: 10px;
+  width: 100%;
+  margin-bottom: 30px;
+}
+.tutor_detail p span{
+  font-weight: 400;
+  font-size: 14px;
+  display: inline-block !important;
+}
+.tutor_detail a:hover{
+  background: #475b6c;
+}
+
+.comment_section h6{
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 600;
+    display: block;
+}
+.comment_section h6 span{
+  font-size: 12px;
+  color: #a3a3a3;
+  font-weight: 400;
+  display: block;
+  margin-bottom: 10px;
+}
+.comment_section .card{
+  border-radius: 0;
+  margin-bottom: 15px;
+  padding: 10px 15px;
+}
+.comment_section .card-header ul{
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+.comment_section .card-header ul li{
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 0 8px;
+    color: #949494;
+    font-family: 'Mulish', sans-serif;
+}
+.review_isur{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+}
+.review_isur img{
+  width: 100%;
+  object-fit: cover;
+}
+.comment_section .rev-list{
+  border-bottom: 1px solid #e8e8e8 !important;
+}
+.comment_section .rev-list:last-child{
+  border-bottom: 0 !important;
+}
+.scroll-rev{
+  height: 430px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+.social_icon h4{
+  color: #fff;
+}
+.social_icon a{
+  color: #fff;
+  font-size: 20px;
+  background: transparent;
+  display: inline-block;
+  padding: 2;
+}
+.social_icon a:hover{
+  background: transparent;
+  color:#f43600;
+}
+.t-list{
+  background: url(../img/teacher_list.png) no-repeat;
+  background-position: center center;
+}
+.testimonials-bg{
+  background: url(../img/testi.png) no-repeat;
+  background-position: center center;
+}
+.instrument_bg{
+  background: url(../img/instrument_list.png) no-repeat;
+  background-position: center center;
+}
+.rounded img{
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+}
+.c-list{
+  border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+.c-list img{
+  border-radius: 0;
+}
+.c-list:last-child{
+  border: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.user_log_pic{
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.user_name_nav{
+  width: inherit !important;
+  font-weight: 400;
+  font-style: italic;
+}
+.user_name_nav img{
+  margin-right: 10px;
+}
+.user_name_nav span{
+  font-size: 18px;
+  font-weight: 500;
+  color: #f43600;
+  margin-left: 3px;
+  text-transform: capitalize;
+}

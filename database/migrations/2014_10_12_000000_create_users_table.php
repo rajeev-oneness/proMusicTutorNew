@@ -32,7 +32,7 @@ class CreateUsersTable extends Migration
             $table->date('carrier_started');
             $table->tinyInteger('subscribed')->default(1)->comment('1:Subscribed ,0:Un-Subscribed');
             $table->tinyInteger('status')->comment('1:Active,0:In-Active')->default(1);
-            $table->string('image')->default('/defaultImages/user.jpg');
+            $table->string('image')->default('defaultImages/user.jpg');
             $table->string('referral_code',10)->unique()->comment('Referral Code');
             $table->bigInteger('referred_by')->comment('Referred By UserId');
             $table->string('gender',20)->comment('Male,Female,Not specified');
@@ -53,7 +53,7 @@ class CreateUsersTable extends Migration
                 'password' => Hash::make('secret'),
                 'referral_code' => referralCodeGenerate(),
                 'about' => '',
-                'image' => '/defaultImages/user.jpg',
+                'image' => 'defaultImages/user.jpg',
             ],
             [
                 'user_type' => 2,
@@ -62,7 +62,7 @@ class CreateUsersTable extends Migration
                 'password' => Hash::make('secret'),
                 'referral_code' => referralCodeGenerate(),
                 'about' => 'Andy Sheppard is one of Europe’s best saxophonist and is one of the few British sax players to make waves on the international jazz scene in recent years.',
-                'image' => '/design/img/team-1.jpg',
+                'image' => 'design/img/team-1.jpg',
             ],
             [
                 'user_type' => 2,
@@ -71,7 +71,7 @@ class CreateUsersTable extends Migration
                 'password' => Hash::make('secret'),
                 'referral_code' => referralCodeGenerate(),
                 'about' => 'Craig Crofton is one of Europe’s best saxophonist and is one of the few British sax players to make waves on the international jazz scene in recent years.',
-                'image' => '/design/img/team-2.jpg',
+                'image' => 'design/img/team-2.jpg',
             ],
             [
                 'user_type' => 2,
@@ -80,7 +80,7 @@ class CreateUsersTable extends Migration
                 'password' => Hash::make('secret'),
                 'referral_code' => referralCodeGenerate(),
                 'about' => 'Innes Sibun is one of Europe’s best saxophonist and is one of the few British sax players to make waves on the international jazz scene in recent years.',
-                'image' => '/design/img/team-3.jpg',
+                'image' => 'design/img/team-3.jpg',
             ],
             [
                 'user_type' => 3,
@@ -89,7 +89,7 @@ class CreateUsersTable extends Migration
                 'password' => Hash::make('secret'),
                 'referral_code' => referralCodeGenerate(),
                 'about' => '',
-                'image' => '/design/img/testi-1.png',
+                'image' => 'design/img/testi-1.png',
             ],
             [
                 'user_type' => 2,
@@ -98,7 +98,7 @@ class CreateUsersTable extends Migration
                 'password' => Hash::make('secret'),
                 'referral_code' => referralCodeGenerate(),
                 'about' => 'Demo is one of Europe’s best saxophonist and is one of the few British sax players to make waves on the international jazz scene in recent years.',
-                'image' => '/defaultImages/user.jpg',
+                'image' => 'defaultImages/user.jpg',
             ],
         ];
 

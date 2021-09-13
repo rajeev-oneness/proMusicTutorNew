@@ -27,7 +27,7 @@ class CreateTestimonialsTable extends Migration
         $data = [
             [
                 'name' => 'John Doe',
-                'image' => '/design/img/testi-1.png',
+                'image' => 'design/img/testi-1.png',
                 'quote' => "Here, the legendary blues guitarist Innes Sibun shows you how to play over a Latin feeling minor blu....",
                 'address' => 'Boston, USA',
             ]

@@ -25,11 +25,11 @@ class CreateInstrumentsTable extends Migration
         $data = [
             [
                 'name' => 'GUITAR',
-                'image' => '/design/img/instru-1.png',
+                'image' => 'design/img/instru-1.png',
             ],
             [
                 'name' => 'SAXOPHONE',
-                'image' => '/design/img/instru-2.png',
+                'image' => 'design/img/instru-2.png',
             ],
         ];
         DB::table('instruments')->insert($data);

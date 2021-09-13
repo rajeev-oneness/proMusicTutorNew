@@ -8,7 +8,7 @@ use App\Models\Testimonial,App\Models\Instrument,App\Models\Category;
 use App\Models\ProductSeries,App\Models\SubscriptionPlan;
 use App\Models\Transaction,App\Models\UserSubscription;
 use App\Models\UserProductLessionPurchase,App\Models\ProductSeriesLession;
-use App\Models\Setting;
+use App\Models\Setting,App\Models\UserRating;
 
 class DefaultController extends Controller
 {
@@ -243,20 +243,16 @@ class DefaultController extends Controller
     }
 
 
-    public function exploreTutor(Request $req,$tutorId = '')
+    public function exploreTutor(Request $req,$tutorId = 0)
     {
         $tutor = User::where('user_type',2);
-        if($tutorId != ''){
+        if( base64_decode($tutorId) != 0){ // if Indivisual tutor Calls
             $tutorId = base64_decode($tutorId);
-            $tutor = $tutor->where('id',$tutorId);
-        }
+            $tutor = $tutor->where('id',$tutorId)->first();
+            return view('tutor.display.invisualProfile',compact('tutor'));
+        } // when Tutor list will call
         $tutor = $tutor->get();
-        return response()->json([
-            'error' => true,
-            'message' => 'This page not created yet',
-            'tutor' => $tutor, 
-        ]);
-        return 'This page not created yet';
+        return view('tutor.display.profileList',compact('tutor'));
     }
 
     public function subscribeEmail(Request $req)
@@ -290,6 +286,29 @@ class DefaultController extends Controller
             $email->delete();
         }
         return successResponse('Email Un-Subscribed Success');
+    }
+
+    public function ratingTutor(Request $req)
+    {
+        $rules = [
+            'tutorId' => 'required|min:1|numeric',
+            'ratedUserId' => 'required|min:1|numeric',
+            'comment' => 'required|string',
+            'rating' => 'required|numeric|min:1|max:5',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $newRating = new UserRating();
+            $newRating->userId = $req->tutorId;
+            $newRating->ratedUserId = $req->ratedUserId;
+            $newRating->comment = $req->comment;
+            $newRating->rating = $req->rating;
+            $newRating->save();
+            $newRating->posted_date = date('M d, Y H:i A');
+            $newRating->rated_user_details;
+            return successResponse('Rating Post Success',$newRating);
+        }
+        return errorResponse($validator->errors()->first());
     }
 
     public function termsAndCondition(Request $req)

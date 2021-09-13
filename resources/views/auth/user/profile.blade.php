@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <form method="post" action="{{route('user.profile.save')}}" enctype="multipart/form-data">
                         @csrf
-                        <img src="{{$user->image}}" height="200" width="200">
+                        <img src="{{asset($user->image)}}" height="200" width="200">
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="image" class="col-form-label">Image:</label>

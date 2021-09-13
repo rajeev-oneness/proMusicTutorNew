@@ -79,7 +79,7 @@
                                             <div class="img_border"></div>
                                             <h5 class="card-title">{{$tutor->name}}</h5>
                                             <p class="card-text">{{$tutor->about}}</p>
-                                            <a href="{{route('explore.tutor',base64_encode($tutor->id))}}" class="float-right"><i class="fas fa-long-arrow-alt-right"></i></a>
+                                            <a href="{{route('explore.tutor',[base64_encode($tutor->id),'tutor'=>$tutor->name])}}" class="float-right"><i class="fas fa-long-arrow-alt-right"></i></a>
                                         </div>
                                     </div>
                                 </div>
