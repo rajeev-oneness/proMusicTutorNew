@@ -16,7 +16,7 @@
                             <span class="text-danger" role="alert">{{ $message }}</span>
                         @enderror
                         <div class="row">
-                            <img src="{{$contact->image}}" height="250" width="250">
+                            <img src="{{asset($contact->image)}}" height="250" width="250">
                             <div class="form-group">
                                 <label for="image" class="col-form-label">Change Image:</label>
                                 <input type="file" name="image">

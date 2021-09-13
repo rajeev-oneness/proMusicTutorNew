@@ -58,30 +58,54 @@
                         </div>
 
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="dob" class="col-form-label">Date of Birth:</label>
-                                <input type="date" name="dob" class="form-control @error('dob') is-invalid @enderror" value="{{(old('dob') ? old('dob') : $user->dob)}}">
+                                <input type="date" name="dob" class="form-control @error('dob') is-invalid @enderror" value="{{(old('dob') ? old('dob') : $user->dob)}}" onkeypress="return false;">
                                 @error('dob')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="marital" class="col-form-label">Marital:</label>
-                                <select name="marital" class="form-control @error('marital') is-invalid @enderror">
+                                <select name="marital" class="form-control @error('marital') is-invalid @enderror" onchange="changeMaritalStatus(this)">
                                     <option value="" selected="" hidden="">Select Marital</option>
                                     <option value="Single" @if($user->marital=='Single'){{('selected')}}@endif>Single</option>
                                     <option value="Married" @if($user->marital=='Married'){{('selected')}}@endif>Married</option>
-                                    <option value="Divorced" @if($user->marital=='Divorced'){{('selected')}}@endif>Divorced</option>
+                                    <!-- <option value="Divorced" @if($user->marital=='Divorced'){{('selected')}}@endif>Divorced</option> -->
                                 </select>
                                 @error('marital')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4 anniversaryDiv" @if($user->marital == 'Single' || $user->marital =='') style="display:none;" @endif>
                                 <label for="aniversary" class="col-form-label">Anniversary:</label>
-                                <input type="date" name="aniversary" class="form-control @error('aniversary') is-invalid @enderror" value="{{(old('aniversary') ? old('aniversary') : $user->aniversary)}}">
+                                <input type="date" id="anniversaryInput" name="aniversary" class="form-control @error('aniversary') is-invalid @enderror" value="{{(old('aniversary') ? old('aniversary') : $user->aniversary)}}" onkeypress="return false;">
                                 @error('aniversary')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                             </div>
                         </div>
+
+                        @if($user->user_type == 2)
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="carrier_started" class="col-form-label">Carrer Started:</label>
+                                    <input type="date" name="carrier_started" class="form-control @error('carrier_started') is-invalid @enderror" value="{{(old('carrier_started') ? old('carrier_started') : $user->carrier_started)}}" onkeypress="return false;">
+                                    @error('carrier_started')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="specialist" class="col-form-label">Specialist:</label>
+                                    <select id="specialist" name="specialist" class="form-control @error('specialist') is-invalid @enderror">
+                                        <option value="" selected="" hidden="">Select Specialist</option>
+                                        @foreach($instrument as $key => $ins)
+                                            <option value="{{$ins->name}}" @if((old('specialist') ?? $user->specialist) == $ins->name){{('selected')}}@endif>{{$ins->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('specialist')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="about" class="col-form-label">About:</label>
+                                <textarea class="form-control @error('about') is-invalid @enderror" id="about" name="about" placeholder="About">{{(old('about') ?? $user->about)}}</textarea>
+                                @error('about')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
+                        @endif
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Update</button>
@@ -129,6 +153,19 @@
 </div>
 
 @section('script')
-    <script type="text/javascript"></script>
+    <script type="text/javascript" src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        CKEDITOR.replace('about');
+
+        function changeMaritalStatus(thisOb){
+            if(thisOb.value == 'Married'){
+                $('.anniversaryDiv').show();
+                $('#anniversaryInput').attr('required',true);
+            }else{
+                $('.anniversaryDiv').hide();
+                $('#anniversaryInput').attr('required',false);
+            }
+        } 
+    </script>
 @stop
 @endsection

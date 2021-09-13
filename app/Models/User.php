@@ -77,4 +77,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\UserRating','userId','id')->latest();
     }
+
+    public function user_profile()
+    {
+        return $this->hasOne('App\Models\UserProfile','userId','id');
+    }
+
+    public function product_series()
+    {
+        return $this->hasMany('App\Models\ProductSeries','createdBy','id');
+    }
 }

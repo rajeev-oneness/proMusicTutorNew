@@ -26,7 +26,7 @@
                                     <th>Referral Code</th>
                                     <th>Referred By</th>
                                     <th>Count Referred To</th>
-                                    <th>Total Points</th>
+                                    {{-- <th>Total Points</th> --}}
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -34,7 +34,7 @@
                                 @foreach($users as $user)
                                     @if($user->user_type != 1)
                                         <tr>
-                                            <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{$user->image}}"></td>
+                                            <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{asset($user->image)}}"></td>
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
                                             <td>{{$user->mobile}}</td>
@@ -54,9 +54,9 @@
                                                     {{('N/A')}}
                                                 @endif
                                             </td>
-                                            <td>
+                                            {{-- <td>
                                                 <a href="{{route('admin.user.points',$user->id)}}">{{getSumOfPoints($user->user_points)}}</a>
-                                            </td>
+                                            </td> --}}
                                             @if($user->user_type == 1)
                                                 <td></td>
                                             @else

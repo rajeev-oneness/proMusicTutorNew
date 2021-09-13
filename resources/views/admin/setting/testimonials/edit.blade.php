@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <form method="post" action="{{route('admin.testimonial.update')}}" enctype="multipart/form-data">
                         @csrf
-                        <img src="{{$testimonial->image}}" height="200px" width="300px">
+                        <img src="{{asset($testimonial->image)}}" height="200px" width="300px">
                         <input type="hidden" name="testimonialId" value="{{$testimonial->id}}">
                         <div class="form-group">
                             <label for="image" class="col-form-label">Image:</label>

@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('otp',10);
+            $table->string('specialist');
             $table->longText('about');
             $table->date('carrier_started');
             $table->tinyInteger('subscribed')->default(1)->comment('1:Subscribed ,0:Un-Subscribed');
@@ -53,6 +54,7 @@ class CreateUsersTable extends Migration
                 'password' => Hash::make('secret'),
                 'referral_code' => referralCodeGenerate(),
                 'about' => '',
+                'specialist' => '',
                 'image' => 'defaultImages/user.jpg',
             ],
             [
@@ -63,6 +65,7 @@ class CreateUsersTable extends Migration
                 'referral_code' => referralCodeGenerate(),
                 'about' => 'Andy Sheppard is one of Europe’s best saxophonist and is one of the few British sax players to make waves on the international jazz scene in recent years.',
                 'image' => 'design/img/team-1.jpg',
+                'specialist' => 'SEXAPHONE',
             ],
             [
                 'user_type' => 2,
@@ -72,6 +75,7 @@ class CreateUsersTable extends Migration
                 'referral_code' => referralCodeGenerate(),
                 'about' => 'Craig Crofton is one of Europe’s best saxophonist and is one of the few British sax players to make waves on the international jazz scene in recent years.',
                 'image' => 'design/img/team-2.jpg',
+                'specialist' => 'SEXAPHONE',
             ],
             [
                 'user_type' => 2,
@@ -81,6 +85,7 @@ class CreateUsersTable extends Migration
                 'referral_code' => referralCodeGenerate(),
                 'about' => 'Innes Sibun is one of Europe’s best saxophonist and is one of the few British sax players to make waves on the international jazz scene in recent years.',
                 'image' => 'design/img/team-3.jpg',
+                'specialist' => 'GUITAR',
             ],
             [
                 'user_type' => 3,
@@ -90,6 +95,7 @@ class CreateUsersTable extends Migration
                 'referral_code' => referralCodeGenerate(),
                 'about' => '',
                 'image' => 'design/img/testi-1.png',
+                'specialist' => 'GUITAR',
             ],
             [
                 'user_type' => 2,
@@ -99,6 +105,7 @@ class CreateUsersTable extends Migration
                 'referral_code' => referralCodeGenerate(),
                 'about' => 'Demo is one of Europe’s best saxophonist and is one of the few British sax players to make waves on the international jazz scene in recent years.',
                 'image' => 'defaultImages/user.jpg',
+                'specialist' => 'DRUM',
             ],
         ];
 

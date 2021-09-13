@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use Auth,App\Models\Instrument;
 
 class HomeController extends Controller
 {
@@ -41,7 +41,11 @@ class HomeController extends Controller
     public function userProfile(Request $req)
     {
         $user = Auth::user();
-        return view('auth.user.profile',compact('user'));
+        $instrument = [];
+        if($user->user_type == 2){
+            $instrument = Instrument::get();
+        }
+        return view('auth.user.profile',compact('user','instrument'));
     }
 
     public function userProfileSave(Request $req)
@@ -67,6 +71,11 @@ class HomeController extends Controller
         $user->dob = emptyCheck($req->dob,true);
         $user->marital = emptyCheck($req->marital);
         $user->aniversary = emptyCheck($req->aniversary,true);
+        if($user->user_type == 2){
+            $user->about = emptyCheck($req->about);
+            $user->specialist = emptyCheck($req->specialist);
+            $user->carrier_started = emptyCheck($req->carrier_started,true);
+        }
         $user->save();
         return back()->with('Success','Profile updated successFully');
     }

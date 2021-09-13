@@ -78,7 +78,7 @@
                                         <div class="card-body pb-1">
                                             <div class="img_border"></div>
                                             <h5 class="card-title">{{$tutor->name}}</h5>
-                                            <p class="card-text">{{$tutor->about}}</p>
+                                            <p class="card-text">{!! words($tutor->about,200) !!}</p>
                                             <a href="{{route('explore.tutor',[base64_encode($tutor->id),'tutor'=>$tutor->name])}}" class="float-right"><i class="fas fa-long-arrow-alt-right"></i></a>
                                         </div>
                                     </div>

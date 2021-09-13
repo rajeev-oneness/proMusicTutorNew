@@ -28,7 +28,7 @@
                             <tbody>
                                 @foreach($testimonials as $testimonial)
                                     <tr>
-                                        <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{$testimonial->image}}"></td>
+                                        <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{asset($testimonial->image)}}"></td>
                                         <td>{{$testimonial->name}}</td>
                                         <td>{{$testimonial->address}}</td>
                                         <td>{{$testimonial->quote}}</td>
