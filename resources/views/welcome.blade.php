@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-    </section><!--banner-->
+    </section>
 
     @if(count($data->instrument) > 0)
         <section class="pt-6">
