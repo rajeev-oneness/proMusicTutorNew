@@ -71,7 +71,7 @@
                         type:'POST',
                         dataType:'JSON',
                         url:"{{route('tutor.product.series.delete',[$instrument->id])}}",
-                        data: {productSeriesId:productSeriesId,userId:'{{$user->id}}','_token': $('input[name=_token]').val()},
+                        data: {instrumentId:'{{$instrument->id}}',productSeriesId:productSeriesId,userId:'{{$user->id}}','_token': $('input[name=_token]').val()},
                         success:function(data){
                             if(data.error == false){
                                 seriesDelete.closest('tr').remove();

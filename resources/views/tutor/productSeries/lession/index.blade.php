@@ -65,7 +65,7 @@
                     $.ajax({
                         type:'POST',
                         dataType:'JSON',
-                        url:"{{route('tutor.product.series.lession.delete',[$instrument->id,$productSeries->id,"+seriesLessionId+"])}}",
+                        url:"{{route('tutor.product.series.lession.delete',[$instrument->id,$productSeries->id])}}",
                         data: {instrumentId:'{{$instrument->id}}',productSeriesId:'{{$productSeries->id}}',seriesLessionId:seriesLessionId,userId:'{{$user->id}}','_token': $('input[name=_token]').val()},
                         success:function(data){
                             if(data.error == false){

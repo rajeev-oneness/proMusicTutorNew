@@ -19,7 +19,7 @@
             Route::post('/save',[ProductController::class,'productSeriesLessionSave'])->name('tutor.product.series.lession.save');
             Route::get('/{id}/edit',[ProductController::class,'productSeriesLessionEdit'])->name('tutor.product.series.lession.edit');
             Route::post('/{id}/update',[ProductController::class,'productSeriesLessionUpdate'])->name('tutor.product.series.lession.update');
-            Route::post('/{id}/delete',[ProductController::class,'productSeriesLessionDelete'])->name('tutor.product.series.lession.delete');
+            Route::post('delete',[ProductController::class,'productSeriesLessionDelete'])->name('tutor.product.series.lession.delete');
         });
     });
 ?>

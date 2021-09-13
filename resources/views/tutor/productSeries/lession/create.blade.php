@@ -1,55 +1,71 @@
 @extends('layouts.auth.authMaster')
-@section('title','Add Product Lession')
+@section('title','Add Lession under '.ucwords($instrument->name))
 @section('content')
 <div class="container-fluid dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Add Product Lession ({{$productSeries->title}})
-                        <a class="headerbuttonforAdd" href="{{route('tutor.product.series.lession.list',$productSeries->id)}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                    <h5 class="mb-0">Add Lession Under {{ucwords($instrument->name)}} ({{$productSeries->title}})
+                        <a class="headerbuttonforAdd" href="{{route('tutor.product.series.lession.list',[$instrument->id,$productSeries->id])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{route('tutor.product.series.lession.save',$productSeries->id)}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('tutor.product.series.lession.save',[$instrument->id,$productSeries->id])}}" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="instrumentId" value="{{$instrument->id}}">
+                        @error('instrumentId')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                         <input type="hidden" name="productSeriesId" value="{{$productSeries->id}}">
+                        @error('productSeriesId')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                         <div class="row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="image" class="col-form-label">Image:</label>
                                 <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
                                 @error('image')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="title" class="col-form-label">Title:</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Series Title" value="{{old('title')}}">
                                 @error('title')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
+                        </div>
 
-                            <div class="form-group col-md-4">
+                        <div class="row">
+                            <div class="form-group col-md-6">
                                 <label for="price" class="col-form-label">Price:</label>
-                                <input type="text" class="form-control @error('price') is-invalid @enderror" id="price" name="price" placeholder="Price" value="{{old('price')}}">
+                                <input type="text" class="form-control @error('price') is-invalid @enderror" id="price" name="price" placeholder="Price" value="{{old('price')}}" onkeypress="return isNumberKey(event);" maxlength="7">
                                 @error('price')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="difficulty" class="col-form-label">Difficulty:</label>
+                                <select class="form-control @error('difficulty') is-invalid @enderror" name="difficulty" id="difficulty">
+                                    <option value="" hidden="" selected="">Select Difficulty</option>
+                                    <option value="Easy" @if(old('difficulty') == 'Easy'){{('selected')}}@endif>Easy</option>
+                                    <option value="Medium" @if(old('difficulty') == 'Medium'){{('selected')}}@endif>Medium</option>
+                                    <option value="Hard" @if(old('difficulty') == 'Hard'){{('selected')}}@endif>Hard</option>
+                                </select>
+                                @error('difficulty')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label for="gbp" class="col-form-label">GBP:</label>
-                                <input type="text" class="form-control @error('gbp') is-invalid @enderror" id="gbp" name="gbp" placeholder="GBP" value="{{old('gbp')}}">
+                                <input type="text" class="form-control @error('gbp') is-invalid @enderror" id="gbp" name="gbp" placeholder="GBP" value="{{old('gbp')}}" onkeypress="return isNumberKey(event);" maxlength="7">
                                 @error('gbp')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label for="price_usd" class="col-form-label">USD:</label>
-                                <input type="text" class="form-control @error('price_usd') is-invalid @enderror" id="price_usd" name="price_usd" placeholder="Price in USD" value="{{old('price_usd')}}">
+                                <input type="text" class="form-control @error('price_usd') is-invalid @enderror" id="price_usd" name="price_usd" placeholder="Price in USD" value="{{old('price_usd')}}" onkeypress="return isNumberKey(event);" maxlength="7">
                                 @error('price_usd')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label for="price_euro" class="col-form-label">EURO:</label>
-                                <input type="text" class="form-control @error('price_euro') is-invalid @enderror" id="price_euro" name="price_euro" placeholder="Price in EURO" value="{{old('price_euro')}}">
+                                <input type="text" class="form-control @error('price_euro') is-invalid @enderror" id="price_euro" name="price_euro" placeholder="Price in EURO" value="{{old('price_euro')}}" onkeypress="return isNumberKey(event);" maxlength="7">
                                 @error('price_euro')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
                         </div>
