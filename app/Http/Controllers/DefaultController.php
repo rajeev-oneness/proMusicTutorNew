@@ -16,9 +16,9 @@ class DefaultController extends Controller
     {
         $data = (object)[];
         $data->faq = Faq::get();
-        $data->tutor = User::where('user_type',2)->orderBy('id','ASC')->limit(10)->get();
-        $data->testimonial = Testimonial::where('id',1)->get();
-        $data->instrument = Instrument::limit(2)->get();
+        $data->tutor = User::where('user_type',2)->latest()->limit(5)->get();
+        $data->testimonial = Testimonial::latest()->limit(1)->get();
+        $data->instrument = Instrument::latest()->limit(2)->get();
         return view('welcome',compact('data'));
     }
 
