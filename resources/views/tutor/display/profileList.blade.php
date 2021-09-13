@@ -12,7 +12,7 @@
         <div class="row justify-content-between m-0 mb-5 align-content-center align-items-center">
             <div class="col-12 col-lg-4">
                 <ul class="bredcamb">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="{{route('welcome')}}">Home</a></li>
                     <li>/</li>
                     <li><a href="#" class="active">Tutor's</a></li>
                 </ul>

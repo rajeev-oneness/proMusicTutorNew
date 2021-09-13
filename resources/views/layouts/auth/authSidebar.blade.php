@@ -24,6 +24,12 @@
                         <li class="nav-item">
                             <a class="nav-link {{request()->routeIs('user.profile')?'active':''}}" href="{{route('user.profile')}}"><i class="fa fa-fw fa-user-circle"></i>Profile</a>
                         </li>
+
+                        @if($userType == 2) <!-- Tutor Profile Link -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('explore.tutor',[base64_encode($user->id),'tutor' => $user->name])}}"><i class="fa fa-fw fa-user-circle"></i>View Public Profile</a>
+                            </li>
+                        @endif
                         @if($userType != 1)
                             <!-- <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('user.points')?'active':''}}" href="{{route('user.points')}}"><i class="fa fa-fw fa-user-circle"></i>Your Points</a>

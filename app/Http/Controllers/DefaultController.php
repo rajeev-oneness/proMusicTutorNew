@@ -298,6 +298,9 @@ class DefaultController extends Controller
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
+            if($req->tutorId == $req->ratedUserId){
+                return errorResponse('You can`t rate your self');
+            }
             $newRating = new UserRating();
             $newRating->userId = $req->tutorId;
             $newRating->ratedUserId = $req->ratedUserId;
@@ -340,5 +343,19 @@ class DefaultController extends Controller
         $data = (object)[];
         $data->aboutus = Setting::where('key','aboutus')->first();
         return view('front.about-us',compact('data'));
+    }
+
+    public function testimonialsList(Request $req)
+    {
+        $data = (object)[];
+        $data->testimonials = Testimonial::latest()->get();
+        return view('front.testinomialList',compact('data'));
+    }
+
+    public function exploreInstruments(Request $req)
+    {
+        $data = (object)[];
+        $data->instruments = Instrument::latest()->get();
+        return view('front.exploreInstrument',compact('data'));
     }
 }

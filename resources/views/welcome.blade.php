@@ -24,10 +24,12 @@
                 <div class="row align-content-center justify-content-center">
                     @foreach($data->instrument as $index => $instrument)
                         <div class="col-12 col-md-4 position-relative mb-3">
-                            <img src="{{asset($instrument->image)}}" class="w-100">
-                            <div class="img-title">
-                                <h5>{{$instrument->name}}</h5>
-                            </div>
+                            <a href="javascript:void(0)">
+                                <img src="{{asset($instrument->image)}}" class="w-100">
+                                <div class="img-title">
+                                    <h5>{{$instrument->name}}</h5>
+                                </div>
+                            </a>
                         </div>
                     @endforeach
                     <div class="col-12 col-md-4 position-relative newarival order-first order-md-12 mb-3">
@@ -35,7 +37,9 @@
                             <span class="d-block">GET </span>STARTED <span class="d-block">NOW </span>
                         </h1>
                         <h6 class="text-muted mb-4 mt-3 w-50">BY CHOOSING YOUR INSTRUMENT.</h6>
-                        <a href="javascript:void(0)" class="btn viewmore">Explore More</a>
+                        @if(count($data->instrument) > 2)
+                            <a href="{{route('explore.instrument')}}" class="btn viewmore">Explore More</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -59,7 +63,8 @@
             </div>
         </div>
     </section>
-
+    
+    <!-- Tutor Section -->
     @if(count($data->tutor) > 0)
         <section class="pt-5 pb-5 my_teams">
             <div class="container">
@@ -87,12 +92,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-center">
-                    <a href="{{route('explore.tutor')}}" class="btn viewmore">Expore</a>
-                </div>
+                @if(count($data->tutor) > 5)
+                    <div class="text-center">
+                        <a href="{{route('explore.tutor')}}" class="btn viewmore">Expore</a>
+                    </div>
+                @endif
             </div>
         </section>
     @endif
+
+    <!-- Testimonals Section -->
     @if(count($data->testimonial) > 0)
         <section class="mt-5 pt-5 pb-5 bg-light">
             <div class="container">
@@ -103,8 +112,10 @@
                             members  
                             <span class="d-block">are saying</span>
                         </h1>
-                        <h6 class="text-muted mb-4 mt-3 w-50">BY CHOOSING YOUR INSTRUMENT.</h6>
-                        <a href="#" class="btn viewmore">Explore More</a>
+                        @if(count($data->testimonial) > 1)
+                            <h6 class="text-muted mb-4 mt-3 w-50">BY CHOOSING YOUR INSTRUMENT.</h6>
+                            <a href="{{route('explore.testimonials')}}" class="btn viewmore">Explore More</a>
+                        @endif
                     </div>
                     <div class="col-12 col-md-6">
                         @foreach($data->testimonial as $key => $testimonial)
