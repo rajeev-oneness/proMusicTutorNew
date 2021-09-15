@@ -24,4 +24,9 @@ class ProductSeriesLession extends Model
     {
         return $this->belongsTo('App\Models\Genre', 'genre', 'id');
     }
+
+    public function author()
+    {
+        return $this->belongsTo('App\Models\User','createdBy','id');
+    }
 }

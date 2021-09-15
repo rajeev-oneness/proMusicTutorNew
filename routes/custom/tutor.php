@@ -4,7 +4,7 @@
 
     Route::get('dashboard',[TutorController::class,'dashboard'])->name('home');
 
-    // Guitar Series and Their Lession
+    // Product Series and Their Lession
     Route::group(['prefix' => 'instrument/{instrumentId}/product/series'],function(){
         Route::get('/',[ProductController::class,'productSeriesView'])->name('tutor.product.series.list');
         Route::get('/create',[ProductController::class,'productSeriesCreate'])->name('tutor.product.series.create');

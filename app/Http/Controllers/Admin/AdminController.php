@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ProductSeries,App\Models\ProductSeriesLession;
+use App\Models\Instrument;
 
 
 class AdminController extends Controller
@@ -15,15 +16,33 @@ class AdminController extends Controller
         return view('admin.dashboard',compact('data'));
     }
 
-    public function productSeriesList(Request $req)
+    // Get Instrument by Providing InstrumentId
+    public function getInstrument($instrumentId)
     {
-    	$productSeries = ProductSeries::get();
-    	return view('admin.product.index',compact('productSeries'));
+        $instrument = Instrument::where('id',$instrumentId)->first();
+        return $instrument;
     }
 
-    public function productLessionList(Request $req,$seriesId)
+    public function productSeriesList(Request $req,$instrumentId)
     {
-    	$productSeries = ProductSeries::where('id',$seriesId)->first();
-    	return view('admin.product.lession.index',compact('productSeries'));
+        $instrument = $this->getInstrument($instrumentId);
+        if($instrument){
+            $productSeries = ProductSeries::where('instrumentId',$instrument->id)->get();
+            return view('admin.product.index',compact('productSeries','instrument'));
+        }
+        return abort(404);
+    }
+
+    public function productSeriesLessionList(Request $req,$instrumentId,$seriesId)
+    {
+        $instrument = $this->getInstrument($instrumentId);
+        if($instrument){
+            $productSeries = ProductSeries::where('id',$seriesId)->where('instrumentId',$instrumentId)->first();
+            if($productSeries){
+                $productSeries->lession_data = ProductSeriesLession::where('instrumentId',$instrument->id)->where('categoryId',$productSeries->categoryId)->where('productSeriesId',$productSeries->id)->get();
+                return view('admin.product.lession.index',compact('productSeries','instrument'));
+            }
+        }
+        return abort(404);   
     }
 }

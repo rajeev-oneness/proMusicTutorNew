@@ -1,12 +1,12 @@
 @extends('layouts.auth.authMaster')
-@section('title','Guitar Series')
+@section('title',ucwords($instrument->name))
 @section('content')
 <div class="container-fluid dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Guitar Series List</h5>
+                    <h5 class="mb-0">{{ucwords($instrument->name)}} List</h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -16,26 +16,24 @@
                                     <th>Category</th>
                                     <th>Image</th>
                                     <th>Series Name</th>
-                                    <th>Series Lession</th>
+                                    <th>Lessions</th>
                                     <th>Description</th>
                                     <th>Media</th>
                                     <th>Author</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($guitarSeries as $key => $series)
+                                @foreach($productSeries as $key => $series)
                                     <?php
-                                        $catgeory = $series->category;
+                                        $category = $series->category;
                                         $lession = $series->lession;
                                     ?>
                                     <tr>
-                                        <td>{{$catgeory->name}}</td>
+                                        <td>{{$category->name}}</td>
                                         <td><img src="{{asset($series->image)}}" height="200" width="200"></td>
                                         <td>{{ $series->title }}</td>
-                                        <td>
-                                            <a href="{{route('admin.guitar.series.lession.view',$series->id)}}">{{count($lession)}}</a>
-                                        </td>
-                                        <td>{!! $series->description !!}</td>
+                                        <td><a href="{{route('admin.product.series.lession.list',[$instrument->id,$series->id])}}">{{count($lession)}} to view</a></td>
+                                        <td>{!! words($series->description,350) !!}</td>
                                         <td><a href="{{$series->video_url}}" target="_blank">Link</a></td>
                                         <td>
                                             <ul>

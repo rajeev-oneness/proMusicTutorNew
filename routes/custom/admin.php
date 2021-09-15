@@ -46,12 +46,12 @@
 	});
 
 	// Product Series and Their Lession
-	Route::group(['prefix' => 'guitar/series'],function(){
-		Route::get('/list',[AdminController::class,'guitarSeriesList'])->name('admin.guitar.series.view');
-		Route::group(['prefix' => '{seriesId}/lession'],function(){
-			Route::get('/list',[AdminController::class,'guitarLessionList'])->name('admin.guitar.series.lession.view');
-		});
-	});
+    Route::group(['prefix' => 'instrument/{instrumentId}/product/series'],function(){
+        Route::get('/',[AdminController::class,'productSeriesList'])->name('admin.product.series.list');
+        Route::group(['prefix' => '{productSeriesId}/lession'],function(){
+            Route::get('/',[AdminController::class,'productSeriesLessionList'])->name('admin.product.series.lession.list');
+        });
+    });
 
 	// Reports
 	Route::group(['prefix' => 'report'],function(){

@@ -61,15 +61,22 @@
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Users</a>
                             </li>
-                            {{-- @if(count($instruments) > 0)
+                            @if(count($instruments) > 0)
                                 <li class="nav-divider">Products</li>
                                 @foreach($instruments as $index => $instru)
                                     <li class="nav-item">
-                                        <a class="nav-link {{request()->routeIs('admin.guitar.series.*')?'active':''}}" href="{{route('admin.guitar.series.view')}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a>
+                                        <a class="nav-link {{request()->routeIs('admin.product.series.*',[$instru->id,'instrument='.$instru->name])?'active':''}}" href="{{route('admin.product.series.list',[$instru->id,'instrument='.$instru->name])}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a>
                                     </li>
                                 @endforeach
-                            @endif --}}
+                            @endif
 
+                            <!-- Report Section -->
+                            <li class="nav-divider">Report</li>
+                            <li class="nav-item">
+                                <a class="nav-link {{request()->routeIs('admin.report.contactus')?'active':''}}" href="{{route('admin.report.contactus')}}"><i class="fa fa-fw fa-user-circle"></i>Contact us</a>
+                            </li>
+
+                            <li class="nav-divider">Setting</li>
                             <li class="nav-item">
                                 <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('admin.master.*')?'true':'false'}}" data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-fw fa-file"></i>Master Data</a>
                                 <div id="submenu-1" class="collapse submenu {{request()->routeIs('admin.master.*')?'show':''}}">
@@ -86,14 +93,7 @@
                                     </ul>
                                 </div>
                             </li>
-
-                            <!-- Report Section -->
-                            <li class="nav-divider">Report</li>
-                            <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.report.contactus')?'active':''}}" href="{{route('admin.report.contactus')}}"><i class="fa fa-fw fa-user-circle"></i>Contact us</a>
-                            </li>
-
-                            <li class="nav-divider">Setting</li>
+                            
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.testimonial')?'active':''}}" href="{{route('admin.testimonial')}}"><i class="fa fa-fw fa-user-circle"></i>Testimonial</a>
                             </li>

@@ -21,7 +21,7 @@ class HomeController extends Controller
     {
         switch (Auth::user()->user_type) {
             case 1:
-                // return redirect('admin/dashboard');break;
+                return redirect('admin/dashboard');break;
             case 2:
                 return redirect('tutor/dashboard');break;
             case 3:
