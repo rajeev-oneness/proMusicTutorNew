@@ -2,6 +2,7 @@
 
 	namespace App\Http\Controllers\Admin;
 	use Illuminate\Support\Facades\Route;
+	use App\Http\Controllers\ReportController;
 
 	Route::get('dashboard',[AdminController::class,'dashboard'])->name('home');
 
@@ -55,6 +56,7 @@
 
 	// Reports
 	Route::group(['prefix' => 'report'],function(){
+		Route::any('transaction/log',[ReportController::class,'transactionLog'])->name('admin.report.transaction');
 		Route::get('contact-us',[CrudController::class,'contactUs'])->name('admin.report.contactus');
 		Route::post('contact-us/remark/save',[CrudController::class,'saveRemarkOfContactUs'])->name('admin.report.contactUsSaveRemark');
 	});

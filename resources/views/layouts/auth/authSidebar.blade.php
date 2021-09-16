@@ -73,6 +73,9 @@
                             <!-- Report Section -->
                             <li class="nav-divider">Report</li>
                             <li class="nav-item">
+                                <a class="nav-link {{request()->routeIs('admin.report.transaction')?'active':''}}" href="{{route('admin.report.transaction')}}"><i class="fa fa-fw fa-user-circle"></i>Transaction log</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.report.contactus')?'active':''}}" href="{{route('admin.report.contactus')}}"><i class="fa fa-fw fa-user-circle"></i>Contact us</a>
                             </li>
 

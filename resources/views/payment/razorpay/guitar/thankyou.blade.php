@@ -24,7 +24,7 @@
 	                		@endforeach
 	                		<li>Product Series : {{$productSeriesName}}</li>
 	                		<li>Transaction Id : {{$transactionId}}</li>
-	                		<li><a href="{{route('user.guitar')}}">View your Purchase</a></li>
+	                		<li><a href="{{route('user.instrument.lession')}}">View your Purchase</a></li>
                 		</ul>
                 	</ul>
                 </p>
