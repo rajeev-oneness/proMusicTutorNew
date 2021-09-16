@@ -87,13 +87,14 @@
                                     <input type="date" name="carrier_started" class="form-control @error('carrier_started') is-invalid @enderror" value="{{(old('carrier_started') ? old('carrier_started') : $user->carrier_started)}}" onkeypress="return false;">
                                     @error('carrier_started')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                                 </div>
-
+                                @php
+                                    $specialist = (old('specialist') ?? explode(',',$user->specialist) ?? []);
+                                @endphp
                                 <div class="form-group col-md-6">
                                     <label for="specialist" class="col-form-label">Specialist:</label>
-                                    <select id="specialist" name="specialist" class="form-control @error('specialist') is-invalid @enderror">
-                                        <option value="" selected="" hidden="">Select Specialist</option>
+                                    <select id="specialist" name="specialist[]" multiple class="form-control selectAll @error('specialist') is-invalid @enderror">
                                         @foreach($instrument as $key => $ins)
-                                            <option value="{{$ins->name}}" @if((old('specialist') ?? $user->specialist) == $ins->name){{('selected')}}@endif>{{$ins->name}}</option>
+                                            <option value="{{$ins->name}}" @if(in_array($ins->name,$specialist)){{('selected')}}@endif>{{$ins->name}}</option>
                                         @endforeach
                                     </select>
                                     @error('specialist')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
@@ -165,7 +166,8 @@
                 $('.anniversaryDiv').hide();
                 $('#anniversaryInput').attr('required',false);
             }
-        } 
+        }
+        $('.selectAll').SumoSelect({search: true, searchText: 'Search Instruments.',placeholder: 'Search Instruments'});
     </script>
 @stop
 @endsection

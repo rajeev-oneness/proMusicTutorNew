@@ -58,6 +58,8 @@ class HomeController extends Controller
             'dob' => 'nullable|date_format:Y-m-d|before:'.date('Y-m-d'),
             'marital' => 'nullable|string|in:Single,Married,Divorced',
             'aniversary' => 'nullable|date_format:Y-m-d|before:'.date('Y-m-d'),
+            'specialist' => 'nullable|array',
+            'specialist.*' => 'required|string',
         ]);
         $user = Auth::user();
         $user->name = $req->name;
@@ -73,7 +75,7 @@ class HomeController extends Controller
         $user->aniversary = emptyCheck($req->aniversary,true);
         if($user->user_type == 2){
             $user->about = emptyCheck($req->about);
-            $user->specialist = emptyCheck($req->specialist);
+            $user->specialist = ($req->specialist ? implode(',', $req->specialist) : '');
             $user->carrier_started = emptyCheck($req->carrier_started,true);
         }
         $user->save();

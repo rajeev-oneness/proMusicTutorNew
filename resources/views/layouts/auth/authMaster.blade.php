@@ -7,6 +7,7 @@
     <link rel="icon" href="{{asset('design/img/logo.png')}}" type="image/gif" sizes="any">
     <link rel="stylesheet" type="text/css" href="{{asset('authDesign/css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('authDesign/css/style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('authDesign/css/sumoselect.min.css')}}">
     <link rel="stylesheet" href="{{asset('authDesign/vendor/fonts/fontawesome/css/fontawesome-all.css')}}">
     <link rel="stylesheet" href="{{asset('authDesign/vendor/fonts/flag-icon-css/flag-icon.min.css')}}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
@@ -31,6 +32,7 @@
     <script type="text/javascript" src="{{asset('authDesign/js/jquery-3.5.1.js')}}"></script>
     <script type="text/javascript" src="{{asset('authDesign/js/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('authDesign/js/sweetalert.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('authDesign/js/sumoselect.min.js')}}"></script>
     <script src="{{asset('authDesign/vendor/slimscroll/jquery.slimscroll.js')}}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
