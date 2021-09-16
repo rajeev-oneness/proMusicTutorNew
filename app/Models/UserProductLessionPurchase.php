@@ -29,4 +29,9 @@ class UserProductLessionPurchase extends Model
     {
         return $this->belongsTo('App\Models\Category','categoryId','id');
     }
+
+    public function users_details()
+    {
+        return $this->belongsTo('App\Models\User', 'userId', 'id');
+    }
 }
