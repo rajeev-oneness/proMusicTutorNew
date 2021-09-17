@@ -113,7 +113,7 @@
             return false;  
         }
 
-        $('#stripePaymentModal').modal('show');
+        // $('#stripePaymentModal').modal('show');
 
         // strpe payment gateway starts
         $(function () {

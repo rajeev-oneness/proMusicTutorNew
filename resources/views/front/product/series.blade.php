@@ -95,7 +95,7 @@
                                             <form id="checkoutForm{{$series->id}}" action="{{route('razorpay.payment.store')}}" method="POST" >
                                                 @csrf
                                                 <input type="hidden" name="redirectURL" value="{{route('after.purchase.guitar_series',$series->id)}}">
-                                                <!-- <script src="https://checkout.razorpay.com/v1/checkout.js"
+                                                <script src="https://checkout.razorpay.com/v1/checkout.js"
                                                         data-key="{{ env('RAZORPAY_KEY') }}"
                                                         data-amount="{{($seriesPrice) * 100}}"
                                                         /****data-buttontext="Pay {{$seriesPrice}} INR"****/
@@ -105,9 +105,8 @@
                                                         /*data-prefill.name=""
                                                         data-prefill.email=""*/
                                                         data-theme.color="#ff7529">
-                                                </script> -->
-                                                <!-- <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="$('#checkoutForm{{$series->id}}').submit()">BUY FULL SERIES - &pound;  {{$seriesPrice}}</a> -->
-                                                <a href="javascript:void(0)" class="btn buyfull mb-3 buyNow">BUY FULL SERIES - &pound;  {{$seriesPrice}}</a>
+                                                </script>
+                                                <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="$('#checkoutForm{{$series->id}}').submit()">BUY FULL SERIES - &pound;  {{$seriesPrice}}</a>
                                             </form>
                                         @endif
                                     @endguest
@@ -130,8 +129,5 @@
 @section('script')
 <script type="text/javascript">
     $('.razorpay-payment-button').remove();
-    $(document).on('click','.buyNow',function(){
-        $('#stripePaymentModal').modal('show');
-    });
 </script>
 @endsection
