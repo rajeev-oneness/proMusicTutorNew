@@ -22,7 +22,8 @@
         <section class="pt-6">
             <div class="container">
                 <div class="row align-content-center justify-content-center">
-                    @foreach($data->instrument as $index => $instrument)
+                    @foreach($data->instrument as $indexInstrument => $instrument)
+                        @if($indexInstrument >= 2)@break;@endif
                         <div class="col-12 col-md-4 position-relative mb-3">
                             <a href="javascript:void(0)">
                                 <img src="{{asset($instrument->image)}}" class="w-100">
@@ -76,7 +77,8 @@
                 <div class="row justify-content-center">
                     <div class="col-10 columns">
                         <div class="owl-carousel teams">
-                            @foreach($data->tutor as $index => $tutor)
+                            @foreach($data->tutor as $tutorIndex => $tutor)
+                                @if($tutorIndex >= 5)@break;@endif
                                 <div class="item">
                                     <div class="card text-center">
                                         <img src="{{asset($tutor->image)}}" class="card-img-top">
@@ -118,7 +120,8 @@
                         @endif
                     </div>
                     <div class="col-12 col-md-6">
-                        @foreach($data->testimonial as $key => $testimonial)
+                        @foreach($data->testimonial as $keyTestimonial => $testimonial)
+                            @if($keyTestimonial >= 1)@break;@endif
                             <div class="row m-0 testimonialbody">
                                 <div class="col-6 col-md-6 p-0 testitext">
                                     <img src="{{asset('design/img/quote.png')}}" class="quote_icon">

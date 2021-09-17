@@ -18,6 +18,9 @@ use App\Http\Controllers\Auth\LoginController;
 */
 
 Route::get('/',[DefaultController::class,'welcome'])->name('welcome');
+Route::get('explore/instrument',[DefaultController::class,'exploreInstruments'])->name('explore.instrument');
+Route::get('explore/testimonials',[DefaultController::class,'testimonialsList'])->name('explore.testimonials');
+
 Route::get('about-us',[DefaultController::class,'aboutus'])->name('welcome.aboutus');
 Route::get('product/series',[DefaultController::class,'browserProduct'])->name('product.series');
 Route::get('product/series/{seriesId}/details',[DefaultController::class,'browserProductDetails'])->name('product.series.details');
@@ -32,8 +35,6 @@ Route::post('contact-us',[DefaultController::class,'contactUsFrontSave'])->name(
 Route::get('terms-and-condition',[DefaultController::class,'termsAndCondition'])->name('terms&condition');
 Route::get('privacy/policy',[DefaultController::class,'privacyPolicy'])->name('privacy.policy');
 Route::get('refund/policy',[DefaultController::class,'refundPolicy'])->name('policy.refund');
-Route::get('explore/testimonials',[DefaultController::class,'testimonialsList'])->name('explore.testimonials');
-Route::get('explore/instrument',[DefaultController::class,'exploreInstruments'])->name('explore.instrument');
 
 Auth::routes(['logout'=>false]);
 
