@@ -344,6 +344,7 @@ class DefaultController extends Controller
         return view('front.policy.howItWorks',compact('howitworkMain'));
     }
 
+    // About Us
     public function aboutus(Request $req)
     {
         $data = (object)[];
