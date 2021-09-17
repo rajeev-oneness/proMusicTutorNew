@@ -37,7 +37,6 @@
                                         <option value="{{$item->id}}" {{($item->id == $req->lessionId) ? 'selected' : ''}}>{{$item->title}}</option>
                                     @endforeach
                                 </select>
-                                {{-- <input type="text" name="teacherId" value="{{($req->teacherId ?? '')}}"> --}}
                                 <button type="submit" class="btn btn-sm btn-primary mr-2"> <i class="fa fa-check"></i> Apply</button>
                                 <a href="{{route('admin.report.transaction')}}" class="btn btn-sm btn-secondary"> <i class="fa fa-ban"></i> Remove filters</a>
                             </form>
@@ -45,7 +44,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table id="example5" class="table table-striped table-bordered" style="width:100%">
+                        <table id="example5" class="table table-sm table-hover table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Serial</th>
