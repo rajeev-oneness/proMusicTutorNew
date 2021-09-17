@@ -13,10 +13,9 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav flex-column">
+                <div class="collapse navbar-collapse pb-4" id="navbarNav">
+                    <ul class="navbar-nav flex-column pb-5">
                         <li class="nav-divider"> Menu </li>
-                        
                         <li class="nav-item">
                             <a class="nav-link {{request()->routeIs('home')?'active':''}}" href="{{route('home')}}"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
                         </li>
@@ -65,8 +64,7 @@
                                 <li class="nav-divider">Products</li>
                                 @foreach($instruments as $index => $instru)
                                     <li class="nav-item">
-                                        <a class="nav-link {{request()->is('admin/instrument/')? 'active' : ''}}" href="{{route('admin.product.series.list',[$instru->id,'instrument='.$instru->name])}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a>
-                                        {{-- <a class="nav-link {{request()->routeIs('admin.product.series.*',[$instru->id,'instrument='.$instru->name])? 'active' : ''}}" href="{{route('admin.product.series.list',[$instru->id,'instrument='.$instru->name])}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a> --}}
+                                        <a class="nav-link {{(request()->is('admin/instrument/'.$instru->id.'*')) ? 'active' : ''}}" href="{{route('admin.product.series.list',[$instru->id,'instrument='.$instru->name])}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a>
                                     </li>
                                 @endforeach
                             @endif
@@ -75,10 +73,10 @@
                             <li class="nav-divider">Report</li>
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.report.transaction')?'active':''}}" href="{{route('admin.report.transaction')}}"><i class="fa fa-fw fa-user-circle"></i>Transaction log</a>
-                            </li>   
-                            {{-- <li class="nav-item">
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.report.bestSeller')?'active':''}}" href="{{route('admin.report.bestSeller')}}"><i class="fa fa-fw fa-user-circle"></i>Best seller</a>
-                            </li> --}}
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.report.contactus')?'active':''}}" href="{{route('admin.report.contactus')}}"><i class="fa fa-fw fa-user-circle"></i>Contact us</a>
                             </li>
