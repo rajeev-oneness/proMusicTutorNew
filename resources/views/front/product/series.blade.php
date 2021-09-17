@@ -40,12 +40,25 @@
                     </div>
                 </div>
                 <div class="row m-0">
+                    @php
+                        $queryParameter = [];
+                        if($data->instrument){
+                            $queryParameter = [
+                                'instrumentId' => $data->instrument->id,
+                                'instrumentName' => $data->instrument->name,
+                            ];
+                        }
+                    @endphp
                     @foreach($data->category as $index => $cat)
+                        @php
+                            $queryParameter['categoryId'] = $cat->id;
+                            $queryParameter['categoryName'] = $cat->name;
+                        @endphp
                         <div class="col-12 col-sm-6 col-md-4 mb-3">
                             <div class="card border-0 ">
                                 <img src="{{asset($cat->image)}}" class="card-img-top">
                                 <div class="card-body p-0">
-                                  <a href="{{route('product.series',['categoryId'=>$cat->id,'categoryName'=>$cat->name])}}" class="btn signbtn ">{{$cat->name}}</a>
+                                  <a href="{{route('product.series',$queryParameter)}}" class="btn signbtn">{{$cat->name}}</a>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +73,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center title-inner">
-                        <h1 class="mb-5">Browse All Series</h1>
+                        <h1 class="mb-5">All Series</h1>
                     </div>
                 </div>
                 <div class="row m-0">
@@ -106,9 +119,9 @@
                         </div>
                     @endforeach
                 </div>
-                <div class="text-center mt-5">
+                <!-- <div class="text-center mt-5">
                     <a href="javascript:void(0)" class="btn viewmore">EXPLORE MORE</a>
-                </div>
+                </div> -->
             </div>
         </section>
     @endif

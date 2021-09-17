@@ -51,19 +51,19 @@ class DefaultController extends Controller
     {
         $data = (object)[];$user = auth()->user();
         $data->category = Category::select('*');
+        $data->guitarSeries = ProductSeries::select('*');
         if(!empty($req->instrumentId)){
             $data->category = $data->category->where('instrumentId',$req->instrumentId);
-        }
-        $data->category = $data->category->get();
-        $guitarSeries = ProductSeries::select('*');
-        if(!empty($req->instrumentId)){
-            $guitarSeries = $guitarSeries->where('instrumentId',$req->instrumentId);
+            $data->guitarSeries = $data->guitarSeries->where('instrumentId',$req->instrumentId);
+            // Instument data
+            $data->instrument = Instrument::where('id',$req->instrumentId)->first();
         }
         if(!empty($req->categoryId)){
-            $guitarSeries = $guitarSeries->where('categoryId',$req->categoryId);
+            $data->guitarSeries = $data->guitarSeries->where('categoryId',$req->categoryId);
         }
-        $guitarSeries = $guitarSeries->get();
-        foreach($guitarSeries as $key => $guitar){
+        $data->category = $data->category->get();
+        $data->guitarSeries = $data->guitarSeries->get();
+        foreach($data->guitarSeries as $key => $guitar){
             if($user){
                 $checkPurchase = UserProductLessionPurchase::where('userId',$user->id)->where('productSeriesId',$guitar->id)->first();
                 if($checkPurchase){
@@ -75,7 +75,6 @@ class DefaultController extends Controller
                 $guitar->userPurchased = false;
             }
         }
-        $data->guitarSeries = $guitarSeries;
         return view('front.product.series',compact('data'));
     }
 
