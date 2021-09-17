@@ -51,19 +51,19 @@ class DefaultController extends Controller
     {
         $data = (object)[];$user = auth()->user();
         $data->category = Category::select('*');
+        $data->guitarSeries = ProductSeries::select('*');
         if(!empty($req->instrumentId)){
             $data->category = $data->category->where('instrumentId',$req->instrumentId);
-        }
-        $data->category = $data->category->get();
-        $guitarSeries = ProductSeries::select('*');
-        if(!empty($req->instrumentId)){
-            $guitarSeries = $guitarSeries->where('instrumentId',$req->instrumentId);
+            $data->guitarSeries = $data->guitarSeries->where('instrumentId',$req->instrumentId);
+            // Instument data
+            $data->instrument = Instrument::where('id',$req->instrumentId)->first();
         }
         if(!empty($req->categoryId)){
-            $guitarSeries = $guitarSeries->where('categoryId',$req->categoryId);
+            $data->guitarSeries = $data->guitarSeries->where('categoryId',$req->categoryId);
         }
-        $guitarSeries = $guitarSeries->get();
-        foreach($guitarSeries as $key => $guitar){
+        $data->category = $data->category->get();
+        $data->guitarSeries = $data->guitarSeries->get();
+        foreach($data->guitarSeries as $key => $guitar){
             if($user){
                 $checkPurchase = UserProductLessionPurchase::where('userId',$user->id)->where('productSeriesId',$guitar->id)->first();
                 if($checkPurchase){
@@ -75,7 +75,6 @@ class DefaultController extends Controller
                 $guitar->userPurchased = false;
             }
         }
-        $data->guitarSeries = $guitarSeries;
         return view('front.product.series',compact('data'));
     }
 
@@ -249,7 +248,7 @@ class DefaultController extends Controller
         return view('auth.user.productLessionPurchaseList',compact('user'));
     }
 
-
+    // Explote Tutor
     public function exploreTutor(Request $req,$tutorId = 0)
     {
         $tutor = User::where('user_type',2);
@@ -345,6 +344,7 @@ class DefaultController extends Controller
         return view('front.policy.howItWorks',compact('howitworkMain'));
     }
 
+    // About Us
     public function aboutus(Request $req)
     {
         $data = (object)[];
@@ -354,15 +354,23 @@ class DefaultController extends Controller
 
     public function testimonialsList(Request $req)
     {
-        $data = (object)[];
-        $data->testimonials = Testimonial::latest()->get();
-        return view('front.testinomialList',compact('data'));
+        $data = (object)[];$sorting = 'desc';
+        $data->testimonials = Testimonial::select('*');
+        if($req->sorting){
+            $sorting = $req->sorting;
+        }
+        $data->testimonials = $data->testimonials->orderBy('id',$sorting)->get();
+        return view('front.testimonialList',compact('data','req'));
     }
 
     public function exploreInstruments(Request $req)
     {
-        $data = (object)[];
-        $data->instruments = Instrument::latest()->get();
-        return view('front.exploreInstrument',compact('data'));
+        $data = (object)[];$sorting = 'desc';
+        $data->instruments = Instrument::select('*');
+        if($req->sorting){
+            $sorting = $req->sorting;
+        }
+        $data->instruments = $data->instruments->orderBy('id',$sorting)->get();
+    return view('front.exploreInstrument',compact('data','req'));
     }
 }

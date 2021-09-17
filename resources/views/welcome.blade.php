@@ -9,9 +9,13 @@
                     <p>
                         Pro Music Tutor offers a range of high definition music tutoring videos and exceptional quality backing tracks. Our instructional videos feature tutors selected for their reputation and talent with the guitar and with the saxophone.
                     </p>
-                    <a href="javascript:void(0)" class="btn viewmore">View More</a>
+                    <!-- <a href="javascript:void(0)" class="btn viewmore">View More</a> -->
                     @if(Route::has('register'))
-                        <a href="{{route('register')}}" class="btn signbtn">SIGN UP FOR FREE</a>
+                        @guest
+                            <a href="{{route('register')}}" class="btn signbtn">SIGN UP FOR FREE</a>
+                        @else
+                            <a href="{{route('home')}}" class="btn signbtn">Dashboard</a>
+                        @endguest
                     @endif
                 </div>
             </div>
@@ -55,8 +59,8 @@
                     <p>
                         Pro Music Tutor offers a range of high definition music tutoring videos and exceptional quality backing tracks. Our instructional videos feature tutors selected for their reputation and talent with the guitar and with the saxophone.
                     </p>
-                    <a href="#" class="btn signbtn">Download and watch offline</a>
-                    <a href="#" class="btn viewmore">GET STARTED</a>
+                    <a href="javascript:void(0)" class="btn signbtn">Download and watch offline</a>
+                    <a href="javascript:void(0)" class="btn viewmore">GET STARTED</a>
                 </div>
                 <div class="col-12 col-md-6 resp_img">
                     <img src="{{asset('design/img/pic-1.png')}}">

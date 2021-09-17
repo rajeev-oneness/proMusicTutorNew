@@ -158,9 +158,9 @@
                         </div>
                     @endforeach
                 </div>
-                <div class="text-center mt-5">
-                    <a href="#" class="btn viewmore">EXPLORE MORE</a>
-                </div>
+                <!-- <div class="text-center mt-5">
+                    <a href="javascript:void(0)" class="btn viewmore">EXPLORE MORE</a>
+                </div> -->
             </div>
         </section>
     @endif

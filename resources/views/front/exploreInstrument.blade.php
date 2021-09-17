@@ -16,22 +16,16 @@
                         <li><a href="javascript:void(0)" class="active">Instrument</a></li>
                     </ul>
                 </div>
-                <form class="col-12 col-lg-4">
-                  <div class="form-group row m-0 sortby">
-                    <label class="col-sm-4 col-form-label">Sprt By</label>
-                    <div class="col-sm-8">
-                      <select class="form-control form-control-sm">
-                        <option value="featured">Featured</option>
-                        <option value="newest">Newest</option>
-                        <option value="bestselling">Best Selling</option>
-                        <option value="alphaasc" selected="">A - Z</option>
-                        <option value="alphadesc">Z - A</option>
-                        <option value="avgcustomerreview">Reviews</option>
-                        <option value="priceasc">Price: Low to High</option>
-                        <option value="pricedesc">Price: High to Low</option>
-                      </select>
+                <form id="sortingInstrumentForm" class="col-12 col-lg-4" action="{{route('explore.instrument')}}">
+                    <div class="form-group row m-0 sortby">
+                        <label class="col-sm-4 col-form-label">Sort By</label>
+                        <div class="col-sm-8">
+                            <select name="sorting" class="form-control form-control-sm" onchange="submit('#sortingInstrumentForm')">
+                                <option value="desc" @if(!empty($req->sorting) && $req->sorting=='desc'){{('selected')}}@endif>Newest First</option>
+                                <option value="asc" @if(!empty($req->sorting) && $req->sorting=='asc'){{('selected')}}@endif>Oldset First</option>
+                            </select>
+                        </div>
                     </div>
-                  </div>
                 </form>
             </div>
             <div class="row m-0">
