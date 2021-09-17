@@ -45,9 +45,9 @@
                             <div class="card border-0 ">
                                 <img src="{{asset($cat->image)}}" class="card-img-top">
                                 <div class="card-body p-0">
-                                  <a href="{{route('product.series')}}?categoryId={{$cat->id}}" class="btn signbtn ">{{$cat->name}}</a>
+                                  <a href="{{route('product.series',['categoryId'=>$cat->id,'categoryName'=>$cat->name])}}" class="btn signbtn ">{{$cat->name}}</a>
                                 </div>
-                              </div>
+                            </div>
                         </div>
                     @endforeach
                 </div>
