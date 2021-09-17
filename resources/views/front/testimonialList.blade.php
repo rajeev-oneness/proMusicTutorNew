@@ -16,18 +16,16 @@
                         <li><a href="javascript:void(0)" class="active">Testimonial</a></li>
                     </ul>
                 </div>
-                <form class="col-12 col-lg-4">
-                  <div class="form-group row m-0 sortby">
-                    <label class="col-sm-4 col-form-label">Sprt By</label>
-                    <div class="col-sm-8">
-                      <select class="form-control form-control-sm">
-                        <option value="featured">Featured</option>
-                        <option value="newest">Newest</option>
-                        <option value="alphaasc" selected="">A - Z</option>
-                        <option value="alphadesc">Z - A</option>
-                      </select>
+                <form id="sortingTestimonialForm" class="col-12 col-lg-4" action="{{route('explore.testimonials')}}">
+                    <div class="form-group row m-0 sortby">
+                        <label class="col-sm-4 col-form-label">Sprt By</label>
+                        <div class="col-sm-8">
+                            <select name="sorting" class="form-control form-control-sm" onchange="submit('#sortingTestimonialForm')">
+                                <option value="desc" @if(!empty($req->sorting) && $req->sorting=='desc'){{('selected')}}@endif>Newest First</option>
+                                <option value="asc" @if(!empty($req->sorting) && $req->sorting=='asc'){{('selected')}}@endif>Oldset First</option>
+                            </select>
+                        </div>
                     </div>
-                  </div>
                 </form>
             </div>
             <div class="row m-0 justify-content-start">

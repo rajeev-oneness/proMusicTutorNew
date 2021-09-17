@@ -248,7 +248,7 @@ class DefaultController extends Controller
         return view('auth.user.productLessionPurchaseList',compact('user'));
     }
 
-
+    // Explote Tutor
     public function exploreTutor(Request $req,$tutorId = 0)
     {
         $tutor = User::where('user_type',2);
@@ -353,9 +353,13 @@ class DefaultController extends Controller
 
     public function testimonialsList(Request $req)
     {
-        $data = (object)[];
-        $data->testimonials = Testimonial::latest()->get();
-        return view('front.testinomialList',compact('data'));
+        $data = (object)[];$sorting = 'desc';
+        $data->testimonials = Testimonial::select('*');
+        if($req->sorting){
+            $sorting = $req->sorting;
+        }
+        $data->testimonials = $data->testimonials->orderBy('id',$sorting)->get();
+        return view('front.testimonialList',compact('data','req'));
     }
 
     public function exploreInstruments(Request $req)
