@@ -50,8 +50,15 @@ class DefaultController extends Controller
     public function browserProduct(Request $req)
     {
         $data = (object)[];$user = auth()->user();
-        $data->category = Category::get();
+        $data->category = Category::select('*');
+        if(!empty($req->instrumentId)){
+            $data->category = $data->category->where('instrumentId',$req->instrumentId);
+        }
+        $data->category = $data->category->get();
         $guitarSeries = ProductSeries::select('*');
+        if(!empty($req->instrumentId)){
+            $guitarSeries = $guitarSeries->where('instrumentId',$req->instrumentId);
+        }
         if(!empty($req->categoryId)){
             $guitarSeries = $guitarSeries->where('categoryId',$req->categoryId);
         }
