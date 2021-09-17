@@ -25,7 +25,7 @@
                     @foreach($data->instrument as $indexInstrument => $instrument)
                         @if($indexInstrument >= 2)@break;@endif
                         <div class="col-12 col-md-4 position-relative mb-3">
-                            <a href="javascript:void(0)">
+                            <a href="{{route('product.series',['instrumentId'=>$instrument->id,'instrumentName' => $instrument->name])}}">
                                 <img src="{{asset($instrument->image)}}" class="w-100">
                                 <div class="img-title">
                                     <h5>{{$instrument->name}}</h5>

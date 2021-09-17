@@ -38,7 +38,7 @@
                 @foreach($data->instruments as $key => $instrument)
                     <div class="col-12 col-lg-3 mb-4">
                         <div class="card border-0 item">
-                            <a href="javascript:void(0)">
+                            <a href="{{route('product.series',['instrumentId'=>$instrument->id,'instrumentName' => $instrument->name])}}">
                                 <div class="image_item" style="background: url('{{asset($instrument->image)}}');"></div>
                                 <div class="text-item">
                                     <h5 class="mb-2">{{$instrument->name}}</h5>
