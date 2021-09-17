@@ -49,7 +49,7 @@ class DefaultController extends Controller
 
     public function browserProduct(Request $req)
     {
-        $data = (object)[];$user = auth()->user();
+        $data = (object)[];$user = auth()->user();$data->instrument = [];
         $data->category = Category::select('*');
         $data->guitarSeries = ProductSeries::select('*');
         if(!empty($req->instrumentId)){

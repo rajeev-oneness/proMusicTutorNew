@@ -38,7 +38,7 @@
                                     <img src="{{asset('design/img/menu-logo.png')}}" class="w-100">
                                 </div>
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a class="nav-link active border-right" id="guitar-tab" data-toggle="tab" href="#guitar" role="tab" aria-controls="guitar" aria-selected="true">Guitar</a>
                                     </li>
                                     <li class="nav-item">
@@ -46,14 +46,14 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="blog-tab" data-toggle="tab" href="#blog" role="tab" aria-controls="blog" aria-selected="false">Blog</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                                 <div class="tab-content pt-4" id="myTabContent">
                                     <div class="tab-pane fade show active" id="guitar" role="tabpanel" aria-labelledby="guitar-tab">
                                         <ul class="r_menu_ul">
-                                            <li><a href="javascript:void(0)">OFFERS</a></li>
-                                            <li><a href="{{route('product.series')}}">ALL SERIES & PREVIEWS</a></li>
-                                            <li><a href="javascript:void(0)">MEET THE PROS</a></li>
+                                            <!-- <li><a href="javascript:void(0)">OFFERS</a></li> -->
+                                            <!-- <li><a href="{{route('product.series')}}">ALL SERIES & PREVIEWS</a></li> -->
+                                            <!-- <li><a href="javascript:void(0)">MEET THE PROS</a></li> -->
                                             <li><a href="{{route('howitworks')}}">HOW IT WORKS</a></li>
                                             <li><a class="{{Route::currentRouteName()=='subscription.plan'?'active':''}}" href="{{route('subscription.plan')}}">SUBSCRIPTIONS</a></li>
                                             <li><a class="{{Route::currentRouteName()=='welcome.aboutus'?'active':''}}" href="{{route('welcome.aboutus')}}">About Us</a></li>
