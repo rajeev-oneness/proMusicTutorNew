@@ -65,7 +65,8 @@
                                 <li class="nav-divider">Products</li>
                                 @foreach($instruments as $index => $instru)
                                     <li class="nav-item">
-                                        <a class="nav-link {{request()->routeIs('admin.product.series.*',[$instru->id,'instrument='.$instru->name])?'active':''}}" href="{{route('admin.product.series.list',[$instru->id,'instrument='.$instru->name])}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a>
+                                        <a class="nav-link {{request()->is('admin/instrument/')? 'active' : ''}}" href="{{route('admin.product.series.list',[$instru->id,'instrument='.$instru->name])}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a>
+                                        {{-- <a class="nav-link {{request()->routeIs('admin.product.series.*',[$instru->id,'instrument='.$instru->name])? 'active' : ''}}" href="{{route('admin.product.series.list',[$instru->id,'instrument='.$instru->name])}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a> --}}
                                     </li>
                                 @endforeach
                             @endif
@@ -74,7 +75,10 @@
                             <li class="nav-divider">Report</li>
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.report.transaction')?'active':''}}" href="{{route('admin.report.transaction')}}"><i class="fa fa-fw fa-user-circle"></i>Transaction log</a>
-                            </li>
+                            </li>   
+                            {{-- <li class="nav-item">
+                                <a class="nav-link {{request()->routeIs('admin.report.bestSeller')?'active':''}}" href="{{route('admin.report.bestSeller')}}"><i class="fa fa-fw fa-user-circle"></i>Best seller</a>
+                            </li> --}}
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.report.contactus')?'active':''}}" href="{{route('admin.report.contactus')}}"><i class="fa fa-fw fa-user-circle"></i>Contact us</a>
                             </li>

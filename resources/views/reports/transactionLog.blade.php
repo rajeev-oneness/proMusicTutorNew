@@ -17,22 +17,22 @@
                         <div class="card card-body px-0 py-2 border-0 shadow-none">
                             <form class="form-inline" method="post" action="{{route('admin.report.transaction')}}">
                             @csrf
-                                <select name="teacherId" id="teacherId" class="form-control form-control-sm mr-2">
+                                <select name="teacherId" id="teacherId" class="form-control form-control-sm mr-2" onchange="filterSeries(this)">
                                     <option value="" disabled {{($req->teacherId) ? '' : 'selected'}}>Select tutor</option>
                                     @foreach ($teachers as $item)
                                         <option value="{{$item->id}}" {{($item->id == $req->teacherId) ? 'selected' : ''}}>{{$item->name}}</option>
                                     @endforeach
                                 </select>
 
-                                <select name="seriesId" id="seriesId" class="form-control form-control-sm mr-2">
-                                    <option value="" disabled {{($req->seriesId) ? '' : 'selected'}}>Select series</option>
+                                <select name="seriesId" id="seriesId" class="form-control form-control-sm mr-2" onchange="filterLesson(this)">
+                                    <option value="" hidden selected>Select series</option>
                                     @foreach ($available_series as $item)
                                         <option value="{{$item->id}}" {{($item->id == $req->seriesId) ? 'selected' : ''}}>{{$item->title}}</option>
                                     @endforeach
                                 </select>
 
                                 <select name="lessionId" id="lessionId" class="form-control form-control-sm mr-2">
-                                    <option value="" disabled {{($req->lessionId) ? '' : 'selected'}}>Select series</option>
+                                    <option value="" hidden selected>Select lession</option>
                                     @foreach ($available_lessons as $item)
                                         <option value="{{$item->id}}" {{($item->id == $req->lessionId) ? 'selected' : ''}}>{{$item->title}}</option>
                                     @endforeach
@@ -43,7 +43,6 @@
                             </form>
                         </div>
                     </div>
-
 
                     <div class="table-responsive">
                         <table id="example5" class="table table-striped table-bordered" style="width:100%">
@@ -59,8 +58,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($transaction as $key => $item)
-                                {{-- {{json_encode($item)}} --}}
+                                @forelse($transaction as $key => $item)
                                 <tr>
                                     <td>{{$key +1}}</td>
                                     <td>
@@ -79,16 +77,20 @@
                                         <p class="mb-0">{{$item->product_series_lession->title}}</p>
                                     </td>
                                     <td>
-                                        <p class="mb-0">#{{$item->transactionId}}</p>
+                                        <p class="mb-0">#{{$item->transaction->transactionId}}</p>
                                     </td>
                                     <td>
                                         <p class="mb-0">${{$item->product_series_lession->price}}</p>
                                     </td>
                                     <td>
-                                        <p class="mb-0 text-muted">{{date('j F, Y g:i a', strtotime($item->created_at))}}</p>
+                                        <p class="mb-0 text-muted">{{date('j M, Y g:i a', strtotime($item->created_at))}}</p>
                                     </td>
                                 </tr>
-                                @endforeach
+                                @empty
+                                <tr>
+                                    <td colspan="100%" class="text-center text-muted"><em>No record found</em></td>
+                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
 
@@ -102,11 +104,29 @@
         </div>
     </div>
 </div>
+
 @section('script')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#example4').DataTable();
-        });
+    <script>
+        function filterSeries(teacher) {
+            var options = '<option value="" hidden selected>Select series</option>';
+            @foreach($available_series as $series)
+                if(parseInt('{{$series->createdBy}}') == parseInt(teacher.value)) {
+                    options += '<option value="{{$series->id}}">{{$series->title}}</option>';
+                }
+            @endforeach
+            $('#seriesId').empty().append(options);
+            $('#lessionId').empty().append('<option value="" hidden selected>Select lession</option>');
+        }
+
+        function filterLesson(series) {
+            var options = '<option value="" hidden selected>Select lession</option>';
+            @foreach($available_lessons as $lessons)
+                if(parseInt('{{$lessons->productSeriesId}}') == parseInt(series.value)) {
+                    options += '<option value="{{$lessons->id}}">{{$lessons->title}}</option>';
+                }
+            @endforeach
+            $('#lessionId').empty().append(options);
+        }
     </script>
 @stop
 @endsection
