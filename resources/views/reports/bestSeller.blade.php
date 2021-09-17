@@ -13,45 +13,40 @@
                     <p>
                         <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-filter"></i> Filter</button>
                     </p>
-                    {{-- <div class="collapse show">
+                    <div class="collapse {{(isset($req->seriesId) || isset($req->dateFrom) || isset($req->dateTo)) ? 'show' : ''}}" id="collapseExample">
                         <div class="card card-body px-0 py-2 border-0 shadow-none">
-                            <form action="" method="POST" class="form-inline">
-                                <select name="" id="">
-
-                                </select>
-                            </form>
-                        </div>
-                    </div> --}}
-
-                    {{-- <div class="collapse {{(isset($req->teacherId) || isset($req->seriesId) || isset($req->lessionId)) ? 'show' : ''}}" id="collapseExample">
-                        <div class="card card-body px-0 py-2 border-0 shadow-none">
-                            <form class="form-inline" method="post" action="{{route('admin.report.transaction')}}">
+                            <form action="{{route('admin.report.bestSeller')}}" method="POST">
                             @csrf
-                                <select name="teacherId" id="teacherId" class="form-control form-control-sm mr-2" onchange="filterSeries(this)">
-                                    <option value="" disabled {{($req->teacherId) ? '' : 'selected'}}>Select tutor</option>
-                                    @foreach ($teachers as $item)
-                                        <option value="{{$item->id}}" {{($item->id == $req->teacherId) ? 'selected' : ''}}>{{$item->name}}</option>
-                                    @endforeach
-                                </select>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="seriesId">Select series</label>
+                                        <select name="seriesId" id="seriesId" class="form-control form-control-sm mr-2">
+                                            <option value="" selected hidden>Select Series</option>
+                                            @foreach ($series as $srs)
+                                                <option value="{{$srs->product_series->id}}" {{($srs->product_series->id == $req->seriesId) ? 'selected' : ''}}>{{$srs->product_series->title}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+    
+                                    <div class="col-md-3">
+                                        <label for="dateFrom">Date from</label>
+                                        <input type="date" class="form-control form-control-sm mr-2" placeholder="Date from" name="dateFrom" id="dateFrom" max="{{date('Y-m-d')}}" value="{{(!empty($req->dateFrom)) ? $req->dateFrom : ''}}">
+                                    </div>
+    
+                                    <div class="col-md-3">
+                                        <label for="dateTo">Date to</label>
+                                        <input type="date" class="form-control form-control-sm mr-2" placeholder="Date to" name="dateTo" id="dateTo" max="{{date('Y-m-d')}}" value="{{(!empty($req->dateTo)) ? $req->dateTo : ''}}">
+                                    </div>
 
-                                <select name="seriesId" id="seriesId" class="form-control form-control-sm mr-2" onchange="filterLesson(this)">
-                                    <option value="" hidden selected>Select series</option>
-                                    @foreach ($available_series as $item)
-                                        <option value="{{$item->id}}" {{($item->id == $req->seriesId) ? 'selected' : ''}}>{{$item->title}}</option>
-                                    @endforeach
-                                </select>
-
-                                <select name="lessionId" id="lessionId" class="form-control form-control-sm mr-2">
-                                    <option value="" hidden selected>Select lession</option>
-                                    @foreach ($available_lessons as $item)
-                                        <option value="{{$item->id}}" {{($item->id == $req->lessionId) ? 'selected' : ''}}>{{$item->title}}</option>
-                                    @endforeach
-                                </select>
-                                <button type="submit" class="btn btn-sm btn-primary mr-2"> <i class="fa fa-check"></i> Apply</button>
-                                <a href="{{route('admin.report.transaction')}}" class="btn btn-sm btn-secondary"> <i class="fa fa-ban"></i> Remove filters</a>
+                                    <div class="col-md-3 text-right">
+                                        <div style="margin-top: 30px"></div>
+                                        <button type="submit" class="btn btn-sm btn-primary mr-2"> <i class="fa fa-check"></i> Apply</button>
+                                        <a href="{{route('admin.report.bestSeller')}}" class="btn btn-sm btn-secondary"> <i class="fa fa-ban"></i> Remove filters</a>
+                                    </div>
+                                </div>
                             </form>
                         </div>
-                    </div> --}}
+                    </div>
 
                     <div class="table-responsive">
                         <table id="example5" class="table table-sm table-hover table-striped table-bordered" style="width:100%">
