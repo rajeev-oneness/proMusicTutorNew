@@ -73,7 +73,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center title-inner">
-                        <h1 class="mb-5">All Series</h1>
+                        <h1 class="mb-5">All Series @if($data->instrument){{' Related to '.$data->instrument->name}}@endif</h1>
                     </div>
                 </div>
                 <div class="row m-0">

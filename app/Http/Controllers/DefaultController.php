@@ -365,8 +365,12 @@ class DefaultController extends Controller
 
     public function exploreInstruments(Request $req)
     {
-        $data = (object)[];
-        $data->instruments = Instrument::latest()->get();
-        return view('front.exploreInstrument',compact('data'));
+        $data = (object)[];$sorting = 'desc';
+        $data->instruments = Instrument::select('*');
+        if($req->sorting){
+            $sorting = $req->sorting;
+        }
+        $data->instruments = $data->instruments->orderBy('id',$sorting)->get();
+    return view('front.exploreInstrument',compact('data','req'));
     }
 }

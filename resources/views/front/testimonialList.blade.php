@@ -18,7 +18,7 @@
                 </div>
                 <form id="sortingTestimonialForm" class="col-12 col-lg-4" action="{{route('explore.testimonials')}}">
                     <div class="form-group row m-0 sortby">
-                        <label class="col-sm-4 col-form-label">Sprt By</label>
+                        <label class="col-sm-4 col-form-label">Sort By</label>
                         <div class="col-sm-8">
                             <select name="sorting" class="form-control form-control-sm" onchange="submit('#sortingTestimonialForm')">
                                 <option value="desc" @if(!empty($req->sorting) && $req->sorting=='desc'){{('selected')}}@endif>Newest First</option>
