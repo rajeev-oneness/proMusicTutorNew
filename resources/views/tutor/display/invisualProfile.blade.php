@@ -72,23 +72,7 @@
                                         @if($productSeries->userPurchased)
                                             <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                                         @else
-                                            <!-- Checkout Form -->
-                                            <form id="checkoutForm{{$productSeries->id}}" action="{{route('razorpay.payment.store')}}" method="POST" >
-                                                @csrf
-                                                <input type="hidden" name="redirectURL" value="{{route('after.purchase.guitar_series',$productSeries->id)}}">
-                                                <script src="https://checkout.razorpay.com/v1/checkout.js"
-                                                        data-key="{{ env('RAZORPAY_KEY') }}"
-                                                        data-amount="{{($seriesPrice) * 100}}"
-                                                        /****data-buttontext="Pay {{$seriesPrice}} INR"****/
-                                                        data-name="Pro Music Tutor"
-                                                        data-description="All downloads available in FULL HD or stream"
-                                                        data-image="{{asset('defaultImages/logo.jpeg')}}"
-                                                        /*data-prefill.name=""
-                                                        data-prefill.email=""*/
-                                                        data-theme.color="#ff7529">
-                                                </script>
-                                                <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="$('#checkoutForm{{$productSeries->id}}').submit()">BUY FULL SERIES - &pound;  {{$seriesPrice}}</a>
-                                            </form>
+                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$productSeries->id)}}');">BUY FULL SERIES - &pound;  {{$seriesPrice}}</a>
                                         @endif
                                     @endguest
 	                            </div>
@@ -215,7 +199,6 @@
 				});
 	    	}
     	@endauth
-    	$('.razorpay-payment-button').remove();
     </script>
 @stop
 @endsection

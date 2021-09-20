@@ -32,54 +32,51 @@
                     </button> -->
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post" class="required-validation" data-cc-on-file="false" data-stripe-publishable-key="pk_test_TYooMQauvdEDq54NiTphI7jx" id="payment-form">
+                    <form role="form" action="{{route('razorpay.payment.store')}}" method="POST" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="pk_test_TYooMQauvdEDq54NiTphI7jx" id="payment-form">
                     @csrf
                         <div class="row">
                             <div class="col-12 required">
                                 <label for="">Name on the card</label>
-                                <input type="text" class="form-control form-control-sm" placeholder="Name on the card">
+                                <input type="text" value="Test" class="form-control form-control-sm" placeholder="Name on the card" size='4'>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-12 card border-0 mt-2 required">
+                            <div class="col-12 border-0 mt-2 card required">
                                 <label for="">Card number</label>
-                                <input type="text" class="form-control form-control-sm card-number" placeholder="Card number">
+                                <input type="text" value="4242424242424242" class="form-control form-control-sm card-number" placeholder="Card number" size='20'>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-6 cvc required">
                                 <label for="">CVC</label>
-                                <input type="text" class="form-control form-control-sm mr-2 card-cvc" placeholder="CVC">
+                                <input type="text" value="123" class="form-control form-control-sm mr-2 card-cvc" placeholder="CVC">
                             </div>
                             <div class="col-6 expiration required">
                                 <label for="">Expiry</label>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control form-control-sm mr-2 card-expiry-month" placeholder="MM">
-                                    <input type="text" class="form-control form-control-sm card-expiry-year" placeholder="YYYY">
+                                    <input type="text" value="{{date('m',strtotime('+1 month'))}}" class="form-control form-control-sm mr-2 card-expiry-month" placeholder="MM" size='2'>
+                                    <input type="text" value="{{date('Y',strtotime('+1 year'))}}" class="form-control form-control-sm card-expiry-year" placeholder="YYYY" size='4'>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row mt-2">
                             <div class="col-12 error hide">
-                                <p class="text-danger" style="font-size: 12px">Please correct the errors and try again.</p>
+                                <p class="text-danger" style="font-size: 12px">@error('stripePaymentGateway'){{$message}}@enderror<!-- Please correct the errors and try again.--></p>
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col-12 text-right">
                                 <a type="button" class="" data-dismiss="modal">Cancel</a>
-                                <button type="submit" class="btn btn-sm btn-primary">Pay (<span class="amount">$1200.99</span>)</button>
+                                <button type="submit" class="btn btn-sm btn-primary">Pay ($<span class="amountToPay">0.00</span>)</button>
                             </div>
                         </div>
-                        {{-- <p class="small">THis payment is processed by Stripe Payment gateway</p> --}}
+                        {{-- <p class="small">This payment is processed by Stripe Payment gateway</p> --}}
                     </form>
                 </div>
-                {{-- <div class="modal-footer">
-                    
-                </div> --}}
             </div>
         </div>
     </div>
@@ -98,6 +95,10 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('.loading-data').hide();
+            $(document).on('submit', 'form', function() {
+                $('button').attr('disabled', 'disabled');
+                $('.loading-data').show();
+            });
         });
         
         @if(Session::has('Success'))
@@ -113,9 +114,20 @@
             return false;  
         }
 
-        // $('#stripePaymentModal').modal('show');
+        $('.razorpay-payment-button').remove();
 
         // strpe payment gateway starts
+        var stripePrice = 0,redirectURL = '';
+        function stripePaymentStart(price,redirectionURL){
+            stripePrice = price;redirectURL = redirectionURL;
+            $('.amountToPay').text(price);
+            $('#stripePaymentModal').modal('show');
+            console.log(stripePrice+' => '+redirectURL);
+        }
+        @error('stripePaymentGateway')
+            $('#stripePaymentModal').modal('show');
+        @enderror
+
         $(function () {
             var $form = $(".require-validation");
             $('form.require-validation').bind('submit', function (e) {
@@ -153,20 +165,16 @@
 
             function stripeResponseHandler(status, response) {
                 if (response.error) {
-                    $('.error')
-                        .removeClass('hide')
-                        .find('.alert')
-                        .text(response.error.message);
+                    $('.loading-data').hide();$('button').attr('disabled', false);
+                    $('.error').removeClass('hide').find('.text-danger').text(response.error.message);
                 } else {
                     // token contains id, last4, and card type
                     var token = response['id'];
                     // insert the token into the form so it gets submitted to the server
                     $form.find('input[type=text]').empty();
                     $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
-                    {{--
-                        $form.append("<input type='hidden' name='amount' value='{{$finalPayment}}'/>");
-                        $form.append("<input type='hidden' name='percentage' value='{{$item->percentage}}'/>");
-                    --}} 
+                    $form.append("<input type='hidden' name='amount' value='" + stripePrice + "'/>");
+                    $form.append("<input type='hidden' name='redirectURL' value='" + redirectURL + "'/>");
                     $form.get(0).submit();
                 }
             }

@@ -64,15 +64,12 @@ class DefaultController extends Controller
         $data->category = $data->category->get();
         $data->guitarSeries = $data->guitarSeries->get();
         foreach($data->guitarSeries as $key => $guitar){
+            $guitar->userPurchased = false;
             if($user){
                 $checkPurchase = UserProductLessionPurchase::where('userId',$user->id)->where('productSeriesId',$guitar->id)->first();
                 if($checkPurchase){
                     $guitar->userPurchased = true;
-                }else{
-                    $guitar->userPurchased = false;
                 }
-            }else{
-                $guitar->userPurchased = false;
             }
         }
         return view('front.product.series',compact('data'));
@@ -83,6 +80,7 @@ class DefaultController extends Controller
         $user = auth()->user();
         $data = ProductSeries::where('id',$seriesId)->first();
         if($data){
+            $data->userPurchased = false;
             if($user){
                 $checkPurchase = UserProductLessionPurchase::where('userId',$user->id)->where('productSeriesId',$data->id)->first();
                 if($checkPurchase){
@@ -91,6 +89,7 @@ class DefaultController extends Controller
             }
             $data->otherGuitarSeries = ProductSeries::where('id','!=',$seriesId)->limit(3)->get();
             foreach($data->otherGuitarSeries as $key => $other){
+                $other->userPurchased = false;
                 if($user){
                     $checkPurchase = UserProductLessionPurchase::where('userId',$user->id)->where('productSeriesId',$other->id)->first();
                     if($checkPurchase){
@@ -110,15 +109,12 @@ class DefaultController extends Controller
         $data = (object)[];
         $data->subscription = SubscriptionPlan::get();
         foreach($data->subscription as $key => $subscription){
+            $subscription->userSubscribed = false;
             if($user){
                 $checkSubscription = UserSubscription::where('userId',$user->id)->where('subscriptionId',$subscription->id)->first();
                 if($checkSubscription){
                     $subscription->userSubscribed = true;
-                }else{
-                    $subscription->userSubscribed = false;
                 }
-            }else{
-                $subscription->userSubscribed = false;
             }
         }
         return view('front.subscription',compact('data'));
@@ -255,7 +251,19 @@ class DefaultController extends Controller
         if( base64_decode($tutorId) != 0){ // if Indivisual tutor Calls
             $tutorId = base64_decode($tutorId);
             $tutor = $tutor->where('id',$tutorId)->first();
-            return view('tutor.display.invisualProfile',compact('tutor'));
+            if($tutor){
+                foreach($tutor->product_series as $key => $product){
+                    $product->userPurchased = false;
+                    if($user = $req->user()){
+                        $checkPurchase = UserProductLessionPurchase::where('userId',$user->id)->where('productSeriesId',$product->id)->first();
+                        if($checkPurchase){
+                            $product->userPurchased = true;
+                        }
+                    }
+                }
+                return view('tutor.display.invisualProfile',compact('tutor'));
+            }
+            return back()->with('Errors','Invalid Tutor');
         } // when Tutor list will call
         $tutor = $tutor->get();
         return view('tutor.display.profileList',compact('tutor'));

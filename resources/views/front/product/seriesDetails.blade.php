@@ -1,34 +1,6 @@
 @extends('layouts.master')
 @section('title','Product Series')
 @section('content')
-    <!-- <section class="banner series_details">
-        <div class="container">
-            <div class="row m-0">
-                <div class="col-12 col-md-5">
-                    <h1>Welcome to <span class="d-block">Pro Music Tutor</span></h1>
-                    <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </p>
-                    <form>
-                        <div class="form-group row m-0 mb-4">
-                            <label class="col-md-3 col-6 col-form-label">Currencies:</label>
-                            <div class="col-md-4 col-6">
-                                <select class="form-control">
-                                    <option>&pound; - GBP</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="input-group row m-0">
-                            <input type="text" class="form-control keyword" placeholder="Enter Keyword...">
-                            <div class="input-group-append">
-                                <button class="btn viewmore" type="button">Search</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section> -->
 
     <?php $totalPrice = calculateLessionPrice($data->lession); ?>
     <section class="pt-0 pt-md-5 pb-5">
@@ -48,23 +20,7 @@
                             @if($data->userPurchased)
                                 <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                             @else
-                                <!-- Checkout Form -->
-                                <form id="checkoutFormDetails{{$data->id}}" action="{{route('razorpay.payment.store')}}" method="POST" >
-                                    @csrf
-                                    <input type="hidden" name="redirectURL" value="{{route('after.purchase.guitar_series',$data->id)}}">
-                                    <script src="https://checkout.razorpay.com/v1/checkout.js"
-                                            data-key="{{ env('RAZORPAY_KEY') }}"
-                                            data-amount="{{($totalPrice) * 100}}"
-                                            /****data-buttontext="Pay {{$totalPrice}} INR"****/
-                                            data-name="Pro Music Tutor"
-                                            data-description="All downloads available in FULL HD or stream"
-                                            data-image="{{asset('defaultImages/logo.jpeg')}}"
-                                            /*data-prefill.name=""
-                                            data-prefill.email=""*/
-                                            data-theme.color="#ff7529">
-                                    </script>
-                                    <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="$('#checkoutFormDetails{{$data->id}}').submit()">BUY FULL SERIES - &pound;  {{$totalPrice}}</a>
-                                </form>
+                                <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}');">BUY FULL SERIES - &pound;  {{$totalPrice}}</a>
                             @endif
                         @endguest
                     </div>
@@ -73,26 +29,24 @@
                         <p>{!! words($data->description,600) !!}</p>
                     </div>
                 </div>
-                <!-- <div class="col-12 mt-4 p-3 p-md-0">
-                    <h6 class="mb-3">Tutor Description</h6>
-                    <p>
-                        Legendary Whitesnake guitarist Micky Moody has done it all in the world of music, and all guitarists from beginners to those more experienced now have the opportunity to learn from the man himself. Micky shares the secrets behind a variety of playing styles and mastering solo sequences, and even provides you an insight into some of Whitesnake’s biggest hits. Micky Moody is still going strong today with recording and touring, and provides all at Pro Music Tutor with the chance to learn from a living legend.
-                    </p>
-                </div> -->
-                <div class="row mt-5 m-0 col-12 p-0 pl-3 pl-md-0">
-                    <ul class="music-cata ">
-                        <li><a href="javascript:void(0)" class="active">MICKY MOODY'S VIDEO BIO</a></li>
-                        <li><a href="javascript:void(0)">HECK OUT MICKY MOODY'S PROFILE </a></li>
-                        <li><a href="javascript:void(0)">ROCK</a></li>
-                        <li><a href="javascript:void(0)"> MEDIUM</a></li>
-                    </ul>
-                </div>
-                <div class="row m-0 mt-5 col-12 p-0 pl-3 pl-md-0">
-                    <?php $tutor = $data->author;?>
-                    @if($tutor)
+                <?php $tutor = $data->author;?>
+                @if($tutor)
+                    <div class="row m-0 mt-5 col-12 p-0 pl-3 pl-md-0">
                         <h6>TUTOR: <a href="{{route('explore.tutor',[base64_encode($tutor->id),'tutor'=>$tutor->name])}}" style="font-size: 18px;"><span style="color: #e40054 !important;">{{strtoupper($tutor->name)}}</span></a></h6>
-                    @endif
-                </div>
+                    </div>
+                    <div class="col-12 mt-4 p-3 p-md-0">
+                        <h6 class="mb-3">Tutor Description</h6>
+                        <p>{!! words($tutor->about,900) !!}</p>
+                    </div>
+                    <!-- <div class="row mt-5 m-0 col-12 p-0 pl-3 pl-md-0">
+                        <ul class="music-cata ">
+                            <li><a href="javascript:void(0)" class="active">MICKY MOODY'S VIDEO BIO</a></li>
+                            <li><a href="javascript:void(0)">HECK OUT MICKY MOODY'S PROFILE </a></li>
+                            <li><a href="javascript:void(0)">ROCK</a></li>
+                            <li><a href="javascript:void(0)"> MEDIUM</a></li>
+                        </ul>
+                    </div> -->
+                @endif
             </div>
         </div>
     </section>
@@ -110,7 +64,7 @@
                         @if($data->userPurchased)
                             <a href="javascript:void(0)" class="purchased-Full ml-3 ml-md-5">Already Purchased</a>
                         @else
-                            <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="$('#checkoutFormDetails{{$data->id}}').submit()">BUY FULL SERIES - &pound;  {{$totalPrice}}</a>
+                            <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}');">BUY FULL SERIES - &pound;  {{$totalPrice}}</a>
                         @endif
                     @endguest
                 </div>
@@ -132,23 +86,7 @@
                                                 @if(userLessionPurchased($less))
                                                     <a href="javascript:void(0)" class="purchased-Full btn">Already Purchased</a>
                                                 @else
-                                                    <!-- Checkout Form -->
-                                                    <form id="checkoutForm{{$less->id}}" action="{{route('razorpay.payment.store')}}" method="POST" >
-                                                        @csrf
-                                                        <input type="hidden" name="redirectURL" value="{{route('after.purchase.guitar_lession_series',$less->id)}}">
-                                                        <script src="https://checkout.razorpay.com/v1/checkout.js"
-                                                                data-key="{{ env('RAZORPAY_KEY') }}"
-                                                                data-amount="{{($less->price) * 100}}"
-                                                                /****data-buttontext="Pay {{$less->price}} INR"****/
-                                                                data-name="Pro Music Tutor"
-                                                                data-description="All downloads available in FULL HD or stream"
-                                                                data-image="{{asset('defaultImages/logo.jpeg')}}"
-                                                                /*data-prefill.name=""
-                                                                data-prefill.email=""*/
-                                                                data-theme.color="#ff7529">
-                                                        </script>
-                                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="$('#checkoutForm{{$less->id}}').submit()">Buy Now - £ {{$less->price}}</a>
-                                                    </form>
+                                                    <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$less->price}}','{{route('after.purchase.guitar_lession_series',$less->id)}}');">Buy Now - &pound;  {{$less->price}}</a>
                                                 @endif
                                             @endguest
                                         </div>
@@ -189,23 +127,7 @@
                                         @if($otherSeries->userPurchased)
                                             <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                                         @else
-                                            <!-- Checkout Form -->
-                                            <form id="checkoutForm{{$otherSeries->id}}" action="{{route('razorpay.payment.store')}}" method="POST" >
-                                                @csrf
-                                                <input type="hidden" name="redirectURL" value="{{route('after.purchase.guitar_series',$otherSeries->id)}}">
-                                                <script src="https://checkout.razorpay.com/v1/checkout.js"
-                                                        data-key="{{ env('RAZORPAY_KEY') }}"
-                                                        data-amount="{{($seriesPrice) * 100}}"
-                                                        /****data-buttontext="Pay {{$seriesPrice}} INR"****/
-                                                        data-name="Pro Music Tutor"
-                                                        data-description="All downloads available in FULL HD or stream"
-                                                        data-image="{{asset('defaultImages/logo.jpeg')}}"
-                                                        /*data-prefill.name=""
-                                                        data-prefill.email=""*/
-                                                        data-theme.color="#ff7529">
-                                                </script>
-                                                <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="$('#checkoutForm{{$otherSeries->id}}').submit()">BUY FULL SERIES - &pound;  {{$seriesPrice}}</a>
-                                            </form>
+                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$otherSeries->id)}}');">BUY FULL SERIES - &pound;  {{$seriesPrice}}</a>
                                         @endif
                                     @endif
                                 </div>
@@ -222,7 +144,5 @@
     @endif
 @endsection
 @section('script')
-<script type="text/javascript">
-    $('.razorpay-payment-button').remove();
-</script>
+<script type="text/javascript"></script>
 @endsection
