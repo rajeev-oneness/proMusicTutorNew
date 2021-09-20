@@ -265,7 +265,7 @@ class DefaultController extends Controller
             }
             return back()->with('Errors','Invalid Tutor Selected');
         } // when Tutor list will call
-        $tutor = $tutor->get();
+        $tutor = $tutor->paginate(12);
         return view('tutor.display.profileList',compact('tutor'));
     }
 

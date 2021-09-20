@@ -51,9 +51,10 @@
 	                </div>
 	            </div>
             @endforeach
-            <div class="col-12 text-center mt-5">
-                <a href="#" class="btn viewmore">View More</a>
-            </div>
+            <div class="col-12" style="margin-left: 100%;">{{ $tutor->withQueryString()->links() }}</div>
+            <!-- <div class="col-12 text-center mt-5">
+                <a href="javascript:void(0)" class="btn viewmore">View More</a>
+            </div> -->
         </div>
     </div>
 </section>
