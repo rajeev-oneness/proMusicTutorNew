@@ -25,7 +25,7 @@ Route::get('explore/testimonials',[DefaultController::class,'testimonialsList'])
 Route::get('about-us',[DefaultController::class,'aboutus'])->name('welcome.aboutus');
 Route::any('product/series',[DefaultController::class,'browserProduct'])->name('product.series');
 Route::any('browse/product/series',[DefaultController::class,'browseProductSeriesAll'])->name('browse.product.series');
-Route::get('product/series/{seriesId}/details',[DefaultController::class,'browserProductDetails'])->name('product.series.details');
+Route::any('product/series/{seriesId}/details',[DefaultController::class,'browserProductDetails'])->name('product.series.details');
 Route::get('subscription/plan',[DefaultController::class,'subscription'])->name('subscription.plan');
 Route::post('email/subscribe',[DefaultController::class,'subscribeEmail'])->name('email.subscribe');
 Route::get('email/unsubscribe',[DefaultController::class,'unSubscribeEmail'])->name('email.unsubscribe');

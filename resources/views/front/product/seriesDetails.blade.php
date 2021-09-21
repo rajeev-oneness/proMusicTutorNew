@@ -53,6 +53,24 @@
 
     <!-- Guitar Series Lession -->
     <?php $lessions = $data->lession; ?>
+    <!-- Filter -->
+    <form method="post" action="{{route('product.series.details',$data->id)}}">
+        @csrf
+        <div class="row">
+            <div class="form-group">
+                <label class="col-sm-4 col-form-label">Difficulty</label>
+                <select class="form-control form-control-sm" name="difficulty">
+                    <option value="" selected="" hidden="">Difficulty</option>
+                    <option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
+                    <option {{($req->difficulty == 'Medium') ? 'selected' : ''}} value="Medium">Medium</option>
+                    <option {{($req->difficulty == 'Hard') ? 'selected' : ''}} value="Hard">Hard</option>
+                </select>
+            </div>
+            <a href="{{route('product.series.details',$data->id)}}">Reset</a>
+            <input type="submit" name="" class="btn">
+        </div>
+    </form>
+    <!-- filter End -->
     @if(count($lessions) > 0)
         <section class="pt-5 pb-5 mb-5 bg-light">
             <div class="container">

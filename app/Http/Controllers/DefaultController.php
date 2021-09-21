@@ -112,9 +112,11 @@ class DefaultController extends Controller
 
     public function browserProductDetails(Request $req,$seriesId)
     {
-        $user = auth()->user();
-        $data = ProductSeries::where('id',$seriesId)->first();
+        $data = ProductSeries::where('id',$seriesId)->first();$user = auth()->user();
         if($data){
+            if(!empty($req->difficulty)){
+                $data->lession = $data->lession->where('difficulty',$req->difficulty);
+            }
             $data->userPurchased = false;
             if($user){
                 $checkPurchase = UserProductLessionPurchase::where('userId',$user->id)->where('productSeriesId',$data->id)->first();
@@ -122,7 +124,7 @@ class DefaultController extends Controller
                     $data->userPurchased = true;
                 }
             }
-            $data->otherGuitarSeries = ProductSeries::where('id','!=',$seriesId)->limit(3)->get();
+            $data->otherGuitarSeries = ProductSeries::where('id','!=',$data->id)->limit(3)->get();
             foreach($data->otherGuitarSeries as $key => $other){
                 $other->userPurchased = false;
                 if($user){
@@ -132,7 +134,7 @@ class DefaultController extends Controller
                     }
                 }
             }
-            return view('front.product.seriesDetails',compact('data'));    
+            return view('front.product.seriesDetails',compact('data','req'));    
         }
         return errorResponse('Something went wrong please try after sometime');
     }
