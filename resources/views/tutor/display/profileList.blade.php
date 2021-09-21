@@ -14,7 +14,7 @@
                 <ul class="bredcamb">
                     <li><a href="{{route('welcome')}}">Home</a></li>
                     <li>/</li>
-                    <li><a href="#" class="active">Tutor's</a></li>
+                    <li><a href="javascript:void(0)" class="active">Tutor's</a></li>
                 </ul>
             </div>
             <form class="col-12 col-lg-4">

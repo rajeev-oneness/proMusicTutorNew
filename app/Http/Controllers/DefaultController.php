@@ -75,6 +75,35 @@ class DefaultController extends Controller
         return view('front.product.series',compact('data'));
     }
 
+    public function browseProductSeriesAll(Request $req)
+    {
+        $data = (object)[];$user = auth()->user();
+        $data->instrument = Instrument::select('*')->get();
+        $data->category = Category::select('*')->get();
+        $data->tutor = User::where('user_type',2)->get();
+        $data->guitarSeries = ProductSeries::select('*');
+        if(!empty($req->instrument)){
+            $data->guitarSeries = $data->guitarSeries->where('instrumentId',$req->instrument);
+        }
+        if(!empty($req->category)){
+            $data->guitarSeries = $data->guitarSeries->where('categoryId',$req->category);
+        }
+        if(!empty($req->tutor)){
+            $data->guitarSeries = $data->guitarSeries->where('createdBy',$req->tutor);
+        }
+        $data->guitarSeries = $data->guitarSeries->paginate(12);
+        foreach($data->guitarSeries as $key => $guitar){
+            $guitar->userPurchased = false;
+            if($user){
+                $checkPurchase = UserProductLessionPurchase::where('userId',$user->id)->where('productSeriesId',$guitar->id)->first();
+                if($checkPurchase){
+                    $guitar->userPurchased = true;
+                }
+            }
+        }
+        return view('front.product.browseAllSeries',compact('data','req'));
+    }
+
     public function browserProductDetails(Request $req,$seriesId)
     {
         $user = auth()->user();
