@@ -17,6 +17,7 @@
                                     <th>Image</th>
                                     <th>Series Name</th>
                                     <th>Lessions</th>
+                                    <th>Difficulty</th>
                                     <th>Description</th>
                                     <th>Media</th>
                                     <th>Author</th>
@@ -33,6 +34,7 @@
                                         <td><img src="{{asset($series->image)}}" height="200" width="200"></td>
                                         <td>{{ $series->title }}</td>
                                         <td><a href="{{route('admin.product.series.lession.list',[$instrument->id,$series->id])}}">{{count($lession)}} to view</a></td>
+                                        <td>{{ucwords($series->difficulty)}}</td>
                                         <td>{!! words($series->description,350) !!}</td>
                                         <td><a href="{{$series->video_url}}" target="_blank">Link</a></td>
                                         <td>
