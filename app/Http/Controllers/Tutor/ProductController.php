@@ -50,7 +50,8 @@ class ProductController extends Controller
             'title' => 'required|string|max:200',
             'description' => 'nullable|string',
             'media_link' => 'required|url',
-            'genre' => 'nullable|min:1|numeric',
+            'difficulty' => 'required|string|in:Easy,Medium,Hard',
+            'genre' => 'required|min:1|numeric',
             'gbp' => 'nullable|min:1|numeric',
             'price_usd' => 'nullable|min:1|numeric',
             'price_euro' => 'nullable|min:1|numeric',
@@ -64,6 +65,7 @@ class ProductController extends Controller
             $newSeries->instrumentId = $instrument->id;
             $newSeries->categoryId = $req->category;
             $newSeries->title = $req->title;
+            $newSeries->difficulty = $req->difficulty;
             $newSeries->description = emptyCheck($req->description);
             if ($req->hasFile('image')) {
                 $image = $req->file('image');
@@ -107,7 +109,8 @@ class ProductController extends Controller
             'title' => 'required|string|max:200',
             'description' => 'nullable|string',
             'media_link' => 'required|url',
-            'genre' => 'nullable|min:1|numeric',
+            'difficulty' => 'required|string|in:Easy,Medium,Hard',
+            'genre' => 'required|min:1|numeric',
             'gbp' => 'nullable|min:1|numeric',
             'price_usd' => 'nullable|min:1|numeric',
             'price_euro' => 'nullable|min:1|numeric',
@@ -122,6 +125,7 @@ class ProductController extends Controller
             $updateSeries->categoryId = $req->category;
             $updateSeries->title = $req->title;
             $updateSeries->description = emptyCheck($req->description);
+            $updateSeries->difficulty = $req->difficulty;
             if ($req->hasFile('image')) {
                 $image = $req->file('image');
                 $updateSeries->image = imageUpload($image, 'product/series');

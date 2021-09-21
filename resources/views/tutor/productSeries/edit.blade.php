@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="genre" class="col-form-label">Genre:</label>
                                 <select class="form-control @error('genre') is-invalid @enderror" name="genre" id="genre">
                                     <option value="" hidden="" selected="">Select Genre</option>
@@ -65,7 +65,18 @@
                                 @error('genre')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
+                                <label for="difficulty" class="col-form-label">Difficulty:</label>
+                                <select class="form-control @error('difficulty') is-invalid @enderror" name="difficulty" id="difficulty">
+                                    <option value="" hidden="" selected="">Select Difficulty</option>
+                                    <option value="Easy" @if((old('difficulty') ?? $productSeries->difficulty) == 'Easy'){{('selected')}}@endif>Easy</option>
+                                    <option value="Medium" @if((old('difficulty') ?? $productSeries->difficulty) == 'Medium'){{('selected')}}@endif>Medium</option>
+                                    <option value="Hard" @if((old('difficulty') ?? $productSeries->difficulty) == 'Hard'){{('selected')}}@endif>Hard</option>
+                                </select>
+                                @error('difficulty')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
+
+                            <div class="form-group col-md-4">
                                 <label for="gbp" class="col-form-label">GBP:</label>
                                 <input type="text" class="form-control @error('gbp') is-invalid @enderror" id="gbp" name="gbp" placeholder="GBP" value="{{(old('gbp') ? old('gbp') : zeroGoesToBlank($productSeries->gbp))}}" onkeypress="return isNumberKey(event);" maxlength="7">
                                 @error('gbp')<span class="text-danger" role="alert">{{$message}}</span>@enderror
