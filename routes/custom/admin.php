@@ -36,6 +36,26 @@
 		Route::post('/{id}/delete',[CrudController::class,'categoryDelete'])->name('admin.master.category.delete');
 	});
 
+	// Subscription
+	Route::group(['prefix' => 'master/subscription'],function(){
+		Route::get('/list',[CrudController::class,'subscriptionList'])->name('admin.master.subscription.list');
+		Route::get('/create',[CrudController::class,'subscriptionCreate'])->name('admin.master.subscription.create');
+		Route::post('/store',[CrudController::class,'subscriptionStore'])->name('admin.master.subscription.save');
+		Route::get('/{id}/edit',[CrudController::class,'subscriptionEdit'])->name('admin.master.subscription.edit');
+		Route::post('/{id}/update',[CrudController::class,'subscriptionUpdate'])->name('admin.master.subscription.update');
+		Route::post('/{id}/delete',[CrudController::class,'subscriptionDelete'])->name('admin.master.subscription.delete');
+	});
+
+	// Offers
+	Route::group(['prefix' => 'master/offers'],function(){
+		Route::get('/list',[CrudController::class,'offersList'])->name('admin.master.offer.list');
+		Route::get('/create',[CrudController::class,'offerCreate'])->name('admin.master.offer.create');
+		Route::post('/store',[CrudController::class,'offerStore'])->name('admin.master.offer.save');
+		Route::get('/{id}/edit',[CrudController::class,'offerEdit'])->name('admin.master.offer.edit');
+		Route::post('/{id}/update',[CrudController::class,'offerUpdate'])->name('admin.master.offer.update');
+		Route::post('/{id}/delete',[CrudController::class,'offerDelete'])->name('admin.master.offer.delete');
+	});
+
 	// Genre
 	Route::group(['prefix' => 'master/genre'],function() {
 		Route::get('/list', [CrudController::class, 'genreIndex'])->name('admin.master.genre.list');

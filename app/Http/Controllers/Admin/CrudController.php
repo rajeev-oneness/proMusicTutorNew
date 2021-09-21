@@ -8,10 +8,8 @@ use App\Models\User,App\Models\UserType;
 use App\Models\ContactUs,App\Models\Faq;
 use App\Models\Testimonial,App\Models\Setting;
 use App\Models\Instrument,App\Models\Category;
-use Carbon\Exceptions\Exception;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Genre;
+use Carbon\Exceptions\Exception,Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash,App\Models\Genre;
 
 class CrudController extends Controller
 {
@@ -259,6 +257,7 @@ class CrudController extends Controller
         }
         return errorResponse($validator->errors()->first());
     }
+
 /********************************** Policy Setting ***************************************/
     public function policyData(Request $req)
     {
@@ -529,10 +528,12 @@ class CrudController extends Controller
         $genre = Genre::get();
         return view('admin.master.genre.index', compact('genre'));
     }
+
     public function genreCreate()
     {
         return view('admin.master.genre.create');
     }
+
     public function genreSave(Request $request)
     {
         $request->validate([
@@ -544,11 +545,13 @@ class CrudController extends Controller
         $genre->save();
         return redirect()->route('admin.master.genre.list')->with('Success', 'Genre added sucessfully');
     }
+
     public function genreEdit($id)
     {
         $genre = Genre::where('id', $id)->first();
         return view('admin.master.genre.edit', compact('genre'));
     }
+
     public function genreUpdate(Request $request, $id)
     {
         $request->validate([
@@ -561,6 +564,7 @@ class CrudController extends Controller
         $genre->save();
         return redirect(route('admin.master.genre.list'))->with('Success', 'Genre updated successfully');
     }
+
     public function genreDelete(Request $request)
     {
         $rules = [
@@ -577,6 +581,71 @@ class CrudController extends Controller
         }
         return errorResponse($validator->errors()->first());
     }
+
+    public function offersList(Request $req)
+    {
+        $offer = [];
+        return view('admin.offer.list',compact('offer'));
+    }
+
+    public function offerCreate(Request $req)
+    {
+        return view('admin.offer.create');
+    }
+
+    public function offerStore(Request $req)
+    {
+        
+    }
+
+    public function offerEdit(Request $req)
+    {
+        $offer = [];
+        return view('admin.offer.edit',compact('offer'));
+    }
+
+    public function offerUpdate(Request $req)
+    {
+        
+    }
+
+    public function offerDelete(Request $req)
+    {
+        
+    }
+
+    public function subscriptionList(Request $req)
+    {
+        $subscription = [];
+        return view('admin.subscription.list',compact('subscription'));
+    }
+
+    public function subscriptionCreate(Request $req)
+    {
+        return view('admin.subscription.create');
+    }
+
+    public function subscriptionStore(Request $req)
+    {
+        
+    }
+
+    public function subscriptionEdit(Request $req)
+    {
+        $subscription = [];
+        return view('admin.subscription.edit',compact('subscription'));
+    }
+
+    public function subscriptionUpdate(Request $req)
+    {
+        
+    }
+
+    public function subscriptionDelete(Request $req)
+    {
+        
+    }
+
     // public function guitarCategoryDelete(Request $req)
     // {
     //     $rules = [
