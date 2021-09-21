@@ -61,6 +61,9 @@ class DefaultController extends Controller
         if(!empty($req->categoryId)){
             $data->guitarSeries = $data->guitarSeries->where('categoryId',$req->categoryId);
         }
+        if(!empty($req->difficulty)){
+            $data->guitarSeries = $data->guitarSeries->where('difficulty',$req->difficulty);
+        }
         $data->category = $data->category->get();
         $data->guitarSeries = $data->guitarSeries->get();
         foreach($data->guitarSeries as $key => $guitar){
@@ -72,7 +75,7 @@ class DefaultController extends Controller
                 }
             }
         }
-        return view('front.product.series',compact('data'));
+        return view('front.product.series',compact('data','req'));
     }
 
     public function browseProductSeriesAll(Request $req)

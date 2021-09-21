@@ -23,7 +23,7 @@ Route::get('explore/tutor/{tutorId?}',[DefaultController::class,'exploreTutor'])
 Route::get('explore/testimonials',[DefaultController::class,'testimonialsList'])->name('explore.testimonials');
 
 Route::get('about-us',[DefaultController::class,'aboutus'])->name('welcome.aboutus');
-Route::get('product/series',[DefaultController::class,'browserProduct'])->name('product.series');
+Route::any('product/series',[DefaultController::class,'browserProduct'])->name('product.series');
 Route::any('browse/product/series',[DefaultController::class,'browseProductSeriesAll'])->name('browse.product.series');
 Route::get('product/series/{seriesId}/details',[DefaultController::class,'browserProductDetails'])->name('product.series.details');
 Route::get('subscription/plan',[DefaultController::class,'subscription'])->name('subscription.plan');

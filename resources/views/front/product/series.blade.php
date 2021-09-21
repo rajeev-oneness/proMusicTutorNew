@@ -41,9 +41,9 @@
                 </div>
                 <div class="row m-0">
                     @php
-                        $queryParameter = [];
+                        $instrumentParameter = [];
                         if($data->instrument){
-                            $queryParameter = [
+                            $instrumentParameter = [
                                 'instrumentId' => $data->instrument->id,
                                 'instrumentName' => $data->instrument->name,
                             ];
@@ -51,14 +51,15 @@
                     @endphp
                     @foreach($data->category as $index => $cat)
                         @php
-                            $queryParameter['categoryId'] = $cat->id;
-                            $queryParameter['categoryName'] = $cat->name;
+                            $categoryParameter = $instrumentParameter;
+                            $categoryParameter['categoryId'] = $cat->id;
+                            $categoryParameter['categoryName'] = $cat->name;
                         @endphp
                         <div class="col-12 col-sm-6 col-md-4 mb-3">
                             <div class="card border-0 ">
                                 <img src="{{asset($cat->image)}}" class="card-img-top">
                                 <div class="card-body p-0">
-                                  <a href="{{route('product.series',$queryParameter)}}" class="btn signbtn">{{$cat->name}}</a>
+                                  <a href="{{route('product.series',$categoryParameter)}}" class="btn signbtn">{{$cat->name}}</a>
                                 </div>
                             </div>
                         </div>
@@ -68,14 +69,32 @@
         </section>
     @endif
 
-    @if(count($data->guitarSeries) > 0)
-        <section class="mt-5 mb-5 pt-5 pb-5 bg-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 text-center title-inner">
-                        <h1 class="mb-5">All Series @if($data->instrument){{' Related to '.$data->instrument->name}}@endif</h1>
-                    </div>
+    <section class="mt-5 mb-5 pt-5 pb-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 text-center title-inner">
+                    <h1 class="mb-5">All Series @if($data->instrument){{' Related to '.$data->instrument->name}}@endif</h1>
                 </div>
+                <div class="col-6">
+                    <form method="post" action="{{route('product.series',$instrumentParameter)}}">
+                        @csrf
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-4 col-form-label">Difficulty</label>
+                                <select class="form-control form-control-sm" name="difficulty">
+                                    <option value="" selected="" hidden="">Difficulty</option>
+                                    <option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
+                                    <option {{($req->difficulty == 'Medium') ? 'selected' : ''}} value="Medium">Medium</option>
+                                    <option {{($req->difficulty == 'Hard') ? 'selected' : ''}} value="Hard">Hard</option>
+                                </select>
+                            </div>
+                            <a href="{{route('product.series',$instrumentParameter)}}">Reset</a>
+                            <input type="submit" name="" class="btn">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            @if(count($data->guitarSeries) > 0)
                 <div class="row m-0">
                     @foreach($data->guitarSeries as $key => $series)
                         <div class="col-12 col-sm-6 col-md-4">
@@ -106,9 +125,11 @@
                 <!-- <div class="text-center mt-5">
                     <a href="javascript:void(0)" class="btn viewmore">EXPLORE MORE</a>
                 </div> -->
-            </div>
-        </section>
-    @endif
+            @else
+                <div>No Series found</div>
+            @endif
+        </div>
+    </section>
 @endsection
 @section('script')
 <script type="text/javascript"></script>
