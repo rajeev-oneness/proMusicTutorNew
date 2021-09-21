@@ -88,6 +88,9 @@ class DefaultController extends Controller
         if(!empty($req->category)){
             $data->guitarSeries = $data->guitarSeries->where('categoryId',$req->category);
         }
+        if(!empty($req->difficulty)){
+            $data->guitarSeries = $data->guitarSeries->where('difficulty',$req->difficulty);
+        }
         if(!empty($req->tutor)){
             $data->guitarSeries = $data->guitarSeries->where('createdBy',$req->tutor);
         }

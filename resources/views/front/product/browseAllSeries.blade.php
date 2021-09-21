@@ -39,6 +39,15 @@
             			</select>
             		</div>
             		<div class="form-group col-md-3">
+            			<label>Difficulty</label>
+            			<select class="form-control" name="difficulty">
+            				<option value="" selected="" hidden="">Difficulty</option>
+			                <option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
+			                <option {{($req->difficulty == 'Medium') ? 'selected' : ''}} value="Medium">Medium</option>
+			                <option {{($req->difficulty == 'Hard') ? 'selected' : ''}} value="Hard">Hard</option>
+            			</select>
+            		</div>
+            		<div class="form-group col-md-3">
             			<label>Tutor</label>
             			<select class="form-control" name="tutor">
             				<option value="" selected="" hidden="">Tutor</option>
