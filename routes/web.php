@@ -88,3 +88,8 @@ Route::group(['prefix'=>'tutor','middleware'=>'tutor'],function(){
 Route::group(['prefix'=>'user','middleware'=>'user'],function(){
 	require 'custom/user.php';
 });
+
+
+Route::get('payment', [TestController::class,'payment'])->name('payment');
+Route::get('cancel', [TestController::class,'cancel'])->name('payment.cancel');
+Route::get('payment/success', [TestController::class,'success'])->name('payment.success');
