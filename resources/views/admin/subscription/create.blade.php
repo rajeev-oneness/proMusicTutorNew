@@ -43,17 +43,39 @@
                         <h4>Features</h4>
                         <table id="featureTable">
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <label class="col-form-label">Title:</label>
-                                        <input type="text" class="form-control" name="features_title[]" placeholder="Features">
-                                    </td>
-                                    <td>
-                                        <a href="javascript:void(0)" class="actionbtn addNew">
-                                            <span class="text-success"><i class="fas fa-plus"></i></span>
-                                        </a>
-                                    </td>
-                                </tr>
+                                @if(old('features_title'))
+                                    @for( $i = 0; $i < count(old('features_title')); $i++)
+                                        <tr>
+                                            <td>
+                                                <label class="col-form-label">Title:</label>
+                                                <input type="text" class="form-control" name="features_title[]" placeholder="Features" value="{{ old('features_title.'.$i)}}">
+                                            </td>
+                                            <td>
+                                                @if(($i+1) == count(old('features_title')))
+                                                    <a href="javascript:void(0)" class="actionbtn addNew">
+                                                        <span class="text-success"><i class="fas fa-plus"></i></span>
+                                                    </a>
+                                                @else
+                                                    <a href="javascript:void(0)" class="actionbtn remove">
+                                                        <span class="text-danger">&#10006;</span>
+                                                    </a>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endfor
+                                @else
+                                    <tr>
+                                        <td>
+                                            <label class="col-form-label">Title:</label>
+                                            <input type="text" class="form-control" name="features_title[]" placeholder="Features">
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0)" class="actionbtn addNew">
+                                                <span class="text-success"><i class="fas fa-plus"></i></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                         <div class="form-group">
