@@ -10,6 +10,7 @@ use App\Models\Testimonial,App\Models\Setting;
 use App\Models\Instrument,App\Models\Category;
 use Carbon\Exceptions\Exception,Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash,App\Models\Genre;
+use App\Models\SubscriptionPlan,App\Models\SubscriptionPlanFeature;
 
 class CrudController extends Controller
 {
@@ -616,7 +617,7 @@ class CrudController extends Controller
 
     public function subscriptionList(Request $req)
     {
-        $subscription = [];
+        $subscription = SubscriptionPlan::select('*')->get();
         return view('admin.subscription.list',compact('subscription'));
     }
 
@@ -627,23 +628,104 @@ class CrudController extends Controller
 
     public function subscriptionStore(Request $req)
     {
-        
+        $req->validate([
+            'image' => 'required',
+            'title' => 'required|string|max:255',
+            'price' => 'required|numeric|min:1',
+            'valid' => 'required|numeric|min:1',
+            'features_title' => 'nullable|array',
+            'features_title.*' => 'required|string|max:255',
+        ]);
+        DB::beginTransaction();
+        try {
+            $newSubscription = new SubscriptionPlan();
+            $newSubscription->title = $req->title;
+            if($req->hasFile('image')){
+                $image = $req->file('image');
+                $newSubscription->image = imageUpload($image,'subscription');
+            }
+            $newSubscription->price = $req->price;
+            $newSubscription->currencyId = 3;
+            $newSubscription->valid_for = $req->valid;
+            $newSubscription->save();
+            if(!empty($req->features_title) && count($req->features_title) > 0){
+                foreach ($req->features_title as $key => $featured) {
+                    $newPlanFeature = new SubscriptionPlanFeature();
+                    $newPlanFeature->subscriptionPlanId = $newSubscription->id;
+                    $newPlanFeature->title = $featured;
+                    $newPlanFeature->save();
+                }
+            }
+            DB::commit();
+            return redirect(route('admin.master.subscription.list'))->with('Success','Subscription Plan Added sucecss');
+        } catch (Exception $e) {
+            DB::rollback();
+            $errors['title'] = 'Something went wrong please try after sometime';
+            return back()->withInput($req->all())->withErrors($errors);
+        }
     }
 
-    public function subscriptionEdit(Request $req)
+    public function subscriptionEdit(Request $req,$subscriptionId)
     {
-        $subscription = [];
+        $subscription = SubscriptionPlan::findorFail($subscriptionId);
         return view('admin.subscription.edit',compact('subscription'));
     }
 
-    public function subscriptionUpdate(Request $req)
+    public function subscriptionUpdate(Request $req,$subscriptionId)
     {
-        
+        $req->validate([
+            'image' => 'nullable',
+            'title' => 'required|string|max:255',
+            'price' => 'required|numeric|min:1',
+            'valid' => 'required|numeric|min:1',
+            'features_title' => 'nullable|array',
+            'features_title.*' => 'required|string|max:255',
+        ]);
+        DB::beginTransaction();
+        try {
+            $subscription = SubscriptionPlan::findorFail($subscriptionId);
+            $subscription->title = $req->title;
+            if($req->hasFile('image')){
+                $image = $req->file('image');
+                $subscription->image = imageUpload($image,'subscription');
+            }
+            $subscription->price = $req->price;
+            $subscription->currencyId = 3;
+            $subscription->valid_for = $req->valid;
+            $subscription->save();
+            if(!empty($req->features_title) && count($req->features_title) > 0){
+                SubscriptionPlanFeature::where('subscriptionPlanId',$subscription->id)->delete();
+                foreach ($req->features_title as $key => $featured) {
+                    $newPlanFeature = new SubscriptionPlanFeature();
+                    $newPlanFeature->subscriptionPlanId = $subscription->id;
+                    $newPlanFeature->title = $featured;
+                    $newPlanFeature->save();
+                }
+            }
+            DB::commit();
+            return redirect(route('admin.master.subscription.list'))->with('Success','Subscription Plan Updated sucecss');
+        } catch (Exception $e) {
+            DB::rollback();
+            $errors['title'] = 'Something went wrong please try after sometime';
+            return back()->withInput($req->all())->withErrors($errors);
+        }
     }
 
     public function subscriptionDelete(Request $req)
     {
-        
+        $rules = [
+            'id' => 'required|numeric|min:1',
+        ];
+        $validator = validator()->make($req->all(), $rules);
+        if(!$validator->fails()) {
+            $SubscriptionPlan = SubscriptionPlan::find($req->id);
+            if($SubscriptionPlan) {
+                $SubscriptionPlan->delete();
+                return successResponse('Subscription Plan Success');  
+            }
+            return errorResponse('Invalid Subscription Plan Id');
+        }
+        return errorResponse($validator->errors()->first());
     }
 
     // public function guitarCategoryDelete(Request $req)

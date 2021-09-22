@@ -38,12 +38,12 @@
 
 	// Subscription
 	Route::group(['prefix' => 'master/subscription'],function(){
-		Route::get('/list',[CrudController::class,'subscriptionList'])->name('admin.master.subscription.list');
-		Route::get('/create',[CrudController::class,'subscriptionCreate'])->name('admin.master.subscription.create');
-		Route::post('/store',[CrudController::class,'subscriptionStore'])->name('admin.master.subscription.save');
-		Route::get('/{id}/edit',[CrudController::class,'subscriptionEdit'])->name('admin.master.subscription.edit');
-		Route::post('/{id}/update',[CrudController::class,'subscriptionUpdate'])->name('admin.master.subscription.update');
-		Route::post('/{id}/delete',[CrudController::class,'subscriptionDelete'])->name('admin.master.subscription.delete');
+		Route::get('list',[CrudController::class,'subscriptionList'])->name('admin.master.subscription.list');
+		Route::get('create',[CrudController::class,'subscriptionCreate'])->name('admin.master.subscription.create');
+		Route::post('store',[CrudController::class,'subscriptionStore'])->name('admin.master.subscription.save');
+		Route::get('{id}/edit',[CrudController::class,'subscriptionEdit'])->name('admin.master.subscription.edit');
+		Route::post('{id}/update',[CrudController::class,'subscriptionUpdate'])->name('admin.master.subscription.update');
+		Route::post('delete',[CrudController::class,'subscriptionDelete'])->name('admin.master.subscription.delete');
 	});
 
 	// Offers

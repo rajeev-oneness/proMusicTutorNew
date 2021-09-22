@@ -98,6 +98,9 @@
                                         <!-- <li class="nav-item">
                                             <a class="nav-link {{request()->routeIs('admin.master.offer.*')?'active':''}}" href="{{route('admin.master.offer.list')}}"><i class="fa fa-fw fa-user-circle"></i>Offers</a>
                                         </li> -->
+                                        <li class="nav-item">
+                                            <a class="nav-link {{request()->routeIs('admin.master.subscription.*')?'active':''}}" href="{{route('admin.master.subscription.list')}}"><i class="fa fa-fw fa-user-circle"></i>Subscription</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
