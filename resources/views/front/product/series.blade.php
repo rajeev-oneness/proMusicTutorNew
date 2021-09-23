@@ -116,7 +116,7 @@
                                     <a href="{{route('product.series.details',$series->id)}}" class="btn detail col-6">Details</a>
                                     <a href="javascript:void(0)" class="btn preview col-6">PREVIEW</a>
                                 </div>
-                            </div>sudo /opt/lampp/manager-linux-x64.run
+                            </div>
                             <div class="difficulty_section">
                                 {{$series->difficulty}}
                             </div>

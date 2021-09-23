@@ -164,6 +164,9 @@
                                     <a href="{{route('product.series.details',$otherSeries->id)}}" class="btn detail col-6">Details</a>
                                     <a href="javascript:void(0)" class="btn preview col-6">PREVIEW</a>
                                 </div>
+                                <div class="difficulty_section right-0">
+                                    {{$otherSeries->difficulty}}
+                                </div>
                             </div>
                         </div>
                     @endforeach
