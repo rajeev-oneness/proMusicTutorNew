@@ -41,23 +41,23 @@
                         </div>
                         <hr>
                         <h4>Features</h4>
-                        <table id="featureTable">
+                        <table class="table table-sm table-hover" id="featureTable">
                             <tbody>
                                 @if(old('features_title'))
                                     @for( $i = 0; $i < count(old('features_title')); $i++)
                                         <tr>
                                             <td>
-                                                <label class="col-form-label">Title:</label>
-                                                <input type="text" class="form-control" name="features_title[]" placeholder="Features" value="{{ old('features_title.'.$i)}}">
+                                                {{-- <label class="col-form-label">Title:</label> --}}
+                                                <input type="text" class="form-control" name="features_title[]" placeholder="Feature title" value="{{ old('features_title.'.$i)}}">
                                             </td>
-                                            <td>
+                                            <td class="align-middle text-center">
                                                 @if(($i+1) == count(old('features_title')))
                                                     <a href="javascript:void(0)" class="actionbtn addNew">
-                                                        <span class="text-success"><i class="fas fa-plus"></i></span>
+                                                        <button class="btn btn-sm btn-success"><i class="fas fa-plus"></i></button>
                                                     </a>
                                                 @else
                                                     <a href="javascript:void(0)" class="actionbtn remove">
-                                                        <span class="text-danger">&#10006;</span>
+                                                        <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
                                                     </a>
                                                 @endif
                                             </td>
@@ -66,12 +66,12 @@
                                 @else
                                     <tr>
                                         <td>
-                                            <label class="col-form-label">Title:</label>
-                                            <input type="text" class="form-control" name="features_title[]" placeholder="Features">
+                                            {{-- <label class="col-form-label">Title:</label> --}}
+                                            <input type="text" class="form-control" name="features_title[]" placeholder="Feature title">
                                         </td>
-                                        <td>
+                                        <td class="align-middle text-center">
                                             <a href="javascript:void(0)" class="actionbtn addNew">
-                                                <span class="text-success"><i class="fas fa-plus"></i></span>
+                                                <button class="btn btn-sm btn-success"><i class="fas fa-plus"></i></button>
                                             </a>
                                         </td>
                                     </tr>
@@ -87,13 +87,14 @@
         </div>
     </div>
 </div>
+
 @section('script')
     <script type="text/javascript" src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
     <script type="text/javascript">
         $(document).on('click','.addNew',function(){
             $('.actionbtn').removeClass('addNew').addClass('remove');
-            $('.remove').empty().append('<span class="text-danger">&#10006;</span>');
-            var newRow = '<tr><td><label class="col-form-label">Title:</label><input type="text" class="form-control" name="features_title[]" placeholder="Features"></td><td><a href="javascript:void(0)" class="actionbtn addNew"><span class="text-success"><i class="fas fa-plus"></i></span></a></td></tr>';
+            $('.remove').empty().append('<button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>');
+            var newRow = '<tr><td><input type="text" class="form-control" name="features_title[]" placeholder="Feature title"></td><td  class="align-middle text-center"><a href="javascript:void(0)" class="actionbtn addNew"><button class="btn btn-sm btn-success"><i class="fas fa-plus"></i></button></a></td></tr>';
             $('#featureTable tr:last').after(newRow);
         });
 
