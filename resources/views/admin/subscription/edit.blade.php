@@ -50,7 +50,6 @@
                                         <?php $j++; ?>
                                         <tr>
                                             <td>
-                                                {{-- <label class="col-form-label">Title:</label> --}}
                                                 <input type="text" class="form-control" name="features_title[]" placeholder="Feature title" value="{{$feature->title}}">
                                             </td>
                                             <td class="align-middle text-center">
@@ -69,7 +68,6 @@
                                 @else
                                     <tr>
                                         <td>
-                                            {{-- <label class="col-form-label">Title:</label> --}}
                                             <input type="text" class="form-control" name="features_title[]" placeholder="Feature title">
                                         </td>
                                         <td class="align-middle text-center">

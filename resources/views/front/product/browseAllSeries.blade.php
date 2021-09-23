@@ -10,58 +10,60 @@
         </div>
 
         <div class="row justify-content-between m-0 mb-5 align-content-center align-items-center">
-            <div class="col-12 col-lg-4">
-                <ul class="bredcamb">
+            <div class="col-12 col-md-3">
+                <ul class="bredcamb mt-4">
                     <li><a href="{{route('welcome')}}">Home</a></li>
                     <li>/</li>
                     <li><a href="javascript:void(0)" class="active">Series's</a></li>
                 </ul>
             </div>
-            <form method="post" action="{{route('browse.product.series')}}">
-            	@csrf
-            	<div class="row">
-            		<div class="form-group col-md-3">
-            			<label>Instrument</label>
-            			<select class="form-control" name="instrument">
-            				<option value="" selected="" hidden="">Instrument</option>
-			                @foreach($data->instrument as $ins)
-				                <option value="{{$ins->id}}" {{($req->instrument == $ins->id) ? 'selected' : ''}}>{{$ins->name}}</option>
-			                @endforeach
-            			</select>
-            		</div>
-            		<div class="form-group col-md-3">
-            			<label>Category</label>
-            			<select class="form-control" name="category">
-            				<option value="" selected="" hidden="">Category</option>
-			                @foreach($data->category as $cat)
-				                <option value="{{$cat->id}}" {{($req->category == $cat->id) ? 'selected' : ''}}>{{$cat->name}}</option>
-			                @endforeach
-            			</select>
-            		</div>
-            		<div class="form-group col-md-3">
-            			<label>Difficulty</label>
-            			<select class="form-control" name="difficulty">
-            				<option value="" selected="" hidden="">Difficulty</option>
-			                <option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
-			                <option {{($req->difficulty == 'Medium') ? 'selected' : ''}} value="Medium">Medium</option>
-			                <option {{($req->difficulty == 'Hard') ? 'selected' : ''}} value="Hard">Hard</option>
-            			</select>
-            		</div>
-            		<div class="form-group col-md-3">
-            			<label>Tutor</label>
-            			<select class="form-control" name="tutor">
-            				<option value="" selected="" hidden="">Tutor</option>
-			                @foreach($data->tutor as $teacher)
-				                <option value="{{$teacher->id}}" {{($req->tutor == $teacher->id) ? 'selected' : ''}}>{{$teacher->name}}</option>
-			                @endforeach
-            			</select>
-            		</div>
-            		<div class="form-group col-md-3">
-            			<a href="{{route('browse.product.series')}}">Reset</a>
-            			<input type="submit" name="">
-            		</div>
-            	</div>
-            </form>
+            <div class="col-12 col-md-9">
+				<form method="post" action="{{route('browse.product.series')}}" class="w-100">
+					@csrf
+					<div class="w-100 d-flex justify-content-end">
+						<div class="form-group mb-0 mr-2">
+							<label>Instrument</label>
+							<select class="form-control" name="instrument">
+								<option value="" selected="" hidden="">Instrument</option>
+								@foreach($data->instrument as $ins)
+									<option value="{{$ins->id}}" {{($req->instrument == $ins->id) ? 'selected' : ''}}>{{$ins->name}}</option>
+								@endforeach
+							</select>
+						</div>
+						<div class="form-group mb-0 mr-2">
+							<label>Category</label>
+							<select class="form-control" name="category">
+								<option value="" selected="" hidden="">Category</option>
+								@foreach($data->category as $cat)
+									<option value="{{$cat->id}}" {{($req->category == $cat->id) ? 'selected' : ''}}>{{$cat->name}}</option>
+								@endforeach
+							</select>
+						</div>
+						<div class="form-group mb-0 mr-2">
+							<label>Difficulty</label>
+							<select class="form-control" name="difficulty">
+								<option value="" selected="" hidden="">Difficulty</option>
+								<option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
+								<option {{($req->difficulty == 'Medium') ? 'selected' : ''}} value="Medium">Medium</option>
+								<option {{($req->difficulty == 'Hard') ? 'selected' : ''}} value="Hard">Hard</option>
+							</select>
+						</div>
+						<div class="form-group mb-0 mr-2">
+							<label>Tutor</label>
+							<select class="form-control" name="tutor">
+								<option value="" selected="" hidden="">Tutor</option>
+								@foreach($data->tutor as $teacher)
+									<option value="{{$teacher->id}}" {{($req->tutor == $teacher->id) ? 'selected' : ''}}>{{$teacher->name}}</option>
+								@endforeach
+							</select>
+						</div>
+						<div class="form-group mb-0 mr-2" style="padding-top: 37px">
+							<button type="submit" class="btn btn-primary">Apply</button>
+							<a href="{{route('browse.product.series')}}" class="btn btn-light border">Reset</a>
+						</div>
+					</div>
+				</form>
+			</div>
         </div>
         @if(count($data->guitarSeries) > 0)
 	        <section class="mt-5 mb-5 pt-5 pb-5 bg-light">
@@ -89,6 +91,9 @@
 	                                    <a href="{{route('product.series.details',$series->id)}}" class="btn detail col-6">Details</a>
 	                                    <a href="javascript:void(0)" class="btn preview col-6">PREVIEW</a>
 	                                </div>
+									<div class="difficulty_section right-0">
+										{{$series->difficulty}}
+									</div>
 	                            </div>
 	                        </div>
 	                    @endforeach

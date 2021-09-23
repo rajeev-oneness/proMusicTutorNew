@@ -2,7 +2,7 @@
 @section('title','About Us')
 @section('content')
     <section class="pt-6 pb-5">
-        <h1>{{$data->aboutus->heading}}</h1>
+        <h1 class="text-center my-4">{{$data->aboutus->heading}}</h1>
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-5">
