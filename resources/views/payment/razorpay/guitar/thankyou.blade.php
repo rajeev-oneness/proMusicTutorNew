@@ -15,11 +15,10 @@
                 		<ul>
                 			<?php $productSeriesName = '';$transactionId = '';?>
 	                		@foreach($purchaseSeries as $purchaseLession)
-
-	                		<?php 
-								$productSeriesName = $purchaseLession->product_series->title;
-								$transactionId = $purchaseLession->transaction->transactionId;
-	                		?>
+		                		<?php 
+									$productSeriesName = $purchaseLession->product_series->title;
+									$transactionId = $purchaseLession->transaction->transactionId;
+		                		?>
 		                	@break
 	                		@endforeach
 	                		<li>Product Series : {{$productSeriesName}}</li>
