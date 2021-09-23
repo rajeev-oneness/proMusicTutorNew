@@ -47,7 +47,6 @@
                                     @for( $i = 0; $i < count(old('features_title')); $i++)
                                         <tr>
                                             <td>
-                                                {{-- <label class="col-form-label">Title:</label> --}}
                                                 <input type="text" class="form-control" name="features_title[]" placeholder="Feature title" value="{{ old('features_title.'.$i)}}">
                                             </td>
                                             <td class="align-middle text-center">
