@@ -34,6 +34,9 @@
                     <div class="row m-0 mt-5 col-12 p-0 pl-3 pl-md-0">
                         <h6>TUTOR: <a href="{{route('explore.tutor',[base64_encode($tutor->id),'tutor'=>$tutor->name])}}" style="font-size: 18px;"><span style="color: #e40054 !important;">{{strtoupper($tutor->name)}}</span></a></h6>
                     </div>
+                    <div class="row m-0 mt-4 col-12 p-0 pl-3 pl-md-0">
+                        <h6>DIFFICULTY: <span style="color: #e40054 !important;">{{strtoupper($data->difficulty)}}</span></h6>
+                    </div>
                     <div class="col-12 mt-4 p-3 p-md-0">
                         <h6 class="mb-3">Tutor Description</h6>
                         <p>{!! words($tutor->about,900) !!}</p>
@@ -53,45 +56,53 @@
 
     <!-- Guitar Series Lession -->
     <?php $lessions = $data->lession; ?>
-    <!-- Filter -->
-    <form method="post" action="{{route('product.series.details',$data->id)}}">
-        @csrf
-        <div class="row">
-            <div class="form-group">
-                <label class="col-sm-4 col-form-label">Difficulty</label>
-                <select class="form-control form-control-sm" name="difficulty">
-                    <option value="" selected="" hidden="">Difficulty</option>
-                    <option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
-                    <option {{($req->difficulty == 'Medium') ? 'selected' : ''}} value="Medium">Medium</option>
-                    <option {{($req->difficulty == 'Hard') ? 'selected' : ''}} value="Hard">Hard</option>
-                </select>
-            </div>
-            <a href="{{route('product.series.details',$data->id)}}">Reset</a>
-            <input type="submit" name="" class="btn">
-        </div>
-    </form>
-    <!-- filter End -->
+
     @if(count($lessions) > 0)
         <section class="pt-5 pb-5 mb-5 bg-light">
             <div class="container">
-                <div class="row m-0 mb-5">
-                    <h5 class="pt-2">LESSONS</h5>
-                    @guest
-                        <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="alert('please login to continue')">BUY FULL SERIES - £ {{$totalPrice}}</a>
-                    @else
-                        @if($data->userPurchased)
-                            <a href="javascript:void(0)" class="purchased-Full ml-3 ml-md-5">Already Purchased</a>
-                        @else
-                            <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}');">BUY FULL SERIES - &pound;  {{$totalPrice}}</a>
-                        @endif
-                    @endguest
+                <div class="row mb-5">
+                    <div class="col-md-6">
+                        <div class="d-flex">
+                            <h5 class="pt-2">LESSONS</h5>
+                            @guest
+                                <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="alert('please login to continue')">BUY FULL SERIES - £ {{$totalPrice}}</a>
+                            @else
+                                @if($data->userPurchased)
+                                    <a href="javascript:void(0)" class="purchased-Full ml-3 ml-md-5">Already Purchased</a>
+                                @else
+                                    <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}');">BUY FULL SERIES - &pound;  {{$totalPrice}}</a>
+                                @endif
+                            @endguest
+                        </div>
+                    </div>
+                    <div class="col-6 text-right pt-2">
+                        <!-- Filter -->
+                        <form method="post" action="{{route('product.series.details',$data->id)}}" class="form-inline justify-content-end">
+                            @csrf
+                            <div class="form-group mr-3">
+                                <label class="form-label mr-3">Select Difficulty</label>
+                                <select class="form-control form-control-sm" name="difficulty">
+                                    <option value="" selected="" hidden="">Difficulty</option>
+                                    <option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
+                                    <option {{($req->difficulty == 'Medium') ? 'selected' : ''}} value="Medium">Medium</option>
+                                    <option {{($req->difficulty == 'Hard') ? 'selected' : ''}} value="Hard">Hard</option>
+                                </select>
+                            </div>
+                            <button type="submit" name="" class="btn btn-sm btn-primary mr-3">Apply</button>
+                            <a href="{{route('product.series.details',$data->id)}}" class="btn btn-sm btn-light border">Reset</a>
+                        </form>
+                        <!-- Filter end -->
+                    </div>
                 </div>
                 <div class="row m-0">
                     @foreach($lessions as $key => $less)
                         <div class="card col-12 p-0 mb-3">
                             <div class="row no-gutters">
-                                <div class="col-md-4">
+                                <div class="col-md-4 position-relative">
                                     <img src="{{asset($less->image)}}" class="card-img">
+                                    <div class="difficulty_section right-0">
+                                        {{$less->difficulty}}
+                                    </div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body position-relative">

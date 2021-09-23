@@ -75,12 +75,11 @@
                 <div class="col-6 text-center title-inner">
                     <h1 class="mb-5">All Series @if($data->instrument){{' Related to '.$data->instrument->name}}@endif</h1>
                 </div>
-                <div class="col-6">
-                    <form method="post" action="{{route('product.series',$instrumentParameter)}}">
+                <div class="col-6 text-right pt-2">
+                    <form method="post" action="{{route('product.series',$instrumentParameter)}}" class="form-inline justify-content-end">
                         @csrf
-                        <div class="row">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Difficulty</label>
+                            <div class="form-group mr-3">
+                                <label class="form-label mr-3">Select Difficulty</label>
                                 <select class="form-control form-control-sm" name="difficulty">
                                     <option value="" selected="" hidden="">Difficulty</option>
                                     <option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
@@ -88,9 +87,8 @@
                                     <option {{($req->difficulty == 'Hard') ? 'selected' : ''}} value="Hard">Hard</option>
                                 </select>
                             </div>
-                            <a href="{{route('product.series',$instrumentParameter)}}">Reset</a>
-                            <input type="submit" name="" class="btn">
-                        </div>
+                            <button type="submit" name="" class="btn btn-sm btn-primary mr-3">Apply</button>
+                            <a href="{{route('product.series',$instrumentParameter)}}" class="btn btn-sm btn-light border">Reset</a>
                     </form>
                 </div>
             </div>
@@ -118,6 +116,9 @@
                                     <a href="{{route('product.series.details',$series->id)}}" class="btn detail col-6">Details</a>
                                     <a href="javascript:void(0)" class="btn preview col-6">PREVIEW</a>
                                 </div>
+                            </div>sudo /opt/lampp/manager-linux-x64.run
+                            <div class="difficulty_section">
+                                {{$series->difficulty}}
                             </div>
                         </div>
                     @endforeach
