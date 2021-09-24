@@ -60,4 +60,59 @@ class ReportController extends Controller
         }
         return view('reports.bestSeller', compact('data', 'req', 'series'));
     }
+
+    public function mostViewed(Request $req)
+    {
+        $series = ProductSeries::where('view_count', '>', 0);
+
+        if (!empty($req->instrumentId)) {
+            $series = $series->where('instrumentId', $req->instrumentId);
+        }
+        if (!empty($req->dateFrom)) {
+            $series = $series->where('created_at', '>=', $req->dateFrom);
+        }
+        if (!empty($req->dateTo)) {
+            $series = $series->where('last_count_increased_at', '<=', date('Y-m-d', strtotime($req->dateTo . '+ 1 day')));
+        }
+
+        $series = $series->orderBy('view_count', 'desc')->get();
+
+        $instruments = Instrument::all();
+        return view('reports.mostViewed', compact('req', 'series', 'instruments'));
+    }
+
+    public function productsOrdered(Request $req)
+    {
+        $data = [];
+        $purchaseList = UserProductLessionPurchase::select('productSeriesId');
+        $series = $purchaseList->groupBy('productSeriesId')->get();
+
+        if ($req->instrumentId) {
+            $purchaseList = $purchaseList->join('product_series', 'product_series.id', '=', 'user_product_lession_purchases.productSeriesId')
+            ->join('instruments', 'instruments.id', '=', 'product_series.instrumentId')
+            ->where('instruments.id', $req->instrumentId);
+        }
+        if (!empty($req->dateFrom)) {
+            $purchaseList = $purchaseList->where('user_product_lession_purchases.created_at', '>=', $req->dateFrom);
+        }
+        if (!empty($req->dateTo)) {
+            $purchaseList = $purchaseList->where('user_product_lession_purchases.created_at', '<=', date('Y-m-d', strtotime($req->dateTo . '+ 1 day')));
+        }
+
+        $purchaseList = $purchaseList->groupBy('productSeriesId')->pluck('productSeriesId')->toArray();
+
+        foreach ($purchaseList as $key => $value) {
+            $list = UserProductLessionPurchase::where('productSeriesId', $value);
+            $data[] = [
+                'from' => date('Y-m-d', strtotime($list->orderBy('id', 'DESC')->first()->created_at)),
+                'to' => date('Y-m-d', strtotime($list->latest()->first()->created_at)),
+                'seriesId' => $list->first()->productSeriesId,
+                'seriesName' => $list->first()->product_series->title,
+                'count' => $list->count(),
+            ];
+        }
+
+        $instruments = Instrument::all();
+        return view('reports.productsOrdered', compact('data', 'req', 'instruments'));
+    }
 }

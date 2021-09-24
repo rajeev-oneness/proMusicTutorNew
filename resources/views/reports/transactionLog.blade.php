@@ -1,5 +1,5 @@
 @extends('layouts.auth.authMaster')
-@section('title','Transaction Log')
+@section('title','Sales')
 
 @section('content')
 <div class="container-fluid dashboard-content">
@@ -7,7 +7,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Transaction Log</h5>
+                    <h5 class="mb-0">Sales</h5>
                 </div>
                 <div class="card-body">
                     <p>

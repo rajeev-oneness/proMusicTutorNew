@@ -11,7 +11,9 @@ use App\Models\UserProductLessionPurchase, App\Models\ProductSeriesLession;
 use App\Models\Setting, App\Models\UserRating;
 use App\Models\Offer;
 use App\Models\OfferSeries;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class DefaultController extends Controller
@@ -163,23 +165,6 @@ class DefaultController extends Controller
             return view('front.offerDetail', compact('data', 'req'));
         }
         return errorResponse('Something went wrong please try after sometime');
-
-
-        // $data = (object)[];
-        // $userId = Auth::user()->id;
-        // $data->offer = Offer::where('id', $offerId)->first();
-
-        // foreach ($data->offer as $key => $offer) {
-        //     $offer->userPurchased = false;
-        //     if ($userId) {
-        //         $checkPurchase = UserProductLessionPurchase::where('userId', $userId)->where('offerId', $offer->id)->first();
-        //         if ($checkPurchase) {
-        //             $offer->userPurchased = true;
-        //         }
-        //     }
-        // }
-
-        // return view('front.offerDetail', compact('data', 'req'));
     }
 
     public function afterPaymentOfferSeries(Request $req, $offerId)
@@ -202,7 +187,7 @@ class DefaultController extends Controller
                             $newLessionPurchase->save();
                         }
                     }
-                    return redirect(route('offer.series.purchase.thankyou').'?offerId='.$offer->id.'&transactionId='.$req->transactionId);
+                    return redirect(route('offer.series.purchase.thankyou') . '?offerId=' . $offer->id . '&transactionId=' . $req->transactionId);
                 } else {
                     $message = 'Invalid Offer Selected';
                 }
@@ -234,6 +219,10 @@ class DefaultController extends Controller
         $data = ProductSeries::where('id', $seriesId)->first();
         $user = auth()->user();
         if ($data) {
+            $data->view_count += 1;
+            $data->last_count_increased_at = Carbon::now();
+            $data->save();
+
             if (!empty($req->difficulty)) {
                 $data->lession = $data->lession->where('difficulty', $req->difficulty);
             }
@@ -254,6 +243,7 @@ class DefaultController extends Controller
                     }
                 }
             }
+
             return view('front.product.seriesDetails', compact('data', 'req'));
         }
         return errorResponse('Something went wrong please try after sometime');

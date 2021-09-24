@@ -73,10 +73,16 @@
                             <!-- Report Section -->
                             <li class="nav-divider">Report</li>
                             <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.report.transaction')?'active':''}}" href="{{route('admin.report.transaction')}}"><i class="fa fa-fw fa-user-circle"></i>Transaction log</a>
+                                <a class="nav-link {{request()->routeIs('admin.report.transaction')?'active':''}}" href="{{route('admin.report.transaction')}}"><i class="fa fa-fw fa-user-circle"></i>Sales</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.report.bestSeller')?'active':''}}" href="{{route('admin.report.bestSeller')}}"><i class="fa fa-fw fa-user-circle"></i>Best seller</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{request()->routeIs('admin.report.mostViewed')?'active':''}}" href="{{route('admin.report.mostViewed')}}"><i class="fa fa-fw fa-user-circle"></i>Most viewed</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{request()->routeIs('admin.report.productsOrdered')?'active':''}}" href="{{route('admin.report.productsOrdered')}}"><i class="fa fa-fw fa-user-circle"></i>Products ordered</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.report.contactus')?'active':''}}" href="{{route('admin.report.contactus')}}"><i class="fa fa-fw fa-user-circle"></i>Contact us</a>
