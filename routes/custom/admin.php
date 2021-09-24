@@ -53,7 +53,7 @@
 		Route::post('/store',[CrudController::class,'offerStore'])->name('admin.master.offer.save');
 		Route::get('/{id}/edit',[CrudController::class,'offerEdit'])->name('admin.master.offer.edit');
 		Route::post('/{id}/update',[CrudController::class,'offerUpdate'])->name('admin.master.offer.update');
-		Route::post('/{id}/delete',[CrudController::class,'offerDelete'])->name('admin.master.offer.delete');
+		Route::post('delete',[CrudController::class,'offerDelete'])->name('admin.master.offer.delete');
 	});
 
 	// Genre

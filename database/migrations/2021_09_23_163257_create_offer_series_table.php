@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
-class CreateUserProfilesTable extends Migration
+class CreateOfferSeriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +14,22 @@ class CreateUserProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_profiles', function (Blueprint $table) {
+        Schema::create('offer_series', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('userId')->unique();
-            $table->longText('fb_link');
-            $table->longText('twitter_link');
-            $table->longText('instagram_link');
-            $table->longText('youtube_link');
+            $table->integer('offer_id');
+            $table->integer('series_id');
+            $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
+
+        $data = [
+            ['offer_id' => '1', 'series_id' => '1'],
+            ['offer_id' => '1', 'series_id' => '2'],
+            ['offer_id' => '1', 'series_id' => '3'],
+        ];
+
+        DB::table('offer_series')->insert($data);
     }
 
     /**
@@ -33,6 +39,6 @@ class CreateUserProfilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_profiles');
+        Schema::dropIfExists('offer_series');
     }
 }
