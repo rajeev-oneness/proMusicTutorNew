@@ -67,12 +67,12 @@
                                     <p class="card-text">{!! words($productSeries->description,200) !!}</p>
 	                                <?php $seriesPrice = calculateLessionPrice($productSeries->lession); ?>
                                     @guest
-                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - &pound;  {{$seriesPrice}}</a>
+                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - $  {{$seriesPrice}}</a>
                                     @else
                                         @if($productSeries->userPurchased)
                                             <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                                         @else
-                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$productSeries->id)}}');">BUY FULL SERIES - &pound;  {{$seriesPrice}}</a>
+                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$productSeries->id)}}');">BUY FULL SERIES - $  {{$seriesPrice}}</a>
                                         @endif
                                     @endguest
 	                            </div>

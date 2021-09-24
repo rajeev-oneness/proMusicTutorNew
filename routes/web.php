@@ -46,6 +46,10 @@ Route::any('logout',[HomeController::class,'logout'])->name('logout');
 Route::get('sign-in/{socialite}',[LoginController::class,'socialiteLogin'])->name('socialite.login');
 Route::get('sign-in/{socialite}/redirect',[LoginController::class,'socialiteLoginRedirect'])->name('socialite.login.redirect');
 
+// OFFER ROUTES
+Route::any('offers',[DefaultController::class,'offersList'])->name('front.offers');
+Route::any('offers/{offerId}/detail',[DefaultController::class,'offerDetail'])->name('front.offers.detail');
+
 // Common Auth Routes
 Route::group(['middleware' => 'auth'],function(){
 	Route::get('user/profile',[HomeController::class, 'userProfile'])->name('user.profile');
@@ -63,6 +67,10 @@ Route::group(['middleware' => 'auth'],function(){
 	// guitar Series Purchase
 	Route::get('after/purchase/product/series/{seriesId}',[DefaultController::class,'afterPaymentProductSeries'])->name('after.purchase.guitar_series');
 	Route::get('product/series/purchase/successfull',[DefaultController::class,'thankyouProductSeries'])->name('product.series.purchase.thankyou');
+
+	// OFFER SERIES PURCHASE
+	Route::get('after/purchase/offer/{offerId}/series',[DefaultController::class,'afterPaymentOfferSeries'])->name('after.purchase.offer_series');
+	Route::get('offer/series/purchase/successfull',[DefaultController::class,'thankyouOfferSeries'])->name('offer.series.purchase.thankyou');
 
 	// Guitar Lession Purchase
 	Route::get('after/purchase/guitar/series/lession/{lessionId}',[DefaultController::class,'afterPaymentGuitarSeriesLession'])->name('after.purchase.guitar_lession_series');

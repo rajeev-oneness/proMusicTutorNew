@@ -17,7 +17,7 @@
                                 <img src="{{asset($subscription->image)}}" class="card-img-top">
                                 <div class="card-body text-center">
                                     <p>{{$subscription->title}}</p>
-                                    <h6>£ {{$subscription->price}} <span>/month</span></h6>
+                                    <h6>$ {{$subscription->price}} <span>/month</span></h6>
                                     <ul class="child-subs">
                                         @foreach($subscription->features as $feature)
                                             <li>{{$feature->title}}</li>

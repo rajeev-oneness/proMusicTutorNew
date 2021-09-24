@@ -135,3 +135,24 @@
     	}
     	return $return;	
     }
+
+	function currencySymbol($type = '')
+	{
+		$view = '$';
+		switch ($type) {
+			case 'gbp':$view = '£';break;
+			case 'usd':$view = '$';break;
+			case 'eur':$view = '€';break;
+			case 'euro':$view = '€';break;
+			
+			default:$view = '$';break;
+		}
+
+		return $view;
+	}
+
+	function createSlug($str, $delimiter = '-'){
+		$slug = strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))), $delimiter));
+		return $slug;
+	
+	}

@@ -53,6 +53,7 @@
                                         <ul class="r_menu_ul">
                                             <!-- <li><a href="javascript:void(0)">OFFERS</a></li> -->
                                             <li><a href="{{route('browse.product.series')}}">ALL SERIES & PREVIEWS</a></li>
+                                            <li><a href="{{route('front.offers')}}">OFFERS</a></li>
                                             <!-- <li><a href="javascript:void(0)">MEET THE PROS</a></li> -->
                                             <li><a href="{{route('howitworks')}}">HOW IT WORKS</a></li>
                                             <li><a class="{{Route::currentRouteName()=='subscription.plan'?'active':''}}" href="{{route('subscription.plan')}}">SUBSCRIPTIONS</a></li>
