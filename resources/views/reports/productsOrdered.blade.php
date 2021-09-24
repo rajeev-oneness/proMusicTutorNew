@@ -7,7 +7,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Products ordered</h5>
+                    <h5 class="mb-0">Products ordered (Lessions)</h5>
                 </div>
                 <div class="card-body">
                     <p>
@@ -67,7 +67,7 @@
                                             <span class="text-muted">To</span>
                                             {{$item['to']}}
                                         </td>
-                                        <td>{{$item['seriesName']}}</td>
+                                        <td>{{$item['lessonName']}}</td>
                                         <td>{{$item['count']}}</td>
                                     </tr>
                                 @empty

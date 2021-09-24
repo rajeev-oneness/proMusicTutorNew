@@ -84,12 +84,12 @@ class ReportController extends Controller
     public function productsOrdered(Request $req)
     {
         $data = [];
-        $purchaseList = UserProductLessionPurchase::select('productSeriesId');
-        $series = $purchaseList->groupBy('productSeriesId')->get();
+        $purchaseList = UserProductLessionPurchase::select('productSeriesLessionId');
+        $series = $purchaseList->groupBy('productSeriesLessionId')->get();
 
         if ($req->instrumentId) {
-            $purchaseList = $purchaseList->join('product_series', 'product_series.id', '=', 'user_product_lession_purchases.productSeriesId')
-            ->join('instruments', 'instruments.id', '=', 'product_series.instrumentId')
+            $purchaseList = $purchaseList->join('product_series_lessions', 'product_series_lessions.id', '=', 'user_product_lession_purchases.productSeriesLessionId')
+            ->join('instruments', 'instruments.id', '=', 'product_series_lessions.instrumentId')
             ->where('instruments.id', $req->instrumentId);
         }
         if (!empty($req->dateFrom)) {
@@ -99,15 +99,15 @@ class ReportController extends Controller
             $purchaseList = $purchaseList->where('user_product_lession_purchases.created_at', '<=', date('Y-m-d', strtotime($req->dateTo . '+ 1 day')));
         }
 
-        $purchaseList = $purchaseList->groupBy('productSeriesId')->pluck('productSeriesId')->toArray();
+        $purchaseList = $purchaseList->groupBy('productSeriesLessionId')->pluck('productSeriesLessionId')->toArray();
 
         foreach ($purchaseList as $key => $value) {
-            $list = UserProductLessionPurchase::where('productSeriesId', $value);
+            $list = UserProductLessionPurchase::where('productSeriesLessionId', $value);
             $data[] = [
                 'from' => date('Y-m-d', strtotime($list->orderBy('id', 'DESC')->first()->created_at)),
                 'to' => date('Y-m-d', strtotime($list->latest()->first()->created_at)),
-                'seriesId' => $list->first()->productSeriesId,
-                'seriesName' => $list->first()->product_series->title,
+                'seriesId' => $list->first()->productSeriesLessionId,
+                'lessonName' => $list->first()->product_series_lession->title,
                 'count' => $list->count(),
             ];
         }
