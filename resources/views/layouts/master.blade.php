@@ -180,6 +180,27 @@
             }
         });
         // strpe payment gateway ends
+
+        // wishlist
+        function wishlistToggle(id, type) {
+            var $this = event.target;
+            $.ajax({
+                url : "{{route('front.wishlist.toggle')}}",
+                method : "POST",
+                dataType : "json",
+                data : {id : id, type : type, _token : "{{ csrf_token() }}" },
+                beforeSend : function() {
+                    $($this).html('<i class="fa fa-spinner"></i>').addClass('pe-none');
+                },
+                success : function(result) {
+                    if (result.code == 1) {
+                        $($this).html('<i class="fa fa-heart text-light pe-none"></i>').removeClass('pe-none not-wishlisted').addClass('wishlisted');
+                    } else {
+                        $($this).html('<i class="fa fa-heart text-light pe-none"></i> ').removeClass('pe-none wishlisted').addClass('not-wishlisted');
+                    }
+                }
+            });
+        }
     </script>
     @yield('script')
 </body>

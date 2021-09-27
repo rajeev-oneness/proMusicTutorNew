@@ -93,9 +93,9 @@
                 </div>
             </div>
             @if(count($data->guitarSeries) > 0)
-                <div class="row m-0">
+                <div class="row m-0 series-row">
                     @foreach($data->guitarSeries as $key => $series)
-                        <div class="col-12 col-sm-6 col-md-4">
+                        <div class="col-12 col-sm-6 col-md-4 single-series">
                             <div class="card border-0 bg-transparent more-course">
                                 <img src="{{asset($series->image)}}" class="card-img-top">
                                 <div class="card-body text-center">
@@ -103,7 +103,7 @@
                                     <p class="card-text">{!! words($series->description,200) !!}</p>
                                     <?php $seriesPrice = calculateLessionPrice($series->lession); ?>
                                     @guest
-                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - $  {{$seriesPrice}}</a>
+                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - $ {{$seriesPrice}}</a>
                                     @else
                                         @if($series->userPurchased)
                                             <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
@@ -115,6 +115,15 @@
                                 <div class="card-footer d-flex border-0 p-0">
                                     <a href="{{route('product.series.details',$series->id)}}" class="btn detail col-6">Details</a>
                                     <a href="javascript:void(0)" class="btn preview col-6">PREVIEW</a>
+                                    {{-- @guest
+                                        <a href="javascript: void(0)" class="btn preview col-6 wishlist" onclick="walert('please login to continue')"> <i class="fa fa-heart"></i> WISHLIST</a>
+                                    @else
+                                        @if ($series->userWishlisted)
+                                            <a href="javascript: void(0)" class="btn preview col-6 wishlist wishlisted" onclick="wishlistToggle({{$series->id}}, 'series')"> <i class="fa fa-heart"></i> WISHLISTED</a>
+                                        @else
+                                            <a href="javascript: void(0)" class="btn preview col-6 wishlist not-wishlisted" onclick="wishlistToggle({{$series->id}}, 'series')"> <i class="fa fa-heart"></i> WISHLIST</a>
+                                        @endif
+                                    @endguest --}}
                                 </div>
                             </div>
                             <div class="difficulty_section">
@@ -132,6 +141,27 @@
         </div>
     </section>
 @endsection
+
 @section('script')
-<script type="text/javascript"></script>
+<script type="text/javascript">
+    // function wishlistToggle(id, type) {
+    //     var $this = event.target;
+    //     $.ajax({
+    //         url : "{{route('front.wishlist.toggle')}}",
+    //         method : "POST",
+    //         dataType : "json",
+    //         data : {id : id, type : type, _token : "{{ csrf_token() }}" },
+    //         beforeSend : function() {
+    //             $($this).html('<i class="fa fa-spinner"></i> Loading').addClass('pe-none');
+    //         },
+    //         success : function(result) {
+    //             if (result.code == 1) {
+    //                 $($this).html('<i class="fa fa-heart"></i> WISHLISTED').removeClass('pe-none not-wishlisted').addClass('wishlisted');
+    //             } else {
+    //                 $($this).html('<i class="fa fa-heart"></i> WISHLIST').removeClass('pe-none wishlisted').addClass('not-wishlisted');
+    //             }
+    //         }
+    //     });
+    // }
+</script>
 @endsection

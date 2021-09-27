@@ -50,6 +50,9 @@ Route::get('sign-in/{socialite}/redirect',[LoginController::class,'socialiteLogi
 Route::any('offers',[DefaultController::class,'offersList'])->name('front.offers');
 Route::any('offers/{offerId}/detail',[DefaultController::class,'offerDetail'])->name('front.offers.detail');
 
+//WISHLIST ROUTE
+Route::post('/wishlists', [DefaultController::class, 'wishlistToggle'])->name('front.wishlist.toggle');
+
 // Common Auth Routes
 Route::group(['middleware' => 'auth'],function(){
 	Route::get('user/profile',[HomeController::class, 'userProfile'])->name('user.profile');

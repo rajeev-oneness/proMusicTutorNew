@@ -2137,3 +2137,15 @@ footer{
 .right-0 {
   right: 0;
 }
+
+.pe-none {
+  pointer-events: none;
+}
+
+.wishlisted {
+  background-color: #eb3601;
+}
+
+.not-wishlisted {
+  background-color: #b5b5b5;
+}

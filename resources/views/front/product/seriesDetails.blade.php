@@ -23,6 +23,17 @@
                                 <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}');">BUY FULL SERIES - $  {{$totalPrice}}</a>
                             @endif
                         @endguest
+
+                        @guest
+                            <a href="javascript: void(0)" class="btn preview col-6 wishlist" onclick="alert('please login to continue')"> <i class="fa fa-heart"></i></a>
+                        @else
+                            @if ($data->userWishlisted)
+                                <a href="javascript: void(0)" class="btn wishlist wishlisted rounded-0 mb-3" onclick="wishlistToggle({{$req->seriesId}}, 'series')" title="Wishlisted"> <i class="fa fa-heart text-light pe-none"></i></a>
+                            @else
+                                <a href="javascript: void(0)" class="btn wishlist not-wishlisted rounded-0 mb-3" onclick="wishlistToggle({{$req->seriesId}}, 'series')" title="Wishlist now"> <i class="fa fa-heart text-light pe-none"></i></a>
+                            @endif
+                        @endguest
+
                     </div>
                     <div class="col-12 pt-4 pl-0 pl-md-3">
                         <h6 class="mb-3">Series Description</h6>
@@ -175,6 +186,7 @@
         </section>
     @endif
 @endsection
+
 @section('script')
 <script type="text/javascript"></script>
 @endsection

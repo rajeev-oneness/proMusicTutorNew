@@ -10,6 +10,7 @@ use App\Models\Transaction, App\Models\UserSubscription;
 use App\Models\UserProductLessionPurchase, App\Models\ProductSeriesLession;
 use App\Models\Setting, App\Models\UserRating;
 use App\Models\Offer;
+use App\Models\Wishlist;
 use App\Models\OfferSeries;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -60,6 +61,7 @@ class DefaultController extends Controller
         $data->instrument = [];
         $data->category = Category::select('*');
         $data->guitarSeries = ProductSeries::select('*');
+        $data->wishlist = Wishlist::select('*');
         if (!empty($req->instrumentId)) {
             $data->category = $data->category->where('instrumentId', $req->instrumentId);
             $data->guitarSeries = $data->guitarSeries->where('instrumentId', $req->instrumentId);
@@ -72,8 +74,11 @@ class DefaultController extends Controller
         if (!empty($req->difficulty)) {
             $data->guitarSeries = $data->guitarSeries->where('difficulty', $req->difficulty);
         }
+
         $data->category = $data->category->get();
         $data->guitarSeries = $data->guitarSeries->get();
+        $data->wishlist = $data->wishlist->get();
+
         foreach ($data->guitarSeries as $key => $guitar) {
             $guitar->userPurchased = false;
             if ($user) {
@@ -82,7 +87,26 @@ class DefaultController extends Controller
                     $guitar->userPurchased = true;
                 }
             }
+
+            $guitar->userWishlisted = false;
+            if ($user) {
+                $checkPurchase = Wishlist::where('user_id', $user->id)->where('product_id', $guitar->id)->first();
+                if ($checkPurchase) {
+                    $guitar->userWishlisted = true;
+                }
+            }
         }
+
+        // foreach ($data->wishlist as $key => $seriesWishlisted) {
+        //     $seriesWishlisted->userWishlisted = false;
+        //     if ($user) {
+        //         $checkPurchase = Wishlist::where('user_id', $user->id)->where('product_id', $seriesWishlisted->id)->first();
+        //         if ($checkPurchase) {
+        //             $seriesWishlisted->userWishlisted = true;
+        //         }
+        //     }
+        // }
+
         return view('front.product.series', compact('data', 'req'));
     }
 
@@ -232,6 +256,12 @@ class DefaultController extends Controller
                 if ($checkPurchase) {
                     $data->userPurchased = true;
                 }
+
+                $data->userWishlisted = false;
+                $checkPurchase = Wishlist::where('user_id', $user->id)->where('product_id', $data->id)->where('product_type', 'series')->first();
+                if ($checkPurchase) {
+                    $data->userWishlisted = true;
+                }
             }
             $data->otherGuitarSeries = ProductSeries::where('id', '!=', $data->id)->limit(3)->get();
             foreach ($data->otherGuitarSeries as $key => $other) {
@@ -243,6 +273,8 @@ class DefaultController extends Controller
                     }
                 }
             }
+
+
 
             return view('front.product.seriesDetails', compact('data', 'req'));
         }
@@ -530,5 +562,36 @@ class DefaultController extends Controller
         }
         $data->instruments = $data->instruments->orderBy('id', $sorting)->get();
         return view('front.exploreInstrument', compact('data', 'req'));
+    }
+
+    public function wishlistToggle(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|numeric|min:1',
+            'type' => 'required|string',
+        ]);
+        $user_id = Auth::user()->id;
+        $product_id = $request->id;
+        $type = $request->type;
+
+        $dataExists = Wishlist::where([
+            ['user_id', $user_id],
+            ['product_id', $product_id],
+            ['product_type', $type],
+        ])->first();
+
+        if ($dataExists) {
+            $dataExists->delete();
+
+            return response()->json(['status' => 200, 'message' => 'Product removed from wishlisted', 'code' => '0']);
+        } else {
+            $data = new Wishlist();
+            $data->user_id = $user_id;
+            $data->product_id = $product_id;
+            $data->product_type = $type;
+            $data->save();
+
+            return response()->json(['status' => 200, 'message' => 'Product wishlisted', 'code' => '1']);
+        }
     }
 }
