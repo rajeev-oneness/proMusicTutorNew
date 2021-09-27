@@ -49,7 +49,7 @@
 	    });
 	}
 
-	function imageUpload($image,$folder='image')
+	function imageUpload($image, $folder='image')
 	{
 		$random = randomGenerator();
 		$image->move('upload/'.$folder.'/',$random.'.'.$image->getClientOriginalExtension());

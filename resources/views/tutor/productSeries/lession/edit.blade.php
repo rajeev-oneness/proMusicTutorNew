@@ -76,6 +76,28 @@
                         </div>
 
                         <div class="row">
+                            <div class="form-group col-md-6">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="{{asset($productLession->preview_video)}}" allowfullscreen></iframe>
+                                </div>
+                                <br>
+                                <label for="preview_video" class="col-form-label">Preview video:</label>
+                                <input type="file" class="form-control @error('preview_video') is-invalid @enderror" id="preview_video" name="preview_video">
+                                @error('preview_video')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="{{asset($productLession->video)}}" allowfullscreen></iframe>
+                                </div>
+                                <br>
+                                <label for="video" class="col-form-label">Video:</label>
+                                <input type="file" class="form-control @error('video') is-invalid @enderror" id="video" name="video">
+                                @error('video')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
+                        </div>
+
+                        <div class="row">
                             <div class="form-group col-md-12">
                                 <label for="keywords" class="col-form-label">Keywords:</label>
                                 <input type="text" class="form-control @error('keywords') is-invalid @enderror" id="keywords" name="keywords" placeholder="PROVIDE A COMMA-SEPARATED LIST OF KEYWORDS" value="{{(old('keywords') ?? $productLession->keywords)}}">

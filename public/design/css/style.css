@@ -2145,7 +2145,13 @@ footer{
 .wishlisted {
   background-color: #eb3601;
 }
+.wishlisted:focus {
+  box-shadow: 0 0 0 0.2rem #ff572261;
+}
 
 .not-wishlisted {
   background-color: #b5b5b5;
+}
+.not-wishlisted:focus {
+  box-shadow: 0 0 0 0.2rem #b5b5b561;
 }

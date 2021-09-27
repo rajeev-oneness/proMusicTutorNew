@@ -20,7 +20,7 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="image" class="col-form-label">Image:</label>
-                                <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
+                                <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" value="{{old('image')}}">
                                 @error('image')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
@@ -34,7 +34,9 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="price" class="col-form-label">Price:</label>
-                                <input type="text" class="form-control @error('price') is-invalid @enderror" id="price" name="price" placeholder="Price" value="{{old('price')}}" onkeypress="return isNumberKey(event);" maxlength="7">
+                                <input type="text" class="form-control @error('price') is-invalid @enderror" id="price" name="price" placeholder="Price" value="{{old('price')}}" 
+                                {{-- onkeypress="return isNumberKey(event);"  --}}
+                                maxlength="15">
                                 @error('price')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
@@ -53,20 +55,34 @@
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label for="gbp" class="col-form-label">GBP:</label>
-                                <input type="text" class="form-control @error('gbp') is-invalid @enderror" id="gbp" name="gbp" placeholder="GBP" value="{{old('gbp')}}" onkeypress="return isNumberKey(event);" maxlength="7">
+                                <input type="text" class="form-control @error('gbp') is-invalid @enderror" id="gbp" name="gbp" placeholder="GBP" value="{{old('gbp')}}">
                                 @error('gbp')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label for="price_usd" class="col-form-label">USD:</label>
-                                <input type="text" class="form-control @error('price_usd') is-invalid @enderror" id="price_usd" name="price_usd" placeholder="Price in USD" value="{{old('price_usd')}}" onkeypress="return isNumberKey(event);" maxlength="7">
+                                <input type="text" class="form-control @error('price_usd') is-invalid @enderror" id="price_usd" name="price_usd" placeholder="Price in USD" value="{{old('price_usd')}}">
                                 @error('price_usd')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label for="price_euro" class="col-form-label">EURO:</label>
-                                <input type="text" class="form-control @error('price_euro') is-invalid @enderror" id="price_euro" name="price_euro" placeholder="Price in EURO" value="{{old('price_euro')}}" onkeypress="return isNumberKey(event);" maxlength="7">
+                                <input type="text" class="form-control @error('price_euro') is-invalid @enderror" id="price_euro" name="price_euro" placeholder="Price in EURO" value="{{old('price_euro')}}" >
                                 @error('price_euro')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="preview_video" class="col-form-label">Preview video:</label>
+                                <input type="file" class="form-control @error('preview_video') is-invalid @enderror" id="preview_video" name="preview_video" value="{{old('preview_video')}}">
+                                @error('preview_video')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="video" class="col-form-label">Video:</label>
+                                <input type="file" class="form-control @error('video') is-invalid @enderror" id="video" name="video_url" value="{{old('video')}}">
+                                @error('video_url')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
                         </div>
 

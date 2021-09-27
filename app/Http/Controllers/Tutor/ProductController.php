@@ -4,47 +4,48 @@ namespace App\Http\Controllers\Tutor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category,Auth;
-use App\Models\ProductSeries,App\Models\ProductSeriesLession;
-use App\Models\Genre,App\Models\Instrument;
+use App\Models\Category, Auth;
+use App\Models\ProductSeries, App\Models\ProductSeriesLession;
+use App\Models\Genre, App\Models\Instrument;
 
 class ProductController extends Controller
 {
     // Get Instrument by Providing InstrumentId
     public function getInstrument($instrumentId)
     {
-        $instrument = Instrument::where('id',$instrumentId)->first();
+        $instrument = Instrument::where('id', $instrumentId)->first();
         return $instrument;
     }
 
     /************************** Product Series *****************************/
-    public function productSeriesView(Request $req,$instrumentId)
+    public function productSeriesView(Request $req, $instrumentId)
     {
         $instrument = $this->getInstrument($instrumentId);
-        if($instrument){
+        if ($instrument) {
             $user = auth()->user();
-            $productSeries = ProductSeries::where('instrumentId',$instrument->id)->where('createdBy', $user->id)->get();
-            return view('tutor.productSeries.index', compact('productSeries','instrument'));    
+            $productSeries = ProductSeries::where('instrumentId', $instrument->id)->where('createdBy', $user->id)->get();
+            return view('tutor.productSeries.index', compact('productSeries', 'instrument'));
         }
         return abort(404);
     }
 
     // Create Series Template
-    public function productSeriesCreate(Request $req,$instrumentId)
+    public function productSeriesCreate(Request $req, $instrumentId)
     {
         $instrument = $this->getInstrument($instrumentId);
-        if($instrument){
-            $category = Category::where('instrumentId',$instrument->id)->get();$genre = Genre::orderBy('name')->get();
-            return view('tutor.productSeries.create', compact('category','instrument','genre'));
+        if ($instrument) {
+            $category = Category::where('instrumentId', $instrument->id)->get();
+            $genre = Genre::orderBy('name')->get();
+            return view('tutor.productSeries.create', compact('category', 'instrument', 'genre'));
         }
         return abort(404);
     }
 
     // Save Series Data
-    public function productSeriesSave(Request $req,$instrumentId)
+    public function productSeriesSave(Request $req, $instrumentId)
     {
         $req->validate([
-            'instrumentId' => 'required|min:1|numeric|in:'.$instrumentId,
+            'instrumentId' => 'required|min:1|numeric|in:' . $instrumentId,
             'category' => 'required|min:1|numeric',
             'image' => 'required|image',
             'title' => 'required|string|max:200',
@@ -60,7 +61,7 @@ class ProductController extends Controller
             'seo_meta_keywords' => 'nullable|string|max:255',
         ]);
         $instrument = $this->getInstrument($instrumentId);
-        if($instrument){
+        if ($instrument) {
             $newSeries = new ProductSeries();
             $newSeries->instrumentId = $instrument->id;
             $newSeries->categoryId = $req->category;
@@ -82,19 +83,20 @@ class ProductController extends Controller
             $newSeries->seo_meta_description = emptyCheck($req->seo_meta_description);
             $newSeries->seo_meta_keywords = emptyCheck($req->seo_meta_keywords);
             $newSeries->save();
-            return redirect(route('tutor.product.series.list',[$instrumentId]))->with('Success', 'Product Series Added SuccessFully');
+            return redirect(route('tutor.product.series.list', [$instrumentId]))->with('Success', 'Product Series Added SuccessFully');
         }
         return abort(404);
     }
 
-    public function productSeriesEdit(Request $req,$instrumentId,$seriesId)
+    public function productSeriesEdit(Request $req, $instrumentId, $seriesId)
     {
         $instrument = $this->getInstrument($instrumentId);
-        if($instrument){
-            $category = Category::where('instrumentId',$instrument->id)->get();
-            $user = $req->user();$genre = Genre::orderBy('name')->get();
-            $productSeries = ProductSeries::where('id',$seriesId)->where('instrumentId',$instrument->id)->where('createdBy', $user->id)->first();
-            return view('tutor.productSeries.edit', compact('category','instrument','productSeries','genre'));
+        if ($instrument) {
+            $category = Category::where('instrumentId', $instrument->id)->get();
+            $user = $req->user();
+            $genre = Genre::orderBy('name')->get();
+            $productSeries = ProductSeries::where('id', $seriesId)->where('instrumentId', $instrument->id)->where('createdBy', $user->id)->first();
+            return view('tutor.productSeries.edit', compact('category', 'instrument', 'productSeries', 'genre'));
         }
         return abort(404);
     }
@@ -103,7 +105,7 @@ class ProductController extends Controller
     {
         $req->validate([
             'productSeriesId' => 'required|min:1|numeric|in:' . $seriesId,
-            'instrumentId' => 'required|min:1|numeric|in:'.$instrumentId,
+            'instrumentId' => 'required|min:1|numeric|in:' . $instrumentId,
             'category' => 'required|min:1|numeric',
             'image' => 'nullable|image',
             'title' => 'required|string|max:200',
@@ -119,7 +121,7 @@ class ProductController extends Controller
             'seo_meta_keywords' => 'nullable|string|max:255',
         ]);
         $instrument = $this->getInstrument($instrumentId);
-        if($instrument){
+        if ($instrument) {
             $updateSeries = ProductSeries::where('id', $seriesId)->first();
             $updateSeries->instrumentId = $instrument->id;
             $updateSeries->categoryId = $req->category;
@@ -140,7 +142,7 @@ class ProductController extends Controller
             $updateSeries->seo_meta_description = emptyCheck($req->seo_meta_description);
             $updateSeries->seo_meta_keywords = emptyCheck($req->seo_meta_keywords);
             $updateSeries->save();
-            return redirect(route('tutor.product.series.list',[$instrumentId]))->with('Success', 'Product Series Updated SuccessFully');
+            return redirect(route('tutor.product.series.list', [$instrumentId]))->with('Success', 'Product Series Updated SuccessFully');
         }
         return abort(404);
     }
@@ -154,9 +156,9 @@ class ProductController extends Controller
         ];
         $validator = validator()->make($req->all(), $rules);
         if (!$validator->fails()) {
-            $productSeries = ProductSeries::where('id',$req->productSeriesId)->where('instrumentId',$req->instrumentId)->where('createdBy',$req->userId)->first();
+            $productSeries = ProductSeries::where('id', $req->productSeriesId)->where('instrumentId', $req->instrumentId)->where('createdBy', $req->userId)->first();
             if ($productSeries) {
-                ProductSeriesLession::where('productSeriesId',$productSeries->id)->where('instrumentId',$req->instrumentId)->where('createdBy',$req->userId)->delete();
+                ProductSeriesLession::where('productSeriesId', $productSeries->id)->where('instrumentId', $req->instrumentId)->where('createdBy', $req->userId)->delete();
                 $series->delete();
                 return successResponse('Series Deleted Success');
             }
@@ -166,55 +168,60 @@ class ProductController extends Controller
     }
 
     /****************************** Product Series Lession *******************************/
-    public function productSeriesLessionView(Request $req,$instrumentId,$seriesId)
+    public function productSeriesLessionView(Request $req, $instrumentId, $seriesId)
     {
         $instrument = $this->getInstrument($instrumentId);
-        if($instrument){
+        if ($instrument) {
             $user = $req->user();
-            $productSeries = ProductSeries::where('id',$seriesId)->where('instrumentId',$instrumentId)->where('createdBy',$user->id)->first();
-            if($productSeries){
-                $productSeries->lession_data = ProductSeriesLession::where('instrumentId',$instrument->id)->where('categoryId',$productSeries->categoryId)->where('productSeriesId',$productSeries->id)->where('createdBy',$user->id)->get();
-                return view('tutor.productSeries.lession.index', compact('productSeries','instrument'));    
+            $productSeries = ProductSeries::where('id', $seriesId)->where('instrumentId', $instrumentId)->where('createdBy', $user->id)->first();
+            if ($productSeries) {
+                $productSeries->lession_data = ProductSeriesLession::where('instrumentId', $instrument->id)->where('categoryId', $productSeries->categoryId)->where('productSeriesId', $productSeries->id)->where('createdBy', $user->id)->get();
+                return view('tutor.productSeries.lession.index', compact('productSeries', 'instrument'));
             }
         }
         return abort(404);
     }
 
-    public function productSeriesLessionCreate(Request $req,$instrumentId,$seriesId)
+    public function productSeriesLessionCreate(Request $req, $instrumentId, $seriesId)
     {
         $instrument = $this->getInstrument($instrumentId);
-        if($instrument){
+        if ($instrument) {
             $user = $req->user();
             $genre = Genre::orderBy('name')->get();
             $productSeries = ProductSeries::where('id', $seriesId)->where('createdBy', $user->id)->first();
-            return view('tutor.productSeries.lession.create', compact('instrument','productSeries', 'genre'));
+            return view('tutor.productSeries.lession.create', compact('instrument', 'productSeries', 'genre'));
         }
         return abort(404);
     }
 
-    public function productSeriesLessionSave(Request $req,$instrumentId, $productSeriesId)
+    public function productSeriesLessionSave(Request $req, $instrumentId, $productSeriesId)
     {
-        $req->validate([
-            'instrumentId' => 'required|min:1|numeric|in:' . $instrumentId,
-            'productSeriesId' => 'required|min:1|numeric|in:' . $productSeriesId,
-            'title' => 'required|string|max:200',
-            'difficulty' => 'required|string|in:Easy,Medium,Hard',
-            'price' => 'required|numeric|min:1',
-            'description' => 'required|string',
-            'image' => 'required|image',
-            'gbp' => 'nullable|min:1|numeric',
-            'price_usd' => 'nullable|min:1|numeric',
-            'price_euro' => 'nullable|min:1|numeric',
-            'keywords' => 'nullable|max:255',
-            'genre' => 'nullable|min:1|numeric',
-            'item_clean_url' => 'nullable|url',
-            'product_code' => 'nullable',
-        ]);
+        // $req->validate([
+        //     'instrumentId' => 'required|min:1|numeric|in:' . $instrumentId,
+        //     'productSeriesId' => 'required|min:1|numeric|in:' . $productSeriesId,
+        //     'title' => 'required|string|max:200',
+        //     'difficulty' => 'required|string|in:Easy,Medium,Hard',
+        //     'price' => 'required|numeric|min:1',
+        //     'description' => 'required|string',
+        //     'image' => 'required|image',
+        //     // 'preview_video' => 'required|mimes:mp4, 3gp, mkv, avi, flv, wmv, webm, ogx, oga, ogv, ogg, mov, m3u8, ts',
+        //     'preview_video' => 'required',
+        //     'video_url' => 'required',
+        //     'gbp' => 'nullable|min:1|numeric',
+        //     'price_usd' => 'nullable|min:1|numeric',
+        //     'price_euro' => 'nullable|min:1|numeric',
+        //     'keywords' => 'nullable|max:255',
+        //     'genre' => 'nullable|min:1|numeric',
+        //     'item_clean_url' => 'nullable|url',
+        //     'product_code' => 'nullable',
+        // ]);
+
+        dd($req->all());
         $instrument = $this->getInstrument($instrumentId);
-        if($instrument){
+        if ($instrument) {
             $user = $req->user();
-            $productSeries = ProductSeries::where('id', $productSeriesId)->where('instrumentId',$instrument->id)->first();
-            if($productSeries){
+            $productSeries = ProductSeries::where('id', $productSeriesId)->where('instrumentId', $instrument->id)->first();
+            if ($productSeries) {
                 $newLession = new ProductSeriesLession();
                 $newLession->instrumentId = $instrument->id;
                 $newLession->categoryId = $productSeries->categoryId;
@@ -224,6 +231,14 @@ class ProductController extends Controller
                 if ($req->hasFile('image')) {
                     $image = $req->file('image');
                     $newLession->image = imageUpload($image, 'product/lession');
+                }
+                if ($req->hasFile('preview_video')) {
+                    $preview_video = $req->file('preview_video');
+                    $newLession->preview_video = imageUpload($preview_video, 'product/lession/video');
+                }
+                if ($req->hasFile('video_url')) {
+                    $video = $req->file('video_url');
+                    $newLession->video = imageUpload($video, 'product/lession/video');
                 }
                 $newLession->currencyId = 3;
                 $newLession->price = $req->price;
@@ -237,27 +252,27 @@ class ProductController extends Controller
                 $newLession->product_code = emptyCheck($req->product_code);
                 $newLession->createdBy = $user->id;
                 $newLession->save();
-                return redirect(route('tutor.product.series.lession.list', [$instrumentId,$productSeriesId]))->with('Success', 'Product Lession Added SuccessFully');
+                return redirect(route('tutor.product.series.lession.list', [$instrumentId, $productSeriesId]))->with('Success', 'Product Lession Added SuccessFully');
             }
         }
         return abort(404);
     }
 
-    public function productSeriesLessionEdit(Request $req,$instrumentId, $productSeriesId, $lessionId)
+    public function productSeriesLessionEdit(Request $req, $instrumentId, $productSeriesId, $lessionId)
     {
         $instrument = $this->getInstrument($instrumentId);
-        if($instrument){
+        if ($instrument) {
             $user = $req->user();
             $genre = Genre::orderBy('name')->get();
-            $productLession = ProductSeriesLession::where('id', $lessionId)->where('productSeriesId', $productSeriesId)->where('instrumentId',$instrument->id)->where('createdBy', $user->id)->first();
-            if($productLession){
-                return view('tutor.productSeries.lession.edit', compact('instrument','productLession', 'genre'));   
+            $productLession = ProductSeriesLession::where('id', $lessionId)->where('productSeriesId', $productSeriesId)->where('instrumentId', $instrument->id)->where('createdBy', $user->id)->first();
+            if ($productLession) {
+                return view('tutor.productSeries.lession.edit', compact('instrument', 'productLession', 'genre'));
             }
         }
         return abort(404);
     }
 
-    public function productSeriesLessionUpdate(Request $req,$instrumentId, $productSeriesId, $lessionId)
+    public function productSeriesLessionUpdate(Request $req, $instrumentId, $productSeriesId, $lessionId)
     {
         $req->validate([
             'instrumentId' => 'required|min:1|numeric|in:' . $instrumentId,
@@ -268,6 +283,8 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:1',
             'description' => 'required|string',
             'image' => 'nullable|image',
+            'preview_video' => 'nullable|mimes:mp4, 3gp, mkv, avi, flv, wmv, webm, ogx, oga, ogv, ogg, mov, m3u8, ts',
+            'video' => 'nullable',
             'gbp' => 'nullable|min:1|numeric',
             'price_usd' => 'nullable|min:1|numeric',
             'price_euro' => 'nullable|min:1|numeric',
@@ -277,12 +294,12 @@ class ProductController extends Controller
             'product_code' => 'nullable',
         ]);
         $instrument = $this->getInstrument($instrumentId);
-        if($instrument){
+        if ($instrument) {
             $user = $req->user();
-            $productSeries = ProductSeries::where('id', $productSeriesId)->where('instrumentId',$instrument->id)->where('createdBy',$user->id)->first();
-            if($productSeries){
-                $updateLession = ProductSeriesLession::where('id',$req->productLessionId)->where('instrumentId',$instrument->id)->where('createdBy',$user->id)->where('productSeriesId',$productSeries->id)->first();
-                if($updateLession){
+            $productSeries = ProductSeries::where('id', $productSeriesId)->where('instrumentId', $instrument->id)->where('createdBy', $user->id)->first();
+            if ($productSeries) {
+                $updateLession = ProductSeriesLession::where('id', $req->productLessionId)->where('instrumentId', $instrument->id)->where('createdBy', $user->id)->where('productSeriesId', $productSeries->id)->first();
+                if ($updateLession) {
                     $updateLession->instrumentId = $instrument->id;
                     $updateLession->categoryId = $productSeries->categoryId;
                     $updateLession->productSeriesId = $productSeries->id;
@@ -291,6 +308,14 @@ class ProductController extends Controller
                     if ($req->hasFile('image')) {
                         $image = $req->file('image');
                         $updateLession->image = imageUpload($image, 'product/lession');
+                    }
+                    if ($req->hasFile('preview_video')) {
+                        $preview_video = $req->file('preview_video');
+                        $updateLession->preview_video = imageUpload($preview_video, 'product/lession/video');
+                    }
+                    if ($req->hasFile('video')) {
+                        $video = $req->file('video');
+                        $updateLession->video = imageUpload($video, 'product/lession/video');
                     }
                     $updateLession->currencyId = 3;
                     $updateLession->price = $req->price;
@@ -304,7 +329,7 @@ class ProductController extends Controller
                     $updateLession->product_code = emptyCheck($req->product_code);
                     $updateLession->createdBy = $user->id;
                     $updateLession->save();
-                    return redirect(route('tutor.product.series.lession.list', [$instrumentId,$productSeriesId]))->with('Success', 'Product Product Series Lession Updated SuccessFully');
+                    return redirect(route('tutor.product.series.lession.list', [$instrumentId, $productSeriesId]))->with('Success', 'Product Product Series Lession Updated SuccessFully');
                 }
             }
         }
@@ -321,7 +346,7 @@ class ProductController extends Controller
         ];
         $validator = validator()->make($req->all(), $rules);
         if (!$validator->fails()) {
-            $lession = ProductSeriesLession::where('id',$req->seriesLessionId)->where('instrumentId',$req->instrumentId)->where('productSeriesId',$req->productSeriesId)->where('createdBy',$req->userId)->first();
+            $lession = ProductSeriesLession::where('id', $req->seriesLessionId)->where('instrumentId', $req->instrumentId)->where('productSeriesId', $req->productSeriesId)->where('createdBy', $req->userId)->first();
             if ($lession) {
                 $lession->delete();
                 return successResponse('Product Series Lession Deleted Success');
