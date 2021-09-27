@@ -13,7 +13,7 @@
                     <p>
                         <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-filter"></i> Filter</button>
                     </p>
-                    <div class="collapse {{(isset($req->seriesId) || isset($req->dateFrom) || isset($req->dateTo)) ? 'show' : ''}}" id="collapseExample">
+                    <div class="collapse show" id="collapseExample">
                         <div class="card card-body px-0 py-2 border-0 shadow-none">
                             <form action="{{route('admin.report.bestSeller')}}" method="POST">
                             @csrf

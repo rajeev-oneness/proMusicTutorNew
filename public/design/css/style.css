@@ -579,7 +579,7 @@ footer{
   line-height: 22px;
 }
 .purchased-Full{
-  background: #793b29;
+  background: #4caf50;
   color: #fff !important;
   padding: 8px 20px;
   text-align: center;
@@ -1024,7 +1024,7 @@ footer{
     font-size:14px;
     padding: 6px 15px;
   text-transform: uppercase;}
-.sweet-alert .sa-confirm-button-container{}
+/* .sweet-alert .sa-confirm-button-container{} */
 .sweet-alert .sa-confirm-button-container .confirm{background: #528be9;
     color: #fff;
     border: 1px solid #528be9;

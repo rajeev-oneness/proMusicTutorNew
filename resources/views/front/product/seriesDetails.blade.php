@@ -124,7 +124,11 @@
                                                 <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">Buy Now - £ {{$less->price}}</a>
                                             @else
                                                 @if(userLessionPurchased($less))
-                                                    <a href="javascript:void(0)" class="purchased-Full btn">Already Purchased</a>
+                                                    @php
+                                                        $lessonName = "'".$less->title."'";
+                                                        $videoPath = "'".$less->video."'";
+                                                    @endphp
+                                                    <a href="javascript:void(0)" class="purchased-Full btn" onclick="previewVideo({{$less->id}}, {{$videoPath}}, {{$lessonName}})">Preview <i class="fa fa-play ml-2"></i> </a>
                                                 @else
                                                     <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$less->price}}','{{route('after.purchase.guitar_lession_series',$less->id)}}');">Buy Now - $  {{$less->price}}</a>
                                                 @endif
@@ -185,6 +189,23 @@
             </div>
         </section>
     @endif
+
+    <!-- Preview video Modal -->
+    <div class="modal fade" id="previewVideoModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Preview</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center" style="min-height: 200px">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')

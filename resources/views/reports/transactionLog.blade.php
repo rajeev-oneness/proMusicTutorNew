@@ -13,7 +13,8 @@
                     <p>
                         <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-filter"></i> Filter</button>
                     </p>
-                    <div class="collapse {{(isset($req->teacherId) || isset($req->seriesId) || isset($req->lessionId)) ? 'show' : ''}}" id="collapseExample">
+                    <div class="collapse show" id="collapseExample">
+                    {{-- <div class="collapse {{(isset($req->teacherId) || isset($req->seriesId) || isset($req->lessionId)) ? 'show' : ''}}" id="collapseExample"> --}}
                         <div class="card card-body px-0 py-2 border-0 shadow-none">
                             <form class="form-inline" method="post" action="{{route('admin.report.transaction')}}">
                             @csrf
@@ -37,6 +38,7 @@
                                         <option value="{{$item->id}}" {{($item->id == $req->lessionId) ? 'selected' : ''}}>{{$item->title}}</option>
                                     @endforeach
                                 </select>
+                                <input type="text" class="form-control form-control-sm mr-2" name="keyword" placeholder="Type something..." value="{{$req->keyword}}">
                                 <button type="submit" class="btn btn-sm btn-primary mr-2"> <i class="fa fa-check"></i> Apply</button>
                                 <a href="{{route('admin.report.transaction')}}" class="btn btn-sm btn-secondary"> <i class="fa fa-ban"></i> Remove filters</a>
                             </form>

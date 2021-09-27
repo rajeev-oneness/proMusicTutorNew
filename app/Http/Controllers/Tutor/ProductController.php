@@ -159,7 +159,7 @@ class ProductController extends Controller
             $productSeries = ProductSeries::where('id', $req->productSeriesId)->where('instrumentId', $req->instrumentId)->where('createdBy', $req->userId)->first();
             if ($productSeries) {
                 ProductSeriesLession::where('productSeriesId', $productSeries->id)->where('instrumentId', $req->instrumentId)->where('createdBy', $req->userId)->delete();
-                $series->delete();
+                // $series->delete();
                 return successResponse('Series Deleted Success');
             }
             return errorResponse('You donot have permission to delete');
@@ -196,27 +196,27 @@ class ProductController extends Controller
 
     public function productSeriesLessionSave(Request $req, $instrumentId, $productSeriesId)
     {
-        // $req->validate([
-        //     'instrumentId' => 'required|min:1|numeric|in:' . $instrumentId,
-        //     'productSeriesId' => 'required|min:1|numeric|in:' . $productSeriesId,
-        //     'title' => 'required|string|max:200',
-        //     'difficulty' => 'required|string|in:Easy,Medium,Hard',
-        //     'price' => 'required|numeric|min:1',
-        //     'description' => 'required|string',
-        //     'image' => 'required|image',
-        //     // 'preview_video' => 'required|mimes:mp4, 3gp, mkv, avi, flv, wmv, webm, ogx, oga, ogv, ogg, mov, m3u8, ts',
-        //     'preview_video' => 'required',
-        //     'video_url' => 'required',
-        //     'gbp' => 'nullable|min:1|numeric',
-        //     'price_usd' => 'nullable|min:1|numeric',
-        //     'price_euro' => 'nullable|min:1|numeric',
-        //     'keywords' => 'nullable|max:255',
-        //     'genre' => 'nullable|min:1|numeric',
-        //     'item_clean_url' => 'nullable|url',
-        //     'product_code' => 'nullable',
-        // ]);
+        $req->validate([
+            'instrumentId' => 'required|min:1|numeric|in:' . $instrumentId,
+            'productSeriesId' => 'required|min:1|numeric|in:' . $productSeriesId,
+            'title' => 'required|string|max:200',
+            'difficulty' => 'required|string|in:Easy,Medium,Hard',
+            'price' => 'required|numeric|min:1',
+            'description' => 'required|string',
+            'image' => 'required|image',
+            // 'preview_video' => 'required|mimes:mp4, 3gp, mkv, avi, flv, wmv, webm, ogx, oga, ogv, ogg, mov, m3u8, ts',
+            'preview_video' => 'required',
+            'video_url' => 'required',
+            'gbp' => 'nullable|min:1|numeric',
+            'price_usd' => 'nullable|min:1|numeric',
+            'price_euro' => 'nullable|min:1|numeric',
+            'keywords' => 'nullable|max:255',
+            'genre' => 'nullable|min:1|numeric',
+            'item_clean_url' => 'nullable|url',
+            'product_code' => 'nullable',
+        ]);
 
-        dd($req->all());
+        // dd($req->all());
         $instrument = $this->getInstrument($instrumentId);
         if ($instrument) {
             $user = $req->user();

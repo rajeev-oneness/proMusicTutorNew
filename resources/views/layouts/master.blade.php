@@ -201,6 +201,19 @@
                 }
             });
         }
+
+        // purchased lesson preview video
+        function previewVideo(id, path, name) {
+            var targetModalId = '#previewVideoModal';
+
+            $(targetModalId).find('.modal-title').text(name);
+            if (!path) {
+                $(targetModalId).find('.modal-body').html('<h5 class="text-muted">No preview available !</h5>');
+            } else {
+                $(targetModalId).find('.modal-body').html('<video class="w-100" autoplay controls><source src="{{asset('')}}'+path+'" type="video/mp4"></video>');
+            }
+            $(targetModalId).modal('show');
+        }
     </script>
     @yield('script')
 </body>

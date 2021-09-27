@@ -22,6 +22,14 @@ class ReportController extends Controller
         if ($req->teacherId) {
             $transaction = $transaction->leftjoin('product_series_lessions', 'user_product_lession_purchases.productSeriesLessionId', '=', 'product_series_lessions.id')->where('product_series_lessions.createdBy', $req->teacherId);
         }
+        if ($req->keyword) {
+            $transaction = $transaction
+                            ->join('users', 'users.id', 'user_product_lession_purchases.userId')
+                            // ->join('transactions', 'transactions.id', 'user_product_lession_purchases.transactionId')
+                            ->where('users.name', 'like', '%'.$req->keyword.'%')
+                            ->orWhere('users.email', 'like', '%'.$req->keyword.'%');
+                            // ->orWhere('transactions.transactionId', 'like', '%'.$req->keyword.'%');
+        }
         $transaction = $transaction->latest('user_product_lession_purchases.created_at')->paginate(20);
 
         $teachers = User::select('id', 'name')->where('user_type', 2)->get();

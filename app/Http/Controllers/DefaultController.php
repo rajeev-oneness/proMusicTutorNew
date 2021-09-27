@@ -274,8 +274,6 @@ class DefaultController extends Controller
                 }
             }
 
-
-
             return view('front.product.seriesDetails', compact('data', 'req'));
         }
         return errorResponse('Something went wrong please try after sometime');
