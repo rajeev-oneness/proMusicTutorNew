@@ -50,7 +50,7 @@ class ProductController extends Controller
             'image' => 'required|image',
             'title' => 'required|string|max:200',
             'description' => 'nullable|string',
-            'media_link' => 'required|url',
+            'media_link' => 'required',
             'difficulty' => 'required|string|in:Easy,Medium,Hard',
             'genre' => 'required|min:1|numeric',
             'gbp' => 'nullable|min:1|numeric',
@@ -72,7 +72,11 @@ class ProductController extends Controller
                 $image = $req->file('image');
                 $newSeries->image = imageUpload($image, 'product/series');
             }
-            $newSeries->video_url = $req->media_link;
+            if ($req->hasFile('media_link')) {
+                $media_link = $req->file('media_link');
+                $newSeries->video_url = imageUpload($media_link, 'product/series');
+            }
+            // $newSeries->video_url = $req->media_link;
             $newSeries->createdBy = auth()->user()->id;
             // New Addition
             $newSeries->genre = !empty($req->genre) ? $req->genre : 0;
@@ -110,7 +114,7 @@ class ProductController extends Controller
             'image' => 'nullable|image',
             'title' => 'required|string|max:200',
             'description' => 'nullable|string',
-            'media_link' => 'required|url',
+            'media_link' => 'nullable',
             'difficulty' => 'required|string|in:Easy,Medium,Hard',
             'genre' => 'required|min:1|numeric',
             'gbp' => 'nullable|min:1|numeric',
@@ -132,7 +136,11 @@ class ProductController extends Controller
                 $image = $req->file('image');
                 $updateSeries->image = imageUpload($image, 'product/series');
             }
-            $updateSeries->video_url = $req->media_link;
+            if ($req->hasFile('media_link')) {
+                $media_link = $req->file('media_link');
+                $updateSeries->video_url = imageUpload($media_link, 'product/series');
+            }
+            // $updateSeries->video_url = $req->media_link;
             // New Addition
             $updateSeries->genre = !empty($req->genre) ? $req->genre : 0;
             $updateSeries->gbp = !empty($req->gbp) ? $req->gbp : 0;
@@ -159,7 +167,7 @@ class ProductController extends Controller
             $productSeries = ProductSeries::where('id', $req->productSeriesId)->where('instrumentId', $req->instrumentId)->where('createdBy', $req->userId)->first();
             if ($productSeries) {
                 ProductSeriesLession::where('productSeriesId', $productSeries->id)->where('instrumentId', $req->instrumentId)->where('createdBy', $req->userId)->delete();
-                // $series->delete();
+                $productSeries->delete();
                 return successResponse('Series Deleted Success');
             }
             return errorResponse('You donot have permission to delete');

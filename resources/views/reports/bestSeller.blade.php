@@ -18,12 +18,22 @@
                             <form action="{{route('admin.report.bestSeller')}}" method="POST">
                             @csrf
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    {{-- <div class="col-md-3">
                                         <label for="seriesId">Select series</label>
                                         <select name="seriesId" id="seriesId" class="form-control form-control-sm mr-2">
                                             <option value="" selected hidden>Select Series</option>
                                             @foreach ($series as $srs)
                                                 <option value="{{$srs->product_series->id}}" {{($srs->product_series->id == $req->seriesId) ? 'selected' : ''}}>{{$srs->product_series->title}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div> --}}
+
+                                    <div class="col-md-3">
+                                        <label for="instrumentId">Select Instrument</label>
+                                        <select name="instrumentId" id="instrumentId" class="form-control form-control-sm mr-2">
+                                            <option value="" selected hidden>Select Instrument</option>
+                                            @foreach ($instruments as $instrument)
+                                                <option value="{{$instrument->id}}" {{($instrument->id == $req->instrumentId) ? 'selected' : ''}}>{{$instrument->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>

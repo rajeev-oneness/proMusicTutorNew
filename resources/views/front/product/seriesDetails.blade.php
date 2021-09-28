@@ -8,7 +8,11 @@
             <div class="row">
                 <div class="col-12 col-md-6 shadow-lg p-0 mb-4 mb-md-0">
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="{{asset($data->video_url)}}" allowfullscreen></iframe>
+                        {{-- <iframe class="embed-responsive-item" src="{{asset($data->video_url)}}" allowfullscreen></iframe> --}}
+
+                        <video height="100" autoplay muted>
+                            <source src="{{asset($data->video_url)}}">
+                        </video>
                     </div>
                 </div>
                 <div class="col-md-6 col-12">
@@ -120,17 +124,24 @@
                                         <h5 class="card-title">{{$less->title}}</h5>
                                         <p class="card-text">{!! words($less->description,1000) !!}</p>
                                         <div class="float-right buynow-btn">
+                                            @php
+                                                $lessonName = "'".$less->title."'";
+                                                $previewVideoPath = "'".$less->preview_video."'";
+                                            @endphp
+
+                                            <a href="javascript:void(0)" class="preview-Full btn" onclick="previewVideo({{$less->id}}, {{$previewVideoPath}}, {{$lessonName}})" id="watch_id{{$less->id}}">Preview <i class="fa fa-play ml-2"></i> </a>
+
                                             @guest
-                                                <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">Buy Now - £ {{$less->price}}</a>
+                                                <a href="javascript:void(0)" class="btn buyfull" onclick="alert('please login to continue')">Buy Now - £ {{$less->price}}</a>
                                             @else
                                                 @if(userLessionPurchased($less))
                                                     @php
                                                         $lessonName = "'".$less->title."'";
                                                         $videoPath = "'".$less->video."'";
                                                     @endphp
-                                                    <a href="javascript:void(0)" class="purchased-Full btn" onclick="previewVideo({{$less->id}}, {{$videoPath}}, {{$lessonName}})">Preview <i class="fa fa-play ml-2"></i> </a>
+                                                    <a href="javascript:void(0)" class="purchased-Full btn" onclick="previewVideo({{$less->id}}, {{$videoPath}}, {{$lessonName}})" id="watch_id{{$less->id}}">Watch <i class="fa fa-play ml-2"></i> </a>
                                                 @else
-                                                    <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$less->price}}','{{route('after.purchase.guitar_lession_series',$less->id)}}');">Buy Now - $  {{$less->price}}</a>
+                                                    <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$less->price}}','{{route('after.purchase.guitar_lession_series',$less->id)}}');">Buy Now - $  {{$less->price}}</a>
                                                 @endif
                                             @endguest
                                         </div>
@@ -190,8 +201,8 @@
         </section>
     @endif
 
-    <!-- Preview video Modal -->
-    <div class="modal fade" id="previewVideoModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" data-backdrop="static">
+    <!-- Purchased lesson video modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -200,14 +211,47 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body text-center" style="min-height: 200px">
-                    
-                </div>
+                <div class="modal-body text-center" style="min-height: 200px"></div>
             </div>
         </div>
     </div>
 @endsection
 
 @section('script')
-<script type="text/javascript"></script>
+<script type="text/javascript">
+    // autoplay video
+    let params = new URLSearchParams(location.search);
+    if (params.get('autoplayLessonId')) {
+        $('#watch_id'+params.get('autoplayLessonId')).click();
+    }
+
+    // $('body').bind('cut copy paste', function(event) {
+    //     event.preventDefault();
+    // });
+
+    // document.oncontextmenu = new Function("return false");
+
+    // document.onkeypress = function (event) {
+    //     event = (event || window.event);
+    //     if (event.keyCode == 123) {
+    //         return false;
+    //     }
+    // }
+    // document.onmousedown = function (event) {
+    //     event = (event || window.event);
+    //     if (event.keyCode == 123) {
+    //         return false;
+    //     }
+    // }
+    // document.onkeydown = function (event) {
+    //     event = (event || window.event);
+    //     if (event.keyCode == 123) {
+    //         return false;
+    //     }
+
+    //     if(event.ctrlKey && event.keyCode == 85) {
+    //         return false;
+    //     }
+    // }
+</script>
 @endsection

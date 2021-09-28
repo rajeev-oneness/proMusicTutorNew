@@ -23,6 +23,8 @@
                                         <th>Price</th>
                                         <th>Difficulty</th>
                                         <th>Description</th>
+                                        <th>Preview video</th>
+                                        <th>Lesson video</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -33,7 +35,21 @@
                                             <td>{{$lession->title}}</td>
                                             <td>€ {{$lession->price}}</td>
                                             <td>{{ucwords($lession->difficulty)}}</td>
-                                            <td>{!! words($lession->description,500) !!}</td>
+                                            <td>{!! words($lession->description,100) !!}</td>
+                                            <td>
+                                                @if ($lession->preview_video)
+                                                <video height="100" controls>
+                                                    <source src="{{asset($lession->preview_video)}}">
+                                                </video>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($lession->preview_video)
+                                                <video height="100" controls>
+                                                    <source src="{{asset($lession->video)}}">
+                                                </video>
+                                                @endif
+                                            </td>
                                             <td><a href="{{route('tutor.product.series.lession.edit',[$instrument->id,$productSeries->id,$lession->id])}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesLessionDelete" data-id="{{$lession->id}}">Delete</a></td>
                                         </tr>
                                     @endforeach

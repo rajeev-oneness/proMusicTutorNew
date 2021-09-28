@@ -43,30 +43,36 @@ class ReportController extends Controller
 
     public function bestSeller(Request $req)
     {
-        $purchase_list = UserProductLessionPurchase::select('productSeriesId');
-        $series = $purchase_list->groupBy('productSeriesId')->get();
+        $purchase_list = UserProductLessionPurchase::select('user_product_lession_purchases.productSeriesId');
+        $series = $purchase_list->groupBy('user_product_lession_purchases.productSeriesId')->get();
         if (!empty($req->seriesId)) {
-            $purchase_list = $purchase_list->where('productSeriesId', $req->seriesId);
+            $purchase_list = $purchase_list->where('user_product_lession_purchases.productSeriesId', $req->seriesId);
+        }
+        if (!empty($req->instrumentId)) {
+            $purchase_list = $purchase_list->join('product_series_lessions', 'product_series_lessions.id', '=', 'user_product_lession_purchases.productSeriesLessionId')
+            ->join('instruments', 'instruments.id', '=', 'product_series_lessions.instrumentId')
+            ->where('instruments.id', $req->instrumentId);
         }
         if (!empty($req->dateFrom)) {
-            $purchase_list = $purchase_list->where('created_at', '>=', $req->dateFrom);
+            $purchase_list = $purchase_list->where('user_product_lession_purchases.created_at', '>=', $req->dateFrom);
         }
         if (!empty($req->dateTo)) {
-            $purchase_list = $purchase_list->where('created_at', '<=', date('Y-m-d', strtotime($req->dateTo . '+ 1 day')));
+            $purchase_list = $purchase_list->where('user_product_lession_purchases.created_at', '<=', date('Y-m-d', strtotime($req->dateTo . '+ 1 day')));
         }
-        $purchase_list = $purchase_list->groupBy('productSeriesId')->pluck('productSeriesId')->toArray();
+        $purchase_list = $purchase_list->groupBy('user_product_lession_purchases.productSeriesId')->pluck('user_product_lession_purchases.productSeriesId')->toArray();
         $data = [];
         foreach ($purchase_list as $key => $value) {
-            $list = UserProductLessionPurchase::where('productSeriesId', $value);
+            $list = UserProductLessionPurchase::where('user_product_lession_purchases.productSeriesId', $value);
             $data[] = [
-                'from' => date('Y-m-d', strtotime($list->orderBy('id', 'DESC')->first()->created_at)),
+                'from' => date('Y-m-d', strtotime($list->orderBy('user_product_lession_purchases.id', 'DESC')->first()->created_at)),
                 'to' => date('Y-m-d', strtotime($list->latest()->first()->created_at)),
                 'seriesId' => $list->first()->productSeriesId,
                 'seriesName' => $list->first()->product_series->title,
                 'count' => $list->count(),
             ];
         }
-        return view('reports.bestSeller', compact('data', 'req', 'series'));
+        $instruments = Instrument::all();
+        return view('reports.bestSeller', compact('data', 'req', 'series', 'instruments'));
     }
 
     public function mostViewed(Request $req)

@@ -19,9 +19,9 @@
                             @csrf
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label for="instrumentId">Select instrument</label>
+                                        <label for="instrumentId">Select Instrument</label>
                                         <select name="instrumentId" id="instrumentId" class="form-control form-control-sm mr-2">
-                                            <option value="" selected hidden>Select instrument</option>
+                                            <option value="" selected hidden>Select Instrument</option>
                                             @foreach ($instruments as $instrument)
                                                 <option value="{{$instrument->id}}" {{($instrument->id == $req->instrumentId) ? 'selected' : ''}}>{{$instrument->name}}</option>
                                             @endforeach

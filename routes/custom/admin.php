@@ -69,8 +69,19 @@
 	// Product Series and Their Lession
     Route::group(['prefix' => 'instrument/{instrumentId}/product/series'],function(){
         Route::get('/',[AdminController::class,'productSeriesList'])->name('admin.product.series.list');
+        Route::get('/create',[AdminController::class,'productSeriesCreate'])->name('admin.product.series.create');
+        Route::post('/save',[AdminController::class,'productSeriesSave'])->name('admin.product.series.save');
+        Route::get('/{id}/edit',[AdminController::class,'productSeriesEdit'])->name('admin.product.series.edit');
+        Route::post('/{id}/update',[AdminController::class,'productSeriesUpdate'])->name('admin.product.series.update');
+        Route::post('/delete',[AdminController::class,'productSeriesDelete'])->name('admin.product.series.delete');
+
         Route::group(['prefix' => '{productSeriesId}/lession'],function(){
             Route::get('/',[AdminController::class,'productSeriesLessionList'])->name('admin.product.series.lession.list');
+            Route::get('/create',[AdminController::class,'productSeriesLessionCreate'])->name('admin.product.series.lession.create');
+            Route::post('/save',[AdminController::class,'productSeriesLessionSave'])->name('admin.product.series.lession.save');
+            Route::get('/{id}/edit',[AdminController::class,'productSeriesLessionEdit'])->name('admin.product.series.lession.edit');
+            Route::post('/{id}/update',[AdminController::class,'productSeriesLessionUpdate'])->name('admin.product.series.lession.update');
+            Route::post('delete',[AdminController::class,'productSeriesLessionDelete'])->name('admin.product.series.lession.delete');
         });
     });
 

@@ -1,5 +1,6 @@
 @extends('layouts.auth.authMaster')
 @section('title','Edit Product Series')
+
 @section('content')
 <div class="container-fluid dashboard-content">
     <div class="row">
@@ -7,16 +8,17 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Edit {{ucwords($instrument->name)}} Series
-                        <a class="headerbuttonforAdd" href="{{route('tutor.product.series.list',[$instrument->id])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                        <a class="headerbuttonforAdd" href="{{route('admin.product.series.list',[$instrument->id])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{route('tutor.product.series.update',[$instrument->id,$productSeries->id])}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('admin.product.series.update',[$instrument->id,$productSeries->id])}}" enctype="multipart/form-data">
                         <input type="hidden" name="instrumentId" value="{{$instrument->id}}">
                         @error('instrumentId')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                         <input type="hidden" name="productSeriesId" value="{{$productSeries->id}}">
                         @error('productSeriesId')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                         @csrf
+
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <img src="{{asset($productSeries->image)}}" height="200" width="250">
@@ -43,9 +45,14 @@
 
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="title" class="col-form-label">Title:</label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Series Title" value="{{(old('title') ? old('title') : $productSeries->title)}}">
-                                @error('title')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                                <label for="createdBy" class="col-form-label">Tutor:</label>
+                                <select class="form-control @error('createdBy') is-invalid @enderror" name="createdBy" id="createdBy">
+                                    <option value="" hidden="" selected="">Select Tutor</option>
+                                    @foreach($tutors as $tutor)
+                                        <option value="{{$tutor->id}}" {{(old('createdBy') ? old('createdBy') : $productSeries->createdBy) == $tutor->id ? 'selected' : ''}}>{{$tutor->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('createdBy')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
                             <div class="form-group col-md-6">
@@ -53,10 +60,18 @@
                                 <select class="form-control @error('category') is-invalid @enderror" name="category" id="category">
                                     <option value="" hidden="" selected="">Select Category</option>
                                     @foreach($category as $cat)
-                                        <option value="{{$cat->id}}" {{(old('category') ? old('category') : $productSeries->categoryId)== $cat->id?'selected':''}}>{{$cat->name}}</option>
+                                        <option value="{{$cat->id}}" {{(old('category') ? old('category') : $productSeries->categoryId) == $cat->id ? 'selected' : ''}}>{{$cat->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('category')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label for="title" class="col-form-label">Title:</label>
+                                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Series Title" value="{{(old('title') ? old('title') : $productSeries->title)}}">
+                                @error('title')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
                         </div>
 

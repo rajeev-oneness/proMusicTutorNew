@@ -587,6 +587,21 @@ footer{
   border-radius: 0;
   font-size: 14px;
 }
+.purchased-Full:hover{
+  background: #317934;
+}
+.preview-Full{
+  background: #2196f3;
+  color: #fff !important;
+  padding: 8px 20px;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 0;
+  font-size: 14px;
+}
+.preview-Full:hover{
+  background: #1b7ac7;
+}
 .buyfull{
   background: #f43600;
   color: #fff !important;
@@ -2029,6 +2044,7 @@ footer{
 .rate:not(:checked) > input {
     position:absolute;
     top:-9999px;
+    visibility: hidden;
 }
 .rate:not(:checked) > label {
     float:right;

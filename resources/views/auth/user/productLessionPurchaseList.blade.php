@@ -42,7 +42,7 @@
                                         <td>{!! words($lession->description,100) !!}</td>
                                         <td>{{$purchase_lession->created_at}}</td>
                                         <td>{{$transaction->transactionId}}</td>
-                                        <td><a href="{{route('product.series.details',$lession->productSeriesId)}}">View</a></td>
+                                        <td><a href="{{route('product.series.details',[$lession->productSeriesId, 'autoplayLessonId' => $lession->id,'seriesName' => $productSeries->title, 'lessonName' => $lession->title])}}">View</a></td>
                                     </tr>
                             	@endforeach
                             </tbody>

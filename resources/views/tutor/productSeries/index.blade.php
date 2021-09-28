@@ -1,5 +1,6 @@
 @extends('layouts.auth.authMaster')
 @section('title',ucwords($instrument->name))
+
 @section('content')
 <div class="container-fluid dashboard-content">
     <div class="row">

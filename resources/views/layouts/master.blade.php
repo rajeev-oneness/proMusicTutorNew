@@ -204,7 +204,7 @@
 
         // purchased lesson preview video
         function previewVideo(id, path, name) {
-            var targetModalId = '#previewVideoModal';
+            var targetModalId = '#videoModal';
 
             $(targetModalId).find('.modal-title').text(name);
             if (!path) {

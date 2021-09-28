@@ -7,14 +7,27 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Add Product Series
-                        <a class="headerbuttonforAdd" href="{{route('tutor.product.series.list',[$instrument->id])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                        <a class="headerbuttonforAdd" href="{{route('admin.product.series.list',[$instrument->id])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{route('tutor.product.series.save',[$instrument->id])}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('admin.product.series.save',[$instrument->id])}}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="instrumentId" value="{{$instrument->id}}">
                         @error('instrumentId')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="createdBy" class="col-form-label">Tutor:</label>
+                                <select class="form-control @error('createdBy') is-invalid @enderror" name="createdBy" id="createdBy">
+                                    <option value="" hidden="" selected="">Select Tutor</option>
+                                    @foreach($tutors as $tutor)
+                                        <option value="{{$tutor->id}}" {{old('createdBy')== $tutor->id?'selected':''}}>{{$tutor->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('createdBy')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="category" class="col-form-label">Category:</label>

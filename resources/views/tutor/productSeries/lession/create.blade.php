@@ -1,12 +1,12 @@
 @extends('layouts.auth.authMaster')
-@section('title','Add Lession under '.ucwords($instrument->name))
+@section('title','Add Lession under '.$instrument->name)
 @section('content')
 <div class="container-fluid dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Add Lession Under {{ucwords($instrument->name)}} ({{$productSeries->title}})
+                    <h5 class="mb-0">Add Lession Under {{$instrument->name}} ({{$productSeries->title}})
                         <a class="headerbuttonforAdd" href="{{route('tutor.product.series.lession.list',[$instrument->id,$productSeries->id])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>
@@ -100,7 +100,7 @@
                                 <select class="form-control @error('genre') is-invalid @enderror" name="genre" id="genre">
                                     <option value="" hidden="" selected="">Select Genre</option>
                                     @foreach($genre as $item)
-                                        <option value="{{$item->id}}" {{old('genre') == $item->id ? 'selected' : ''}}>{{ ucwords($item->name) }}</option>
+                                        <option value="{{$item->id}}" {{old('genre') == $item->id ? 'selected' : ''}}>{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('genre')<span class="text-danger" role="alert">{{$message}}</span>@enderror

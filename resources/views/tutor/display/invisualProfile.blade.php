@@ -125,6 +125,7 @@
                             <label for="star2" title="2 stars">2 stars</label>
                             <input type="radio" id="star1" name="rating" value="1"/>
                             <label for="star1" title="1 star">1 star</label>
+							<input type="radio" id="star0" name="rating" value="0"/>
                         </div>
                     </div>
                     <div class="row m-0">
@@ -158,7 +159,7 @@
 					$('#reviewError').text('Please type your comment');
 				}
 				var rating = $('#postReviewSection input[name=rating]:checked').val();
-				if(rating == null || rating == undefined || rating == ''){
+				if(rating == null || rating == undefined || rating == '' || rating == 0){
 					$('#reviewError').text('Please rate');
 				}
 				if(comment != '' && (rating != '' || rating != 0)){
@@ -185,7 +186,7 @@
 					success:function(response){
 						if(response.error == false){
 							$('#postReviewSection textarea[name=ratingMessage]').val('');
-							// $('#postReviewSection input[name=rating]').val('');
+							$('#postReviewSection input:radio[name=rating]').prop('checked',false);
 							var toAppend = '<div class="mt-2 row m-0 rev-list"><div class="col-12 col-lg-1 p-0"><div class="review_isur"><img src="{{asset('')}}'+response.data.rated_user_details.image+'"></div></div><div class="col-12 col-lg-10"><h6>'+response.data.rated_user_details.name+'<span>'+response.data.posted_date+'</span></h6><p>'+response.data.comment+'</p></div></div>';
 							$('.ratingToBeAppend').prepend(toAppend);
 							ratingCount += 1;

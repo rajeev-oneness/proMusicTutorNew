@@ -1,5 +1,6 @@
 @extends('layouts.auth.authMaster')
 @section('title','Edit Lession under '.$instrument->name)
+
 @section('content')
 <div class="container-fluid dashboard-content">
     <div class="row">
@@ -7,11 +8,11 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Edit Lession Under {{$instrument->name}} ({{$productLession->product_series->title}})
-                        <a class="headerbuttonforAdd" href="{{route('tutor.product.series.lession.list',[$instrument->id,$productLession->productSeriesId])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                        <a class="headerbuttonforAdd" href="{{route('admin.product.series.lession.list',[$instrument->id,$productLession->productSeriesId])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{route('tutor.product.series.lession.update',[$instrument->id,$productLession->productSeriesId,$productLession->id])}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('admin.product.series.lession.update',[$instrument->id,$productLession->productSeriesId,$productLession->id])}}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="instrumentId" value="{{$instrument->id}}">
                         @error('instrumentId')<span class="text-danger" role="alert">{{$message}}</span>@enderror
