@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-12 pt-4 pl-0 pl-md-3">
                         <h6 class="mb-3">Series Description</h6>
-                        <p>{!! words($data->description,600) !!}</p>
+                        <p>{!! $data->description !!}</p>
                     </div>
                 </div>
                 <?php $tutor = $data->author;?>
