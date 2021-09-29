@@ -70,6 +70,21 @@
                     </div>
 
                     <div class="row mb-4">
+                        @foreach ($data->instruments as $instrument)
+                            <div class="col-md-3 dash-card-col">
+                                <a href="{{route('admin.product.series.list',[$instrument->id,'instrument='.$instrument->name])}}">
+                                    <div class="card card-body mb-0" style="background-image: url({{asset($instrument->image)}})">
+                                        <h5 class="mb-2">{{$instrument->name}}</h5>
+                                        <p class="small mb-0">
+                                            View series' list
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="row mb-4">
                         <div class="col-12">
                             <p class="text-muted mb-3">Report</p>
                         </div>
@@ -86,7 +101,7 @@
                             <a href="{{route('admin.report.bestSeller')}}">
                                 <div class="card card-body mb-0">
                                     <h5 class="mb-2">Best seller</h5>
-                                    <i class="fas fa-list-alt"></i>
+                                    <i class="fas fa-box-open"></i>
                                 </div>
                             </a>
                         </div>
@@ -145,7 +160,7 @@
                             <a href="{{route('admin.setting.contact')}}">
                                 <div class="card card-body mb-0">
                                     <h5 class="mb-2">Contact us</h5>
-                                    <i class="fas fa-phone"></i>
+                                    <i class="fas fa-address-book"></i>
                                 </div>
                             </a>
                         </div>
