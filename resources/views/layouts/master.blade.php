@@ -235,30 +235,19 @@
         // $('body').bind('cut copy paste', function(event) {
         //     event.preventDefault();
         // });
-
         // document.oncontextmenu = new Function("return false");
-
         // document.onkeypress = function (event) {
         //     event = (event || window.event);
-        //     if (event.keyCode == 123) {
-        //         return false;
-        //     }
+        //     if (event.keyCode == 123) {return false;}
         // }
         // document.onmousedown = function (event) {
         //     event = (event || window.event);
-        //     if (event.keyCode == 123) {
-        //         return false;
-        //     }
+        //     if (event.keyCode == 123) {return false;}
         // }
         // document.onkeydown = function (event) {
         //     event = (event || window.event);
-        //     if (event.keyCode == 123) {
-        //         return false;
-        //     }
-
-        //     if(event.ctrlKey && event.keyCode == 85) {
-        //         return false;
-        //     }
+        //     if (event.keyCode == 123) {return false;}
+        //     if(event.ctrlKey && event.keyCode == 85) {return false;}
         // }
     </script>
     @yield('script')

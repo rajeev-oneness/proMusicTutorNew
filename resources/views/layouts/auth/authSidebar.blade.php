@@ -90,7 +90,7 @@
 
                             <li class="nav-divider">Setting</li>
                             <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('admin.master.*')?'true':'false'}}" data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-fw fa-file"></i>Master Data</a>
+                                <a class="nav-link {{(request()->is('admin/master/*')) ? 'active' : ''}}" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('admin.master.*')?'true':'false'}}" data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-fw fa-file"></i>Master Data</a>
                                 <div id="submenu-1" class="collapse submenu {{request()->routeIs('admin.master.*')?'show':''}}">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
@@ -120,7 +120,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('admin.setting.*')?'true':'false'}}" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-file"></i>Front Settings </a>
+                                <a class="nav-link {{(request()->is('admin/setting/*')) ? 'active' : ''}}" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('admin.setting.*')?'true':'false'}}" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-file"></i>Front Settings </a>
                                 <div id="submenu-6" class="collapse submenu {{request()->routeIs('admin.setting.*')?'show':''}}">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">

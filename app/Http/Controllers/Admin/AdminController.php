@@ -8,12 +8,14 @@ use App\Models\Category, Auth;
 use App\Models\ProductSeries, App\Models\ProductSeriesLession;
 use App\Models\Instrument, App\Models\Genre, App\Models\User;
 
-
 class AdminController extends Controller
 {
     public function dashboard(Request $req)
     {
         $data = (object)[];
+        $data->instruments = Instrument::latest()->limit(2)->get();
+        $data->categories = Category::latest()->limit(2)->get();
+        $data->genres = Genre::latest()->limit(2)->get();
         return view('admin.dashboard', compact('data'));
     }
 
