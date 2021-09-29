@@ -10,7 +10,7 @@
                     <div class="embed-responsive embed-responsive-16by9">
                         {{-- <iframe class="embed-responsive-item" src="{{asset($data->video_url)}}" allowfullscreen></iframe> --}}
 
-                        <video height="100" autoplay muted>
+                        <video height="100" autoplay muted loop>
                             <source src="{{asset($data->video_url)}}">
                         </video>
                     </div>
@@ -201,20 +201,6 @@
         </section>
     @endif
 
-    <!-- Purchased lesson video modal -->
-    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Preview</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-center" style="min-height: 200px"></div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('script')
@@ -224,34 +210,5 @@
     if (params.get('autoplayLessonId')) {
         $('#watch_id'+params.get('autoplayLessonId')).click();
     }
-
-    // $('body').bind('cut copy paste', function(event) {
-    //     event.preventDefault();
-    // });
-
-    // document.oncontextmenu = new Function("return false");
-
-    // document.onkeypress = function (event) {
-    //     event = (event || window.event);
-    //     if (event.keyCode == 123) {
-    //         return false;
-    //     }
-    // }
-    // document.onmousedown = function (event) {
-    //     event = (event || window.event);
-    //     if (event.keyCode == 123) {
-    //         return false;
-    //     }
-    // }
-    // document.onkeydown = function (event) {
-    //     event = (event || window.event);
-    //     if (event.keyCode == 123) {
-    //         return false;
-    //     }
-
-    //     if(event.ctrlKey && event.keyCode == 85) {
-    //         return false;
-    //     }
-    // }
 </script>
 @endsection

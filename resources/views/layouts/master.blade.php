@@ -82,6 +82,22 @@
     </div>
     <!-- stripe Payment End -->
 
+    <!-- Purchased lesson video modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Preview</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center" style="min-height: 200px"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Purchased lesson video modal -->
+
     @include('layouts.footer')
 
     <script type="text/javascript" src="{{asset('design/js/jquery-3.6.0.min.js')}}"></script>
@@ -210,10 +226,40 @@
             if (!path) {
                 $(targetModalId).find('.modal-body').html('<h5 class="text-muted">No preview available !</h5>');
             } else {
-                $(targetModalId).find('.modal-body').html('<video class="w-100" autoplay controls><source src="{{asset('')}}'+path+'" type="video/mp4"></video>');
+                $(targetModalId).find('.modal-body').html('<video class="w-100" autoplay controls muted loop><source src="{{asset('')}}'+path+'" type="video/mp4">Sorry, your browser doesn&apos;t support embedded videos.</video>');
             }
             $(targetModalId).modal('show');
         }
+
+        // ######## turn off right click, f12, ctrl + u etc ########
+        // $('body').bind('cut copy paste', function(event) {
+        //     event.preventDefault();
+        // });
+
+        // document.oncontextmenu = new Function("return false");
+
+        // document.onkeypress = function (event) {
+        //     event = (event || window.event);
+        //     if (event.keyCode == 123) {
+        //         return false;
+        //     }
+        // }
+        // document.onmousedown = function (event) {
+        //     event = (event || window.event);
+        //     if (event.keyCode == 123) {
+        //         return false;
+        //     }
+        // }
+        // document.onkeydown = function (event) {
+        //     event = (event || window.event);
+        //     if (event.keyCode == 123) {
+        //         return false;
+        //     }
+
+        //     if(event.ctrlKey && event.keyCode == 85) {
+        //         return false;
+        //     }
+        // }
     </script>
     @yield('script')
 </body>

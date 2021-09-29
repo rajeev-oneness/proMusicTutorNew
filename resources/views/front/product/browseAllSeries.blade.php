@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('title','Product Series')
+
 @section('content')
 	<section class="pt-3 pt-md-5 pb-3 pb-md-5 tutor-list bg-light">
     <div class="container">
@@ -87,9 +88,13 @@
 	                                        @endif
 	                                    @endguest
 	                                </div>
+									@php
+										$name = "'".$series->title."'";
+										$videoPath = "'".$series->video_url."'";
+									@endphp
 	                                <div class="card-footer d-flex border-0 p-0">
 	                                    <a href="{{route('product.series.details',$series->id)}}" class="btn detail col-6">Details</a>
-	                                    <a href="javascript:void(0)" class="btn preview col-6">PREVIEW</a>
+	                                    <a href="javascript:void(0)" class="btn preview col-6" onclick="previewVideo({{$series->id}}, {{$videoPath}}, {{$name}})">PREVIEW</a>
 	                                </div>
 									<div class="difficulty_section right-0">
 										{{$series->difficulty}}

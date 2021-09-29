@@ -76,9 +76,13 @@
                                         @endif
                                     @endguest
 	                            </div>
+                                @php
+                                    $name = "'".$productSeries->title."'";
+                                    $videoPath = "'".$productSeries->video_url."'";
+                                @endphp
 	                            <div class="card-footer d-flex border-0 p-0">
 	                                <a href="{{route('product.series.details',$productSeries->id)}}" class="btn detail col-6">Details</a>
-	                                <a href="javascript:void(0)" class="btn preview col-6">PREVIEW</a>
+	                                <a href="javascript:void(0)" class="btn preview col-6"  onclick="previewVideo({{$productSeries->id}}, {{$videoPath}}, {{$name}})">PREVIEW</a>
 	                            </div>
 	                        </div>
 	                    </div>
