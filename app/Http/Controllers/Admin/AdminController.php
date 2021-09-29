@@ -13,7 +13,7 @@ class AdminController extends Controller
     public function dashboard(Request $req)
     {
         $data = (object)[];
-        $data->instruments = Instrument::latest()->limit(2)->get();
+        $data->instruments = Instrument::latest()->get();
         $data->categories = Category::latest()->limit(2)->get();
         $data->genres = Genre::latest()->limit(2)->get();
         return view('admin.dashboard', compact('data'));

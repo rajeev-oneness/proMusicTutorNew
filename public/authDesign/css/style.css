@@ -7242,7 +7242,7 @@ Media Query
     color: inherit;
     font-size: inherit;
     text-transform: uppercase;
-    transition: all 0.2s ease;
+    transition: inherit;
 }
 .dash-card-col .card p {
     color: #484848;
@@ -7254,6 +7254,7 @@ Media Query
     right: 0;
     transform: translate(0%, -50%) rotate(350deg);
     font-size: 70px;
+    transition: inherit;
 }
 .dash-card-col:hover a {
     text-decoration: none;
@@ -7267,5 +7268,9 @@ Media Query
 }
 .dash-card-col:hover .card p {
     color: #9c8f8f;
+}
+.dash-card-col:hover .card i {
+    transform: translate(0%, -50%) rotate(340deg);
+    font-size: 80px;
 }
 /* admin dashboard style */

@@ -19,8 +19,14 @@
                                 <div class="card card-body mb-0">
                                     <h5 class="mb-2">Instrument</h5>
                                     <p class="small mb-0">
-                                        @foreach ($data->instruments as $instrument)
-                                        {{($loop->first ? '' : ', ') . ($instrument->name) . ($loop->last ? '...' : '')}}
+                                        @foreach ($data->instruments as $key => $instrument)
+                                        {{($loop->first ? '' : ', ').($instrument->name).($loop->last ? '...' : '')}}
+                                        @php
+                                            if ($key == 1) {
+                                                echo '...';
+                                                break;
+                                            }
+                                        @endphp
                                         @endforeach
                                     </p>
                                     <i class="fas fa-music"></i>
