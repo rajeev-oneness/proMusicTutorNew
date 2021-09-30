@@ -12,11 +12,11 @@
                 <div class="col-12 col-lg-6 tutor_detail">
                     <h3>{{$tutor->name}} <span>{{$tutor->specialist}}</span></h3>
                     <span>
+                        {{-- <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
+                        <i class="fas fa-star-half-alt"></i> --}}
                         <small>{{number_format($tutor->ratings->avg('rating'),1)}} <i class="fas fa-star"></i></small>
                     </span>
                     <p><span>Experience:</span>@if($tutor->carrier_started == '0000-00-00'){{(' 0')}}@else{{date('Y') - date('Y',strtotime($tutor->carrier_started))}}@endif{{(' years')}}</p>

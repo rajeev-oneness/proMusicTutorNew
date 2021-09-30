@@ -58,9 +58,9 @@
 
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label for="gbp" class="col-form-label">GBP:</label>
-                                <input type="text" class="form-control @error('gbp') is-invalid @enderror" id="gbp" name="gbp" placeholder="GBP" value="{{(old('gbp') ?? zeroGoesToBlank($productLession->gbp))}}" onkeypress="return isNumberKey(event);" maxlength="7">
-                                @error('gbp')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                                <label for="price_gbp" class="col-form-label">GBP:</label>
+                                <input type="text" class="form-control @error('price_gbp') is-invalid @enderror" id="price_gbp" name="price_gbp" placeholder="GBP" value="{{(old('price_gbp') ?? zeroGoesToBlank($productLession->price_gbp))}}" onkeypress="return isNumberKey(event);" maxlength="7">
+                                @error('price_gbp')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
                             <div class="form-group col-md-4">

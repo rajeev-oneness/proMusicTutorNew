@@ -112,13 +112,9 @@
                                         @endif
                                     @endguest
                                 </div>
-                                @php
-                                    $name = "'".$series->title."'";
-                                    $videoPath = "'".$series->video_url."'";
-                                @endphp
                                 <div class="card-footer d-flex border-0 p-0">
                                     <a href="{{route('product.series.details',$series->id)}}" class="btn detail col-6">Details</a>
-                                    <a href="javascript:void(0)" class="btn preview col-6" onclick="previewVideo({{$series->id}}, {{$videoPath}}, {{$name}})">PREVIEW</a>
+                                    <a href="javascript:void(0)" class="btn preview col-6" onclick="previewVideo('{{$series->id}}', '{{asset($series->video_url)}}', '{{$series->title}}')">PREVIEW <i class="fa fa-play ml-2"></i></a>
                                     {{-- @guest
                                         <a href="javascript: void(0)" class="btn preview col-6 wishlist" onclick="walert('please login to continue')"> <i class="fa fa-heart"></i> WISHLIST</a>
                                     @else

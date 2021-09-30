@@ -88,23 +88,20 @@
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label for="price_usd" class="col-form-label">USD:</label>
-                                <input type="text" class="form-control form-control-sm @error('price_usd') is-invalid @enderror" id="price_usd" name="price_usd" placeholder="Price in USD" value="{{old('price_usd')}}" 
-                                {{-- onkeypress="return isNumberKey(event);" 
-                                maxlength="7" --}}
-                                >
+                                <input type="text" class="form-control form-control-sm @error('price_usd') is-invalid @enderror" id="price_usd" name="price_usd" placeholder="Price in USD" value="{{old('price_usd')}}" onkeypress="return isNumberKey(event);" maxlength="7">
                                 @error('price_usd')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label for="price_euro" class="col-form-label">EURO:</label>
-                                <input type="text" class="form-control form-control-sm @error('price_euro') is-invalid @enderror" id="price_euro" name="price_euro" placeholder="Price in EURO" value="{{old('price_euro')}}">
+                                <input type="text" class="form-control form-control-sm @error('price_euro') is-invalid @enderror" id="price_euro" name="price_euro" placeholder="Price in EURO" value="{{old('price_euro')}}" onkeypress="return isNumberKey(event);" maxlength="7">
                                 @error('price_euro')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="gbp" class="col-form-label">GBP:</label>
-                                <input type="text" class="form-control form-control-sm @error('gbp') is-invalid @enderror" id="gbp" name="gbp" placeholder="Price in GBP" value="{{old('gbp')}}">
-                                @error('gbp')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                                <label for="price_gbp" class="col-form-label">GBP:</label>
+                                <input type="text" class="form-control form-control-sm @error('price_gbp') is-invalid @enderror" id="price_gbp" name="price_gbp" placeholder="Price in GBP" value="{{old('price_gbp')}}" onkeypress="return isNumberKey(event);" maxlength="7">
+                                @error('price_gbp')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
                         </div>
 

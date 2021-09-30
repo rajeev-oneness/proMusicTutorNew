@@ -36,7 +36,7 @@
                                             <td>{{$key + 1}}</td>
                                             <td><img src="{{asset($lession->image)}}" height="100" width="100"></td>
                                             <td class="small">{{$lession->title}}</td>
-                                            <td class="small">€ {{$lession->price}}</td>
+                                            <td class="small">$ {{$lession->price_usd}}</td>
                                             <td class="small">{{ucwords($lession->difficulty)}}</td>
                                             <td class="small">{!! words($lession->description,50) !!}</td>
                                             <td class="small">

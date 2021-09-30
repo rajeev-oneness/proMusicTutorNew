@@ -226,7 +226,7 @@
             if (!path) {
                 $(targetModalId).find('.modal-body').html('<h5 class="text-muted">Nothing to display here !</h5>');
             } else {
-                $(targetModalId).find('.modal-body').html('<video class="w-100" autoplay controls muted loop><source src="{{asset('')}}'+path+'" type="video/mp4">Sorry, your browser doesn&apos;t support embedded videos.</video>');
+                $(targetModalId).find('.modal-body').html('<video class="w-100" autoplay controls muted loop><source src="'+path+'">Sorry, your browser doesn&apos;t support embedded videos.</video>');
             }
             $(targetModalId).modal('show');
         }

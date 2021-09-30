@@ -63,7 +63,7 @@ class AdminController extends Controller
             'media_link' => 'required',
             'difficulty' => 'required|string|in:Easy,Medium,Hard',
             'genre' => 'required|min:1|numeric',
-            'gbp' => 'nullable|min:1|numeric',
+            'price_gbp' => 'nullable|min:1|numeric',
             'price_usd' => 'nullable|min:1|numeric',
             'price_euro' => 'nullable|min:1|numeric',
             'item_clean_url' => 'nullable|url',
@@ -91,7 +91,7 @@ class AdminController extends Controller
             $newSeries->createdBy = $req->createdBy;
             // New Addition
             $newSeries->genre = !empty($req->genre) ? $req->genre : 0;
-            $newSeries->gbp = !empty($req->gbp) ? $req->gbp : 0;
+            $newSeries->price_gbp = !empty($req->price_gbp) ? $req->price_gbp : 0;
             $newSeries->price_usd = !empty($req->price_usd) ? $req->price_usd : 0;
             $newSeries->price_euro = !empty($req->price_euro) ? $req->price_euro : 0;
             $newSeries->item_clean_url = emptyCheck($req->item_clean_url);
@@ -132,7 +132,7 @@ class AdminController extends Controller
             'media_link' => 'nullable',
             'difficulty' => 'required|string|in:Easy,Medium,Hard',
             'genre' => 'required|min:1|numeric',
-            'gbp' => 'nullable|min:1|numeric',
+            'price_gbp' => 'nullable|min:1|numeric',
             'price_usd' => 'nullable|min:1|numeric',
             'price_euro' => 'nullable|min:1|numeric',
             'item_clean_url' => 'nullable|url',
@@ -159,7 +159,7 @@ class AdminController extends Controller
             // $updateSeries->video_url = $req->media_link;
             // New Addition
             $updateSeries->genre = !empty($req->genre) ? $req->genre : 0;
-            $updateSeries->gbp = !empty($req->gbp) ? $req->gbp : 0;
+            $updateSeries->price_gbp = !empty($req->price_gbp) ? $req->price_gbp : 0;
             $updateSeries->price_usd = !empty($req->price_usd) ? $req->price_usd : 0;
             $updateSeries->price_euro = !empty($req->price_euro) ? $req->price_euro : 0;
             $updateSeries->item_clean_url = emptyCheck($req->item_clean_url);
@@ -227,13 +227,13 @@ class AdminController extends Controller
             'productSeriesId' => 'required|min:1|numeric|in:' . $productSeriesId,
             'title' => 'required|string|max:200',
             'difficulty' => 'required|string|in:Easy,Medium,Hard',
-            'price' => 'required|numeric|min:1',
+            // 'price' => 'required|numeric|min:1',
             'description' => 'required|string',
             'image' => 'required|image',
             // 'preview_video' => 'required|mimes:mp4, 3gp, mkv, avi, flv, wmv, webm, ogx, oga, ogv, ogg, mov, m3u8, ts',
             'preview_video' => 'required',
             'video_url' => 'required',
-            'gbp' => 'nullable|min:1|numeric',
+            'price_gbp' => 'nullable|min:1|numeric',
             'price_usd' => 'nullable|min:1|numeric',
             'price_euro' => 'nullable|min:1|numeric',
             'keywords' => 'nullable|max:255',
@@ -267,9 +267,9 @@ class AdminController extends Controller
                     $newLession->video = imageUpload($video, 'product/lession/video');
                 }
                 $newLession->currencyId = 3;
-                $newLession->price = $req->price;
+                // $newLession->price = $req->price;
                 $newLession->description = $req->description;
-                $newLession->gbp = !empty($req->gbp) ? $req->gbp : 0;
+                $newLession->price_gbp = !empty($req->price_gbp) ? $req->price_gbp : 0;
                 $newLession->price_usd = !empty($req->price_usd) ? $req->price_usd : 0;
                 $newLession->price_euro = !empty($req->price_euro) ? $req->price_euro : 0;
                 $newLession->keywords = emptyCheck($req->keywords);
@@ -291,14 +291,12 @@ class AdminController extends Controller
         if ($instrument) {
             $user = $req->user();
             $genre = Genre::orderBy('name')->get();
-            $productLession = ProductSeriesLession::where('id', $lessionId)->where('productSeriesId', $productSeriesId)->where('instrumentId', $instrument->id)->where('createdBy', $user->id)->first();
+            $productLession = ProductSeriesLession::where('id', $lessionId)->where('productSeriesId', $productSeriesId)->where('instrumentId', $instrument->id)->first();
             if ($productLession) {
                 return view('admin.product.lession.edit', compact('instrument', 'productLession', 'genre'));
             }
         }
         return abort(404);
-
-        // return view('admin.product.lession.edit');
     }
 
     // LESSON - UPDATE
@@ -310,12 +308,12 @@ class AdminController extends Controller
             'productLessionId' => 'required|min:1|numeric|in:' . $lessionId,
             'title' => 'required|string|max:200',
             'difficulty' => 'required|string|in:Easy,Medium,Hard',
-            'price' => 'required|numeric|min:1',
+            // 'price' => 'required|numeric|min:1',
             'description' => 'required|string',
             'image' => 'nullable|image',
             'preview_video' => 'nullable|mimes:mp4, 3gp, mkv, avi, flv, wmv, webm, ogx, oga, ogv, ogg, mov, m3u8, ts',
             'video' => 'nullable',
-            'gbp' => 'nullable|min:1|numeric',
+            'price_gbp' => 'nullable|min:1|numeric',
             'price_usd' => 'nullable|min:1|numeric',
             'price_euro' => 'nullable|min:1|numeric',
             'keywords' => 'nullable|max:255',
@@ -348,9 +346,9 @@ class AdminController extends Controller
                         $updateLession->video = imageUpload($video, 'product/lession/video');
                     }
                     $updateLession->currencyId = 3;
-                    $updateLession->price = $req->price;
+                    // $updateLession->price = $req->price;
                     $updateLession->description = $req->description;
-                    $updateLession->gbp = !empty($req->gbp) ? $req->gbp : 0;
+                    $updateLession->price_gbp = !empty($req->price_gbp) ? $req->price_gbp : 0;
                     $updateLession->price_usd = !empty($req->price_usd) ? $req->price_usd : 0;
                     $updateLession->price_euro = !empty($req->price_euro) ? $req->price_euro : 0;
                     $updateLession->keywords = emptyCheck($req->keywords);

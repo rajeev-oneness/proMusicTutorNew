@@ -19,7 +19,7 @@
                     <div class="row m-0">
                         <h5 class="col-6 pt-2 pl-0 pl-md-3">{{$data->title}}</h5>
                         @guest
-                            <a href="javascript:void(0)" class="col-6 col-md-5 ml-auto buyfull" onclick="alert('please login to continue')">BUY FULL SERIES - £ {{$totalPrice}}</a>
+                            <a href="javascript:void(0)" class="col-6 col-md-5 ml-auto buyfull" onclick="alert('please login to continue')">BUY FULL SERIES - $ {{$totalPrice}}</a>
                         @else
                             @if($data->userPurchased)
                                 <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
@@ -80,7 +80,7 @@
                         <div class="d-flex">
                             <h5 class="pt-2">LESSONS</h5>
                             @guest
-                                <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="alert('please login to continue')">BUY FULL SERIES - £ {{$totalPrice}}</a>
+                                <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="alert('please login to continue')">BUY FULL SERIES - $ {{$totalPrice}}</a>
                             @else
                                 @if($data->userPurchased)
                                     <a href="javascript:void(0)" class="purchased-Full ml-3 ml-md-5">Already Purchased</a>
@@ -124,24 +124,15 @@
                                         <h5 class="card-title">{{$less->title}}</h5>
                                         <p class="card-text">{!! words($less->description,1000) !!}</p>
                                         <div class="float-right buynow-btn">
-                                            @php
-                                                $lessonName = "'".$less->title."'";
-                                                $previewVideoPath = "'".$less->preview_video."'";
-                                            @endphp
-
-                                            <a href="javascript:void(0)" class="preview-Full btn" onclick="previewVideo({{$less->id}}, {{$previewVideoPath}}, {{$lessonName}})" id="watch_id{{$less->id}}">Preview <i class="fa fa-play ml-2"></i> </a>
+                                            <a href="javascript:void(0)" class="preview-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->preview_video)}}', '{{$less->title}}')" id="watch_id{{$less->id}}">Preview <i class="fa fa-play ml-2"></i> </a>
 
                                             @guest
-                                                <a href="javascript:void(0)" class="btn buyfull" onclick="alert('please login to continue')">Buy Now - £ {{$less->price}}</a>
+                                                <a href="javascript:void(0)" class="btn buyfull" onclick="alert('please login to continue')">Buy Now - $ {{$less->price_usd}}</a>
                                             @else
                                                 @if(userLessionPurchased($less))
-                                                    @php
-                                                        $lessonName = "'".$less->title."'";
-                                                        $videoPath = "'".$less->video."'";
-                                                    @endphp
-                                                    <a href="javascript:void(0)" class="purchased-Full btn" onclick="previewVideo({{$less->id}}, {{$videoPath}}, {{$lessonName}})" id="watch_id{{$less->id}}">Watch <i class="fa fa-play ml-2"></i> </a>
+                                                    <a href="javascript:void(0)" class="purchased-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->video)}}', '{{$less->title}}')" id="watch_id{{$less->id}}">Watch <i class="fa fa-play ml-2"></i> </a>
                                                 @else
-                                                    <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$less->price}}','{{route('after.purchase.guitar_lession_series',$less->id)}}');">Buy Now - $  {{$less->price}}</a>
+                                                    <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$less->price_usd}}','{{route('after.purchase.guitar_lession_series',$less->id)}}');">Buy Now - $  {{$less->price_usd}}</a>
                                                 @endif
                                             @endguest
                                         </div>
@@ -188,7 +179,8 @@
                                 </div>
                                 <div class="card-footer d-flex border-0 p-0">
                                     <a href="{{route('product.series.details',$otherSeries->id)}}" class="btn detail col-6">Details</a>
-                                    <a href="javascript:void(0)" class="btn preview col-6">PREVIEW</a>
+                                    {{-- <a href="javascript:void(0)" class="btn preview col-6">PREVIEW</a> --}}
+                                    <a href="javascript:void(0)" class="btn preview col-6" onclick="previewVideo({{$otherSeries->id}}, '{{asset($otherSeries->video_url)}}', '{{$otherSeries->title}}')" id="watch_id{{$otherSeries->id}}">Preview <i class="fa fa-play ml-2"></i> </a>
                                 </div>
                                 <div class="difficulty_section right-0">
                                     {{$otherSeries->difficulty}}

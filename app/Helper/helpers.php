@@ -113,7 +113,7 @@
     function calculateLessionPrice($lessionObject=[]){
     	$totalPrice = 0;
     	foreach($lessionObject as $lession){
-    		$totalPrice += $lession->price;
+    		$totalPrice += $lession->price_usd;
     	}
     	return $totalPrice;
     }
