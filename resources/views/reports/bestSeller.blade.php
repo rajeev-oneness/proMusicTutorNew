@@ -18,16 +18,6 @@
                             <form action="{{route('admin.report.bestSeller')}}" method="POST">
                             @csrf
                                 <div class="row">
-                                    {{-- <div class="col-md-3">
-                                        <label for="seriesId">Select series</label>
-                                        <select name="seriesId" id="seriesId" class="form-control form-control-sm mr-2">
-                                            <option value="" selected hidden>Select Series</option>
-                                            @foreach ($series as $srs)
-                                                <option value="{{$srs->product_series->id}}" {{($srs->product_series->id == $req->seriesId) ? 'selected' : ''}}>{{$srs->product_series->title}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div> --}}
-
                                     <div class="col-md-3">
                                         <label for="instrumentId">Select Instrument</label>
                                         <select name="instrumentId" id="instrumentId" class="form-control form-control-sm mr-2">
@@ -37,12 +27,12 @@
                                             @endforeach
                                         </select>
                                     </div>
-    
+
                                     <div class="col-md-3">
                                         <label for="dateFrom">Date from</label>
                                         <input type="date" class="form-control form-control-sm mr-2" placeholder="Date from" name="dateFrom" id="dateFrom" max="{{date('Y-m-d')}}" value="{{(!empty($req->dateFrom)) ? $req->dateFrom : ''}}">
                                     </div>
-    
+
                                     <div class="col-md-3">
                                         <label for="dateTo">Date to</label>
                                         <input type="date" class="form-control form-control-sm mr-2" placeholder="Date to" name="dateTo" id="dateTo" max="{{date('Y-m-d')}}" value="{{(!empty($req->dateTo)) ? $req->dateTo : ''}}">

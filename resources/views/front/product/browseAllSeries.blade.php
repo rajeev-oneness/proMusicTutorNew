@@ -23,8 +23,17 @@
 					@csrf
 					<div class="w-100 d-flex justify-content-end">
 						<div class="form-group mb-0 mr-2">
+							<label>Currency</label>
+							<select class="form-control form-control-sm" name="currency">
+								<option value="" selected="" hidden="">Price</option>
+								<option selected value="usd">$ USD</option>
+								<option {{($req->currency == 'eur') ? 'selected' : ''}} value="eur">€ EUR</option>
+								<option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
+							</select>
+						</div>
+						<div class="form-group mb-0 mr-2">
 							<label>Instrument</label>
-							<select class="form-control" name="instrument">
+							<select class="form-control form-control-sm" name="instrument">
 								<option value="" selected="" hidden="">Instrument</option>
 								@foreach($data->instrument as $ins)
 									<option value="{{$ins->id}}" {{($req->instrument == $ins->id) ? 'selected' : ''}}>{{$ins->name}}</option>
@@ -33,7 +42,7 @@
 						</div>
 						<div class="form-group mb-0 mr-2">
 							<label>Category</label>
-							<select class="form-control" name="category">
+							<select class="form-control form-control-sm" name="category">
 								<option value="" selected="" hidden="">Category</option>
 								@foreach($data->category as $cat)
 									<option value="{{$cat->id}}" {{($req->category == $cat->id) ? 'selected' : ''}}>{{$cat->name}}</option>
@@ -42,7 +51,7 @@
 						</div>
 						<div class="form-group mb-0 mr-2">
 							<label>Difficulty</label>
-							<select class="form-control" name="difficulty">
+							<select class="form-control form-control-sm" name="difficulty">
 								<option value="" selected="" hidden="">Difficulty</option>
 								<option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
 								<option {{($req->difficulty == 'Medium') ? 'selected' : ''}} value="Medium">Medium</option>
@@ -51,16 +60,16 @@
 						</div>
 						<div class="form-group mb-0 mr-2">
 							<label>Tutor</label>
-							<select class="form-control" name="tutor">
+							<select class="form-control form-control-sm" name="tutor">
 								<option value="" selected="" hidden="">Tutor</option>
 								@foreach($data->tutor as $teacher)
 									<option value="{{$teacher->id}}" {{($req->tutor == $teacher->id) ? 'selected' : ''}}>{{$teacher->name}}</option>
 								@endforeach
 							</select>
 						</div>
-						<div class="form-group mb-0 mr-2" style="padding-top: 37px">
-							<button type="submit" class="btn btn-primary">Apply</button>
-							<a href="{{route('browse.product.series')}}" class="btn btn-light border">Reset</a>
+						<div class="form-group mb-0 mr-2" style="padding-top: 34px">
+							<button type="submit" class="btn btn-sm btn-primary">Apply</button>
+							<a href="{{route('browse.product.series')}}" class="btn btn-sm btn-light border">Reset</a>
 						</div>
 					</div>
 				</form>
@@ -77,14 +86,14 @@
 	                                <div class="card-body text-center">
 	                                    <h5 class="card-title">{{$series->title}}</h5>
 	                                    <p class="card-text">{!! words($series->description,200) !!}</p>
-	                                    <?php $seriesPrice = calculateLessionPrice($series->lession); ?>
+	                                    <?php $seriesPrice = calculateLessionPrice($series->lession, $data->currency); ?>
 	                                    @guest
-	                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - $  {{$seriesPrice}}</a>
+	                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
 	                                    @else
 	                                        @if($series->userPurchased)
 	                                            <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
 	                                        @else
-	                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$series->id)}}');">BUY FULL SERIES - $  {{$seriesPrice}}</a>
+	                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$series->id)}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
 	                                        @endif
 	                                    @endguest
 	                                </div>

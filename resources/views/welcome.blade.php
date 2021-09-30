@@ -68,7 +68,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Tutor Section -->
     @if(count($data->tutor) > 0)
         <section class="pt-5 pb-5 my_teams">

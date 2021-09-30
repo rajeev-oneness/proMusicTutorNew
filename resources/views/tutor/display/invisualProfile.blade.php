@@ -12,6 +12,11 @@
                 <div class="col-12 col-lg-6 tutor_detail">
                     <h3>{{$tutor->name}} <span>{{$tutor->specialist}}</span></h3>
                     <span>
+						@php
+							for ($i=0; $i < 5; $i++) { 
+								echo '<i class="fas fa-star"></i>';
+							}
+						@endphp
                         {{-- <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -52,10 +57,26 @@
 
             @if(count($tutor->product_series) > 0)
             <div class="col-12 p-0">
-            	<div class="row">
-		            <div class="col-12 text-center title-inner">
+            	<div class="row mx-0">
+		            <div class="col-md-6 title-inner">
 		                <h1 class="mb-5">His Series's</h1>
 		            </div>
+					<div class="col-md-6 text-right pt-2">
+						<form method="post" action="{{route('explore.tutor',[base64_encode($tutor->id),'tutor'=>$tutor->name])}}" class="form-inline justify-content-end">
+							@csrf
+								<div class="mr-3">
+									{{-- <p class="mb-0 text-muted">Select Difficulty</p> --}}
+									<select class="form-control form-control-sm" name="currency">
+										<option value="" selected="" hidden="">Price</option>
+										<option selected value="usd">$ USD</option>
+										<option {{($req->currency == 'eur') ? 'selected' : ''}} value="eur">€ EUR</option>
+										<option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
+									</select>
+								</div>
+								<button type="submit" name="" class="btn btn-sm btn-primary mr-3">Apply</button>
+								<a href="{{route('explore.tutor',[base64_encode($tutor->id),'tutor'=>$tutor->name])}}" class="btn btn-sm btn-light border">Reset</a>
+						</form>
+					</div>
 		        </div>
                 <div class="row m-0 mb-4">
                 	@foreach($tutor->product_series as $index => $productSeries)
@@ -65,24 +86,20 @@
                                 <div class="card-body text-center">
                                     <h5 class="card-title">{{$productSeries->title}}</h5>
                                     <p class="card-text">{!! words($productSeries->description,200) !!}</p>
-	                                <?php $seriesPrice = calculateLessionPrice($productSeries->lession); ?>
+	                                <?php $seriesPrice = calculateLessionPrice($productSeries->lession, $data->currency); ?>
                                     @guest
-                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - $  {{$seriesPrice}}</a>
+                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                     @else
                                         @if($productSeries->userPurchased)
                                             <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                                         @else
-                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$productSeries->id)}}');">BUY FULL SERIES - $  {{$seriesPrice}}</a>
+                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$productSeries->id)}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                         @endif
                                     @endguest
 	                            </div>
-                                @php
-                                    $name = "'".$productSeries->title."'";
-                                    $videoPath = "'".$productSeries->video_url."'";
-                                @endphp
 	                            <div class="card-footer d-flex border-0 p-0">
 	                                <a href="{{route('product.series.details',$productSeries->id)}}" class="btn detail col-6">Details</a>
-	                                <a href="javascript:void(0)" class="btn preview col-6"  onclick="previewVideo({{$productSeries->id}}, {{$videoPath}}, {{$name}})">PREVIEW</a>
+	                                <a href="javascript:void(0)" class="btn preview col-6"  onclick="previewVideo({{$productSeries->id}}, '{{asset($productSeries->video_url)}}', '{{$productSeries->title}}')">PREVIEW <i class="fas fa-play ml-2"></i></a>
 	                            </div>
 	                        </div>
 	                    </div>

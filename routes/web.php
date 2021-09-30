@@ -19,7 +19,7 @@ use App\Http\Controllers\Auth\LoginController;
 
 Route::get('/',[DefaultController::class,'welcome'])->name('welcome');
 Route::get('explore/instrument',[DefaultController::class,'exploreInstruments'])->name('explore.instrument');
-Route::get('explore/tutor/{tutorId?}',[DefaultController::class,'exploreTutor'])->name('explore.tutor');
+Route::any('explore/tutor/{tutorId?}',[DefaultController::class,'exploreTutor'])->name('explore.tutor');
 Route::get('explore/testimonials',[DefaultController::class,'testimonialsList'])->name('explore.testimonials');
 
 Route::get('about-us',[DefaultController::class,'aboutus'])->name('welcome.aboutus');

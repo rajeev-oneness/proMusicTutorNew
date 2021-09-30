@@ -78,8 +78,17 @@
                 <div class="col-6 text-right pt-2">
                     <form method="post" action="{{route('product.series',$instrumentParameter)}}" class="form-inline justify-content-end">
                         @csrf
-                            <div class="form-group mr-3">
-                                <label class="form-label mr-3">Select Difficulty</label>
+                            <div class="mr-3">
+                                {{-- <p class="mb-0 text-muted">Select Difficulty</p> --}}
+                                <select class="form-control form-control-sm" name="currency">
+                                    <option value="" selected="" hidden="">Price</option>
+                                    <option selected value="usd">$ USD</option>
+                                    <option {{($req->currency == 'eur') ? 'selected' : ''}} value="eur">€ EUR</option>
+                                    <option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
+                                </select>
+                            </div>
+                            <div class="mr-3">
+                                {{-- <p class="mb-0 text-muted">Select Difficulty</p> --}}
                                 <select class="form-control form-control-sm" name="difficulty">
                                     <option value="" selected="" hidden="">Difficulty</option>
                                     <option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
@@ -101,14 +110,14 @@
                                 <div class="card-body text-center">
                                     <h5 class="card-title">{{$series->title}}</h5>
                                     <p class="card-text">{!! words($series->description,200) !!}</p>
-                                    <?php $seriesPrice = calculateLessionPrice($series->lession); ?>
+                                    <?php $seriesPrice = calculateLessionPrice($series->lession, $data->currency); ?>
                                     @guest
-                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - $ {{$seriesPrice}}</a>
+                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                     @else
                                         @if($series->userPurchased)
                                             <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                                         @else
-                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$series->id)}}');">BUY FULL SERIES - $  {{$seriesPrice}}</a>
+                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$series->id)}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                         @endif
                                     @endguest
                                 </div>

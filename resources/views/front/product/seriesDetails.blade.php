@@ -2,7 +2,7 @@
 @section('title','Product Series')
 @section('content')
 
-    <?php $totalPrice = calculateLessionPrice($data->lession); ?>
+    <?php $totalPrice = calculateLessionPrice($data->lession, $data->currency); ?>
     <section class="pt-0 pt-md-5 pb-5">
         <div class="container">
             <div class="row">
@@ -19,12 +19,12 @@
                     <div class="row m-0">
                         <h5 class="col-6 pt-2 pl-0 pl-md-3">{{$data->title}}</h5>
                         @guest
-                            <a href="javascript:void(0)" class="col-6 col-md-5 ml-auto buyfull" onclick="alert('please login to continue')">BUY FULL SERIES - $ {{$totalPrice}}</a>
+                            <a href="javascript:void(0)" class="col-6 col-md-5 ml-auto buyfull" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
                         @else
                             @if($data->userPurchased)
                                 <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                             @else
-                                <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}');">BUY FULL SERIES - $  {{$totalPrice}}</a>
+                                <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
                             @endif
                         @endguest
 
@@ -80,22 +80,31 @@
                         <div class="d-flex">
                             <h5 class="pt-2">LESSONS</h5>
                             @guest
-                                <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="alert('please login to continue')">BUY FULL SERIES - $ {{$totalPrice}}</a>
+                                <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
                             @else
                                 @if($data->userPurchased)
                                     <a href="javascript:void(0)" class="purchased-Full ml-3 ml-md-5">Already Purchased</a>
                                 @else
-                                    <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}');">BUY FULL SERIES - $  {{$totalPrice}}</a>
+                                    <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
                                 @endif
                             @endguest
                         </div>
                     </div>
-                    <div class="col-6 text-right pt-2">
+                    <div class="col-6 text-right pt-2" style="position: fixed;top: 0;z-index: 999;">
                         <!-- Filter -->
                         <form method="post" action="{{route('product.series.details',$data->id)}}" class="form-inline justify-content-end">
                             @csrf
-                            <div class="form-group mr-3">
-                                <label class="form-label mr-3">Select Difficulty</label>
+                            <div class="mr-3">
+                                {{-- <p class="mb-0 text-muted">Select Difficulty</p> --}}
+                                <select class="form-control form-control-sm" name="currency">
+                                    <option value="" selected="" hidden="">Price</option>
+                                    <option selected value="usd">$ USD</option>
+                                    <option {{($req->currency == 'eur') ? 'selected' : ''}} value="eur">€ EUR</option>
+                                    <option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
+                                </select>
+                            </div>
+                            <div class="mr-3">
+                                {{-- <label class="form-label mr-3">Select Difficulty</label> --}}
                                 <select class="form-control form-control-sm" name="difficulty">
                                     <option value="" selected="" hidden="">Difficulty</option>
                                     <option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
@@ -132,7 +141,7 @@
                                                 @if(userLessionPurchased($less))
                                                     <a href="javascript:void(0)" class="purchased-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->video)}}', '{{$less->title}}')" id="watch_id{{$less->id}}">Watch <i class="fa fa-play ml-2"></i> </a>
                                                 @else
-                                                    <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$less->price_usd}}','{{route('after.purchase.guitar_lession_series',$less->id)}}');">Buy Now - $  {{$less->price_usd}}</a>
+                                                    <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$less->price_usd}}','{{route('after.purchase.guitar_lession_series',$less->id)}}');">Buy Now - {{currencySymbol($data->currency)}} {{$less->price_usd}}</a>
                                                 @endif
                                             @endguest
                                         </div>
@@ -168,12 +177,12 @@
                                     <p class="card-text">{!! words($otherSeries->description,200) !!}</p>
                                     <?php $seriesPrice = calculateLessionPrice($otherSeries->lession); ?>
                                     @guest
-                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - $  {{$seriesPrice}}</a>
+                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                     @else
                                         @if($otherSeries->userPurchased)
                                             <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                                         @else
-                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$otherSeries->id)}}');">BUY FULL SERIES - $  {{$seriesPrice}}</a>
+                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$otherSeries->id)}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                         @endif
                                     @endif
                                 </div>

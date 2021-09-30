@@ -57,6 +57,7 @@ class DefaultController extends Controller
     public function browserProduct(Request $req)
     {
         $data = (object)[];
+        $data->currency = 'usd';
         $user = auth()->user();
         $data->instrument = [];
         $data->category = Category::select('*');
@@ -73,6 +74,9 @@ class DefaultController extends Controller
         }
         if (!empty($req->difficulty)) {
             $data->guitarSeries = $data->guitarSeries->where('difficulty', $req->difficulty);
+        }
+        if (!empty($req->currency)) {
+            $data->currency = $req->currency;
         }
 
         $data->category = $data->category->get();
@@ -97,22 +101,13 @@ class DefaultController extends Controller
             }
         }
 
-        // foreach ($data->wishlist as $key => $seriesWishlisted) {
-        //     $seriesWishlisted->userWishlisted = false;
-        //     if ($user) {
-        //         $checkPurchase = Wishlist::where('user_id', $user->id)->where('product_id', $seriesWishlisted->id)->first();
-        //         if ($checkPurchase) {
-        //             $seriesWishlisted->userWishlisted = true;
-        //         }
-        //     }
-        // }
-
         return view('front.product.series', compact('data', 'req'));
     }
 
     public function browseProductSeriesAll(Request $req)
     {
         $data = (object)[];
+        $data->currency = 'usd';
         $user = auth()->user();
         $data->instrument = Instrument::select('*')->get();
         $data->category = Category::select('*')->get();
@@ -129,6 +124,9 @@ class DefaultController extends Controller
         }
         if (!empty($req->tutor)) {
             $data->guitarSeries = $data->guitarSeries->where('createdBy', $req->tutor);
+        }
+        if (!empty($req->currency)) {
+            $data->currency = $req->currency;
         }
         $data->guitarSeries = $data->guitarSeries->paginate(12);
         foreach ($data->guitarSeries as $key => $guitar) {
@@ -240,7 +238,9 @@ class DefaultController extends Controller
 
     public function browserProductDetails(Request $req, $seriesId)
     {
+        // $data = (object)[];
         $data = ProductSeries::where('id', $seriesId)->first();
+        // $data->currency = 'usd';
         $user = auth()->user();
         if ($data) {
             $data->view_count += 1;
@@ -249,6 +249,9 @@ class DefaultController extends Controller
 
             if (!empty($req->difficulty)) {
                 $data->lession = $data->lession->where('difficulty', $req->difficulty);
+            }
+            if (!empty($req->currency)) {
+                $data->currency = $req->currency;
             }
             $data->userPurchased = false;
             if ($user) {
@@ -425,7 +428,9 @@ class DefaultController extends Controller
     // Explote Tutor
     public function exploreTutor(Request $req, $tutorId = 0)
     {
+        $data = (object)[];
         $tutor = User::where('user_type', 2);
+        $data->currency = 'usd';
         if (base64_decode($tutorId) != 0) { // if Indivisual tutor Calls
             $tutorId = base64_decode($tutorId);
             $tutor = $tutor->where('id', $tutorId)->first();
@@ -439,12 +444,15 @@ class DefaultController extends Controller
                         }
                     }
                 }
-                return view('tutor.display.invisualProfile', compact('tutor'));
+                if ($req->currency) {
+                    $data->currency = $req->currency;
+                }
+                return view('tutor.display.invisualProfile', compact('tutor', 'req', 'data'));
             }
             return back()->with('Errors', 'Invalid Tutor Selected');
         } // when Tutor list will call
         $tutor = $tutor->paginate(12);
-        return view('tutor.display.profileList', compact('tutor'));
+        return view('tutor.display.profileList', compact('tutor', 'req'));
     }
 
     public function subscribeEmail(Request $req)
