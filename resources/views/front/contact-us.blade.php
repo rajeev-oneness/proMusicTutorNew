@@ -14,7 +14,7 @@
                             <a href="{{$contact->facebook}}" target="_blank"> FB <span>MESSENGER:</span> <p class="blue-text">{{$contact->facebook}}</p></a>
                             <p>We typically respond in <span>24 hours</span> or less.</p>
                             @error('success')
-                                <span class="valid" role="alert">{{ $message }}</span>
+                                <div class="alert alert-success valid" role="alert">{{ $message }}</div>
                             @enderror
                         </div>
                         <form method="post" action="{{route('contactus.save')}}">

@@ -7273,4 +7273,10 @@ Media Query
     transform: translate(0%, -50%) rotate(340deg);
     font-size: 80px;
 }
+.col-form-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #000;
+    line-height: 1;
+}
 /* admin dashboard style */

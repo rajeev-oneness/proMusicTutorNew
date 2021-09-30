@@ -297,7 +297,10 @@ class AdminController extends Controller
             }
         }
         return abort(404);
+
+        // return view('admin.product.lession.edit');
     }
+
     // LESSON - UPDATE
     public function productSeriesLessionUpdate(Request $req, $instrumentId, $productSeriesId, $lessionId)
     {
@@ -361,6 +364,7 @@ class AdminController extends Controller
         }
         return abort(404);
     }
+
     // LESSON - DELETE
     public function productSeriesLessionDelete(Request $req)
     {

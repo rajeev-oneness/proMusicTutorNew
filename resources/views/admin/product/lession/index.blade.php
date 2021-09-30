@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="example4" class="table table-striped table-bordered" style="width:100%">
+                            <table id="example4" class="table table-sm table-striped table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>#SR</th>
@@ -34,12 +34,12 @@
                                     @foreach($productSeries->lession_data as $key => $lession)
                                         <tr>
                                             <td>{{$key + 1}}</td>
-                                            <td><img src="{{asset($lession->image)}}" height="200" width="200"></td>
-                                            <td>{{$lession->title}}</td>
-                                            <td>€ {{$lession->price}}</td>
-                                            <td>{{ucwords($lession->difficulty)}}</td>
-                                            <td>{!! words($lession->description,100) !!}</td>
-                                            <td>
+                                            <td><img src="{{asset($lession->image)}}" height="100" width="100"></td>
+                                            <td class="small">{{$lession->title}}</td>
+                                            <td class="small">€ {{$lession->price}}</td>
+                                            <td class="small">{{ucwords($lession->difficulty)}}</td>
+                                            <td class="small">{!! words($lession->description,50) !!}</td>
+                                            <td class="small">
                                                 <ul>
                                                     <?php $author = $lession->author;?>
                                                     <li>Name: {{$author->name}}</li>
@@ -60,7 +60,7 @@
                                                 </video>
                                                 @endif
                                             </td>
-                                            <td><a href="{{route('admin.product.series.lession.edit',[$instrument->id,$productSeries->id,$lession->id])}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesLessionDelete" data-id="{{$lession->id}}">Delete</a></td>
+                                            <td><a href="{{route('admin.product.series.lession.edit',[$instrument->id, $productSeries->id, $lession->id])}}" class="small">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesLessionDelete small" data-id="{{$lession->id}}">Delete</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

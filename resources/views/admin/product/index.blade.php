@@ -15,13 +15,13 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example4" class="table table-striped table-bordered" style="width:100%">
+                        <table id="example4" class="table table-sm table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>#SR</th>
                                     <th>Category</th>
                                     <th>Image</th>
-                                    <th>Series Name</th>
+                                    <th>Series</th>
                                     <th>Lessions</th>
                                     <th>Difficulty</th>
                                     <th>Description</th>

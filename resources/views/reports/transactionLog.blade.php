@@ -78,7 +78,7 @@
                                         <p class="mb-0">{{$item->product_series_lession->title}}</p>
                                     </td>
                                     <td>
-                                        <p class="mb-0">#{{$item->transaction->transactionId}}</p>
+                                        <p class="mb-0">#{{$item->transactionId}}</p>
                                     </td>
                                     <td>
                                         <p class="mb-0">${{$item->product_series_lession->price}}</p>

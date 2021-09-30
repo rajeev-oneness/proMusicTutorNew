@@ -17,6 +17,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
+                                    <th>Subject</th>
                                     <th>Message</th>
                                     <th>Contact at</th>
                                     <th>Contacted By</th>
@@ -29,6 +30,7 @@
                                         <td>{{$contact->name}}</td>
                                         <td>{{$contact->email}}</td>
                                         <td>{{$contact->phone}}</td>
+                                        <td>{{$contact->subject}}</td>
                                         <td>{{$contact->description}}</td>
                                         <td>{{$contact->created_at->diffForHumans()}}</td>
                                         <td>

@@ -12,7 +12,8 @@ class ReportController extends Controller
 {
     public function transactionLog(Request $req)
     {
-        $transaction = UserProductLessionPurchase::select('*');
+        $transaction = UserProductLessionPurchase::select('*')->join('transactions', 'transactions.id', 'user_product_lession_purchases.transactionId');
+
         if (!empty($req->seriesId)) {
             $transaction = $transaction->where('user_product_lession_purchases.productSeriesId', $req->seriesId);
         }
@@ -25,10 +26,9 @@ class ReportController extends Controller
         if ($req->keyword) {
             $transaction = $transaction
                             ->join('users', 'users.id', 'user_product_lession_purchases.userId')
-                            // ->join('transactions', 'transactions.id', 'user_product_lession_purchases.transactionId')
                             ->where('users.name', 'like', '%'.$req->keyword.'%')
-                            ->orWhere('users.email', 'like', '%'.$req->keyword.'%');
-                            // ->orWhere('transactions.transactionId', 'like', '%'.$req->keyword.'%');
+                            ->orWhere('users.email', 'like', '%'.$req->keyword.'%')
+                            ->orWhere('transactions.transactionId', 'like', '%'.$req->keyword.'%');
         }
         $transaction = $transaction->latest('user_product_lession_purchases.created_at')->paginate(20);
 

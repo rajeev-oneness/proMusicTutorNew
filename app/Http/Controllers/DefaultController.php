@@ -50,7 +50,7 @@ class DefaultController extends Controller
         $contact->subject = $req->subject;
         $contact->description = emptyCheck($req->description);
         $contact->save();
-        $error['success'] = 'Thankyou for contact we will catch you shortly';
+        $error['success'] = 'Thank you for contact we will catch you shortly';
         return back()->withErrors($error);
     }
 
