@@ -2,7 +2,14 @@
 @section('title','Product Series')
 @section('content')
 
-    <?php $totalPrice = calculateLessionPrice($data->lession, $data->currency); ?>
+    @php
+        $data->currency = 'usd';
+        if (!empty($req->currency)) {
+            $data->currency = $req->currency;
+        }
+        $totalPrice = calculateLessionPrice($data->lession, $data->currency);
+    @endphp
+
     <section class="pt-0 pt-md-5 pb-5">
         <div class="container">
             <div class="row">
@@ -95,7 +102,6 @@
                         <form method="post" action="{{route('product.series.details',$data->id)}}" class="form-inline justify-content-end">
                             @csrf
                             <div class="mr-3">
-                                {{-- <p class="mb-0 text-muted">Select Difficulty</p> --}}
                                 <select class="form-control form-control-sm" name="currency">
                                     <option value="" selected="" hidden="">Price</option>
                                     <option selected value="usd">$ USD</option>
@@ -104,7 +110,6 @@
                                 </select>
                             </div>
                             <div class="mr-3">
-                                {{-- <label class="form-label mr-3">Select Difficulty</label> --}}
                                 <select class="form-control form-control-sm" name="difficulty">
                                     <option value="" selected="" hidden="">Difficulty</option>
                                     <option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
@@ -135,13 +140,27 @@
                                         <div class="float-right buynow-btn">
                                             <a href="javascript:void(0)" class="preview-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->preview_video)}}', '{{$less->title}}')" id="watch_id{{$less->id}}">Preview <i class="fa fa-play ml-2"></i> </a>
 
+                                            @php
+                                                $display_lessionPrice = $less->price_usd;
+
+                                                if(!empty($req->currency)) {
+                                                    if($req->currency == 'eur') {
+                                                        $display_lessionPrice = $less->price_euro;
+                                                    } elseif ($req->currency == 'gbp') {
+                                                        $display_lessionPrice = $less->price_gbp;
+                                                    } else {
+                                                        $display_lessionPrice = $less->price_usd;
+                                                    }
+                                                }
+                                            @endphp
+
                                             @guest
-                                                <a href="javascript:void(0)" class="btn buyfull" onclick="alert('please login to continue')">Buy Now - $ {{$less->price_usd}}</a>
+                                                <a href="javascript:void(0)" class="btn buyfull" onclick="alert('please login to continue')">Buy Now - $ {{$display_lessionPrice}}</a>
                                             @else
                                                 @if(userLessionPurchased($less))
                                                     <a href="javascript:void(0)" class="purchased-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->video)}}', '{{$less->title}}')" id="watch_id{{$less->id}}">Watch <i class="fa fa-play ml-2"></i> </a>
                                                 @else
-                                                    <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$less->price_usd}}','{{route('after.purchase.guitar_lession_series',$less->id)}}');">Buy Now - {{currencySymbol($data->currency)}} {{$less->price_usd}}</a>
+                                                    <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$less->price_usd}}','{{route('after.purchase.guitar_lession_series',$less->id)}}');">Buy Now - {{currencySymbol($data->currency)}} {{$display_lessionPrice}}</a>
                                                 @endif
                                             @endguest
                                         </div>
@@ -175,7 +194,7 @@
                                 <div class="card-body text-center">
                                     <h5 class="card-title">{{$otherSeries->title}}</h5>
                                     <p class="card-text">{!! words($otherSeries->description,200) !!}</p>
-                                    <?php $seriesPrice = calculateLessionPrice($otherSeries->lession); ?>
+                                    <?php $seriesPrice = calculateLessionPrice($otherSeries->lession, $data->currency); ?>
                                     @guest
                                         <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                     @else

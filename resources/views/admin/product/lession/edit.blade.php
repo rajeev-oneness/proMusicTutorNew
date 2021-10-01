@@ -79,7 +79,10 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe class="embed-responsive-item" src="{{asset($productLession->preview_video)}}" allowfullscreen></iframe>
+                                    {{-- <iframe class="embed-responsive-item" src="{{asset($productLession->preview_video)}}" allowfullscreen></iframe> --}}
+                                    <video height="100" controls muted>
+                                        <source src="{{asset($productLession->preview_video)}}">
+                                    </video>
                                 </div>
                                 <br>
                                 <label for="preview_video" class="col-form-label">Preview video:</label>
@@ -89,7 +92,10 @@
 
                             <div class="form-group col-md-6">
                                 <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe class="embed-responsive-item" src="{{asset($productLession->video)}}" allowfullscreen></iframe>
+                                    {{-- <iframe class="embed-responsive-item" src="{{asset($productLession->video)}}" allowfullscreen></iframe> --}}
+                                    <video height="100" controls muted>
+                                        <source src="{{asset($productLession->video)}}">
+                                    </video>
                                 </div>
                                 <br>
                                 <label for="video" class="col-form-label">Video:</label>

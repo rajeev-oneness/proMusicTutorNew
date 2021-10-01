@@ -18,6 +18,7 @@
                         <table id="example4" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>#SR</th>
                                     <th>Image</th>
                                     <th>Name</th>
                                     <th>Email</th>
@@ -31,9 +32,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($users as $user)
+                                @foreach($users as $key => $user)
                                     @if($user->user_type != 1)
                                         <tr>
+                                            <td>{{$key + 1}}</td>
                                             <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{asset($user->image)}}"></td>
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>

@@ -99,14 +99,14 @@
 
                             <div class="form-group col-md-4">
                                 <label for="price_gbp" class="col-form-label">GBP:</label>
-                                <input type="text" class="form-control form-control-sm @error('price_gbp') is-invalid @enderror" id="price_gbp" name="price_gbp" placeholder="GBP" value="{{(old('price_gbp') ? old('price_gbp') : zeroGoesToBlank($productSeries->price_gbp))}}" onkeypress="return isNumberKey(event);" maxlength="7">
+                                <input type="text" class="form-control form-control-sm @error('price_gbp') is-invalid @enderror" id="price_gbp" name="price_gbp" placeholder="Price in GBP" value="{{(old('price_gbp') ? old('price_gbp') : zeroGoesToBlank($productSeries->price_gbp))}}" onkeypress="return isNumberKey(event);" maxlength="7">
                                 @error('price_gbp')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label for="item_clean_url">Item clean URL</label>
+                                <label for="item_clean_url" class="col-form-label">Item clean URL</label>
                                 <input type="url" name="item_clean_url" id="item_clean_url" placeholder="Item clean URL" class="form-control form-control-sm" value="{{(old('item_clean_url') ? old('item_clean_url') : $productSeries->item_clean_url)}}">
                                 @error('item_clean_url')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
@@ -114,12 +114,12 @@
 
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="seo_meta_description">SEO Meta Description</label>
+                                <label for="seo_meta_description" class="col-form-label">SEO Meta Description</label>
                                 <input type="text" name="seo_meta_description" id="seo_meta_description" placeholder="SEO meta description" class="form-control form-control-sm" value="{{(old('seo_meta_description') ? old('seo_meta_description') : $productSeries->seo_meta_description)}}">
                                 @error('seo_meta_description')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="seo_meta_keywords">SEO Meta Keywords</label>
+                                <label for="seo_meta_keywords" class="col-form-label">SEO Meta Keywords</label>
                                 <input type="text" name="seo_meta_keywords" id="seo_meta_keywords" placeholder="PROVIDE A COMMA-SEPARATED LIST OF KEYWORDS" class="form-control form-control-sm" value="{{(old('seo_meta_keywords') ? old('seo_meta_keywords') : $productSeries->seo_meta_keywords)}}">
                                 @error('seo_meta_keywords')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>

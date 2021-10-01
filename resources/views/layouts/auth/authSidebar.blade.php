@@ -41,7 +41,6 @@
                                     </li>
                                 @endforeach
                             @endif
-                            
                             <!-- Tutor Sidebar -->
                             @if($userType == 2)
                                 

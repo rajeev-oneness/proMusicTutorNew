@@ -2161,6 +2161,9 @@ footer{
 .wishlisted {
   background-color: #eb3601;
 }
+.wishlisted i {
+  color: #fff;
+}
 .wishlisted:focus {
   box-shadow: 0 0 0 0.2rem #ff572261;
 }
@@ -2168,6 +2171,12 @@ footer{
 .not-wishlisted {
   background-color: #b5b5b5;
 }
+.not-wishlisted i {
+  color: #000;
+}
 .not-wishlisted:focus {
   box-shadow: 0 0 0 0.2rem #b5b5b561;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: sans-serif !important;
 }

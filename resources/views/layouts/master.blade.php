@@ -125,8 +125,8 @@
 
         function isNumberKey(evt){
             if(evt.charCode >= 48 && evt.charCode <= 57 || evt.charCode <= 43){  
-                return true;  
-            }  
+                return true;
+            }
             return false;  
         }
 
@@ -206,7 +206,7 @@
                 dataType : "json",
                 data : {id : id, type : type, _token : "{{ csrf_token() }}" },
                 beforeSend : function() {
-                    $($this).html('<i class="fa fa-spinner"></i>').addClass('pe-none');
+                    $($this).html('<i class="fa fa-spinner fa-spin"></i>').addClass('pe-none');
                 },
                 success : function(result) {
                     if (result.code == 1) {
