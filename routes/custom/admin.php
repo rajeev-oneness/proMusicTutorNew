@@ -93,6 +93,8 @@
 		Route::any('most-viewed',[ReportController::class,'mostViewed'])->name('admin.report.mostViewed');
 		Route::any('products-ordered',[ReportController::class,'productsOrdered'])->name('admin.report.productsOrdered');
 
+		Route::any('wishlist',[ReportController::class,'wishlistCount'])->name('admin.report.wishlistReport');
+
 		Route::get('contact-us',[CrudController::class,'contactUs'])->name('admin.report.contactus');
 		Route::post('contact-us/remark/save',[CrudController::class,'saveRemarkOfContactUs'])->name('admin.report.contactUsSaveRemark');
 	});

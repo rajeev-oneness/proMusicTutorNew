@@ -7,6 +7,7 @@ use App\Models\ProductSeries;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\UserProductLessionPurchase;
+use App\Models\Wishlist;
 
 class ReportController extends Controller
 {
@@ -99,7 +100,7 @@ class ReportController extends Controller
     {
         $data = [];
         $purchaseList = UserProductLessionPurchase::select('productSeriesLessionId');
-        $series = $purchaseList->groupBy('productSeriesLessionId')->get();
+        // $series = $purchaseList->groupBy('productSeriesLessionId')->get();
 
         if ($req->instrumentId) {
             $purchaseList = $purchaseList->join('product_series_lessions', 'product_series_lessions.id', '=', 'user_product_lession_purchases.productSeriesLessionId')
@@ -128,5 +129,39 @@ class ReportController extends Controller
 
         $instruments = Instrument::all();
         return view('reports.productsOrdered', compact('data', 'req', 'instruments'));
+    }
+
+    public function wishlistCount(Request $req) {
+        $data = [];
+        $wishlistData = Wishlist::select('product_id')->where('wishlists.product_type', 'series');
+
+        if ($req->instrumentId) {
+            $wishlistData = $wishlistData->join('product_series', 'product_series.id', '=', 'wishlists.product_id')
+            ->join('instruments', 'instruments.id', '=', 'product_series.instrumentId')
+            ->where('instruments.id', $req->instrumentId);
+        }
+        if (!empty($req->dateFrom)) {
+            $wishlistData = $wishlistData->where('wishlists.created_at', '>=', $req->dateFrom);
+        }
+        if (!empty($req->dateTo)) {
+            $wishlistData = $wishlistData->where('wishlists.created_at', '<=', date('Y-m-d', strtotime($req->dateTo . '+ 1 day')));
+        }
+
+        $wishlistData = $wishlistData->groupBy('wishlists.product_id')->pluck('wishlists.product_id')->toArray();
+
+        foreach($wishlistData as $key => $value) {
+            $list = Wishlist::where('product_id', $value);
+
+            $data[] = [
+                'from' => date('Y-m-d', strtotime($list->orderBy('id', 'DESC')->first()->created_at)),
+                'to' => date('Y-m-d', strtotime($list->latest()->first()->created_at)),
+                'series_id' => $list->first()->product_id,
+                'series_title' => $list->first()->wishlist_series->title,
+                'count' => $list->count()
+            ];
+        }
+
+        $instruments = Instrument::all();
+        return view('reports.wishlists', compact('data', 'req', 'instruments'));
     }
 }

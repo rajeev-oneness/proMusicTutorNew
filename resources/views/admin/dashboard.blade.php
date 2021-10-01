@@ -20,7 +20,7 @@
                                     <h5 class="mb-2">Instrument</h5>
                                     <p class="small mb-0">
                                         @foreach ($data->instruments as $key => $instrument)
-                                        {{($loop->first ? '' : ', ').($instrument->name).($loop->last ? '...' : '')}}
+                                        {{($loop->first ? '' : ', ').($instrument->name)}}
                                         @php
                                             if ($key == 1) {
                                                 echo '...';

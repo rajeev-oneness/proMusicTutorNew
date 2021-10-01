@@ -13,18 +13,25 @@
                     <h3>{{$tutor->name}} <span>{{$tutor->specialist}}</span></h3>
                     <span>
 						@php
-							for ($i=0; $i < 5; $i++) { 
-								echo '<i class="fas fa-star"></i>';
+							$rating = number_format($tutor->ratings->avg('rating'),1);
+							for ($i = 1; $i < 6; $i++) {
+								if ($rating >= $i) {
+									echo '<i class="fas fa-star"></i>';
+								} elseif (($rating < $i) && ($rating > $i-1)) {
+									echo '<i class="fas fa-star-half-alt"></i>';
+								} else {
+									echo '<i class="far fa-star"></i>';
+								}
 							}
 						@endphp
-                        {{-- <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i> --}}
-                        <small>{{number_format($tutor->ratings->avg('rating'),1)}} <i class="fas fa-star"></i></small>
+                        <small>{{$rating}} <i class="fas fa-star"></i></small>
                     </span>
-                    <p><span>Experience:</span>@if($tutor->carrier_started == '0000-00-00'){{(' 0')}}@else{{date('Y') - date('Y',strtotime($tutor->carrier_started))}}@endif{{(' years')}}</p>
+                    <p>
+						<span>Experience:</span>
+						@if($tutor->carrier_started == '0000-00-00'){{(' 0')}}
+						@else{{date('Y') - date('Y',strtotime($tutor->carrier_started))}}
+						@endif{{(' years')}}
+					</p>
                 </div>
                 <div class="col-12 col-lg-3 social_icon">
                 	@if($link = $tutor->user_profile)

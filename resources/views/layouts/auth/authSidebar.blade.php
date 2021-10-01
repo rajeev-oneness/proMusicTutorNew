@@ -84,6 +84,9 @@
                                 <a class="nav-link {{request()->routeIs('admin.report.productsOrdered')?'active':''}}" href="{{route('admin.report.productsOrdered')}}"><i class="fa fa-fw fa-user-circle"></i>Products ordered</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link {{request()->routeIs('admin.report.wishlistReport')?'active':''}}" href="{{route('admin.report.wishlistReport')}}"><i class="fa fa-fw fa-user-circle"></i>Wishlist</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.report.contactus')?'active':''}}" href="{{route('admin.report.contactus')}}"><i class="fa fa-fw fa-user-circle"></i>Contact us</a>
                             </li>
 
