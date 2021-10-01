@@ -16,10 +16,10 @@
                         <div class="form-group row m-0">
                             <div class="col-8">
                                 <input type="email" name="email" class="form-control @error('email'){{('is-invalid')}}@enderror" id="inputPassword2" placeholder="Enter your email address..." value="{{old('email')}}">
-                                @error('email')<span class="text-danger">{{$message}}</span>@enderror
                             </div>
                             <button type="submit" class="btn viewmore mb-2">Submit</button>
                         </div>
+                        @error('email')<p class="mb-0 small text-danger ml-3" style="font-size: 14px;">{{$message}}</p>@enderror
                         <div class="form-check ml-3">
                             <input class="form-check-input" type="checkbox" checked="" name="agree" value="1" id="defaultCheck1">
                             <label class="form-check-label" for="defaultCheck1">

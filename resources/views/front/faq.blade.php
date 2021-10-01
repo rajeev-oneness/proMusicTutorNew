@@ -1,5 +1,6 @@
 @extends('layouts.master')
-@section('title','About Us')
+@section('title','Frequently asked questions')
+
 @section('content')
     <section class="banner banner-about">
         <div class="container">
