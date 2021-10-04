@@ -198,7 +198,7 @@ class DefaultController extends Controller
                 $offer = Offer::where('id', $offerId)->first();
                 if ($offer) {
                     foreach ($offer->offer_series as $key => $offerSeries) {
-                        foreach ($series->series_details->lession as $index => $lession) {
+                        foreach ($offerSeries->series_details->lession as $index => $lession) {
                             $newLessionPurchase = new UserProductLessionPurchase();
                             $newLessionPurchase->userId = auth()->user()->id;
                             $newLessionPurchase->productSeriesId = $offerSeries->series_id;
