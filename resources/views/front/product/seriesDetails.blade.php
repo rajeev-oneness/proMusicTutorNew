@@ -97,7 +97,7 @@
                             @endguest
                         </div>
                     </div>
-                    <div class="col-6 text-right pt-2" style="position: fixed;top: 0;z-index: 999;">
+                    <div class="col-6 text-right pt-2">
                         <!-- Filter -->
                         <form method="post" action="{{route('product.series.details',$data->id)}}" class="form-inline justify-content-end">
                             @csrf
@@ -160,7 +160,7 @@
                                                 @if(userLessionPurchased($less))
                                                     <a href="javascript:void(0)" class="purchased-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->video)}}', '{{$less->title}}')" id="watch_id{{$less->id}}">Watch <i class="fa fa-play ml-2"></i> </a>
                                                 @else
-                                                    <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$less->price_usd}}','{{route('after.purchase.guitar_lession_series',$less->id)}}', '{{$data->currency}}');">Buy Now - {{currencySymbol($data->currency)}} {{$display_lessionPrice}}</a>
+                                                    <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$display_lessionPrice}}','{{route('after.purchase.guitar_lession_series',$less->id)}}', '{{$data->currency}}');">Buy Now - {{currencySymbol($data->currency)}} {{$display_lessionPrice}}</a>
                                                 @endif
                                             @endguest
                                         </div>
