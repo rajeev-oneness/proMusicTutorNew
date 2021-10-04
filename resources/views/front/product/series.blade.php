@@ -71,6 +71,7 @@
     <section class="mt-5 mb-5 pt-5 pb-5 bg-light">
         <div class="container">
             <div class="row">
+                @if(count($data->guitarSeries) > 0)
                 <div class="col-6 text-center title-inner">
                     <h1 class="mb-5">All Series @if($data->instrument){{' Related to '.$data->instrument->name}}@endif</h1>
                 </div>
@@ -99,6 +100,11 @@
                             <a href="{{route('product.series',$instrumentParameter)}}" class="btn btn-sm btn-light border">Reset</a>
                     </form>
                 </div>
+                @else
+                <div class="col-12 text-center title-inner">
+                    <h1 class="mb-5">All Series @if($data->instrument){{' Related to '.$data->instrument->name}}@endif</h1>
+                </div>
+                @endif
             </div>
             @if(count($data->guitarSeries) > 0)
                 <div class="row m-0 series-row">
@@ -144,7 +150,10 @@
                     <a href="javascript:void(0)" class="btn viewmore">EXPLORE MORE</a>
                 </div> -->
             @else
-                <div>No Series found</div>
+                <div class="text-center">
+                    <p class="text-muted mb-4">No Series found</p>
+                    <a href="{{route('welcome')}}" class="btn btn-light border shadow"><i class="fas fa-chevron-left"></i> Back to Home</a>
+                </div>
             @endif
         </div>
     </section>
