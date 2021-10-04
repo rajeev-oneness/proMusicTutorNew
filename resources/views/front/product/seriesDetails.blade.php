@@ -2,37 +2,62 @@
 @section('title','Product Series')
 @section('content')
 
-    <?php $totalPrice = calculateLessionPrice($data->lession); ?>
+    @php
+        $data->currency = 'usd';
+        if (!empty($req->currency)) {
+            $data->currency = $req->currency;
+        }
+        $totalPrice = calculateLessionPrice($data->lession, $data->currency);
+    @endphp
+
     <section class="pt-0 pt-md-5 pb-5">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-6 shadow-lg p-0 mb-4 mb-md-0">
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="{{asset($data->video_url)}}" allowfullscreen></iframe>
+                        {{-- <iframe class="embed-responsive-item" src="{{asset($data->video_url)}}" allowfullscreen></iframe> --}}
+
+                        <video height="100" autoplay muted loop>
+                            <source src="{{asset($data->video_url)}}">
+                        </video>
                     </div>
                 </div>
                 <div class="col-md-6 col-12">
                     <div class="row m-0">
                         <h5 class="col-6 pt-2 pl-0 pl-md-3">{{$data->title}}</h5>
                         @guest
-                            <a href="javascript:void(0)" class="col-6 col-md-5 ml-auto buyfull" onclick="alert('please login to continue')">BUY FULL SERIES - £ {{$totalPrice}}</a>
+                            <a href="javascript:void(0)" class="col-6 col-md-5 ml-auto buyfull" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
                         @else
                             @if($data->userPurchased)
                                 <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                             @else
-                                <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}');">BUY FULL SERIES - &pound;  {{$totalPrice}}</a>
+                                <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
                             @endif
                         @endguest
+
+                        @guest
+                            <a href="javascript: void(0)" class="btn preview col-6 wishlist" onclick="alert('please login to continue')"> <i class="fa fa-heart"></i></a>
+                        @else
+                            @if ($data->userWishlisted)
+                                <a href="javascript: void(0)" class="btn wishlist wishlisted rounded-0 mb-3" onclick="wishlistToggle({{$req->seriesId}}, 'series')" title="Wishlisted"> <i class="fa fa-heart text-light pe-none"></i></a>
+                            @else
+                                <a href="javascript: void(0)" class="btn wishlist not-wishlisted rounded-0 mb-3" onclick="wishlistToggle({{$req->seriesId}}, 'series')" title="Wishlist now"> <i class="fa fa-heart text-light pe-none"></i></a>
+                            @endif
+                        @endguest
+
                     </div>
                     <div class="col-12 pt-4 pl-0 pl-md-3">
                         <h6 class="mb-3">Series Description</h6>
-                        <p>{!! words($data->description,600) !!}</p>
+                        <p>{!! $data->description !!}</p>
                     </div>
                 </div>
                 <?php $tutor = $data->author;?>
                 @if($tutor)
                     <div class="row m-0 mt-5 col-12 p-0 pl-3 pl-md-0">
                         <h6>TUTOR: <a href="{{route('explore.tutor',[base64_encode($tutor->id),'tutor'=>$tutor->name])}}" style="font-size: 18px;"><span style="color: #e40054 !important;">{{strtoupper($tutor->name)}}</span></a></h6>
+                    </div>
+                    <div class="row m-0 mt-4 col-12 p-0 pl-3 pl-md-0">
+                        <h6>DIFFICULTY: <span style="color: #e40054 !important;">{{strtoupper($data->difficulty)}}</span></h6>
                     </div>
                     <div class="col-12 mt-4 p-3 p-md-0">
                         <h6 class="mb-3">Tutor Description</h6>
@@ -53,58 +78,89 @@
 
     <!-- Guitar Series Lession -->
     <?php $lessions = $data->lession; ?>
-    <!-- Filter -->
-    <form method="post" action="{{route('product.series.details',$data->id)}}">
-        @csrf
-        <div class="row">
-            <div class="form-group">
-                <label class="col-sm-4 col-form-label">Difficulty</label>
-                <select class="form-control form-control-sm" name="difficulty">
-                    <option value="" selected="" hidden="">Difficulty</option>
-                    <option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
-                    <option {{($req->difficulty == 'Medium') ? 'selected' : ''}} value="Medium">Medium</option>
-                    <option {{($req->difficulty == 'Hard') ? 'selected' : ''}} value="Hard">Hard</option>
-                </select>
-            </div>
-            <a href="{{route('product.series.details',$data->id)}}">Reset</a>
-            <input type="submit" name="" class="btn">
-        </div>
-    </form>
-    <!-- filter End -->
+
     @if(count($lessions) > 0)
         <section class="pt-5 pb-5 mb-5 bg-light">
             <div class="container">
-                <div class="row m-0 mb-5">
-                    <h5 class="pt-2">LESSONS</h5>
-                    @guest
-                        <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="alert('please login to continue')">BUY FULL SERIES - £ {{$totalPrice}}</a>
-                    @else
-                        @if($data->userPurchased)
-                            <a href="javascript:void(0)" class="purchased-Full ml-3 ml-md-5">Already Purchased</a>
-                        @else
-                            <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}');">BUY FULL SERIES - &pound;  {{$totalPrice}}</a>
-                        @endif
-                    @endguest
+                <div class="row mb-5">
+                    <div class="col-md-6">
+                        <div class="d-flex">
+                            <h5 class="pt-2">LESSONS</h5>
+                            @guest
+                                <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
+                            @else
+                                @if($data->userPurchased)
+                                    <a href="javascript:void(0)" class="purchased-Full ml-3 ml-md-5">Already Purchased</a>
+                                @else
+                                    <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
+                                @endif
+                            @endguest
+                        </div>
+                    </div>
+                    <div class="col-6 text-right pt-2">
+                        <!-- Filter -->
+                        <form method="post" action="{{route('product.series.details',$data->id)}}" class="form-inline justify-content-end">
+                            @csrf
+                            <div class="mr-3">
+                                <select class="form-control form-control-sm" name="currency">
+                                    <option value="" selected="" hidden="">Price</option>
+                                    <option selected value="usd">$ USD</option>
+                                    <option {{($req->currency == 'eur') ? 'selected' : ''}} value="eur">€ EUR</option>
+                                    <option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
+                                </select>
+                            </div>
+                            <div class="mr-3">
+                                <select class="form-control form-control-sm" name="difficulty">
+                                    <option value="" selected="" hidden="">Difficulty</option>
+                                    <option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
+                                    <option {{($req->difficulty == 'Medium') ? 'selected' : ''}} value="Medium">Medium</option>
+                                    <option {{($req->difficulty == 'Hard') ? 'selected' : ''}} value="Hard">Hard</option>
+                                </select>
+                            </div>
+                            <button type="submit" name="" class="btn btn-sm btn-primary mr-3">Apply</button>
+                            <a href="{{route('product.series.details',$data->id)}}" class="btn btn-sm btn-light border">Reset</a>
+                        </form>
+                        <!-- Filter end -->
+                    </div>
                 </div>
                 <div class="row m-0">
                     @foreach($lessions as $key => $less)
                         <div class="card col-12 p-0 mb-3">
                             <div class="row no-gutters">
-                                <div class="col-md-4">
+                                <div class="col-md-4 position-relative">
                                     <img src="{{asset($less->image)}}" class="card-img">
+                                    <div class="difficulty_section right-0">
+                                        {{$less->difficulty}}
+                                    </div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body position-relative">
                                         <h5 class="card-title">{{$less->title}}</h5>
                                         <p class="card-text">{!! words($less->description,1000) !!}</p>
                                         <div class="float-right buynow-btn">
+                                            <a href="javascript:void(0)" class="preview-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->preview_video)}}', '{{$less->title}}')" id="watch_id{{$less->id}}">Preview <i class="fa fa-play ml-2"></i> </a>
+
+                                            @php
+                                                $display_lessionPrice = $less->price_usd;
+
+                                                if(!empty($req->currency)) {
+                                                    if($req->currency == 'eur') {
+                                                        $display_lessionPrice = $less->price_euro;
+                                                    } elseif ($req->currency == 'gbp') {
+                                                        $display_lessionPrice = $less->price_gbp;
+                                                    } else {
+                                                        $display_lessionPrice = $less->price_usd;
+                                                    }
+                                                }
+                                            @endphp
+
                                             @guest
-                                                <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">Buy Now - £ {{$less->price}}</a>
+                                                <a href="javascript:void(0)" class="btn buyfull" onclick="alert('please login to continue')">Buy Now - $ {{$display_lessionPrice}}</a>
                                             @else
                                                 @if(userLessionPurchased($less))
-                                                    <a href="javascript:void(0)" class="purchased-Full btn">Already Purchased</a>
+                                                    <a href="javascript:void(0)" class="purchased-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->video)}}', '{{$less->title}}')" id="watch_id{{$less->id}}">Watch <i class="fa fa-play ml-2"></i> </a>
                                                 @else
-                                                    <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$less->price}}','{{route('after.purchase.guitar_lession_series',$less->id)}}');">Buy Now - &pound;  {{$less->price}}</a>
+                                                    <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$display_lessionPrice}}','{{route('after.purchase.guitar_lession_series',$less->id)}}', '{{$data->currency}}');">Buy Now - {{currencySymbol($data->currency)}} {{$display_lessionPrice}}</a>
                                                 @endif
                                             @endguest
                                         </div>
@@ -138,20 +194,24 @@
                                 <div class="card-body text-center">
                                     <h5 class="card-title">{{$otherSeries->title}}</h5>
                                     <p class="card-text">{!! words($otherSeries->description,200) !!}</p>
-                                    <?php $seriesPrice = calculateLessionPrice($otherSeries->lession); ?>
+                                    <?php $seriesPrice = calculateLessionPrice($otherSeries->lession, $data->currency); ?>
                                     @guest
-                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - &pound;  {{$seriesPrice}}</a>
+                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                     @else
                                         @if($otherSeries->userPurchased)
                                             <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                                         @else
-                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$otherSeries->id)}}');">BUY FULL SERIES - &pound;  {{$seriesPrice}}</a>
+                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$otherSeries->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                         @endif
                                     @endif
                                 </div>
                                 <div class="card-footer d-flex border-0 p-0">
                                     <a href="{{route('product.series.details',$otherSeries->id)}}" class="btn detail col-6">Details</a>
-                                    <a href="javascript:void(0)" class="btn preview col-6">PREVIEW</a>
+                                    {{-- <a href="javascript:void(0)" class="btn preview col-6">PREVIEW</a> --}}
+                                    <a href="javascript:void(0)" class="btn preview col-6" onclick="previewVideo({{$otherSeries->id}}, '{{asset($otherSeries->video_url)}}', '{{$otherSeries->title}}')" id="watch_id{{$otherSeries->id}}">Preview <i class="fa fa-play ml-2"></i> </a>
+                                </div>
+                                <div class="difficulty_section right-0">
+                                    {{$otherSeries->difficulty}}
                                 </div>
                             </div>
                         </div>
@@ -160,7 +220,15 @@
             </div>
         </section>
     @endif
+
 @endsection
+
 @section('script')
-<script type="text/javascript"></script>
+<script type="text/javascript">
+    // autoplay video
+    let params = new URLSearchParams(location.search);
+    if (params.get('autoplayLessonId')) {
+        $('#watch_id'+params.get('autoplayLessonId')).click();
+    }
+</script>
 @endsection

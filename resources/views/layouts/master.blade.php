@@ -71,7 +71,7 @@
                         <div class="row mt-3">
                             <div class="col-12 text-right">
                                 <a type="button" class="" data-dismiss="modal">Cancel</a>
-                                <button type="submit" class="btn btn-sm btn-primary">Pay ($<span class="amountToPay">0.00</span>)</button>
+                                <button type="submit" class="btn btn-sm btn-primary">Pay (<span class="currencySymbolToPay">$</span><span class="amountToPay">0.00</span>)</button>
                             </div>
                         </div>
                         {{-- <p class="small">This payment is processed by Stripe Payment gateway</p> --}}
@@ -81,6 +81,22 @@
         </div>
     </div>
     <!-- stripe Payment End -->
+
+    <!-- Purchased lesson video modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Preview</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center" style="min-height: 200px"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Purchased lesson video modal -->
 
     @include('layouts.footer')
 
@@ -109,20 +125,46 @@
 
         function isNumberKey(evt){
             if(evt.charCode >= 48 && evt.charCode <= 57 || evt.charCode <= 43){  
-                return true;  
-            }  
+                return true;
+            }
             return false;  
+        }
+
+        function currencySymbol($type = '')
+        {
+            $view = '$';
+            switch ($type) {
+                case 'gbp':
+                    $view = '£';
+                    break;
+                case 'usd':
+                    $view = '$';
+                    break;
+                case 'eur':
+                    $view = '€';
+                    break;
+                case 'euro':
+                    $view = '€';
+                    break;
+
+                default:
+                    $view = '$';
+                    break;
+            }
+
+            return $view;
         }
 
         $('.razorpay-payment-button').remove();
 
         // strpe payment gateway starts
-        var stripePrice = 0,redirectURL = '';
-        function stripePaymentStart(price,redirectionURL){
-            stripePrice = price;redirectURL = redirectionURL;
+        var stripePrice = 0,redirectURL = '',currencyToPayment = '';
+        function stripePaymentStart(price,redirectionURL, currency = 'usd'){
+            stripePrice = price;redirectURL = redirectionURL,currencyToPayment = (currency ?? 'usd');
+            $('.currencySymbolToPay').text(currencySymbol(currency));
             $('.amountToPay').text(price);
             $('#stripePaymentModal').modal('show');
-            console.log(stripePrice+' => '+redirectURL);
+            // console.log(stripePrice+' => '+redirectURL);
         }
         @error('stripePaymentGateway')
             $('#stripePaymentModal').modal('show');
@@ -175,11 +217,65 @@
                     $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
                     $form.append("<input type='hidden' name='amount' value='" + stripePrice + "'/>");
                     $form.append("<input type='hidden' name='redirectURL' value='" + redirectURL + "'/>");
+                    $form.append("<input type='hidden' name='currency' value='" + currencyToPayment + "'/>");
                     $form.get(0).submit();
                 }
             }
         });
         // strpe payment gateway ends
+
+        // wishlist
+        function wishlistToggle(id, type) {
+            var $this = event.target;
+            $.ajax({
+                url : "{{route('front.wishlist.toggle')}}",
+                method : "POST",
+                dataType : "json",
+                data : {id : id, type : type, _token : "{{ csrf_token() }}" },
+                beforeSend : function() {
+                    $($this).html('<i class="fa fa-spinner fa-spin"></i>').addClass('pe-none');
+                },
+                success : function(result) {
+                    if (result.code == 1) {
+                        $($this).html('<i class="fa fa-heart text-light pe-none"></i>').removeClass('pe-none not-wishlisted').addClass('wishlisted');
+                    } else {
+                        $($this).html('<i class="fa fa-heart text-light pe-none"></i> ').removeClass('pe-none wishlisted').addClass('not-wishlisted');
+                    }
+                }
+            });
+        }
+
+        // purchased lesson preview video
+        function previewVideo(id, path, name) {
+            var targetModalId = '#videoModal';
+
+            $(targetModalId).find('.modal-title').text(name);
+            if (!path) {
+                $(targetModalId).find('.modal-body').html('<h5 class="text-muted">Nothing to display here !</h5>');
+            } else {
+                $(targetModalId).find('.modal-body').html('<video class="w-100" autoplay controls muted loop><source src="'+path+'">Sorry, your browser doesn&apos;t support embedded videos.</video>');
+            }
+            $(targetModalId).modal('show');
+        }
+
+        // ######## turn off right click, f12, ctrl + u etc ########
+        // $('body').bind('cut copy paste', function(event) {
+        //     event.preventDefault();
+        // });
+        // document.oncontextmenu = new Function("return false");
+        // document.onkeypress = function (event) {
+        //     event = (event || window.event);
+        //     if (event.keyCode == 123) {return false;}
+        // }
+        // document.onmousedown = function (event) {
+        //     event = (event || window.event);
+        //     if (event.keyCode == 123) {return false;}
+        // }
+        // document.onkeydown = function (event) {
+        //     event = (event || window.event);
+        //     if (event.keyCode == 123) {return false;}
+        //     if(event.ctrlKey && event.keyCode == 85) {return false;}
+        // }
     </script>
     @yield('script')
 </body>

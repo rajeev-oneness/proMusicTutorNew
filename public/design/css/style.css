@@ -104,8 +104,9 @@ button:focus {
 }
 .form-control{
   border-radius: 0;
-  background: #fdcde6;
-  border-color:#fdcde6 !important ;
+    background: #ffffff;
+    border-color: #565656 !important;
+    font-weight: 500;
 }
 .form-control:focus {
   border-color: #ff8fc9;
@@ -578,13 +579,28 @@ footer{
   line-height: 22px;
 }
 .purchased-Full{
-  background: #793b29;
+  background: #4caf50;
   color: #fff !important;
   padding: 8px 20px;
   text-align: center;
   text-transform: uppercase;
   border-radius: 0;
   font-size: 14px;
+}
+.purchased-Full:hover{
+  background: #317934;
+}
+.preview-Full{
+  background: #2196f3;
+  color: #fff !important;
+  padding: 8px 20px;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 0;
+  font-size: 14px;
+}
+.preview-Full:hover{
+  background: #384a58;
 }
 .buyfull{
   background: #f43600;
@@ -1023,7 +1039,7 @@ footer{
     font-size:14px;
     padding: 6px 15px;
   text-transform: uppercase;}
-.sweet-alert .sa-confirm-button-container{}
+/* .sweet-alert .sa-confirm-button-container{} */
 .sweet-alert .sa-confirm-button-container .confirm{background: #528be9;
     color: #fff;
     border: 1px solid #528be9;
@@ -2028,6 +2044,7 @@ footer{
 .rate:not(:checked) > input {
     position:absolute;
     top:-9999px;
+    visibility: hidden;
 }
 .rate:not(:checked) > label {
     float:right;
@@ -2119,4 +2136,47 @@ footer{
   color: #f43600;
   margin-left: 3px;
   text-transform: capitalize;
+}
+
+.difficulty_section {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+  background-color: #eb3601;
+  color: #fff;
+  padding: 8px;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.pe-none {
+  pointer-events: none;
+}
+
+.wishlisted {
+  background-color: #eb3601;
+}
+.wishlisted i {
+  color: #fff;
+}
+.wishlisted:focus {
+  box-shadow: 0 0 0 0.2rem #ff572261;
+}
+
+.not-wishlisted {
+  background-color: #b5b5b5;
+}
+.not-wishlisted i {
+  color: #000;
+}
+.not-wishlisted:focus {
+  box-shadow: 0 0 0 0.2rem #b5b5b561;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: sans-serif !important;
 }

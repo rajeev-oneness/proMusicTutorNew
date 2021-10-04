@@ -37,6 +37,16 @@
 	$(function () {
 	  $('[data-toggle="tooltip"]').tooltip()
 	});
+
+	// wishlist func start
+	// $('.wishlist').on('click', function(event) {
+	// 	event.preventDefault();
+	// 	var id = $(this).attr('data-id');
+	// 	var type = $(this).attr('data-type');
+
+	// 	console.log(id+' '+type);
+	// });
+	// wishlist func end
 	
 	
 	
@@ -57,3 +67,4 @@ $(document).ready(function(){
 
 
 })(jQuery, window);
+

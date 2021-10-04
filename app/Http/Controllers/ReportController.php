@@ -7,12 +7,14 @@ use App\Models\ProductSeries;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\UserProductLessionPurchase;
+use App\Models\Wishlist;
 
 class ReportController extends Controller
 {
     public function transactionLog(Request $req)
     {
-        $transaction = UserProductLessionPurchase::select('*');
+        $transaction = UserProductLessionPurchase::select('*')->join('transactions', 'transactions.id', 'user_product_lession_purchases.transactionId');
+
         if (!empty($req->seriesId)) {
             $transaction = $transaction->where('user_product_lession_purchases.productSeriesId', $req->seriesId);
         }
@@ -21,6 +23,13 @@ class ReportController extends Controller
         }
         if ($req->teacherId) {
             $transaction = $transaction->leftjoin('product_series_lessions', 'user_product_lession_purchases.productSeriesLessionId', '=', 'product_series_lessions.id')->where('product_series_lessions.createdBy', $req->teacherId);
+        }
+        if ($req->keyword) {
+            $transaction = $transaction
+                            ->join('users', 'users.id', 'user_product_lession_purchases.userId')
+                            ->where('users.name', 'like', '%'.$req->keyword.'%')
+                            ->orWhere('users.email', 'like', '%'.$req->keyword.'%')
+                            ->orWhere('transactions.transactionId', 'like', '%'.$req->keyword.'%');
         }
         $transaction = $transaction->latest('user_product_lession_purchases.created_at')->paginate(20);
 
@@ -35,29 +44,124 @@ class ReportController extends Controller
 
     public function bestSeller(Request $req)
     {
-        $purchase_list = UserProductLessionPurchase::select('productSeriesId');
-        $series = $purchase_list->groupBy('productSeriesId')->get();
+        $purchase_list = UserProductLessionPurchase::select('user_product_lession_purchases.productSeriesId');
+        $series = $purchase_list->groupBy('user_product_lession_purchases.productSeriesId')->get();
         if (!empty($req->seriesId)) {
-            $purchase_list = $purchase_list->where('productSeriesId', $req->seriesId);
+            $purchase_list = $purchase_list->where('user_product_lession_purchases.productSeriesId', $req->seriesId);
+        }
+        if (!empty($req->instrumentId)) {
+            $purchase_list = $purchase_list->join('product_series_lessions', 'product_series_lessions.id', '=', 'user_product_lession_purchases.productSeriesLessionId')
+            ->join('instruments', 'instruments.id', '=', 'product_series_lessions.instrumentId')
+            ->where('instruments.id', $req->instrumentId);
         }
         if (!empty($req->dateFrom)) {
-            $purchase_list = $purchase_list->where('created_at', '>=', $req->dateFrom);
+            $purchase_list = $purchase_list->where('user_product_lession_purchases.created_at', '>=', $req->dateFrom);
         }
         if (!empty($req->dateTo)) {
-            $purchase_list = $purchase_list->where('created_at', '<=', date('Y-m-d', strtotime($req->dateTo . '+ 1 day')));
+            $purchase_list = $purchase_list->where('user_product_lession_purchases.created_at', '<=', date('Y-m-d', strtotime($req->dateTo . '+ 1 day')));
         }
-        $purchase_list = $purchase_list->groupBy('productSeriesId')->pluck('productSeriesId')->toArray();
+        $purchase_list = $purchase_list->groupBy('user_product_lession_purchases.productSeriesId')->pluck('user_product_lession_purchases.productSeriesId')->toArray();
         $data = [];
         foreach ($purchase_list as $key => $value) {
-            $list = UserProductLessionPurchase::where('productSeriesId', $value);
+            $list = UserProductLessionPurchase::where('user_product_lession_purchases.productSeriesId', $value);
             $data[] = [
-                'from' => date('Y-m-d', strtotime($list->orderBy('id', 'DESC')->first()->created_at)),
+                'from' => date('Y-m-d', strtotime($list->orderBy('user_product_lession_purchases.id', 'DESC')->first()->created_at)),
                 'to' => date('Y-m-d', strtotime($list->latest()->first()->created_at)),
                 'seriesId' => $list->first()->productSeriesId,
                 'seriesName' => $list->first()->product_series->title,
                 'count' => $list->count(),
             ];
         }
-        return view('reports.bestSeller', compact('data', 'req', 'series'));
+        $instruments = Instrument::all();
+        return view('reports.bestSeller', compact('data', 'req', 'series', 'instruments'));
+    }
+
+    public function mostViewed(Request $req)
+    {
+        $series = ProductSeries::where('view_count', '>', 0);
+
+        if (!empty($req->instrumentId)) {
+            $series = $series->where('instrumentId', $req->instrumentId);
+        }
+        if (!empty($req->dateFrom)) {
+            $series = $series->where('created_at', '>=', $req->dateFrom);
+        }
+        if (!empty($req->dateTo)) {
+            $series = $series->where('last_count_increased_at', '<=', date('Y-m-d', strtotime($req->dateTo . '+ 1 day')));
+        }
+
+        $series = $series->orderBy('view_count', 'desc')->get();
+
+        $instruments = Instrument::all();
+        return view('reports.mostViewed', compact('req', 'series', 'instruments'));
+    }
+
+    public function productsOrdered(Request $req)
+    {
+        $data = [];
+        $purchaseList = UserProductLessionPurchase::select('productSeriesLessionId');
+        // $series = $purchaseList->groupBy('productSeriesLessionId')->get();
+
+        if ($req->instrumentId) {
+            $purchaseList = $purchaseList->join('product_series_lessions', 'product_series_lessions.id', '=', 'user_product_lession_purchases.productSeriesLessionId')
+            ->join('instruments', 'instruments.id', '=', 'product_series_lessions.instrumentId')
+            ->where('instruments.id', $req->instrumentId);
+        }
+        if (!empty($req->dateFrom)) {
+            $purchaseList = $purchaseList->where('user_product_lession_purchases.created_at', '>=', $req->dateFrom);
+        }
+        if (!empty($req->dateTo)) {
+            $purchaseList = $purchaseList->where('user_product_lession_purchases.created_at', '<=', date('Y-m-d', strtotime($req->dateTo . '+ 1 day')));
+        }
+
+        $purchaseList = $purchaseList->groupBy('productSeriesLessionId')->pluck('productSeriesLessionId')->toArray();
+
+        foreach ($purchaseList as $key => $value) {
+            $list = UserProductLessionPurchase::where('productSeriesLessionId', $value);
+            $data[] = [
+                'from' => date('Y-m-d', strtotime($list->orderBy('id', 'DESC')->first()->created_at)),
+                'to' => date('Y-m-d', strtotime($list->latest()->first()->created_at)),
+                'seriesId' => $list->first()->productSeriesLessionId,
+                'lessonName' => $list->first()->product_series_lession->title,
+                'count' => $list->count(),
+            ];
+        }
+
+        $instruments = Instrument::all();
+        return view('reports.productsOrdered', compact('data', 'req', 'instruments'));
+    }
+
+    public function wishlistCount(Request $req) {
+        $data = [];
+        $wishlistData = Wishlist::select('product_id')->where('wishlists.product_type', 'series');
+
+        if ($req->instrumentId) {
+            $wishlistData = $wishlistData->join('product_series', 'product_series.id', '=', 'wishlists.product_id')
+            ->join('instruments', 'instruments.id', '=', 'product_series.instrumentId')
+            ->where('instruments.id', $req->instrumentId);
+        }
+        if (!empty($req->dateFrom)) {
+            $wishlistData = $wishlistData->where('wishlists.created_at', '>=', $req->dateFrom);
+        }
+        if (!empty($req->dateTo)) {
+            $wishlistData = $wishlistData->where('wishlists.created_at', '<=', date('Y-m-d', strtotime($req->dateTo . '+ 1 day')));
+        }
+
+        $wishlistData = $wishlistData->groupBy('wishlists.product_id')->pluck('wishlists.product_id')->toArray();
+
+        foreach($wishlistData as $key => $value) {
+            $list = Wishlist::where('product_id', $value);
+
+            $data[] = [
+                'from' => date('Y-m-d', strtotime($list->orderBy('id', 'DESC')->first()->created_at)),
+                'to' => date('Y-m-d', strtotime($list->latest()->first()->created_at)),
+                'series_id' => $list->first()->product_id,
+                'series_title' => $list->first()->wishlist_series->title,
+                'count' => $list->count()
+            ];
+        }
+
+        $instruments = Instrument::all();
+        return view('reports.wishlists', compact('data', 'req', 'instruments'));
     }
 }

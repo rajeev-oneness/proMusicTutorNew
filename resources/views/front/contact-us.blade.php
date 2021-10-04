@@ -11,10 +11,13 @@
                     <div class="con-formarea">
                         <div class="top-infocon mb-5">
                             <a href="mailto:info@promusictutor.com">EMAIL: <span>{{$contact->email}}</span></a>
-                            <a href="{{$contact->facebook}}" target="_blank"> FB <span>MESSENGER:</span> <p class="blue-text">{{$contact->facebook}}</p></a>
+
+                            <a href="{{$contact->facebook}}" target="_blank"> FB: <span>{{$contact->facebook}}</span></a>
+
                             <p>We typically respond in <span>24 hours</span> or less.</p>
+
                             @error('success')
-                                <span class="valid" role="alert">{{ $message }}</span>
+                                <div class="alert alert-success valid" role="alert">{{ $message }}</div>
                             @enderror
                         </div>
                         <form method="post" action="{{route('contactus.save')}}">
@@ -44,7 +47,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Whats On Your Mind" rows="3">{{old('description')}}</textarea>
+                                <textarea class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Whats On Your Mind" style="min-height: 100px;max-height: 200px;">{{old('description')}}</textarea>
                                 @error('description')
                                     <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                 @enderror

@@ -7223,3 +7223,60 @@ Media Query
     padding: 12px 12px 0px 12px;
 }
 /***************** Sweet Alert Design END **********************/
+
+/* admin dashboard style */
+.dash-card-col {
+    margin-bottom: 20px;
+}
+.dash-card-col .card {
+    background-color: #afafaf !important;
+    color: #000;
+    font-size: 17px;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+.dash-card-col .card h5 {
+    color: inherit;
+    font-size: inherit;
+    text-transform: uppercase;
+    transition: inherit;
+}
+.dash-card-col .card p {
+    color: #484848;
+}
+.dash-card-col .card i {
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(0%, -50%) rotate(350deg);
+    font-size: 70px;
+    transition: inherit;
+}
+.dash-card-col:hover a {
+    text-decoration: none;
+}
+.dash-card-col:hover .card {
+    background-color: #424141 !important;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+.dash-card-col:hover .card h5 {
+    color: #fff;
+}
+.dash-card-col:hover .card p {
+    color: #9c8f8f;
+}
+.dash-card-col:hover .card i {
+    transform: translate(0%, -50%) rotate(340deg);
+    font-size: 80px;
+}
+.col-form-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #000;
+    line-height: 1;
+}
+/* admin dashboard style */

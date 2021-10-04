@@ -43,11 +43,12 @@ class PaymentController extends Controller
             'stripeToken' => 'required|string',
             'amount' => 'required',
             'redirectURL' => 'required|string',
+            'currency' => 'required|string',
         ]);
         \Stripe\Stripe::setApiKey('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
         $payment = \Stripe\Charge::create ([
             "amount" => 100 * $req->amount,
-            "currency" => "usd",
+            "currency" => $req->currency,
             "source" => $req->stripeToken,
             "description" => "Test payment",
         ]);

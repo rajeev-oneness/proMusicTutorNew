@@ -53,7 +53,7 @@
 		Route::post('/store',[CrudController::class,'offerStore'])->name('admin.master.offer.save');
 		Route::get('/{id}/edit',[CrudController::class,'offerEdit'])->name('admin.master.offer.edit');
 		Route::post('/{id}/update',[CrudController::class,'offerUpdate'])->name('admin.master.offer.update');
-		Route::post('/{id}/delete',[CrudController::class,'offerDelete'])->name('admin.master.offer.delete');
+		Route::post('delete',[CrudController::class,'offerDelete'])->name('admin.master.offer.delete');
 	});
 
 	// Genre
@@ -69,16 +69,31 @@
 	// Product Series and Their Lession
     Route::group(['prefix' => 'instrument/{instrumentId}/product/series'],function(){
         Route::get('/',[AdminController::class,'productSeriesList'])->name('admin.product.series.list');
+        Route::get('/create',[AdminController::class,'productSeriesCreate'])->name('admin.product.series.create');
+        Route::post('/save',[AdminController::class,'productSeriesSave'])->name('admin.product.series.save');
+        Route::get('/{id}/edit',[AdminController::class,'productSeriesEdit'])->name('admin.product.series.edit');
+        Route::post('/{id}/update',[AdminController::class,'productSeriesUpdate'])->name('admin.product.series.update');
+        Route::post('/delete',[AdminController::class,'productSeriesDelete'])->name('admin.product.series.delete');
+
         Route::group(['prefix' => '{productSeriesId}/lession'],function(){
             Route::get('/',[AdminController::class,'productSeriesLessionList'])->name('admin.product.series.lession.list');
+            Route::get('/create',[AdminController::class,'productSeriesLessionCreate'])->name('admin.product.series.lession.create');
+            Route::post('/save',[AdminController::class,'productSeriesLessionSave'])->name('admin.product.series.lession.save');
+            Route::get('/{id}/edit',[AdminController::class,'productSeriesLessionEdit'])->name('admin.product.series.lession.edit');
+            Route::post('/{id}/update',[AdminController::class,'productSeriesLessionUpdate'])->name('admin.product.series.lession.update');
+            Route::post('delete',[AdminController::class,'productSeriesLessionDelete'])->name('admin.product.series.lession.delete');
         });
     });
 
 	// Reports
 	Route::group(['prefix' => 'report'],function(){
-		Route::any('transaction/log',[ReportController::class,'transactionLog'])->name('admin.report.transaction');
+		Route::any('sales/log',[ReportController::class,'transactionLog'])->name('admin.report.transaction');
 
 		Route::any('best-seller',[ReportController::class,'bestSeller'])->name('admin.report.bestSeller');
+		Route::any('most-viewed',[ReportController::class,'mostViewed'])->name('admin.report.mostViewed');
+		Route::any('products-ordered',[ReportController::class,'productsOrdered'])->name('admin.report.productsOrdered');
+
+		Route::any('wishlist',[ReportController::class,'wishlistCount'])->name('admin.report.wishlistReport');
 
 		Route::get('contact-us',[CrudController::class,'contactUs'])->name('admin.report.contactus');
 		Route::post('contact-us/remark/save',[CrudController::class,'saveRemarkOfContactUs'])->name('admin.report.contactUsSaveRemark');

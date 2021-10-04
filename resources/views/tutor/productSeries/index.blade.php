@@ -1,5 +1,6 @@
 @extends('layouts.auth.authMaster')
 @section('title',ucwords($instrument->name))
+
 @section('content')
 <div class="container-fluid dashboard-content">
     <div class="row">
@@ -14,9 +15,10 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example4" class="table table-striped table-bordered" style="width:100%">
+                        <table id="example4" class="table table-sm table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>#SR</th>
                                     <th>Category</th>
                                     <th>Image</th>
                                     <th>Series Name</th>
@@ -35,15 +37,21 @@
                                         $lession = $series->lession;
                                     ?>
                                     <tr>
-                                        <td>{{$category->name}}</td>
-                                        <td><img src="{{asset($series->image)}}" height="200" width="200"></td>
-                                        <td>{{ $series->title }}</td>
+                                        <td>{{$key + 1}}</td>
+                                        <td class="small">{{$category->name}}</td>
+                                        <td><img src="{{asset($series->image)}}" height="100" width="100"></td>
+                                        <td class="small">{{ $series->title }}</td>
                                         <td><a href="{{route('tutor.product.series.lession.list',[$instrument->id,$series->id])}}">{{count($lession)}} to view</a></td>
-                                        <td>{{($series->genre_data ? $series->genre_data->name : '')}}</td>
-                                        <td>{{ucwords($series->difficulty)}}</td>
-                                        <td>{!! words($series->description,350) !!}</td>
-                                        <td><a href="{{$series->video_url}}" target="_blank">Link</a></td>
-                                        <td><a href="{{route('tutor.product.series.edit',[$instrument->id,$series->id])}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesDelete" data-id="{{$series->id}}">Delete</a></td>
+                                        <td class="small">{{($series->genre_data ? $series->genre_data->name : '')}}</td>
+                                        <td class="small">{{ucwords($series->difficulty)}}</td>
+                                        <td class="small">{!! words($series->description,50) !!}</td>
+                                        <td>
+                                            <video controls muted height="100">
+                                                <source src="{{asset($series->video_url)}}" type="video/mp4">
+                                            </video>
+                                            {{-- <a href="{{$series->video_url}}" target="_blank">Link</a> --}}
+                                        </td>
+                                        <td><a href="{{route('tutor.product.series.edit',[$instrument->id,$series->id])}}" class="small">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesDelete small" data-id="{{$series->id}}">Delete</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>

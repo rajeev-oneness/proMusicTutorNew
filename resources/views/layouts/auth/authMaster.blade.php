@@ -47,9 +47,9 @@
         @endif
 
         function isNumberKey(evt){
-            if(evt.charCode >= 48 && evt.charCode <= 57 || evt.charCode <= 43){  
+            if(evt.charCode >= 48 && evt.charCode <= 57 || evt.charCode <= 43 || evt.charCode == 46){  
                 return true;  
-            }  
+            }
             return false;  
         }
     </script>

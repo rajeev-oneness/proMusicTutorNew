@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateProductSeriesTable extends Migration
 {
@@ -44,7 +45,7 @@ class CreateProductSeriesTable extends Migration
                 'title' => 'Building The Blues Series '.($key + 1),
                 'description' => "Learn from Micky Moody the legendary Whitesnake guitarist. In this series Micky 's aim is to pass on ....",
                 'image' => 'design/img/guitar_'.($key+1).'.png',
-                'video_url' => 'https://player.vimeo.com/video/137857207',
+                'video_url' => 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
                 'createdBy' => 2,
             ];
         }

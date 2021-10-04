@@ -39,7 +39,7 @@
 	                <div class="card border-0">
 	                    <div class="item">
                             <div class="card text-center">
-                                <img src="{{asset($tutor_data->image)}}" class="card-img-top">
+                                <img src="{{asset($tutor_data->image)}}" class="card-img-top" style="height: 180px;">
                                 <div class="card-body pb-1">
                                     <div class="img_border"></div>
                                     <h5 class="card-title">{{$tutor_data->name}}</h5>

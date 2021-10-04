@@ -15,26 +15,44 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="example4" class="table table-striped table-bordered" style="width:100%">
+                            <table id="example4" class="table table-sm table-striped table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th>#SR</th>
                                         <th>Image</th>
                                         <th>Title</th>
                                         <th>Price</th>
                                         <th>Difficulty</th>
                                         <th>Description</th>
+                                        <th>Preview video</th>
+                                        <th>Lesson video</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($productSeries->lession_data as $key => $lession)
                                         <tr>
-                                            <td><img src="{{asset($lession->image)}}" height="200" width="200"></td>
-                                            <td>{{$lession->title}}</td>
-                                            <td>€ {{$lession->price}}</td>
-                                            <td>{{ucwords($lession->difficulty)}}</td>
-                                            <td>{!! words($lession->description,500) !!}</td>
-                                            <td><a href="{{route('tutor.product.series.lession.edit',[$instrument->id,$productSeries->id,$lession->id])}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesLessionDelete" data-id="{{$lession->id}}">Delete</a></td>
+                                            <td>{{$key + 1}}</td>
+                                            <td><img src="{{asset($lession->image)}}" height="100" width="100"></td>
+                                            <td class="small">{{$lession->title}}</td>
+                                            <td class="small">$ {{$lession->price_usd}}</td>
+                                            <td class="small">{{ucwords($lession->difficulty)}}</td>
+                                            <td class="small">{!! words($lession->description,50) !!}</td>
+                                            <td>
+                                                @if ($lession->preview_video)
+                                                <video height="100" controls>
+                                                    <source src="{{asset($lession->preview_video)}}">
+                                                </video>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($lession->preview_video)
+                                                <video height="100" controls>
+                                                    <source src="{{asset($lession->video)}}">
+                                                </video>
+                                                @endif
+                                            </td>
+                                            <td><a href="{{route('tutor.product.series.lession.edit',[$instrument->id,$productSeries->id,$lession->id])}}" class="small">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesLessionDelete small" data-id="{{$lession->id}}">Delete</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
