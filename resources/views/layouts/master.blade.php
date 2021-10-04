@@ -71,7 +71,7 @@
                         <div class="row mt-3">
                             <div class="col-12 text-right">
                                 <a type="button" class="" data-dismiss="modal">Cancel</a>
-                                <button type="submit" class="btn btn-sm btn-primary">Pay ($<span class="amountToPay">0.00</span>)</button>
+                                <button type="submit" class="btn btn-sm btn-primary">Pay (<span class="currencySymbolToPay">$</span><span class="amountToPay">0.00</span>)</button>
                             </div>
                         </div>
                         {{-- <p class="small">This payment is processed by Stripe Payment gateway</p> --}}
@@ -133,12 +133,16 @@
         $('.razorpay-payment-button').remove();
 
         // strpe payment gateway starts
-        var stripePrice = 0,redirectURL = '';
-        function stripePaymentStart(price,redirectionURL){
-            stripePrice = price;redirectURL = redirectionURL;
+        var stripePrice = 0,redirectURL = '',currencyToPayment = '';
+        function stripePaymentStart(price,redirectionURL, currency = 'usd'){
+            stripePrice = price;redirectURL = redirectionURL,currencyToPayment = (currency ?? 'usd');
+            <?php $test = "<script>currency</script>";?>
+            var currencySymbolText = '{{currencySymbol($test)}}';
+            console.log('{{$test}}',currencySymbolText);
+            $('.currencySymbolToPay').text(currencySymbolText);
             $('.amountToPay').text(price);
             $('#stripePaymentModal').modal('show');
-            console.log(stripePrice+' => '+redirectURL);
+            // console.log(stripePrice+' => '+redirectURL);
         }
         @error('stripePaymentGateway')
             $('#stripePaymentModal').modal('show');
@@ -191,6 +195,7 @@
                     $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
                     $form.append("<input type='hidden' name='amount' value='" + stripePrice + "'/>");
                     $form.append("<input type='hidden' name='redirectURL' value='" + redirectURL + "'/>");
+                    $form.append("<input type='hidden' name='currency' value='" + currencyToPayment + "'/>");
                     $form.get(0).submit();
                 }
             }

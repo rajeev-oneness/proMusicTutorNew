@@ -22,7 +22,7 @@ class DefaultController extends Controller
     public function welcome(Request $req)
     {
         $data = (object)[];
-        $data->faq = Faq::get();
+        $data->faq = Faq::limit(3)->latest()->get();
         $data->tutor = User::where('user_type', 2)->latest()->limit(6)->get();
         $data->testimonial = Testimonial::latest()->limit(2)->get();
         $data->instrument = Instrument::latest()->limit(3)->get();
@@ -536,6 +536,13 @@ class DefaultController extends Controller
     {
         $howitworkMain = Setting::where('key', 'howitworkMain')->first();
         return view('front.policy.howItWorks', compact('howitworkMain'));
+    }
+
+    public function faq(Request $req)
+    {
+        $data = (object)[];
+        $data->faq = Faq::latest()->get();
+        return view('front.faq', compact('data'));
     }
 
     // About Us

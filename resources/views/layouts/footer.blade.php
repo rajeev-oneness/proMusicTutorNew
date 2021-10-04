@@ -57,7 +57,8 @@
                     <ul class="footer-menu">
                         <li><a href="javascript:void(0)">Affiliates</a></li>
                         <li><a href="{{route('howitworks')}}">How It Works</a></li>
-                        <li><a href="javascript:void(0)">Frequently Asked Questions</a></li>
+                        <li><a href="{{route('faq')}}">Frequently Asked Questions</a></li>
+                        {{-- <li><a href="javascript:void(0)">Frequently Asked Questions</a></li> --}}
                         <li><a href="{{route('welcome.aboutus')}}">About Us</a></li>
                         <li><a href="{{route('contact.us')}}">Contact Us</a></li>
                         <li><a href="{{route('policy.refund')}}">Refund Policy</a></li>

@@ -42,7 +42,7 @@
                                 <input type="hidden" name="user_type" value="3" readonly>
                                 <div class="form-group">
                                     <label for="inputAddress"> <img src="{{asset('design/img/mail-icon.png')}}"> Name </label>
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Full name" autofocus>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Full name" value="{{old('name')}}" autofocus>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                     @enderror
@@ -50,7 +50,7 @@
 
                                 <div class="form-group">
                                     <label for="inputAddress"> <img src="{{asset('design/img/mail-icon.png')}}"> EMAIL ADDRESS </label>
-                                    <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email Address">
+                                    <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email Address" value="{{old('email')}}">
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                     @enderror
@@ -78,7 +78,7 @@
 
                                 <div class="form-group">
                                     <label for="inputAddress"> <img src="{{asset('design/img/password.png')}}"> Referral Code (optional) </label>
-                                    <input type="text" class="form-control" name="referral_code" placeholder="Referral Code (optional)">
+                                    <input type="text" class="form-control" name="referral_code" placeholder="Referral Code (optional)" value="{{old('referral_code')}}">
                                     @error('referral_code')
                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                     @enderror

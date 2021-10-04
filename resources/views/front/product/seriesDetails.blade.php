@@ -31,7 +31,7 @@
                             @if($data->userPurchased)
                                 <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                             @else
-                                <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
+                                <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
                             @endif
                         @endguest
 
@@ -92,7 +92,7 @@
                                 @if($data->userPurchased)
                                     <a href="javascript:void(0)" class="purchased-Full ml-3 ml-md-5">Already Purchased</a>
                                 @else
-                                    <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
+                                    <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
                                 @endif
                             @endguest
                         </div>
@@ -160,7 +160,7 @@
                                                 @if(userLessionPurchased($less))
                                                     <a href="javascript:void(0)" class="purchased-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->video)}}', '{{$less->title}}')" id="watch_id{{$less->id}}">Watch <i class="fa fa-play ml-2"></i> </a>
                                                 @else
-                                                    <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$less->price_usd}}','{{route('after.purchase.guitar_lession_series',$less->id)}}');">Buy Now - {{currencySymbol($data->currency)}} {{$display_lessionPrice}}</a>
+                                                    <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$less->price_usd}}','{{route('after.purchase.guitar_lession_series',$less->id)}}', '{{$data->currency}}');">Buy Now - {{currencySymbol($data->currency)}} {{$display_lessionPrice}}</a>
                                                 @endif
                                             @endguest
                                         </div>
@@ -201,7 +201,7 @@
                                         @if($otherSeries->userPurchased)
                                             <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                                         @else
-                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$otherSeries->id)}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
+                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$otherSeries->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                         @endif
                                     @endif
                                 </div>

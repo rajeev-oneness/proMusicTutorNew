@@ -31,6 +31,7 @@ Route::post('email/subscribe',[DefaultController::class,'subscribeEmail'])->name
 Route::get('email/unsubscribe',[DefaultController::class,'unSubscribeEmail'])->name('email.unsubscribe');
 
 Route::get('how-it-works',[DefaultController::class,'howItWorks'])->name('howitworks');
+Route::get('faq',[DefaultController::class,'faq'])->name('faq');
 Route::get('contact-us',[DefaultController::class,'contactUsFront'])->name('contact.us');
 Route::post('contact-us',[DefaultController::class,'contactUsFrontSave'])->name('contactus.save');
 Route::get('terms-and-condition',[DefaultController::class,'termsAndCondition'])->name('terms&condition');
