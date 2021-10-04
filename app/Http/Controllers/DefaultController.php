@@ -144,8 +144,13 @@ class DefaultController extends Controller
     public function offersList(Request $req)
     {
         $data = (object)[];
+        $data->currency = 'usd';
         $user = auth()->user();
         $data->offers = Offer::select('*')->latest()->get();
+
+        if (!empty($req->currency)) {
+            $data->currency = $req->currency;
+        }
 
         foreach ($data->offers as $key => $offer) {
             $offer->userPurchased = false;
@@ -163,6 +168,7 @@ class DefaultController extends Controller
     public function offerDetail(Request $req, $offerId)
     {
         $data = Offer::where('id', $offerId)->first();
+        $data->currency = 'usd';
         $user = auth()->user();
         if ($data) {
             $data->userPurchased = false;
@@ -182,6 +188,10 @@ class DefaultController extends Controller
                         $series->userPurchased = true;
                     }
                 }
+            }
+
+            if (!empty($req->currency)) {
+                $data->currency = $req->currency;
             }
 
             return view('front.offerDetail', compact('data', 'req'));

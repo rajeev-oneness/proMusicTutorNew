@@ -640,7 +640,7 @@ class CrudController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('admin.master.offer.list')->with('Success', 'Offer Added successfully');
+            return redirect()->route('admin.offer.list')->with('Success', 'Offer Added successfully');
         } catch (\Throwable $th) {
             DB::rollback();
             $errors['title'] = 'Something went wrong please try after sometime';
@@ -694,7 +694,7 @@ class CrudController extends Controller
                 }
             }
             DB::commit();
-            return redirect()->route('admin.master.offer.list')->with('Success', 'Offer Updated successfully');
+            return redirect()->route('admin.offer.list')->with('Success', 'Offer Updated successfully');
         } catch (\Throwable $th) {
             DB::rollback();
             $errors['title'] = 'Something went wrong please try after sometime';

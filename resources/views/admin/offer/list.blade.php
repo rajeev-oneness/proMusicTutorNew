@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Offer
-                        <a class="headerbuttonforAdd" href="{{route('admin.master.offer.create')}}">
+                        <a class="headerbuttonforAdd" href="{{route('admin.offer.create')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add Offer
                         </a>
                     </h5>
@@ -68,7 +68,7 @@
                                             </ol>
                                         </td>
                                         <td>
-                                            <a href="{{route('admin.master.offer.edit', $offer->id)}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesDelete" data-id="{{$offer->id}}">Delete</a>
+                                            <a href="{{route('admin.offer.edit', $offer->id)}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesDelete" data-id="{{$offer->id}}">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -100,7 +100,7 @@
                     $.ajax({
                         type:'POST',
                         dataType:'JSON',
-                        url:"{{route('admin.master.offer.delete')}}",
+                        url:"{{route('admin.offer.delete')}}",
                         data: {id:productSeriesId,_token:'{{csrf_token()}}'},
                         success:function(data){
                             if(data.error == false){

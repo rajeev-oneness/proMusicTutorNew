@@ -10,32 +10,33 @@
         </div>
 
         <div class="row justify-content-between m-0 mb-5 align-content-center align-items-center">
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-6">
                 <ul class="bredcamb mt-4">
                     <li><a href="{{route('welcome')}}">Home</a></li>
                     <li>/</li>
                     <li><a href="javascript:void(0)" class="active">Offers</a></li>
                 </ul>
             </div>
-            {{-- <div class="col-12 col-md-9">
+            <div class="col-12 col-md-6">
 				<form method="post" action="{{route('front.offers')}}" class="w-100">
 					@csrf
 					<div class="w-100 d-flex justify-content-end">
 						<div class="form-group mb-0 mr-2">
 							<label>Currency</label>
-							<select class="form-control" name="currency">
-                                <option value="usd" {{($req->currency=='usd') ? 'selected' : ''}}> $ - USD</option>
-                                <option value="gbp" {{($req->currency=='gbp') ? 'selected' : ''}}> £ - GBP</option>
-                                <option value="eur" {{($req->currency=='eur') ? 'selected' : ''}}> € - Euro</option>
+							<select class="form-control form-control-sm" name="currency">
+								<option value="" selected="" hidden="">Price</option>
+								<option selected value="usd">$ USD</option>
+								<option {{($req->currency == 'eur') ? 'selected' : ''}} value="eur">€ EUR</option>
+								<option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
 							</select>
 						</div>
-						<div class="form-group mb-0 mr-2" style="padding-top: 37px">
-							<button type="submit" class="btn btn-primary">Apply</button>
-							<a href="{{route('browse.product.series')}}" class="btn btn-light border">Reset</a>
+						<div class="form-group mb-0 mr-2" style="padding-top: 35px">
+							<button type="submit" class="btn btn-sm btn-primary">Apply</button>
+							<a href="{{route('front.offers')}}" class="btn btn-sm btn-light border">Reset</a>
 						</div>
 					</div>
 				</form>
-			</div> --}}
+			</div>
         </div>
         @if(count($data->offers) > 0)
 	        <section class="mt-5 mb-5 pt-5 pb-5 bg-light">
@@ -50,17 +51,26 @@
 	                                    <p class="card-text">{!! words($offer->description,100) !!}</p>
 
                                         @php
-                                            $offerPrice = $offer->price_usd;
-                                            $symbol = currencySymbol('usd');
+											$offerPrice = $offer->price_usd;
+
+											if(!empty($req->currency)) {
+												if($req->currency == 'eur') {
+													$offerPrice = $offer->price_euro;
+												} elseif ($req->currency == 'gbp') {
+													$offerPrice = $offer->price_gbp;
+												} else {
+													$offerPrice = $offer->price_usd;
+												}
+											}
                                         @endphp
 
                                         @guest
-	                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY NOW - {{$offerPrice}}</a>
+	                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY NOW - {{currencySymbol($data->currency)}} {{$offerPrice}}</a>
 	                                    @else
 	                                        @if($offer->userPurchased)
 	                                            <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
 	                                        @else
-	                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$offerPrice}}','{{route('after.purchase.offer_series', $offer->id)}}');">BUY NOW - {{$symbol.' '.$offerPrice}}</a>
+	                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$offerPrice}}','{{route('after.purchase.offer_series', $offer->id)}}', '{{$data->currency}}');">BUY NOW - {{currencySymbol($data->currency)}} {{$offerPrice}}</a>
 	                                        @endif
 	                                    @endguest
 	                                </div>

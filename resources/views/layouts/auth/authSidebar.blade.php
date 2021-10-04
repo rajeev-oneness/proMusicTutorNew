@@ -59,6 +59,9 @@
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Users</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{request()->routeIs('admin.offer.*') ? 'active':''}}" href="{{route('admin.offer.list')}}"><i class="fa fa-fw fa-user-circle"></i>Offers</a>
+                            </li>
 
                             @if(count($instruments) > 0)
                                 <li class="nav-divider">Products</li>
@@ -103,9 +106,6 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link {{request()->routeIs('admin.master.genre.*')?'active':''}}" href="{{route('admin.master.genre.list')}}"><i class="fa fa-fw fa-user-circle"></i>Genre</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link {{request()->routeIs('admin.master.offer.*') ? 'active':''}}" href="{{route('admin.master.offer.list')}}"><i class="fa fa-fw fa-user-circle"></i>Offers</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link {{request()->routeIs('admin.master.subscription.*')?'active':''}}" href="{{route('admin.master.subscription.list')}}"><i class="fa fa-fw fa-user-circle"></i>Subscription</a>

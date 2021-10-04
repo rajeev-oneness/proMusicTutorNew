@@ -2,10 +2,6 @@
 @section('title','Offer details')
 
 @section('content')
-@php
-    $totalPrice = $data->price_usd;
-    $symbol = currencySymbol('usd');
-@endphp
     <section class="pt-0 pt-md-5 pb-5">
         <div class="container">
             <div class="row">
@@ -13,21 +9,57 @@
                     <img src="{{asset($data->image)}}" alt="" class="w-100">
                 </div>
                 <div class="col-md-6 col-12">
+                    {{-- filter start --}}
                     <div class="row m-0">
+                        <div class="col-12">
+                            <form method="post" action="{{route('front.offers.detail', $data->id)}}" class="w-100">
+                                @csrf
+                                <div class="w-100 d-flex">
+                                    <div class="form-group mb-0 mr-2">
+                                        <label>Currency</label>
+                                        <select class="form-control form-control-sm" name="currency">
+                                            <option value="" selected="" hidden="">Price</option>
+                                            <option selected value="usd">$ USD</option>
+                                            <option {{($req->currency == 'eur') ? 'selected' : ''}} value="eur">€ EUR</option>
+                                            <option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-0 mr-2" style="padding-top: 35px">
+                                        <button type="submit" class="btn btn-sm btn-primary">Apply</button>
+                                        <a href="{{route('front.offers.detail', $data->id)}}" class="btn btn-sm btn-light border">Reset</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                    </div>
+                    {{-- filter end --}}
+
+                    <div class="row m-0 mt-4">
                         <h5 class="col-12 pt-2 pl-0 pl-md-3">{{$data->title}}</h5>
                         <div class="col-12 mt-4">
                         @php
                             $offerPrice = $data->price_usd;
-                            $symbol = currencySymbol('usd');
+                            if(!empty($req->currency)) {
+                                if($req->currency == 'eur') {
+                                    $offerPrice = $data->price_euro;
+                                } elseif ($req->currency == 'gbp') {
+                                    $offerPrice = $data->price_gbp;
+                                } else {
+                                    $offerPrice = $data->price_usd;
+                                }
+                            }
                         @endphp
 
                         @guest
-                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY NOW - {{$offerPrice}}</a>
+                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY NOW - {{currencySymbol($data->currency)}} {{$offerPrice}}</a>
                         @else
                         @if($data->userPurchased)
                             <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                         @else
-                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$offerPrice}}','{{route('after.purchase.offer_series', $data->id)}}');">BUY NOW - {{$symbol.' '.$offerPrice}}</a>
+                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$offerPrice}}','{{route('after.purchase.offer_series', $data->id)}}', '{{$data->currency}}');">BUY NOW - {{currencySymbol($data->currency)}} {{$offerPrice}}</a>
                         @endif
                         @endguest
                         </div>
@@ -62,14 +94,14 @@
                                 <div class="card-body text-center">
                                     <h5 class="card-title">{{$series->series_details->title}}</h5>
                                     <p class="card-text">{!! words($series->series_details->description,200) !!}</p>
-                                    <?php $seriesPrice = calculateLessionPrice($series->series_details->lession); ?>
+                                    <?php $seriesPrice = calculateLessionPrice($series->series_details->lession, $data->currency); ?>
                                     @guest
-                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - $ {{$seriesPrice}}</a>
+                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                     @else
                                         @if($series->userPurchased)
                                             <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                                         @else
-                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$series->series_details->id)}}');">BUY FULL SERIES - $ {{$seriesPrice}}</a>
+                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$series->series_details->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                         @endif
                                     @endif
                                 </div>

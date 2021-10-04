@@ -26,7 +26,7 @@
                     <div class="row m-0">
                         <h5 class="col-6 pt-2 pl-0 pl-md-3">{{$data->title}}</h5>
                         @guest
-                            <a href="javascript:void(0)" class="col-6 col-md-5 ml-auto buyfull" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
+                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
                         @else
                             @if($data->userPurchased)
                                 <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
@@ -36,7 +36,7 @@
                         @endguest
 
                         @guest
-                            <a href="javascript: void(0)" class="btn preview col-6 wishlist" onclick="alert('please login to continue')"> <i class="fa fa-heart"></i></a>
+                            <a href="javascript: void(0)" class="btn wishlist not-wishlisted rounded-0 mb-3" onclick="alert('please login to continue')" title="Wishlist now"> <i class="fa fa-heart text-light pe-none"></i></a>
                         @else
                             @if ($data->userWishlisted)
                                 <a href="javascript: void(0)" class="btn wishlist wishlisted rounded-0 mb-3" onclick="wishlistToggle({{$req->seriesId}}, 'series')" title="Wishlisted"> <i class="fa fa-heart text-light pe-none"></i></a>
@@ -155,7 +155,7 @@
                                             @endphp
 
                                             @guest
-                                                <a href="javascript:void(0)" class="btn buyfull" onclick="alert('please login to continue')">Buy Now - $ {{$display_lessionPrice}}</a>
+                                                <a href="javascript:void(0)" class="btn buyfull" onclick="alert('please login to continue')">Buy Now - {{currencySymbol($data->currency)}} {{$display_lessionPrice}}</a>
                                             @else
                                                 @if(userLessionPurchased($less))
                                                     <a href="javascript:void(0)" class="purchased-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->video)}}', '{{$less->title}}')" id="watch_id{{$less->id}}">Watch <i class="fa fa-play ml-2"></i> </a>

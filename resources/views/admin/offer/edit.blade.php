@@ -8,11 +8,11 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Edit Offer
-                        <a class="headerbuttonforAdd" href="{{route('admin.master.offer.list')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                        <a class="headerbuttonforAdd" href="{{route('admin.offer.list')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{route('admin.master.offer.update', $offer->id)}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('admin.offer.update', $offer->id)}}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-12">
@@ -32,21 +32,19 @@
 
                             <div class="form-group col-md-4">
                                 <label for="price_gbp" class="col-form-label">Price GBP:</label>
-                                <input type="text" class="form-control @error('price_gbp') is-invalid @enderror" id="price_gbp" name="price_gbp" placeholder="Price GBP" value="{{(old('price_gbp') ?? $offer->price_gbp)}}" 
-                                {{-- onkeypress="return isNumberKey(event)" --}}
-                                >
+                                <input type="text" class="form-control @error('price_gbp') is-invalid @enderror" id="price_gbp" name="price_gbp" placeholder="Price GBP" value="{{(old('price_gbp') ?? $offer->price_gbp)}}" onkeypress="return isNumberKey(event)" maxlength="7">
                                 @error('price_gbp')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label for="price_usd" class="col-form-label">Price USD:</label>
-                                <input type="text" class="form-control @error('price_usd') is-invalid @enderror" id="price_usd" name="price_usd" placeholder="Price USD" value="{{(old('price_usd') ?? $offer->price_usd)}}">
+                                <input type="text" class="form-control @error('price_usd') is-invalid @enderror" id="price_usd" name="price_usd" placeholder="Price USD" value="{{(old('price_usd') ?? $offer->price_usd)}}" onkeypress="return isNumberKey(event)" maxlength="7">
                                 @error('price_usd')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label for="price_eur" class="col-form-label">Price EUR:</label>
-                                <input type="text" class="form-control @error('price_eur') is-invalid @enderror" id="price_eur" name="price_eur" placeholder="Price EUR" value="{{(old('price_eur') ?? $offer->price_euro)}}">
+                                <input type="text" class="form-control @error('price_eur') is-invalid @enderror" id="price_eur" name="price_eur" placeholder="Price EUR" value="{{(old('price_eur') ?? $offer->price_euro)}}" onkeypress="return isNumberKey(event)" maxlength="7">
                                 @error('price_eur')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
