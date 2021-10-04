@@ -29,7 +29,15 @@
             </div>
         </div>
     </section> -->
-
+    @php
+        $instrumentParameter = [];
+        if($data->instrument){
+            $instrumentParameter = [
+                'instrumentId' => $data->instrument->id,
+                'instrumentName' => $data->instrument->name,
+            ];
+        }
+    @endphp
     @if(count($data->category) > 0)
         <section class="pt-5 pb-5">
             <div class="container">
@@ -40,15 +48,6 @@
                     </div>
                 </div>
                 <div class="row m-0">
-                    @php
-                        $instrumentParameter = [];
-                        if($data->instrument){
-                            $instrumentParameter = [
-                                'instrumentId' => $data->instrument->id,
-                                'instrumentName' => $data->instrument->name,
-                            ];
-                        }
-                    @endphp
                     @foreach($data->category as $index => $cat)
                         @php
                             $categoryParameter = $instrumentParameter;
