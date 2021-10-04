@@ -107,7 +107,7 @@
                                 </div>
                                 <div class="card-footer d-flex border-0 p-0">
                                     <a href="{{route('product.series.details',$series->series_details->id)}}" class="btn detail col-6">Details</a>
-                                    <a href="javascript:void(0)" class="btn preview col-6">PREVIEW</a>
+                                    <a href="javascript:void(0)" class="btn preview col-6" onclick="previewVideo({{$series->series_details->id}}, '{{asset($series->series_details->video_url)}}', '{{$series->series_details->title}}')" id="watch_id{{$series->series_details->id}}">Preview <i class="fa fa-play ml-2"></i> </a>
                                 </div>
                                 <div class="difficulty_section right-0">
                                     {{$series->series_details->difficulty}}
