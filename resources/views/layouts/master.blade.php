@@ -130,16 +130,38 @@
             return false;  
         }
 
+        function currencySymbol($type = '')
+        {
+            $view = '$';
+            switch ($type) {
+                case 'gbp':
+                    $view = '£';
+                    break;
+                case 'usd':
+                    $view = '$';
+                    break;
+                case 'eur':
+                    $view = '€';
+                    break;
+                case 'euro':
+                    $view = '€';
+                    break;
+
+                default:
+                    $view = '$';
+                    break;
+            }
+
+            return $view;
+        }
+
         $('.razorpay-payment-button').remove();
 
         // strpe payment gateway starts
         var stripePrice = 0,redirectURL = '',currencyToPayment = '';
         function stripePaymentStart(price,redirectionURL, currency = 'usd'){
             stripePrice = price;redirectURL = redirectionURL,currencyToPayment = (currency ?? 'usd');
-            <?php $test = "<script>currency</script>";?>
-            var currencySymbolText = '{{currencySymbol($test)}}';
-            console.log('{{$test}}',currencySymbolText);
-            $('.currencySymbolToPay').text(currencySymbolText);
+            $('.currencySymbolToPay').text(currencySymbol(currency));
             $('.amountToPay').text(price);
             $('#stripePaymentModal').modal('show');
             // console.log(stripePrice+' => '+redirectURL);
