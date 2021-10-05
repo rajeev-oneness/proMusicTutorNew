@@ -54,7 +54,7 @@
                                 <tr>
                                     <th>Serial</th>
                                     <th>Period</th>
-                                    <th>Product Series</th>
+                                    <th>Lession</th>
                                     <th>Count</th>
                                 </tr>
                             </thead>

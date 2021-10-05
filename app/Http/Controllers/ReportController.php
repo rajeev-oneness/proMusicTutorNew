@@ -2,16 +2,50 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Instrument;
-use App\Models\ProductSeries;
-use App\Models\User;
-use Illuminate\Http\Request;
-use App\Models\UserProductLessionPurchase;
-use App\Models\Wishlist;
+use App\Models\Instrument,App\Models\ProductSeries;
+use App\Models\User,Illuminate\Http\Request;
+use App\Models\UserProductLessionPurchase,App\Models\Wishlist;
+use App\Models\Offer,App\Models\ProductSeriesLession;
 
 class ReportController extends Controller
 {
     public function transactionLog(Request $req)
+    {
+        $userPurchase = UserProductLessionPurchase::select('*');
+        if (!empty($req->seriesId)) {
+            $userPurchase = $userPurchase->where('productSeriesId', $req->seriesId);
+        }
+        if (!empty($req->lessionId)) {
+            $userPurchase = $userPurchase->where('productSeriesLessionId', $req->lessionId);
+        }
+        $userPurchase = $userPurchase->groupBy('transactionId')->latest()->paginate(20);
+        foreach($userPurchase as $key => $purchase){
+            $offer = (object)[];$series = (object)[];$lession = (object)[];
+            if($purchase->type_of_purchase == 'offer'){
+                $offer = Offer::where('id',$purchase->offerId)->withTrashed()->first();
+                $offer->series = UserProductLessionPurchase::where('transactionId',$purchase->transactionId)->where('type_of_purchase',$purchase->type_of_purchase)->where('offerId',$purchase->offerId)->groupBy('productSeriesId')->get();
+                foreach ($offer->series as $index => $productSeries) {
+                    $productSeries->lession = UserProductLessionPurchase::where('transactionId',$purchase->transactionId)->where('type_of_purchase',$purchase->type_of_purchase)->where('offerId',$purchase->offerId)->where('productSeriesId',$productSeries->productSeriesId)->get();
+                }
+            }elseif ($purchase->type_of_purchase == 'series') {
+                $series = ProductSeries::where('id',$purchase->productSeriesId)->withTrashed()->first();
+                $series->lession = UserProductLessionPurchase::where('transactionId',$purchase->transactionId)->where('type_of_purchase',$purchase->type_of_purchase)->where('productSeriesId',$purchase->productSeriesId)->get();
+            }elseif ($purchase->type_of_purchase == 'lession') {
+                $lession = ProductSeriesLession::where('id',$purchase->productSeriesLessionId)->withTrashed()->first();
+            }
+            // putting all the data in to the same Loop
+            $purchase->offer_data = $offer;
+            $purchase->series_data = $series;
+            $purchase->lession_data = $lession;
+            $purchase->transaction;
+            $purchase->users_details_all;
+        }
+        $available_series = UserProductLessionPurchase::select('product_series.id', 'product_series.title', 'product_series.createdBy')->join('product_series', 'product_series.id', '=', 'user_product_lession_purchases.productSeriesId')->groupBy('product_series.title')->get();
+        $available_lessons = UserProductLessionPurchase::select('product_series_lessions.id', 'product_series_lessions.title', 'product_series_lessions.createdBy', 'product_series_lessions.productSeriesId')->join('product_series_lessions', 'product_series_lessions.id', '=', 'user_product_lession_purchases.productSeriesLessionId')->groupBy('product_series_lessions.title')->get();
+        return view('reports.transactionLog', compact('userPurchase', 'req', 'available_series', 'available_lessons'));
+    }
+
+    public function transactionLogOld(Request $req)
     {
         $transaction = UserProductLessionPurchase::select('*')->join('transactions', 'transactions.id', 'user_product_lession_purchases.transactionId');
 
@@ -89,7 +123,6 @@ class ReportController extends Controller
         if (!empty($req->dateTo)) {
             $series = $series->where('last_count_increased_at', '<=', date('Y-m-d', strtotime($req->dateTo . '+ 1 day')));
         }
-
         $series = $series->orderBy('view_count', 'desc')->get();
 
         $instruments = Instrument::all();
@@ -133,8 +166,7 @@ class ReportController extends Controller
 
     public function wishlistCount(Request $req) {
         $data = [];
-        $wishlistData = Wishlist::select('product_id')->where('wishlists.product_type', 'series');
-
+        $wishlistData = Wishlist::select('product_id');
         if ($req->instrumentId) {
             $wishlistData = $wishlistData->join('product_series', 'product_series.id', '=', 'wishlists.product_id')
             ->join('instruments', 'instruments.id', '=', 'product_series.instrumentId')
@@ -146,18 +178,16 @@ class ReportController extends Controller
         if (!empty($req->dateTo)) {
             $wishlistData = $wishlistData->where('wishlists.created_at', '<=', date('Y-m-d', strtotime($req->dateTo . '+ 1 day')));
         }
-
         $wishlistData = $wishlistData->groupBy('wishlists.product_id')->pluck('wishlists.product_id')->toArray();
 
         foreach($wishlistData as $key => $value) {
             $list = Wishlist::where('product_id', $value);
-
             $data[] = [
                 'from' => date('Y-m-d', strtotime($list->orderBy('id', 'DESC')->first()->created_at)),
                 'to' => date('Y-m-d', strtotime($list->latest()->first()->created_at)),
                 'series_id' => $list->first()->product_id,
                 'series_title' => $list->first()->wishlist_series->title,
-                'count' => $list->count()
+                'count' => $list->count(),
             ];
         }
 
