@@ -84,11 +84,11 @@
 
     <!-- Purchased lesson video modal -->
     <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Preview</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close videoCloseFromModal" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -130,28 +130,15 @@
             return false;  
         }
 
-        function currencySymbol($type = '')
-        {
+        function currencySymbol($type = ''){
             $view = '$';
             switch ($type) {
-                case 'gbp':
-                    $view = '£';
-                    break;
-                case 'usd':
-                    $view = '$';
-                    break;
-                case 'eur':
-                    $view = '€';
-                    break;
-                case 'euro':
-                    $view = '€';
-                    break;
-
-                default:
-                    $view = '$';
-                    break;
+                case 'gbp':$view = '£';break;
+                case 'usd':$view = '$';break;
+                case 'eur':$view = '€';break;
+                case 'euro':$view = '€';break;
+                default:$view = '$';break;
             }
-
             return $view;
         }
 
@@ -248,15 +235,18 @@
         // purchased lesson preview video
         function previewVideo(id, path, name) {
             var targetModalId = '#videoModal';
-
             $(targetModalId).find('.modal-title').text(name);
             if (!path) {
                 $(targetModalId).find('.modal-body').html('<h5 class="text-muted">Nothing to display here !</h5>');
             } else {
-                $(targetModalId).find('.modal-body').html('<video class="w-100" autoplay controls muted loop><source src="'+path+'">Sorry, your browser doesn&apos;t support embedded videos.</video>');
+                $(targetModalId).find('.modal-body').html('<video class="w-100" controls loop><source src="'+path+'">Sorry, your browser doesn&apos;t support embedded videos.</video>');
             }
             $(targetModalId).modal('show');
         }
+
+        $(document).on('click','.videoCloseFromModal',function(){
+            $('#videoModal .modal-body').empty();
+        });
 
         // ######## turn off right click, f12, ctrl + u etc ########
         // $('body').bind('cut copy paste', function(event) {

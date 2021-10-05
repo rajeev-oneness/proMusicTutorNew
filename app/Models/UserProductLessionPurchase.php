@@ -34,4 +34,16 @@ class UserProductLessionPurchase extends Model
     {
         return $this->belongsTo('App\Models\User', 'userId', 'id');
     }
+
+    /******************************** Deleted Data ********************************/
+
+    public function product_series_all()
+    {
+        return $this->belongsTo('App\Models\ProductSeries','productSeriesId','id')->withTrashed();
+    }
+
+    public function product_series_lession_all()
+    {
+        return $this->belongsTo('App\Models\ProductSeriesLession','productSeriesLessionId','id')->withTrashed();
+    }
 }

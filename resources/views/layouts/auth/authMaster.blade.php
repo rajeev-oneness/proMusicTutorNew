@@ -29,6 +29,22 @@
     </div>
     <form>@csrf</form>
 
+    <!-- Purchased lesson video modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Preview</h5>
+                    <button type="button" class="close videoCloseFromModal" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center" style="min-height: 200px"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Purchased lesson video modal -->
+
     <script type="text/javascript" src="{{asset('authDesign/js/jquery-3.5.1.js')}}"></script>
     <script type="text/javascript" src="{{asset('authDesign/js/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('authDesign/js/sweetalert.min.js')}}"></script>
@@ -51,6 +67,33 @@
                 return true;  
             }
             return false;  
+        }
+        function currencySymbol($type = ''){
+            $view = '$';
+            switch ($type) {
+                case 'gbp':$view = '£';break;
+                case 'usd':$view = '$';break;
+                case 'eur':$view = '€';break;
+                case 'euro':$view = '€';break;
+                default:$view = '$';break;
+            }
+            return $view;
+        }
+
+        $(document).on('click','.videoCloseFromModal',function(){
+            $('#videoModal .modal-body').empty();
+        });
+
+        // purchased lesson preview video
+        function previewVideo(id, path, name) {
+            var targetModalId = '#videoModal';
+            $(targetModalId).find('.modal-title').text(name);
+            if (!path) {
+                $(targetModalId).find('.modal-body').html('<h5 class="text-muted">Nothing to display here !</h5>');
+            } else {
+                $(targetModalId).find('.modal-body').html('<video class="w-100" controls loop><source src="'+path+'">Sorry, your browser doesn&apos;t support embedded videos.</video>');
+            }
+            $(targetModalId).modal('show');
         }
     </script>
     @yield('script')

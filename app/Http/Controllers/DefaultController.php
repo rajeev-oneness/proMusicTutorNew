@@ -432,7 +432,31 @@ class DefaultController extends Controller
     public function userProductLessionPurchaseList()
     {
         $user = auth()->user();
-        return view('auth.user.productLessionPurchaseList', compact('user'));
+        $data = [];
+        $userPurchase = UserProductLessionPurchase::where('userId',$user->id)->groupBy('transactionId')->latest()->get();
+        foreach($userPurchase as $key => $purchase){
+            $purchaseType = $purchase->type_of_purchase;$offer = [];$series = [];$lession = [];
+            if($purchaseType == 'offer'){
+                $offer = Offer::where('id',$purchase->offerId)->withTrashed()->first();
+                $offer->series = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$purchase->transactionId)->where('type_of_purchase',$purchaseType)->where('offerId',$purchase->offerId)->groupBy('productSeriesId')->get();
+                foreach ($offer->series as $index => $productSeries) {
+                    $productSeries->lession = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$purchase->transactionId)->where('type_of_purchase',$purchaseType)->where('offerId',$purchase->offerId)->where('productSeriesId',$productSeries->productSeriesId)->get();
+                }
+            }elseif ($purchaseType == 'series') {
+                $series = ProductSeries::where('id',$purchase->productSeriesId)->withTrashed()->first();
+                $series->lession = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$purchase->transactionId)->where('type_of_purchase',$purchaseType)->where('productSeriesId',$purchase->productSeriesId)->get();
+            }elseif ($purchaseType == 'lession') {
+                $lession = ProductSeriesLession::where('id',$purchase->productSeriesLessionId)->withTrashed()->first();
+            }
+            $data[] = [
+                'purchase' => $purchaseType,
+                'transaction' => $purchase->transaction,
+                'offer' => $offer,
+                'series' => $series,
+                'lession' => $lession,
+            ];
+        }
+        return view('auth.user.productLessionPurchaseList', compact('user','data'));
     }
 
     // Explote Tutor
