@@ -93,7 +93,10 @@
                                                             $action = 'Unblock';
                                                         }
                                                     ?>
-                                                    <a href="javascript:void(0)" class="blockUnblock" data-id="{{$user->id}}">{{$action}}</a> | <a href="javascript:void(0)" class="text-danger userDelete" data-id="{{$user->id}}">Delete</a>
+                                                    <a href="{{route('admin.user.edit', $user->id)}}" class="badge badge-primary">Edit</a>
+                                                    {{-- <a href="{{route('admin.user.edit', $user->id)}}" class="badge badge-primary">Edit</a> --}}
+                                                    <a href="javascript:void(0)" class="badge badge-dark blockUnblock" data-id="{{$user->id}}">{{$action}}</a>
+                                                    <a href="javascript:void(0)" class="badge badge-danger userDelete" data-id="{{$user->id}}">Delete</a>
                                                 </td>
                                             @endif
                                         </tr>
