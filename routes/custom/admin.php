@@ -7,7 +7,8 @@
 	Route::get('dashboard',[AdminController::class,'dashboard'])->name('home');
 
 	Route::group(['prefix'=>'users'],function(){
-		Route::get('/',[CrudController::class,'getUsers'])->name('admin.users');
+		Route::get('/tutors',[CrudController::class,'getUsers'])->name('admin.users');
+		Route::get('/students',[CrudController::class,'getStudents'])->name('admin.users.students');
 		Route::get('/create',[CrudController::class,'createUser'])->name('admin.user.create');
 		Route::post('/save',[CrudController::class,'saveUser'])->name('admin.user.save');
 		Route::post('/manage',[CrudController::class,'manageUser'])->name('admin.user.manageUser');

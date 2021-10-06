@@ -20,8 +20,13 @@ class CrudController extends Controller
     /****************************** Users ******************************/
     public function getUsers(Request $req)
     {
-        $users = User::select('*')->where('user_type', '!=', 1);
-        $users = $users->orderBy('users.id', 'desc')->get();
+        // $users = User::select('*')->where('user_type', '!=', 1)->orderBy('users.id', 'desc')->get();
+        $users = User::select('*')->where('user_type', 2)->orderBy('users.id', 'desc')->get();
+        return view('admin.user.index', compact('users'));
+    }
+    public function getStudents(Request $req)
+    {
+        $users = User::select('*')->where('user_type', 3)->orderBy('users.id', 'desc')->get();
         return view('admin.user.index', compact('users'));
     }
 
