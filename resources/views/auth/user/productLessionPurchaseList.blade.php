@@ -27,14 +27,12 @@
         margin-top: 5px;
         margin-bottom: 7px;
     }
-
     .single-purchase-card .txn-details {
         color: #505050;
         font-weight: 400;
         font-size: 13px;
         margin-bottom: 3px;
     }
-
     .single-purchase-card .txn-details p {
         margin-bottom: inherit;
     }
@@ -73,7 +71,6 @@
         font-weight: 700;
         padding: 3px 5px;
     }
-
     .play-controller {
         text-align: right;
     }
@@ -167,10 +164,10 @@
                                                                                     <div class="count">{{$offerLession->productSeriesLessionId}}.</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <div class="difficulty">{{$offerLession->product_series_lession_all->difficulty}}</div>
+                                                                                    <div class="lesson-title">{{$offerLession->product_series_lession_all->title}}</div>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <div class="lesson-title">{{$offerLession->product_series_lession_all->title}}</div>
+                                                                                    <div class="difficulty">{{$offerLession->product_series_lession_all->difficulty}}</div>
                                                                                 </td>
                                                                                 <td>
                                                                                     <div class="play-controller">
@@ -199,10 +196,10 @@
                                                                                 <div class="count">{{$offerLession->productSeriesLessionId}}.</div>
                                                                             </td>
                                                                             <td>
-                                                                                <div class="difficulty">{{$offerLession->product_series_lession_all->difficulty}}</div>
+                                                                                <div class="lesson-title">{{$offerLession->product_series_lession_all->title}}</div>
                                                                             </td>
                                                                             <td>
-                                                                                <div class="lesson-title">{{$offerLession->product_series_lession_all->title}}</div>
+                                                                                <div class="difficulty">{{$offerLession->product_series_lession_all->difficulty}}</div>
                                                                             </td>
                                                                             <td>
                                                                                 <div class="play-controller">

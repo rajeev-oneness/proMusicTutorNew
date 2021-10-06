@@ -65,9 +65,9 @@
                         <div class="col-md-3 dash-card-col">
                             <a href="{{route('admin.users')}}">
                                 <div class="card card-body mb-0">
-                                    <h5 class="mb-2">User</h5>
+                                    <h5 class="mb-2">Tutors</h5>
                                     <p class="small mb-0">
-                                        Users' list
+                                        Tutors' list
                                     </p>
                                     <i class="fas fa-users"></i>
                                 </div>
