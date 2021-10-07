@@ -64,9 +64,9 @@
 
         function isNumberKey(evt){
             if(evt.charCode >= 48 && evt.charCode <= 57 || evt.charCode <= 43 || evt.charCode == 46){  
-                return true;  
+                return true;
             }
-            return false;  
+            return false;
         }
         function currencySymbol($type = ''){
             $view = '$';
@@ -91,7 +91,7 @@
             if (!path) {
                 $(targetModalId).find('.modal-body').html('<h5 class="text-muted">Nothing to display here !</h5>');
             } else {
-                $(targetModalId).find('.modal-body').html('<video class="w-100" controls loop><source src="'+path+'">Sorry, your browser doesn&apos;t support embedded videos.</video>');
+                $(targetModalId).find('.modal-body').html('<video class="w-100" controls loop controlsList="nodownload"><source src="'+path+'">Sorry, your browser doesn&apos;t support embedded videos.</video>');
             }
             $(targetModalId).modal('show');
         }

@@ -17,7 +17,7 @@
                     <div class="embed-responsive embed-responsive-16by9">
                         {{-- <iframe class="embed-responsive-item" src="{{asset($data->video_url)}}" allowfullscreen></iframe> --}}
 
-                        <video height="100" autoplay muted loop>
+                        <video height="100" controls autoplay muted loop controlsList="nodownload">
                             <source src="{{asset($data->video_url)}}">
                         </video>
                     </div>
