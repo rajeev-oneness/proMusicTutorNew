@@ -15,12 +15,13 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example4" class="table table-striped table-bordered" style="width:100%">
+                        <table id="example4" class="table table-sm table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>#SR</th>
                                     <th>Image</th>
                                     <th>Name</th>
+                                    <th>Type</th>
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Membership</th>
@@ -35,30 +36,54 @@
                                 @foreach($users as $key => $user)
                                     @if($user->user_type != 1)
                                         <tr>
-                                            <td>{{$key + 1}}</td>
-                                            <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{asset($user->image)}}"></td>
-                                            <td>{{$user->name}}</td>
-                                            <td>{{$user->email}}</td>
-                                            <td>{{$user->mobile}}</td>
-                                            <td>{{($user->membership ? $user->membership->title : 'N/A')}}</td>
-                                            <td>{{$user->referral_code}}</td>
                                             <td>
+                                                <span class="badge badge-dark">{{$key + 1}}</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <img height="50" src="{{asset($user->image)}}">
+                                            </td>
+                                            <td>
+                                                <p class="small text-dark">{{$user->name}}</p>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                @if ($user->user_type == 2)
+                                                    <span class="badge badge-success">Tutor</span>
+                                                @else
+                                                    <span class="badge badge-secondary">Student</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <p class="small text-dark">{{$user->email}}</p>
+                                            </td>
+                                            <td>
+                                                <p class="small text-dark">{{$user->mobile}}</p>
+                                            </td>
+                                            <td>
+                                                <p class="small text-dark">
+                                                    {{($user->membership ? $user->membership->title : 'N/A')}}
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="small text-muted">{{$user->referral_code}}</p>
+                                            </td>
+                                            <td>
+                                                <p class="small text-dark">
                                                 @if($user->referred_through)
                                                     <a href="javascript:void(0)" class="getReferredByDetails" data-details="{{json_encode($user->referred_through)}}">view</a>
                                                 @else
                                                     {{('N/A')}}
                                                 @endif
+                                                </p>
                                             </td>
                                             <td>
+                                                <p class="small text-dark">
                                                 @if(count($user->referred_to) > 0)
                                                     <a href="{{route('admin.referral.referred_to',$user->id)}}">{{count($user->referred_to)}}</a>
                                                 @else
                                                     {{('N/A')}}
                                                 @endif
+                                                </p>
                                             </td>
-                                            {{-- <td>
-                                                <a href="{{route('admin.user.points',$user->id)}}">{{getSumOfPoints($user->user_points)}}</a>
-                                            </td> --}}
                                             @if($user->user_type == 1)
                                                 <td></td>
                                             @else
