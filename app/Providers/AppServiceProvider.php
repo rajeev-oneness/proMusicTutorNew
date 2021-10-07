@@ -37,7 +37,6 @@ class AppServiceProvider extends ServiceProvider
             }
             $view->with('contact', $contact);
         });
-
         Paginator::useBootstrap();
     }
 

@@ -220,15 +220,13 @@
             </div>
         </section>
     @endif
-
-@endsection
-
-@section('script')
-<script type="text/javascript">
-    // autoplay video
-    let params = new URLSearchParams(location.search);
-    if (params.get('autoplayLessonId')) {
-        $('#watch_id'+params.get('autoplayLessonId')).click();
-    }
-</script>
+    @section('script')
+        <script type="text/javascript">
+            // autoplay video
+            let params = new URLSearchParams(location.search);
+            if (params.get('autoplayLessonId')) {
+                $('#watch_id'+params.get('autoplayLessonId')).click();
+            }
+        </script>
+    @stop
 @endsection

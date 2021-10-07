@@ -65,13 +65,13 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>{{strtoupper($item->type_of_purchase)}}</td>
+                                        <td>{{strtoupper($item->type_of_product)}}</td>
                                         <td>
-                                            @if($item->type_of_purchase == 'offer')
+                                            @if($item->type_of_product == 'offer')
                                                 {{$item->offer_data->title}}
-                                            @elseif($item->type_of_purchase == 'series')
+                                            @elseif($item->type_of_product == 'series')
                                                 {{$item->series_data->title}}
-                                            @elseif($item->type_of_purchase == 'lession')
+                                            @elseif($item->type_of_product == 'lession')
                                                 {{$item->lession_data->title}}
                                             @endif
                                         </td>

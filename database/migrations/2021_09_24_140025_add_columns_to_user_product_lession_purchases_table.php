@@ -14,8 +14,8 @@ class AddColumnsToUserProductLessionPurchasesTable extends Migration
     public function up()
     {
         Schema::table('user_product_lession_purchases', function (Blueprint $table) {
-            $table->string('type_of_purchase', 50)->after('transactionId');
-            $table->integer('offerId')->after('type_of_purchase');
+            $table->string('type_of_product', 50)->after('transactionId');
+            $table->integer('offerId')->after('type_of_product');
         });
     }
 
@@ -27,7 +27,7 @@ class AddColumnsToUserProductLessionPurchasesTable extends Migration
     public function down()
     {
         Schema::table('user_product_lession_purchases', function (Blueprint $table) {
-            $table->dropColumn('type_of_purchase');
+            $table->dropColumn('type_of_product');
             $table->dropColumn('offerId');
         });
     }

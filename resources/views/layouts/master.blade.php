@@ -248,6 +248,29 @@
             $('#videoModal .modal-body').empty();
         });
 
+        function addOrRemoveUserProductCart(userId,productType,productId,action,currency = 'usd',cartId = '',userClickObject){
+            $('.loading-data').show();
+            $.ajax({
+                url : "{{route('user.cartinfo.add_or_remove')}}",
+                type : 'POST',
+                dataType : 'JSON',
+                data : {
+                    _token : '{{csrf_token()}}',
+                    userId : userId,type_of_product:productType,
+                    productId : productId,action : action,
+                    currency : currency, cartId : cartId
+                },
+                success:function(response){
+                    if(response.error == false){
+                        if(action == 'remove'){
+                            userClickObject.closest('.userCartInfo').remove();
+                        }
+                    }
+                    $('.loading-data').hide();
+                }
+            });
+        }
+
         // ######## turn off right click, f12, ctrl + u etc ########
         // $('body').bind('cut copy paste', function(event) {
         //     event.preventDefault();

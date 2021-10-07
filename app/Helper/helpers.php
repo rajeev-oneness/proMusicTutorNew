@@ -111,7 +111,32 @@ function words($string, $words = 100)
 	return Str::limit($string, $words);
 }
 
-function calculateLessionPrice($lessionObject = [], $currency = 'usd')
+function calculateLessionPrice($seriesObject = [], $currency = 'usd',$priceFor='lession')
+{
+	$totalPrice = 0;
+	if($priceFor == 'lession'){
+		foreach ($seriesObject->lession as $lession) {
+			if ($currency == 'usd') {
+				$totalPrice += $lession->price_usd;
+			} elseif ($currency == 'eur') {
+				$totalPrice += $lession->price_euro;
+			} else {
+				$totalPrice += $lession->price_gbp;
+			}
+		}	
+	}elseif($priceFor == 'series'){
+		if ($currency == 'usd') {
+			$totalPrice += $seriesObject->price_usd;
+		} elseif ($currency == 'eur') {
+			$totalPrice += $seriesObject->price_euro;
+		} else {
+			$totalPrice += $seriesObject->price_gbp;
+		}
+	}
+	return $totalPrice;
+}
+
+function calculateLessionPriceOLD($lessionObject = [], $currency = 'usd')
 {
 	$totalPrice = 0;
 	foreach ($lessionObject as $lession) {
@@ -149,24 +174,12 @@ function currencySymbol($type = '')
 {
 	$view = '$';
 	switch ($type) {
-		case 'gbp':
-			$view = '£';
-			break;
-		case 'usd':
-			$view = '$';
-			break;
-		case 'eur':
-			$view = '€';
-			break;
-		case 'euro':
-			$view = '€';
-			break;
-
-		default:
-			$view = '$';
-			break;
+		case 'gbp':$view = '£';break;
+		case 'usd':$view = '$';break;
+		case 'eur':$view = '€';break;
+		case 'euro':$view = '€';break;
+		default:$view = '$';break;
 	}
-
 	return $view;
 }
 

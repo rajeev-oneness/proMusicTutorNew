@@ -21,16 +21,16 @@ class ReportController extends Controller
         $userPurchase = $userPurchase->groupBy('transactionId')->latest()->paginate(20);
         foreach($userPurchase as $key => $purchase){
             $offer = (object)[];$series = (object)[];$lession = (object)[];
-            if($purchase->type_of_purchase == 'offer'){
+            if($purchase->type_of_product == 'offer'){
                 $offer = Offer::where('id',$purchase->offerId)->withTrashed()->first();
-                $offer->series = UserProductLessionPurchase::where('transactionId',$purchase->transactionId)->where('type_of_purchase',$purchase->type_of_purchase)->where('offerId',$purchase->offerId)->groupBy('productSeriesId')->get();
+                $offer->series = UserProductLessionPurchase::where('transactionId',$purchase->transactionId)->where('type_of_product',$purchase->type_of_product)->where('offerId',$purchase->offerId)->groupBy('productSeriesId')->get();
                 foreach ($offer->series as $index => $productSeries) {
-                    $productSeries->lession = UserProductLessionPurchase::where('transactionId',$purchase->transactionId)->where('type_of_purchase',$purchase->type_of_purchase)->where('offerId',$purchase->offerId)->where('productSeriesId',$productSeries->productSeriesId)->get();
+                    $productSeries->lession = UserProductLessionPurchase::where('transactionId',$purchase->transactionId)->where('type_of_product',$purchase->type_of_product)->where('offerId',$purchase->offerId)->where('productSeriesId',$productSeries->productSeriesId)->get();
                 }
-            }elseif ($purchase->type_of_purchase == 'series') {
+            }elseif ($purchase->type_of_product == 'series') {
                 $series = ProductSeries::where('id',$purchase->productSeriesId)->withTrashed()->first();
-                $series->lession = UserProductLessionPurchase::where('transactionId',$purchase->transactionId)->where('type_of_purchase',$purchase->type_of_purchase)->where('productSeriesId',$purchase->productSeriesId)->get();
-            }elseif ($purchase->type_of_purchase == 'lession') {
+                $series->lession = UserProductLessionPurchase::where('transactionId',$purchase->transactionId)->where('type_of_product',$purchase->type_of_product)->where('productSeriesId',$purchase->productSeriesId)->get();
+            }elseif ($purchase->type_of_product == 'lession') {
                 $lession = ProductSeriesLession::where('id',$purchase->productSeriesLessionId)->withTrashed()->first();
             }
             // putting all the data in to the same Loop
