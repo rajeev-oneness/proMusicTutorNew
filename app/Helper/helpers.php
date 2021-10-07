@@ -114,7 +114,7 @@ function words($string, $words = 100)
 function calculateLessionPrice($seriesObject = [], $currency = 'usd',$priceFor='lession')
 {
 	$totalPrice = 0;
-	if($priceFor == 'lession'){
+	// if($priceFor == 'lession'){
 		foreach ($seriesObject->lession as $lession) {
 			if ($currency == 'usd') {
 				$totalPrice += $lession->price_usd;
@@ -124,15 +124,15 @@ function calculateLessionPrice($seriesObject = [], $currency = 'usd',$priceFor='
 				$totalPrice += $lession->price_gbp;
 			}
 		}	
-	}elseif($priceFor == 'series'){
-		if ($currency == 'usd') {
-			$totalPrice += $seriesObject->price_usd;
-		} elseif ($currency == 'eur') {
-			$totalPrice += $seriesObject->price_euro;
-		} else {
-			$totalPrice += $seriesObject->price_gbp;
-		}
-	}
+	// }elseif($priceFor == 'series'){
+	// 	if ($currency == 'usd') {
+	// 		$totalPrice += $seriesObject->price_usd;
+	// 	} elseif ($currency == 'eur') {
+	// 		$totalPrice += $seriesObject->price_euro;
+	// 	} else {
+	// 		$totalPrice += $seriesObject->price_gbp;
+	// 	}
+	// }
 	return $totalPrice;
 }
 

@@ -7,7 +7,7 @@
         if (!empty($req->currency)) {
             $data->currency = $req->currency;
         }
-        $totalPrice = calculateLessionPrice($data->lession, $data->currency);
+        $totalPrice = calculateLessionPrice($data, $data->currency,'series');
     @endphp
 
     <section class="pt-0 pt-md-5 pb-5">
@@ -194,7 +194,7 @@
                                 <div class="card-body text-center">
                                     <h5 class="card-title">{{$otherSeries->title}}</h5>
                                     <p class="card-text">{!! words($otherSeries->description,200) !!}</p>
-                                    <?php $seriesPrice = calculateLessionPrice($otherSeries->lession, $data->currency); ?>
+                                    <?php $seriesPrice = calculateLessionPrice($otherSeries, $data->currency,'series'); ?>
                                     @guest
                                         <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                     @else
