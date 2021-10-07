@@ -263,10 +263,14 @@
                 success:function(response){
                     if(response.error == false){
                         if(action == 'remove'){
-                            userClickObject.closest('.userCartInfo').remove();
+                            window.location.href="";
+                            // userClickObject.closest('.userCartInfo').remove();
+                        }else{
+                            $('.loading-data').hide();
                         }
+                    }else{
+                        $('.loading-data').hide();
                     }
-                    $('.loading-data').hide();
                 }
             });
         }

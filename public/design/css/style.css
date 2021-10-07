@@ -2180,3 +2180,42 @@ footer{
 h1, h2, h3, h4, h5, h6 {
   font-family: sans-serif !important;
 }
+
+/*Cart proceed to pay design*/
+.billing-card{
+  width: 300px;
+    border: 1px solid;
+    padding: 20px;
+}
+.billing-card h6{
+  color: #222;
+}
+.billing-card input{
+  width: 50%;
+    border: none;
+    text-align: right;
+}
+.form-group{
+  display: flex;
+  justify-content: space-between;
+}
+.input-group{
+    border: 1px solid;
+  justify-content: space-between;
+}
+.input-group input{
+  width: 70%;
+}
+.input-group input::placeholder{
+  color: #525252;
+  font-size: 12px;
+  text-align: center;
+  vertical-align: middle;
+}
+.btn-apply{
+  padding: 5px 10px;
+    background: #41ab41;
+    border: none;
+    font-size: 14px;
+    color: #fff;
+}

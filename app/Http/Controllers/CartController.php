@@ -50,9 +50,9 @@ class CartController extends Controller
         return errorResponse($validator->errors()->first());
     }
 
-    public function getUserCart(Request $req)
+    public function getUserCartDetails(Request $req)
     {
-        $user = $req->user();
+        $user = $req->user();$currencyArray = [];
         $cart = UserCart::where('userId',$user->id)->where('status',1)->get();
         foreach ($cart as $key => $cartData) {
             $product = (object)[];
@@ -63,9 +63,37 @@ class CartController extends Controller
             }elseif($cartData->type_of_product == 'lession'){
                 $product = ProductSeriesLession::where('id',$cartData->productId)->first();
             }
-            $cartData->product_info = $product;
+            $cartData->product_info = $product;$currencyArray[] = $cartData->currency;
         }
-        // dd($cart);
+        $cart->currency_array = array_unique($currencyArray);
+        return $cart;
+    }
+
+    public function getUserCart(Request $req)
+    {
+        $cart = $this->getUserCartDetails($req);
         return view('auth.user.cart_info',compact('cart'));
+    }
+
+    public function afterPaymentCartCheckout(Request $req,$cartInfo)
+    {
+        dd($req->all());
+        $selectedCartId = decrypt($cartInfo);
+        $user = $req->user();
+        dd($user);
+        try {
+            DB::beginTransaction();
+            if(!empty($selectedCartId) && count($selectedCartId) > 0 && !empty($req->transactionId)){
+                foreach ($selectedCartId as $key => $cartId) {
+                    $cart = UserCart::where('id',$cartId)->where('userId',$user->id)->where('status',1)->first();
+                    if($cart){
+                        $cart->status = 3;$cart->save();
+                    }
+                }
+            }
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+        }
     }
 }
