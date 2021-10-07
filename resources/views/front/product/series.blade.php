@@ -115,7 +115,7 @@
                                 <div class="card-body text-center">
                                     <h5 class="card-title">{{$series->title}}</h5>
                                     <p class="card-text">{!! words($series->description,200) !!}</p>
-                                    <?php $seriesPrice = calculateLessionPrice($series, $data->currency,'series'); ?>
+                                    <?php $seriesPrice = calculateLessionPrice($series, $data->currency); ?>
                                     @guest
                                         <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                     @else

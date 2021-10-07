@@ -248,7 +248,7 @@
             $('#videoModal .modal-body').empty();
         });
 
-        function addOrRemoveUserProductCart(userId,productType,productId,action,currency = 'usd',cartId = '',userClickObject){
+        function addOrRemoveUserProductCart(userId,productType,productId,action,currency = 'usd',cartId = '',userClickObject=''){
             $('.loading-data').show();
             $.ajax({
                 url : "{{route('user.cartinfo.add_or_remove')}}",
