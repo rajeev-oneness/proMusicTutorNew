@@ -214,7 +214,7 @@ class DefaultController extends Controller
                             $newLessionPurchase->productSeriesId = $offerSeries->series_id;
                             $newLessionPurchase->productSeriesLessionId = $lession->id;
                             $newLessionPurchase->transactionId = $transaction->id;
-                            $newLessionPurchase->type_of_purchase = 'offer';
+                            $newLessionPurchase->type_of_product = 'offer';
                             $newLessionPurchase->offerId = $offer->id;
                             $newLessionPurchase->save();
                         }
@@ -236,7 +236,7 @@ class DefaultController extends Controller
     {
         $purchaseOffer = UserProductLessionPurchase::select('*')->where('userId', auth()->user()->id);
 
-        $purchaseOffer = $purchaseOffer->where('type_of_purchase', 'offer')->where('offerId', $req->offerId)->where('transactionId', $req->transactionId);
+        $purchaseOffer = $purchaseOffer->where('type_of_product', 'offer')->where('offerId', $req->offerId)->where('transactionId', $req->transactionId);
 
         $purchaseOffer = $purchaseOffer->get();
 
@@ -362,7 +362,7 @@ class DefaultController extends Controller
                         $newLessionPurchase->productSeriesId = $productSeries->id;
                         $newLessionPurchase->productSeriesLessionId = $lession->id;
                         $newLessionPurchase->transactionId = $transaction->id;
-                        $newLessionPurchase->type_of_purchase = 'series';
+                        $newLessionPurchase->type_of_product = 'series';
                         $newLessionPurchase->save();
                     }
                     return redirect(route('product.series.purchase.thankyou') . '?productSeriesId=' . $productSeries->id);
@@ -390,7 +390,7 @@ class DefaultController extends Controller
                     $newLessionPurchase->productSeriesId = $productLession->productSeriesId;
                     $newLessionPurchase->productSeriesLessionId = $productLession->id;
                     $newLessionPurchase->transactionId = $transaction->id;
-                    $newLessionPurchase->type_of_purchase = 'lession';
+                    $newLessionPurchase->type_of_product = 'lession';
                     $newLessionPurchase->save();
                     return redirect(route('product.series.purchase.thankyou') . '?productSeriesId=' . $productLession->productSeriesId . '&productLessionId=' . $productLession->id);
                 } else {
@@ -435,16 +435,16 @@ class DefaultController extends Controller
         $data = [];
         $userPurchase = UserProductLessionPurchase::where('userId',$user->id)->groupBy('transactionId')->latest()->get();
         foreach($userPurchase as $key => $purchase){
-            $purchaseType = $purchase->type_of_purchase;$offer = [];$series = [];$lession = [];
+            $purchaseType = $purchase->type_of_product;$offer = [];$series = [];$lession = [];
             if($purchaseType == 'offer'){
                 $offer = Offer::where('id',$purchase->offerId)->withTrashed()->first();
-                $offer->series = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$purchase->transactionId)->where('type_of_purchase',$purchaseType)->where('offerId',$purchase->offerId)->groupBy('productSeriesId')->get();
+                $offer->series = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$purchase->transactionId)->where('type_of_product',$purchaseType)->where('offerId',$purchase->offerId)->groupBy('productSeriesId')->get();
                 foreach ($offer->series as $index => $productSeries) {
-                    $productSeries->lession = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$purchase->transactionId)->where('type_of_purchase',$purchaseType)->where('offerId',$purchase->offerId)->where('productSeriesId',$productSeries->productSeriesId)->get();
+                    $productSeries->lession = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$purchase->transactionId)->where('type_of_product',$purchaseType)->where('offerId',$purchase->offerId)->where('productSeriesId',$productSeries->productSeriesId)->get();
                 }
             }elseif ($purchaseType == 'series') {
                 $series = ProductSeries::where('id',$purchase->productSeriesId)->withTrashed()->first();
-                $series->lession = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$purchase->transactionId)->where('type_of_purchase',$purchaseType)->where('productSeriesId',$purchase->productSeriesId)->get();
+                $series->lession = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$purchase->transactionId)->where('type_of_product',$purchaseType)->where('productSeriesId',$purchase->productSeriesId)->get();
             }elseif ($purchaseType == 'lession') {
                 $lession = ProductSeriesLession::where('id',$purchase->productSeriesLessionId)->withTrashed()->first();
             }

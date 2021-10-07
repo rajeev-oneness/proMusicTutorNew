@@ -239,7 +239,7 @@
             if (!path) {
                 $(targetModalId).find('.modal-body').html('<h5 class="text-muted">Nothing to display here !</h5>');
             } else {
-                $(targetModalId).find('.modal-body').html('<video class="w-100" controls loop><source src="'+path+'">Sorry, your browser doesn&apos;t support embedded videos.</video>');
+                $(targetModalId).find('.modal-body').html('<video class="w-100" controls loop controlsList="nodownload"><source src="'+path+'">Sorry, your browser doesn&apos;t support embedded videos.</video>');
             }
             $(targetModalId).modal('show');
         }
@@ -247,6 +247,29 @@
         $(document).on('click','.videoCloseFromModal',function(){
             $('#videoModal .modal-body').empty();
         });
+
+        function addOrRemoveUserProductCart(userId,productType,productId,action,currency = 'usd',cartId = '',userClickObject=''){
+            $('.loading-data').show();
+            $.ajax({
+                url : "{{route('user.cartinfo.add_or_remove')}}",
+                type : 'POST',
+                dataType : 'JSON',
+                data : {
+                    _token : '{{csrf_token()}}',
+                    userId : userId,type_of_product:productType,
+                    productId : productId,action : action,
+                    currency : currency, cartId : cartId
+                },
+                success:function(response){
+                    if(response.error == false){
+                        if(action == 'remove'){
+                            userClickObject.closest('.userCartInfo').remove();
+                        }
+                    }
+                    $('.loading-data').hide();
+                }
+            });
+        }
 
         // ######## turn off right click, f12, ctrl + u etc ########
         // $('body').bind('cut copy paste', function(event) {

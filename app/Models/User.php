@@ -87,4 +87,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\ProductSeries','createdBy','id');
     }
+
+    public function cart_info()
+    {
+        return $this->hasMany('App\Models\UserCart','userId','id')->where('status',1)->latest();
+    }
 }

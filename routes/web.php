@@ -83,6 +83,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('user/instrument/lession', [DefaultController::class, 'userProductLessionPurchaseList'])->name('user.instrument.lession');
 	// Razorpay Payment Route
 	Route::post('razorpay/payment', [PaymentController::class, 'storerazorePayPayment'])->name('razorpay.payment.store');
+
+	Route::get('user/cart-info',[CartController::class,'getUserCart'])->name('user.cart.info');
+	Route::post('user/cart-info/add_or_remove',[CartController::class,'addOrRemoveCartProduct'])->name('user.cartinfo.add_or_remove');
 });
 
 // Stripe Payment Route

@@ -25,10 +25,10 @@
                         <li class="nav-item">
                             <a class="nav-link signup-bg login-bg {{ Route::currentRouteName() == 'home' ? 'bg-orange' : '' }}" href="{{route('home')}}"><i class="fas fa-user mr-1"></i> Home</a>
                         </li>
-                        <!-- <li class="nav-item position-relative">
-                            <a class="nav-link signup-bg" href="javascript:void(0"><img src="{{asset('design/img/cart_icon.png')}}"></a>
-                            <div class="cart-count">0</div>
-                        </li> -->
+                        <li class="nav-item position-relative">
+                            <a class="nav-link signup-bg {{ Route::currentRouteName() == 'user.cart.info' ? 'bg-orange' : '' }}" href="{{route('user.cart.info')}}"><img src="{{asset('design/img/cart_icon.png')}}"></a>
+                            <div class="cart-count">{{count($user->cart_info)}}</div>
+                        </li>
                     @endauth
                     <li class="nav-item">
                         <a class="nav-link search-icon" id="slide" href="javascript:void(0)"><img src="{{asset('design/img/menu_icon.png')}}"> <span class="pl-2">Menu</span></a>
