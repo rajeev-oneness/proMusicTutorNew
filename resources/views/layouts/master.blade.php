@@ -147,10 +147,14 @@
         // strpe payment gateway starts
         var stripePrice = 0,redirectURL = '',currencyToPayment = '';
         function stripePaymentStart(price,redirectionURL, currency = 'usd'){
-            stripePrice = price;redirectURL = redirectionURL,currencyToPayment = (currency ?? 'usd');
-            $('.currencySymbolToPay').text(currencySymbol(currency));
-            $('.amountToPay').text(price);
-            $('#stripePaymentModal').modal('show');
+            if(parseInt(price) < 1){
+                alert('Price must be at least '+ currencySymbol(currency) +' 1')
+            }else{
+                stripePrice = price;redirectURL = redirectionURL,currencyToPayment = (currency ?? 'usd');
+                $('.currencySymbolToPay').text(currencySymbol(currency));
+                $('.amountToPay').text(price);
+                $('#stripePaymentModal').modal('show');
+            }
             // console.log(stripePrice+' => '+redirectURL);
         }
         
