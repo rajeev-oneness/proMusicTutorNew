@@ -27,7 +27,7 @@
                         </li>
                         <li class="nav-item position-relative">
                             <a class="nav-link signup-bg {{ Route::currentRouteName() == 'user.cart.info' ? 'bg-orange' : '' }}" href="{{route('user.cart.info')}}"><img src="{{asset('design/img/cart_icon.png')}}"></a>
-                            <div class="cart-count">{{count($user->cart_info)}}</div>
+                            <div class="cart-count itemCountForCart" id="itemCountForCart">{{count($user->cart_info)}}</div>
                         </li>
                     @endauth
                     <li class="nav-item">

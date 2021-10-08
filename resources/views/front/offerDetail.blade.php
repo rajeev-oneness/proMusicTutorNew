@@ -9,7 +9,7 @@
                     <img src="{{asset($data->image)}}" alt="" class="w-100">
                 </div>
                 <div class="col-md-6 col-12">
-                    {{-- filter start --}}
+                    {{-- filter Filter start --}}
                     <div class="row m-0">
                         <div class="col-12">
                             <form method="post" action="{{route('front.offers.detail', $data->id)}}" class="w-100">
@@ -35,7 +35,7 @@
                             <hr>
                         </div>
                     </div>
-                    {{-- filter end --}}
+                    {{-- filter Filter end --}}
 
                     <div class="row m-0 mt-4">
                         <h5 class="col-12 pt-2 pl-0 pl-md-3">{{$data->title}}</h5>
@@ -56,11 +56,12 @@
                         @guest
                             <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY NOW - {{currencySymbol($data->currency)}} {{$offerPrice}}</a>
                         @else
-                        @if($data->userPurchased)
-                            <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
-                        @else
-                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$offerPrice}}','{{route('after.purchase.offer_series', $data->id)}}', '{{$data->currency}}');">BUY NOW - {{currencySymbol($data->currency)}} {{$offerPrice}}</a>
-                        @endif
+                            @if($data->userPurchased)
+                                <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
+                            @else
+                                <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$offerPrice}}','{{route('after.purchase.offer_series', $data->id)}}', '{{$data->currency}}');">BUY NOW - {{currencySymbol($data->currency)}} {{$offerPrice}}</a>
+                                <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','offer','{{$data->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
+                            @endif
                         @endguest
                         </div>
                     </div>
@@ -102,6 +103,8 @@
                                             <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                                         @else
                                             <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$series->series_details->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
+                                            <!-- Add To Cart -->
+                                            <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','series','{{$series->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
                                         @endif
                                     @endif
                                 </div>

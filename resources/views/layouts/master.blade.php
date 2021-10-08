@@ -249,7 +249,8 @@
             $('#videoModal .modal-body').empty();
         });
 
-        function addOrRemoveUserProductCart(userId,productType,productId,action,currency = 'usd',cartId = '',userClickObject=''){
+        var itemCountForCart = @auth'{{count($user->cart_info)}}'@else{{('0')}}@endauth;
+        function addOrRemoveUserProductCart(userId,productType,productId,action,currency = 'usd',userClickObject='',cartId = ''){
             $('.loading-data').show();
             $.ajax({
                 url : "{{route('user.cartinfo.add_or_remove')}}",
@@ -262,16 +263,18 @@
                     currency : currency, cartId : cartId
                 },
                 success:function(response){
+                    console.log(response);
                     if(response.error == false){
-                        if(action == 'remove'){
+                        if(action == 'add'){
+                            itemCountForCart = parseInt(itemCountForCart) + parseInt(response.data.countToAddOrRemove);
+                        }
+                        else if(action == 'remove'){
                             window.location.href="";
                             // userClickObject.closest('.userCartInfo').remove();
-                        }else{
-                            $('.loading-data').hide();
                         }
-                    }else{
-                        $('.loading-data').hide();
                     }
+                    $('#itemCountForCart').text(itemCountForCart);
+                    $('.loading-data').hide();
                 }
             });
         }

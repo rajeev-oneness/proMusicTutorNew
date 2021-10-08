@@ -31,6 +31,7 @@ class CartController extends Controller
                     $product = ProductSeriesLession::where('id',$req->productId)->first();
                 }
                 if($product){
+                    $countToAddOrRemove = 0;
                     $cart = UserCart::select('*')->where('userId',$user->id)->where('productId',$product->id)->where('type_of_product',$req->type_of_product)->first();
                     if(!$cart && $req->action == 'add'){
                         $cart = new UserCart();
@@ -39,10 +40,12 @@ class CartController extends Controller
                         $cart->currency = ($req->currency ?? 'usd');
                         $cart->type_of_product = $req->type_of_product;
                         $cart->save();
+                        $countToAddOrRemove += 1;
                     }elseif($cart && $req->action == 'remove'){
+                        $countToAddOrRemove -= 1;
                         $cart->status == 2;$cart->save();$cart->delete();
                     }
-                    return successResponse('Cart Updated Success',$cart);
+                    return successResponse('Cart Updated Success',['cart' => $cart,'countToAddOrRemove' => $countToAddOrRemove]);
                 }
                 return errorResponse('Invalid Product id for the '.$req->type_of_product);
             }

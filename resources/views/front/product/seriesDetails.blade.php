@@ -32,6 +32,9 @@
                                 <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                             @else
                                 <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
+
+                                <!-- Add To Cart -->
+                                <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','series','{{$data->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
                             @endif
                         @endguest
 
@@ -93,6 +96,9 @@
                                     <a href="javascript:void(0)" class="purchased-Full ml-3 ml-md-5">Already Purchased</a>
                                 @else
                                     <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
+
+                                    <!-- Add To Cart -->
+                                    <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','series','{{$data->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
                                 @endif
                             @endguest
                         </div>
@@ -161,6 +167,9 @@
                                                     <a href="javascript:void(0)" class="purchased-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->video)}}', '{{$less->title}}')" id="watch_id{{$less->id}}">Watch <i class="fa fa-play ml-2"></i> </a>
                                                 @else
                                                     <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$display_lessionPrice}}','{{route('after.purchase.guitar_lession_series',$less->id)}}', '{{$data->currency}}');">Buy Now - {{currencySymbol($data->currency)}} {{$display_lessionPrice}}</a>
+
+                                                    <!-- Add To Cart -->
+                                                    <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','lession','{{$less->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
                                                 @endif
                                             @endguest
                                         </div>
@@ -202,6 +211,8 @@
                                             <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                                         @else
                                             <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$otherSeries->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
+                                            <!-- Add To Cart -->
+                                            <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','series','{{$otherSeries->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
                                         @endif
                                     @endif
                                 </div>

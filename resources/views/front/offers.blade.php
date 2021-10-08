@@ -71,6 +71,8 @@
 	                                            <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
 	                                        @else
 	                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$offerPrice}}','{{route('after.purchase.offer_series', $offer->id)}}', '{{$data->currency}}');">BUY NOW - {{currencySymbol($data->currency)}} {{$offerPrice}}</a>
+	                                            <!-- Add To Cart -->
+	                                            <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','offer','{{$offer->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
 	                                        @endif
 	                                    @endguest
 	                                </div>

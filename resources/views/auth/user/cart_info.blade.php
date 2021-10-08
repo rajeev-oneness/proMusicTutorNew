@@ -93,11 +93,13 @@
         <script type="text/javascript">
             $(document).on('click','.removeFromCart',function(){
                 var clickedObject = $(this),details = JSON.parse(clickedObject.attr('data-details'));
+                console.log(details);
                 addOrRemoveUserProductCart(
                     details.userId,details.type_of_product,
-                    details.product_info.id,'remove','usd',details.id,clickedObject
+                    details.product_info.id,'remove','usd',clickedObject,details.id
                 );
             });
+
             $(document).on('click','.checkoutCartBillPayment',function(){
                 @if(count($cart->currency_array) > 1)
                     alert('currenty type must be same for all product');
