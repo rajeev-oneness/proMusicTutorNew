@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title','Welcome')
-@section('content') 
+@section('content')
     <section class="banner">
         <div class="container">
             <div class="row m-0">
