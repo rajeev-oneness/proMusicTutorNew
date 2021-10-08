@@ -57,7 +57,7 @@
                         <!-- Admin Sidebar -->
                         @if($userType == 1)
                             <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users', ['type'=>'tutors'])}}"><i class="fa fa-fw fa-user-circle"></i>Tutors</a>
+                                <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Tutors</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.users.students')?'active':''}}" href="{{route('admin.users.students')}}"><i class="fa fa-fw fa-user-circle"></i>Students</a>

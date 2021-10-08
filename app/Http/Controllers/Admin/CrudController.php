@@ -20,7 +20,6 @@ class CrudController extends Controller
     /****************************** Users ******************************/
     public function getUsers(Request $req)
     {
-        // $users = User::select('*')->where('user_type', '!=', 1)->orderBy('users.id', 'desc')->get();
         $users = User::select('*')->where('user_type', 2)->orderBy('users.id', 'desc')->get();
         return view('admin.user.index', compact('users'));
     }
@@ -95,6 +94,35 @@ class CrudController extends Controller
             $errors['email'] = 'Something went wrong please try after sometime!';
             return back()->withErrors($errors)->withInput($req->all());
         }
+    }
+
+    public function editUser(Request $req, $editUserId)
+    {
+        $editUser = User::findOrFail($editUserId);
+        $userType = UserType::orderBy('id', 'desc')->get();
+        return view('admin.user.edit', compact('editUser', 'req', 'userType'));
+    }
+
+    public function updateUser(Request $req)
+    {
+        $req->validate([
+            'user_type' => 'required|min:1|numeric',
+            'image' => 'nullable',
+            'name' => 'required|max:255|string',
+            'mobile' => 'nullable|digits:10|numeric',
+            'referral' => 'string|nullable|exists:referrals,code',
+        ]);
+
+        $user = User::findOrFail($req->user_id);
+        $user->user_type = $req->user_type;
+        $user->name = $req->name;
+        $user->mobile = $req->mobile;
+        if ($req->hasFile('image')) {
+            $image = $req->file('image');
+            $user->image = imageUpload($image);
+        }
+        $user->save();
+        return redirect(route('admin.users'))->with('Success', 'User Updated SuccessFully');
     }
 
     /****************************** Contact Us ******************************/

@@ -11,6 +11,9 @@
 		Route::get('/students',[CrudController::class,'getStudents'])->name('admin.users.students');
 		Route::get('/create',[CrudController::class,'createUser'])->name('admin.user.create');
 		Route::post('/save',[CrudController::class,'saveUser'])->name('admin.user.save');
+		// Route::get('/{id}/edit',[CrudController::class,'editUser'])->name('admin.user.edit');
+		Route::get('/{id}/edit',[CrudController::class,'editUser'])->name('admin.user.edit');
+		Route::post('/update',[CrudController::class,'updateUser'])->name('admin.user.update');
 		Route::post('/manage',[CrudController::class,'manageUser'])->name('admin.user.manageUser');
 	});
 
