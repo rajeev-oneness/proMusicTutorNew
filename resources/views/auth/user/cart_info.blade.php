@@ -71,14 +71,7 @@
                             <label for=""><b>Pay</b></label>
                             <input type="text" value="{{number_format($cartPrice,2)}}" readonly="">
                         </div>
-                        @if(count($cart->currency_array) > 1)
-                            <a>
-                                Do you want to change all product to same currency?
-                                <input type="radio" class="radio" name="currency" value="usd">usd
-                                <input type="radio" class="radio" name="currency" value="eur">eur
-                                <input type="radio" class="radio" name="currency" value="gbp">gbp
-                            </a>
-                        @endif
+
                         <div class="form-group d-flex justify-content-end">
                            <button class="btn btn-primary checkoutCartBillPayment">CHECKOUT</button>
                         </div>
@@ -107,6 +100,22 @@
                     details.product_info.id,'remove','usd',clickedObject,details.id
                 );
             });
+
+            // converToSameArray('usd');
+            function converToSameArray(currency){
+                $('.loading-data').show();
+                $.ajax({
+                    url : "{{route('user.cartinfo.change_to_same_currency')}}",
+                    type : 'post',
+                    dataType : 'JSON',
+                    data : {userId:'{{$user->id}}',currency : currency, _token:'{{csrf_token()}}'},
+                    success:function(response){
+                        if(response.error == false){
+                            location.reload();
+                        }
+                    }
+                });
+            }
 
             $(document).on('click','.checkoutCartBillPayment',function(){
                 @if(count($cart->currency_array) > 1)

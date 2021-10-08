@@ -43,7 +43,7 @@ class CartController extends Controller
                         $countToAddOrRemove += 1;
                     }elseif($cart && $req->action == 'remove'){
                         $countToAddOrRemove -= 1;
-                        $cart->status == 2;$cart->save();$cart->delete();
+                        $cart->status = 2;$cart->save();$cart->delete();
                     }
                     return successResponse('Cart Updated Success',['cart' => $cart,'countToAddOrRemove' => $countToAddOrRemove]);
                 }
@@ -52,6 +52,20 @@ class CartController extends Controller
             return errorResponse('Invalid User id');
         }
         return errorResponse($validator->errors()->first());
+    }
+
+    public function convertCartToSameCurrency(Request $req)
+    {
+        $rules = [
+            'userId' => 'required|numeric|min:1',
+            'currency' => 'required|string|in:usd,eur,gbp,euro',
+        ];
+        $validate = validator()->make($req->all(),$rules);
+        if(!$validate->fails()){
+            UserCart::where('userId',$req->userId)->where('status',1)->update(['currency'=>$req->currency]);
+            return successResponse('Cart Updated Success');
+        }
+        return errorResponse($validate->errors()->first(),$req->all());
     }
 
     public function getUserCartDetails(Request $req)
