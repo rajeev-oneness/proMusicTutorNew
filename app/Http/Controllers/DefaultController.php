@@ -433,7 +433,7 @@ class DefaultController extends Controller
     {
         $user = auth()->user();
         $data = [];
-        $userPurchase = UserProductLessionPurchase::where('userId',$user->id)->groupBy('transactionId')->latest()->get();
+        $userPurchase = UserProductLessionPurchase::where('userId',$user->id)->groupBy(['transactionId','type_of_product'])->latest()->get();
         foreach($userPurchase as $key => $purchase){
             $purchaseType = $purchase->type_of_product;$offer = [];$series = [];$lession = [];
             if($purchaseType == 'offer'){

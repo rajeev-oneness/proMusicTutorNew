@@ -83,7 +83,8 @@
                         </div>
                     </div>
                 @else
-                    <div><h4>No item in cart</h4></div>
+                    <div class="col-12 text-center"><h4>No item in cart <i class="fas fa-shopping-cart"></i></h4></div>
+                    <div class="col-12 mt-5 text-center"><a href="{{route('welcome')}}" class="btn btn-sm btn-light border shadow"><i class="fas fa-chevron-left"> </i> Go back to home</a></div>
                 @endif
             </div>
         </div>
