@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request,App\Models\User;
-use App\Models\UserCart,App\Models\Offer;
+use App\Models\UserCart,App\Models\Offer,DB;
 use App\Models\ProductSeries,App\Models\ProductSeriesLession;
+use App\Models\Transaction,App\Models\UserProductLessionPurchase;
 
 class CartController extends Controller
 {
@@ -77,23 +78,87 @@ class CartController extends Controller
 
     public function afterPaymentCartCheckout(Request $req,$cartInfo)
     {
-        dd($req->all());
-        $selectedCartId = decrypt($cartInfo);
         $user = $req->user();
-        dd($user);
+        $selectedCartId = decrypt($cartInfo);
         try {
             DB::beginTransaction();
             if(!empty($selectedCartId) && count($selectedCartId) > 0 && !empty($req->transactionId)){
-                foreach ($selectedCartId as $key => $cartId) {
-                    $cart = UserCart::where('id',$cartId)->where('userId',$user->id)->where('status',1)->first();
-                    if($cart){
-                        $cart->status = 3;$cart->save();
+                $transaction = Transaction::where('id',$req->transactionId)->first();
+                if($transaction){
+                    foreach ($selectedCartId as $key => $cartId) {
+                        $cart = UserCart::where('id',$cartId)->where('userId',$user->id)->where('status',1)->first();
+                        if($cart){
+                            $cart->status = 3;
+                            if($cart->type_of_product == 'offer'){
+                                $offer = Offer::where('id',$cart->productId)->withTrashed()->first();
+                                if($offer){
+                                    foreach ($offer->offer_series as $key => $offerSeries) {
+                                        foreach ($offerSeries->series_details->lession as $index => $lession) {
+                                            $newLessionPurchase = new UserProductLessionPurchase();
+                                            $newLessionPurchase->userId = $user->id;
+                                            $newLessionPurchase->productSeriesId = $offerSeries->series_id;
+                                            $newLessionPurchase->productSeriesLessionId = $lession->id;
+                                            $newLessionPurchase->transactionId = $transaction->id;
+                                            $newLessionPurchase->type_of_product = 'offer';
+                                            $newLessionPurchase->offerId = $offer->id;
+                                            $newLessionPurchase->save();
+                                        }
+                                    }
+                                }
+                            }elseif($cart->type_of_product == 'series'){
+                                $productSeries = ProductSeries::where('id',$cart->productId)->withTrashed()->first();
+                                if ($productSeries) {
+                                    foreach ($productSeries->lession as $key => $lession) {
+                                        $newLessionPurchase = new UserProductLessionPurchase();
+                                        $newLessionPurchase->userId = $user->id;
+                                        $newLessionPurchase->productSeriesId = $productSeries->id;
+                                        $newLessionPurchase->productSeriesLessionId = $lession->id;
+                                        $newLessionPurchase->transactionId = $transaction->id;
+                                        $newLessionPurchase->type_of_product = 'series';
+                                        $newLessionPurchase->save();
+                                    }
+                                }
+                            }elseif($cart->type_of_product == 'lession'){
+                                $productLession = ProductSeriesLession::where('id', $cart->productId)->withTrashed()->first();
+                                if ($productLession) {
+                                    $newLessionPurchase = new UserProductLessionPurchase();
+                                    $newLessionPurchase->userId = $user->id;
+                                    $newLessionPurchase->productSeriesId = $productLession->productSeriesId;
+                                    $newLessionPurchase->productSeriesLessionId = $productLession->id;
+                                    $newLessionPurchase->transactionId = $transaction->id;
+                                    $newLessionPurchase->type_of_product = 'lession';
+                                    $newLessionPurchase->save();
+                                }
+                            }
+                            $cart->save();
+                        }
                     }
+                    DB::commit();
+                    return redirect(route('cart.purchase.thankyou',[$cartInfo,'transactionId'=>$transaction->id]));
                 }
             }
-            DB::commit();
         } catch (Exception $e) {
             DB::rollback();
         }
+    }
+
+    public function thankyouCartPurchase(Request $req, $cartInfo)
+    {
+        $selectedCartId = decrypt($cartInfo);$user = $req->user();
+        $transaction = Transaction::where('id',$req->transactionId)->first();
+        if($transaction){
+            $cart = UserCart::whereIn('id',$selectedCartId)->where('userId',$user->id)->where('status',3)->get();
+            foreach ($cart as $key => $usercart) {
+                if($usercart->type_of_product == 'offer'){
+                    $usercart->product_info = Offer::where('id',$usercart->productId)->withTrashed()->first();
+                }elseif($usercart->type_of_product == 'series'){
+                    $usercart->product_info = ProductSeries::where('id',$usercart->productId)->withTrashed()->first();
+                }elseif($usercart->type_of_product == 'lession'){
+                    $usercart->product_info = ProductSeriesLession::where('id', $usercart->productId)->withTrashed()->first();
+                }
+            }
+            return view('payment.razorpay.cart.thankyou',compact('cart','transaction'));
+        }
+        dd('Payment Success');
     }
 }

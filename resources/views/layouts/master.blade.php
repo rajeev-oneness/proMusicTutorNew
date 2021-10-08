@@ -153,6 +153,7 @@
             $('#stripePaymentModal').modal('show');
             // console.log(stripePrice+' => '+redirectURL);
         }
+        
         @error('stripePaymentGateway')
             $('#stripePaymentModal').modal('show');
         @enderror

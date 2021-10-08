@@ -81,6 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	// Purchase From Cart
 	Route::get('after/checkout/from/cart/{cartinfo}', [CartController::class, 'afterPaymentCartCheckout'])->name('after.checkout.from_cart');
+	Route::get('user/cart/purchase/success/{cartinfo}',[CartController::class,'thankyouCartPurchase'])->name('cart.purchase.thankyou');
 	
 	Route::get('user/subscription', [DefaultController::class, 'userSubscription'])->name('user.subscription');
 	Route::get('user/instrument/lession', [DefaultController::class, 'userProductLessionPurchaseList'])->name('user.instrument.lession');

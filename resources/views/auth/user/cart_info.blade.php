@@ -82,6 +82,8 @@
                         </div> -->
                         </div>
                     </div>
+                @else
+                    <div><h4>No item in cart</h4></div>
                 @endif
             </div>
         </div>
@@ -99,7 +101,7 @@
                 @if(count($cart->currency_array) > 1)
                     alert('currenty type must be same for all product');
                     return false;
-                @else
+                @elseif(count($cart->currency_array) == 1)
                     var cartPrice = "{{number_format($cartPrice,2)}}";
                     stripePaymentStart(cartPrice,'{{route("after.checkout.from_cart",[encrypt($cartId)])}}', '{{$cart->currency_array[0]}}');
                 @endif
