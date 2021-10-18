@@ -90,6 +90,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('user/cart-info',[CartController::class,'getUserCart'])->name('user.cart.info');
 	Route::post('user/cart-info/add_or_remove',[CartController::class,'addOrRemoveCartProduct'])->name('user.cartinfo.add_or_remove');
+	Route::post('user/cart-info/update_to_same_currency',[CartController::class,'convertCartToSameCurrency'])->name('user.cartinfo.change_to_same_currency');
 });
 
 // Stripe Payment Route
