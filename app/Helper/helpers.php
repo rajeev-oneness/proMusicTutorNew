@@ -171,7 +171,7 @@ function userLessionPurchased($lession_data = [])
 }
 
 function getPurchasedLessionUnderSeries($seriesInfo){
-	return \App\Models\UserProductLessionPurchase::where('userId', $seriesInfo->userId)->where('productSeriesId', $seriesInfo->productSeriesId)->where('transactionId', $seriesInfo->transactionId)->where('type_of_product','series')->get();
+	return \App\Models\UserProductLessionPurchase::where('userId', $seriesInfo->userId)->where('productSeriesId', $seriesInfo->productSeriesId)->where('transactionId', $seriesInfo->transactionId)->where('type_of_product',$seriesInfo->type_of_product)->get();
 }
 
 function getPurchaseSeriesUnderOffer($offer)

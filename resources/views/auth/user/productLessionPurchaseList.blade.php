@@ -90,7 +90,7 @@
                                 <div class="card-header" id="headingOne">
                                     <h2 class="mb-0">
                                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{$index}}" aria-expanded="true" aria-controls="collapseOne">
-                                          Transaction Id : #{{$purchase['transaction']->transactionId}}
+                                          Transaction Id : #{{$purchase['transaction']->transactionId}}  -  {{currencySymbol($purchase['transaction']->currency)}}{{number_format($purchase['transaction']->amount / 100,2)}}
                                           <span class="float-right">{{date('M d, Y h:i A',strtotime($purchase['transaction']->created_at))}}</span>
                                         </button>
                                     </h2>
@@ -99,72 +99,84 @@
                                 <div id="collapse{{$index}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                     <div class="card-body">
                                         @if(count($purchase['offers']) > 0)
-                                            @foreach($purchase['offers'] as $offersIndex => $purchaseOffers)
-                                                @php $productOffer = $purchaseOffers->offers_details_all; @endphp
-                                                <div class="card-header" id="headingOne">
-                                                    <h2 class="mb-0">
-                                                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOffer{{$offersIndex}}" aria-expanded="true" aria-controls="collapseOne">Offer : {{$productOffer->title}}</button>
-                                                    </h2>
-                                                </div>
-                                                <div id="collapseOffer{{$offersIndex}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                                    <div class="card-body">
-                                                        @foreach(getPurchaseSeriesUnderOffer($purchaseOffers) as $offerSeriesIndex => $purchaseSeries)
-                                                            @php $offerSeries = $purchaseSeries->product_series_all; @endphp
-                                                            <div class="card-header" id="headingOne">
-                                                                <h2 class="mb-0">
-                                                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOffer{{$offersIndex}}" aria-expanded="true" aria-controls="collapseOne">Series : {{$offerSeries->title}}</button>
-                                                                </h2>
-                                                            </div>
-                                                            <div id="collapseOffer{{$offersIndex}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                                                <div class="card-body">
-                                                                    <ul>
-                                                                        @foreach(getPurchasedLessionUnderSeries($purchaseSeries) as $lessionIndex => $lession)
-                                                                            @php $lessionData = $lession->product_series_lession_all; @endphp
-                                                                            <li>Lession : {{$lessionData->title}}
-                                                                                <span>
-                                                                                    <div class="play-controller">
-                                                                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->preview_video)}}', '{{$lessionData->title}}')">Preview <i class="fa fa-play"></i> </a>
-                                                                                        <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->video)}}', '{{$lessionData->title}}')">Watch <i class="fa fa-play"></i> </a>
-                                                                                    </div>
-                                                                                </span>
-                                                                            </li>
-                                                                        @endforeach
-                                                                    </ul>
+                                            <div class="accordion" id="accordionExampleOffersOnly">
+                                                @foreach($purchase['offers'] as $offersIndex => $purchaseOffers)
+                                                    @php $productOffer = $purchaseOffers->offers_details_all; @endphp
+                                                    <div class="card">
+                                                        <div class="card-header" id="headingOfferOnly">
+                                                            <h2 class="mb-0">
+                                                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOffer{{$offersIndex}}" aria-expanded="true" aria-controls="collapseOne">Offer : {{$productOffer->title}}</button>
+                                                            </h2>
+                                                        </div>
+                                                        <div id="collapseOffer{{$offersIndex}}" class="collapse" aria-labelledby="headingOfferOnly" data-parent="#accordionExampleOffersOnly">
+                                                            <div class="card-body">
+                                                                <div class="accordion" id="accordionExampleOfferSeriesOnly">
+                                                                    @foreach(getPurchaseSeriesUnderOffer($purchaseOffers) as $offerSeriesIndex => $purchaseSeries)
+                                                                        @php $offerSeries = $purchaseSeries->product_series_all; @endphp
+                                                                        <div class="card">
+                                                                            <div class="card-header" id="headingOfferSeriesOnly">
+                                                                                <h2 class="mb-0">
+                                                                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOfferSeries{{$offerSeriesIndex}}" aria-expanded="true" aria-controls="collapseOne">Series : {{$offerSeries->title}}</button>
+                                                                                </h2>
+                                                                            </div>
+                                                                            <div id="collapseOfferSeries{{$offerSeriesIndex}}" class="collapse" aria-labelledby="headingOfferSeriesOnly" data-parent="#accordionExampleOfferSeriesOnly">
+                                                                                <div class="card-body">
+                                                                                    <ul>
+                                                                                        @foreach(getPurchasedLessionUnderSeries($purchaseSeries) as $lessionIndex => $lession)
+                                                                                            @php $lessionData = $lession->product_series_lession_all; @endphp
+                                                                                            <li>Lession : {{$lessionData->title}}
+                                                                                                <span>
+                                                                                                    <div class="play-controller">
+                                                                                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->preview_video)}}', '{{$lessionData->title}}')">Preview <i class="fa fa-play"></i> </a>
+                                                                                                        <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->video)}}', '{{$lessionData->title}}')">Watch <i class="fa fa-play"></i> </a>
+                                                                                                    </div>
+                                                                                                </span>
+                                                                                            </li>
+                                                                                        @endforeach
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    @endforeach
                                                                 </div>
                                                             </div>
-                                                        @endforeach
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            </div>
                                         @endif
 
                                         <!-- Series Data -->
                                         @if(count($purchase['series']) > 0)
-                                            @foreach($purchase['series'] as $seriesIndex => $purchaseSeries)
-                                                @php $productSeries = $purchaseSeries->product_series_all; @endphp
-                                                <div class="card-header" id="headingOne">
-                                                    <h2 class="mb-0">
-                                                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseSeries{{$seriesIndex}}" aria-expanded="true" aria-controls="collapseOne">Series : {{$productSeries->title}}</button>
-                                                    </h2>
-                                                </div>
-                                                <div id="collapseSeries{{$seriesIndex}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                                    <div class="card-body">
-                                                        <ul>
-                                                            @foreach(getPurchasedLessionUnderSeries($purchaseSeries) as $lessionIndex => $lession)
-                                                                @php $lessionData = $lession->product_series_lession_all; @endphp
-                                                                <li>Lession : {{$lessionData->title}}
-                                                                    <span>
-                                                                        <div class="play-controller">
-                                                                            <a href="javascript:void(0)" class="btn btn-sm btn-primary" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->preview_video)}}', '{{$lessionData->title}}')">Preview <i class="fa fa-play"></i> </a>
-                                                                            <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->video)}}', '{{$lessionData->title}}')">Watch <i class="fa fa-play"></i> </a>
-                                                                        </div>
-                                                                    </span>
-                                                                </li>
-                                                            @endforeach
-                                                        </ul>
+                                            <div class="accordion" id="accordionExampleSeriesOnly">
+                                                @foreach($purchase['series'] as $seriesIndex => $purchaseSeries)
+                                                    @php $productSeries = $purchaseSeries->product_series_all; @endphp
+                                                    <div class="card">
+                                                        <div class="card-header" id="headingTwo">
+                                                            <h2 class="mb-0">
+                                                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseSeries{{$seriesIndex}}" aria-expanded="true" aria-controls="collapseOne">Series : {{$productSeries->title}}</button>
+                                                            </h2>
+                                                        </div>
+                                                        <div id="collapseSeries{{$seriesIndex}}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExampleSeriesOnly">
+                                                            <div class="card-body">
+                                                                <ul>
+                                                                    @foreach(getPurchasedLessionUnderSeries($purchaseSeries) as $lessionIndex => $lession)
+                                                                        @php $lessionData = $lession->product_series_lession_all; @endphp
+                                                                        <li>Lession : {{$lessionData->title}}
+                                                                            <span>
+                                                                                <div class="play-controller">
+                                                                                    <a href="javascript:void(0)" class="btn btn-sm btn-primary" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->preview_video)}}', '{{$lessionData->title}}')">Preview <i class="fa fa-play"></i> </a>
+                                                                                    <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->video)}}', '{{$lessionData->title}}')">Watch <i class="fa fa-play"></i> </a>
+                                                                                </div>
+                                                                            </span>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            </div>
                                         @endif
 
                                         <!-- Lession Data -->
