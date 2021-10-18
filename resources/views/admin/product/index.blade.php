@@ -57,7 +57,7 @@
                                                 <li>Email: {{$author->email}}</li>
                                             </ul>
                                         </td>
-                                        <td class="small"><a href="{{route('admin.product.series.edit',[$instrument->id,$series->id])}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesDelete" data-id="{{$series->id}}">Delete</a></td>
+                                        <td class="small"><a href="{{route('admin.product.series.edit',[$instrument->id,$series->id])}}"><i class="fas fa-edit text-primary"></i></a> | <a href="javascript:void(0)" class="text-danger seriesDelete" data-id="{{$series->id}}"><i class="fas fa-trash-alt text-danger"></i></a></td>
                                     </tr>
                                 @endforeach
                             </tbody>

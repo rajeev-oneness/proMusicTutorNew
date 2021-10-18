@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>{{config('app.name', 'Pro usic Tutor')}} - @yield('title')</title>
     <link rel="icon" href="{{asset('design/img/logo.png')}}" type="image/gif" sizes="any">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="{{asset('design/css/bootstrap.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('design/css/owl.carousel.min.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('design/css/owl.theme.default.min.css')}}">
@@ -103,6 +103,7 @@
     <script type="text/javascript" src="{{asset('design/js/jquery-3.6.0.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('design/js/popper.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('design/js/bootstrap.min.js')}}"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/js/all.min.js"></script>
 	<script type="text/javascript" src="{{asset('design/js/owl.carousel.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('design/js/aos.js')}}"></script>
 	<script type="text/javascript" src="{{asset('design/js/custom.js')}}"></script>

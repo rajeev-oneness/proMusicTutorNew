@@ -46,7 +46,7 @@
                                                 <span class="text-dark">{{ $offer->price_euro }}</span>
                                             </p>
                                         </td>
-                                        <td>
+                                        <td class="readMore">
                                             <p class="small mb-0 text-muted">DESCRIPTION :</p>
                                             <p class="small text-dark">{{ $offer->description }}</p>
 
@@ -68,7 +68,7 @@
                                             </ol>
                                         </td>
                                         <td>
-                                            <a href="{{route('admin.offer.edit', $offer->id)}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesDelete" data-id="{{$offer->id}}">Delete</a>
+                                            <a href="{{route('admin.offer.edit', $offer->id)}}"><i class="fas fa-edit text-primary"></i></a> | <a href="javascript:void(0)" class="text-danger seriesDelete" data-id="{{$offer->id}}"><i class="fas fa-trash-alt text-danger"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

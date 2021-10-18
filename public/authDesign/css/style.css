@@ -7309,6 +7309,8 @@ Media Query
 }
 .card-header h5{
     color: #000 !important;
+    font-size: 18px;
+    text-transform: uppercase;
 }
 .welcome-text{
     color: #000 !important;
@@ -7321,9 +7323,14 @@ Media Query
     color: #fff;
     font-size: 17px;
 }
+.headerbuttonforAdd:hover{
+    color: #fff;
+    text-decoration: none;
+}
 .headerbuttonforAdd i{
     font-size: 15px;
     margin-right: 10px;
+    display: none;
 }
 .table-bordered thead th{
     vertical-align: middle;
@@ -7395,10 +7402,14 @@ Media Query
     font-weight: 500;
 }
 .form-control{
-    border: 1px solid #0e0d28 !important;
+    border: 1px solid #b1b1b1 !important;
+    font-size: 13px !important;
+}
+.form-control::-webkit-input-placeholder{
+    font-size: 13px !important;
 }
 .form-control:focus{
-    box-shadow: 1px 1px 5px #232324 !important;
+    box-shadow: 1px 1px 5px #797979 !important;
 }
 ::-webkit-scrollbar {
     width: 5px;
@@ -7422,3 +7433,47 @@ Media Query
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+  .badge{
+      font-size: 70% !important;
+      padding: 3px 7px !important;
+  }
+  .paginate_button a{
+    border: none;
+    font-size: 13px;
+    color: #000;
+}
+.paginate_button.active .page-link{
+    background-color: #000 !important;
+    border-radius: 50% !important;
+}
+.dataTables_wrapper label{
+    color: #000 !important;
+    font-size: 14px;
+}
+.table-responsive .row:nth-child(2){
+    overflow: scroll;
+    overflow-y: hidden;
+    margin: 20px 0px !important;
+}
+th,td{
+    vertical-align: middle !important;
+}
+td,td>*{
+    font-size: 15px !important;
+}
+input[type="file"]{
+    border: none !important;
+    box-shadow: none;
+}
+.card-header{
+    padding: 7px 18px !important;
+}
+td ol li{
+    display: none;
+}
+td ol li:first-child{
+    display: block;
+}
+/* .readMore .addText{
+    display: none;
+} */

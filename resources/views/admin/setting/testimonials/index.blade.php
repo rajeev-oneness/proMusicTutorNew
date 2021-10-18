@@ -28,12 +28,12 @@
                             <tbody>
                                 @foreach($testimonials as $testimonial)
                                     <tr>
-                                        <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{asset($testimonial->image)}}"></td>
+                                        <td><img height="auto" width="100px" src="{{asset($testimonial->image)}}"></td>
                                         <td>{{$testimonial->name}}</td>
                                         <td>{{$testimonial->address}}</td>
                                         <td>{{$testimonial->quote}}</td>
                                         <td>
-                                            <a href="{{route('admin.testimonial.edit',$testimonial->id)}}">Edit</a> | <a href="javascript:void(0)" class="deleteTestimonial text-danger" data-id="{{$testimonial->id}}">Delete</a>
+                                            <a href="{{route('admin.testimonial.edit',$testimonial->id)}}"><i class="fas fa-edit text-primary"></i></a> | <a href="javascript:void(0)" class="deleteTestimonial text-danger" data-id="{{$testimonial->id}}"><i class="fas fa-trash-alt text-danger"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

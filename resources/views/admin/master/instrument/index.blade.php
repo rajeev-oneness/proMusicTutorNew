@@ -25,9 +25,9 @@
                             <tbody>
                             	@foreach($instrument as $key => $ins)
                             		<tr>
-                            			<td><img src="{{asset($ins->image)}}" height="200" width="200"></td>
+                            			<td><img src="{{asset($ins->image)}}" height="auto" width="100"></td>
                             			<td>{{$ins->name}}</td>
-                            			<td><a href="{{route('admin.master.instrument.edit',$ins->id)}}">Edit</a> | <a href="javascript:void(0)" class="text-danger instrumentDelete" data-id="{{$ins->id}}">Delete</a></td>
+                            			<td><a href="{{route('admin.master.instrument.edit',$ins->id)}}"><i class="fas fa-edit text-primary"></i></a> | <a href="javascript:void(0)" class="text-danger instrumentDelete" data-id="{{$ins->id}}"><i class="fas fa-trash-alt text-danger"></i></a></td>
                             		</tr>
                             	@endforeach
                             </tbody>

@@ -28,7 +28,7 @@
                                 @foreach($subscription as $key => $subscription)
                                     <tr>
                                         <td>{{$subscription->title}}</td>
-                                        <td><img src="{{asset($subscription->image)}}" height="200" width="200"></td>
+                                        <td><img src="{{asset($subscription->image)}}" height="auto" width="100"></td>
                                         <td>{{ $subscription->price }}</td>
                                         <td>
                                             <ul>
@@ -37,7 +37,7 @@
                                                 @endforeach
                                             </ul>
                                         </td>
-                                        <td><a href="{{route('admin.master.subscription.edit',[$subscription->id,'title'=>$subscription->title])}}">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesDelete" data-id="{{$subscription->id}}">Delete</a></td>
+                                        <td><a href="{{route('admin.master.subscription.edit',[$subscription->id,'title'=>$subscription->title])}}"><i class="fas fa-edit text-primary"></i></a> | <a href="javascript:void(0)" class="text-danger seriesDelete" data-id="{{$subscription->id}}"><i class="fas fa-trash-alt text-danger"></i></a></td>
                                     </tr>
                                 @endforeach
                             </tbody>

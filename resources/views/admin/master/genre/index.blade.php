@@ -20,19 +20,19 @@
                                 <tr>
                                 	<th>#SR</th>
                                     <th>Name</th>
-                                    <th class="text-right">Action</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($genre as $key => $item)
                                     <tr>
                                         <td>
-                                            <span class="badge badge-primary rounded-0">{{$key+1}}</span>
+                                            <span class="badge badge-dark rounded-0">{{$key+1}}</span>
                                         </td>
                                         <td>{{ucwords($item->name)}}</td>
-                                        <td class="text-right">
-                                            <a href="{{route('admin.master.genre.edit', $item->id)}}" class="badge badge-dark rounded-0">Edit</a>
-                                            <a href="javascript: void(0)" class="badge badge-danger rounded-0 genreDelete" data-id="{{$item->id}}">Delete</a>
+                                        <td>
+                                            <a href="{{route('admin.master.genre.edit', $item->id)}}"><i class="fas fa-edit text-primary"></i></a>
+                                            <a href="javascript: void(0)" data-id="{{$item->id}}"><i class="fas fa-trash-alt text-danger"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

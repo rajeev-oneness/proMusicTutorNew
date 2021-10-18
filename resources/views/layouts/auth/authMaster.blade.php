@@ -96,6 +96,27 @@
             $(targetModalId).modal('show');
         }
     </script>
+    <script>
+//         $(document).ready(function() {
+//     var max = 20;
+//     $(".readMore").each(function() {
+//         var str = $(this).text();
+//         if ($.trim(str).length > max) {
+//             var subStr = str.substring(0, max);
+//             console.log(subStr);
+//             var hiddenStr = str.substring(max, $.trim(str).length);
+//             var lengthstring = hiddenStr.length;
+//             $(this).empty().html(subStr);
+//             $(this).append(' <a href="javascript:void(0);" class="link">Read more…</a>');
+//             $(this).append('<p class="addText">' + hiddenStr + '</p>');
+//         }
+//     });
+//     $(".link").click(function() {
+//         $(this).siblings(".addText").contents().unwrap();
+//         $(this).remove();
+//     });
+// });
+    </script>
     @yield('script')
 </body>
 </html>

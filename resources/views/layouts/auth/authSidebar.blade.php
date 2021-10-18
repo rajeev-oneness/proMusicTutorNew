@@ -17,11 +17,11 @@
                     <ul class="navbar-nav flex-column pb-5">
                         <li class="nav-divider"> Menu </li>
                         <li class="nav-item">
-                            <a class="nav-link {{request()->routeIs('home')?'active':''}}" href="{{route('home')}}"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
+                            <a class="nav-link {{request()->routeIs('home')?'active':''}}" href="{{route('home')}}"><i class="fa fa-fw fa-tachometer-alt"></i>Dashboard</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{request()->routeIs('user.profile')?'active':''}}" href="{{route('user.profile')}}"><i class="fa fa-fw fa-user-circle"></i>Profile</a>
+                            <a class="nav-link {{request()->routeIs('user.profile')?'active':''}}" href="{{route('user.profile')}}"><i class="fa fa-fw fa-id-card"></i>Profile</a>
                         </li>
 
                         @if($userType == 2) <!-- Tutor Profile Link -->
@@ -66,7 +66,7 @@
                                 <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Students</a>
                             </li> --}}
                             <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.offer.*') ? 'active':''}}" href="{{route('admin.offer.list')}}"><i class="fa fa-fw fa-user-circle"></i>Offers</a>
+                                <a class="nav-link {{request()->routeIs('admin.offer.*') ? 'active':''}}" href="{{route('admin.offer.list')}}"><i class="fa-solid fa-percent fa-fw"></i>Offers</a>
                             </li>
 
                             @if(count($instruments) > 0)

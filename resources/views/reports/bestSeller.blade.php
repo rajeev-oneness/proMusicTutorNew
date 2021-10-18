@@ -11,9 +11,9 @@
                 </div>
                 <div class="card-body">
                     <p>
-                        <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-filter"></i> Filter</button>
+                        <button class="headerbuttonforAdd d-block mb-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-filter"></i> Filter</button>
                     </p>
-                    <div class="collapse show" id="collapseExample">
+                    <div class="collapse hide" id="collapseExample">
                         <div class="card card-body px-0 py-2 border-0 shadow-none">
                             <form action="{{route('admin.report.bestSeller')}}" method="POST">
                             @csrf
@@ -48,7 +48,7 @@
                         </div>
                     </div>
 
-                    <div class="table-responsive">
+                    <div class="table-responsive mt-3">
                         <table id="example5" class="table table-sm table-hover table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>

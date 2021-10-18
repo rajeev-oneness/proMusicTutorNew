@@ -13,10 +13,13 @@
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{route('admin.user.save')}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('admin.user.save')}}" enctype="multipart/form-data" class="row">
                         @csrf
-
-                        <div class="form-group">
+                        <div class="form-group col-lg-6">
+                            <label for="image" class="col-form-label">Image:</label>
+                            <input type="file" class="form-control" id="image" name="image" value="{{old('image')}}">
+                        </div>
+                        <div class="form-group col-lg-6">
                             <label for="userType" class="col-form-label">User Type:</label>
                             <select class="form-control" name="user_type" id="userType" required>
                                 <option value="" hidden="" selected="">Select User Type</option>
@@ -26,12 +29,9 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
-                            <label for="image" class="col-form-label">Image:</label>
-                            <input type="file" class="form-control" id="image" name="image" value="{{old('image')}}">
-                        </div>
+                        
 
-                        <div class="form-group">
+                        <div class="form-group col-lg-6">
                             <label for="name" class="col-form-label">Name:</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Name" value="{{old('name')}}" required>
                             @error('name')
@@ -41,7 +41,7 @@
                             @enderror
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group col-lg-6">
                             <label for="email" class="col-form-label">Email:</label>
                             <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email" value="{{old('email')}}" required>
                             @error('email')
@@ -51,7 +51,7 @@
                             @enderror
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group col-lg-6">
                             <label for="mobile" class="col-form-label">Mobile:</label>
                             <input type="text" class="form-control @error('mobile') is-invalid @enderror" id="mobile" name="mobile" placeholder="Mobile" value="{{old('mobile')}}" onkeypress="return isNumberKey(event)">
                             @error('mobile')
@@ -61,7 +61,7 @@
                             @enderror
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group col-lg-6">
                             <label for="referral" class="col-form-label">Referral (optional):</label>
                             <input type="text" class="form-control @error('referral') is-invalid @enderror" id="referral" name="referral" placeholder="Referral Code" value="{{old('referral')}}">
                             @error('referral')
@@ -71,7 +71,7 @@
                             @enderror
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group col-lg-12">
                             <button type="submit" class="btn btn-primary">Create</button>
                         </div>
                     </form>
