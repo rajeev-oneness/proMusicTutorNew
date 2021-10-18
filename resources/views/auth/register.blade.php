@@ -37,7 +37,7 @@
                             <div class="text-center">
                                 <span class="orpart">or</span>
                             </div> -->
-                            <form method="post" action="{{route('register')}}">
+                            <form method="post" action="{{route('register')}}" class="signup-form">
                                 @csrf
                                 <input type="hidden" name="user_type" value="3" readonly>
                                 <div class="form-group">

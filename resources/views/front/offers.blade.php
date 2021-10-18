@@ -9,7 +9,7 @@
             </div>
         </div>
 
-        <div class="row justify-content-between m-0 mb-5 align-content-center align-items-center">
+        <div class="row justify-content-between m-0 mb-5 align-items-center">
             <div class="col-12 col-md-6">
                 <ul class="bredcamb mt-4">
                     <li><a href="{{route('welcome')}}">Home</a></li>
@@ -20,19 +20,19 @@
             <div class="col-12 col-md-6">
 				<form method="post" action="{{route('front.offers')}}" class="w-100">
 					@csrf
-					<div class="w-100 d-flex justify-content-end">
+					<div class="w-100 d-flex justify-content-end filter_section">
 						<div class="form-group mb-0 mr-2">
-							<label>Currency</label>
+							<!--<label>Currency</label>-->
 							<select class="form-control form-control-sm" name="currency">
-								<option value="" selected="" hidden="">Price</option>
+								<option value="" selected="" disabled>Currency</option>
 								<option selected value="usd">$ USD</option>
 								<option {{($req->currency == 'eur') ? 'selected' : ''}} value="eur">€ EUR</option>
 								<option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
 							</select>
 						</div>
-						<div class="form-group mb-0 mr-2" style="padding-top: 35px">
-							<button type="submit" class="btn btn-sm btn-primary">Apply</button>
-							<a href="{{route('front.offers')}}" class="btn btn-sm btn-light border">Reset</a>
+						<div class="form-group mb-0 mr-2">
+							<button type="submit" class="btn buyfull">Apply</button>
+							<a href="{{route('front.offers')}}" class="btn detail">Reset</a>
 						</div>
 					</div>
 				</form>

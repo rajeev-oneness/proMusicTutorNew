@@ -234,6 +234,7 @@ p {
 
 p:last-child {
     margin: 0px;
+    color: #000 !important;
 }
 
 a {
@@ -1664,7 +1665,7 @@ Left Navigation Sidebar
 
 .nav-left-sidebar {
     position: fixed;
-    width: 264px;
+    width: 204px;
     height: 100%;
     top: 60px;
     overflow: auto;
@@ -1968,12 +1969,12 @@ Container / Wrapper
 .dashboard-wrapper {
     position: relative;
     left: 0;
-    margin-left: 264px;
-    min-height: 870px !important;
+    margin-left: 204px;
+    /* min-height: 870px !important; */
 }
 
 .dashboard-content {
-    padding: 30px 30px 60px 30px;
+    padding: 10px 20px !important;
 }
 
 
@@ -7229,7 +7230,7 @@ Media Query
     margin-bottom: 20px;
 }
 .dash-card-col .card {
-    background-color: #afafaf !important;
+    background-color: #dfdfdf !important;
     color: #000;
     font-size: 17px;
     border: 0;
@@ -7280,3 +7281,144 @@ Media Query
     line-height: 1;
 }
 /* admin dashboard style */
+
+.dash-card-col .card{
+    position: relative;
+}
+.dash-card-col .card i{
+    position: absolute;
+    top: 30px;
+    font-size: 30px;
+    right: 10px;
+}
+.dash-card-col:hover .card i{
+    z-index: 0;
+    color: rgba(255, 255, 255, .4);
+    font-size: 60px;
+    top: 45px;
+}
+.dash-card-col .card{
+    box-shadow: 2px 2px 7px #a3a3a3 !important;
+}
+.card{
+    border:none !important;
+    box-shadow: none !important;
+}
+.card-header:first-child{
+    background-color: #e1e1e1 !important;
+}
+.card-header h5{
+    color: #000 !important;
+}
+.welcome-text{
+    color: #000 !important;
+}
+.headerbuttonforAdd{
+    background: #0e0d28;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 17px;
+}
+.headerbuttonforAdd i{
+    font-size: 15px;
+    margin-right: 10px;
+}
+.table-bordered thead th{
+    vertical-align: middle;
+    white-space: nowrap;
+    font-size: 15px;
+    font-weight: 500;
+    color: #000;
+    padding: 10px 10px;
+    text-align: center;
+}
+.table-bordered td{
+    text-align: center;
+    vertical-align: middle;
+}
+/* .badge-dark{
+    background-color: #f43600 !important;
+} */
+.card-header h5{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dataTables_info{
+    font-size: 14px;
+    color: #000;
+    font-weight: 500;
+}
+.table-bordered .odd{
+    background-color: transparent !important;
+}
+
+
+
+
+/*****************18/10/21***************/
+.form-group button{
+    float: right;
+    background-color:#0e0d28 !important;
+    border-color:#0e0d28 !important;
+    font-size: 14px;
+    padding: 5px 20px;
+}
+.image-upload-wrapper{
+    position: relative;
+}
+.image-upload-wrapper input[type=file]{
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    z-index: 9999;
+    opacity: 0;
+}
+.image-upload-wrapper button{
+    position: absolute;
+    bottom: -20px;
+    left: 100px;
+    z-index: 9;
+    border: none;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    background: #0e0d28;
+    color: #fff;
+    padding: 0px !important;
+}
+.form-group label{
+    font-size: 15px;
+    font-weight: 500;
+}
+.form-control{
+    border: 1px solid #0e0d28 !important;
+}
+.form-control:focus{
+    box-shadow: 1px 1px 5px #232324 !important;
+}
+::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f43600;
+    border-radius: 5px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #0e0d28;
+    box-shadow: 1px solid #0e0d28;
+    border-radius: 5px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }

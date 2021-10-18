@@ -10,66 +10,66 @@
             </div>
         </div>
 
-        <div class="row justify-content-between m-0 mb-5 align-content-center align-items-center">
+        <div class="row justify-content-between m-0 mb-5 align-items-center">
             <div class="col-12 col-md-3">
-                <ul class="bredcamb mt-4">
+                <ul class="bredcamb">
                     <li><a href="{{route('welcome')}}">Home</a></li>
                     <li>/</li>
                     <li><a href="javascript:void(0)" class="active">Series's</a></li>
                 </ul>
             </div>
-            <div class="col-12 col-md-9">
+            <div class="col-12 col-md-9 filter_section">
 				<form method="post" action="{{route('browse.product.series')}}" class="w-100">
 					@csrf
-					<div class="w-100 d-flex justify-content-end">
+					<div class="w-100 d-flex justify-content-end filter-flex">
 						<div class="form-group mb-0 mr-2">
-							<label>Currency</label>
+							<!--<label>Currency</label>-->
 							<select class="form-control form-control-sm" name="currency">
-								<option value="" selected="" hidden="">Price</option>
-								<option selected value="usd">$ USD</option>
+								<option value="" selected="" disabled>Currency</option>
+								<option value="usd">$ USD</option>
 								<option {{($req->currency == 'eur') ? 'selected' : ''}} value="eur">€ EUR</option>
 								<option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
 							</select>
 						</div>
 						<div class="form-group mb-0 mr-2">
-							<label>Instrument</label>
+							<!--<label>Instrument</label>-->
 							<select class="form-control form-control-sm" name="instrument">
-								<option value="" selected="" hidden="">Instrument</option>
+								<option value="" selected="" disabled>Instrument</option>
 								@foreach($data->instrument as $ins)
 									<option value="{{$ins->id}}" {{($req->instrument == $ins->id) ? 'selected' : ''}}>{{$ins->name}}</option>
 								@endforeach
 							</select>
 						</div>
 						<div class="form-group mb-0 mr-2">
-							<label>Category</label>
+							<!--<label>Category</label>-->
 							<select class="form-control form-control-sm" name="category">
-								<option value="" selected="" hidden="">Category</option>
+								<option value="" selected="" disabled>Category</option>
 								@foreach($data->category as $cat)
 									<option value="{{$cat->id}}" {{($req->category == $cat->id) ? 'selected' : ''}}>{{$cat->name}}</option>
 								@endforeach
 							</select>
 						</div>
 						<div class="form-group mb-0 mr-2">
-							<label>Difficulty</label>
+							<!--<label>Difficulty</label>-->
 							<select class="form-control form-control-sm" name="difficulty">
-								<option value="" selected="" hidden="">Difficulty</option>
+								<option value="" selected="" disabled>Difficulty</option>
 								<option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
 								<option {{($req->difficulty == 'Medium') ? 'selected' : ''}} value="Medium">Medium</option>
 								<option {{($req->difficulty == 'Hard') ? 'selected' : ''}} value="Hard">Hard</option>
 							</select>
 						</div>
 						<div class="form-group mb-0 mr-2">
-							<label>Tutor</label>
+							<!--<label>Tutor</label>-->
 							<select class="form-control form-control-sm" name="tutor">
-								<option value="" selected="" hidden="">Tutor</option>
+								<option value="" selected="" disabled>Tutor</option>
 								@foreach($data->tutor as $teacher)
 									<option value="{{$teacher->id}}" {{($req->tutor == $teacher->id) ? 'selected' : ''}}>{{$teacher->name}}</option>
 								@endforeach
 							</select>
 						</div>
-						<div class="form-group mb-0 mr-2" style="padding-top: 34px">
-							<button type="submit" class="btn btn-sm btn-primary">Apply</button>
-							<a href="{{route('browse.product.series')}}" class="btn btn-sm btn-light border">Reset</a>
+						<div class="form-group mb-0 mr-2">
+							<button type="submit" class="btn buyfull">Apply</button>
+							<a href="{{route('browse.product.series')}}" class="btn detail">Reset</a>
 						</div>
 					</div>
 				</form>
