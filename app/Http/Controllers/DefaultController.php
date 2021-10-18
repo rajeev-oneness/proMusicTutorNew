@@ -458,8 +458,9 @@ class DefaultController extends Controller
         }
         return view('auth.user.productLessionPurchaseList', compact('user','data'));*/
 
-        $userPurchase = UserProductLessionPurchase::where('userId',$user->id)->groupBy(['transactionId'])->latest()->get();
+        $userPurchase = UserProductLessionPurchase::where('userId',$user->id)->groupBy(['transactionId'])->latest()->paginate(10);
         foreach ($userPurchase as $key => $userTrasaction) {
+
             $offers = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$userTrasaction->transactionId)->where('type_of_product','offer')->groupBy('offerId')->get();
             $series = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$userTrasaction->transactionId)->where('type_of_product','series')->groupBy('productSeriesId')->get();
             $lessions = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$userTrasaction->transactionId)->where('type_of_product','lession')->groupBy('productSeriesLessionId')->get();
@@ -470,7 +471,7 @@ class DefaultController extends Controller
                 'lession' => $lessions,
             ];
         }
-        return view('auth.user.productLessionPurchaseList', compact('user','data'));
+        return view('auth.user.productLessionPurchaseList', compact('user','data','userPurchase'));
 
     }
 

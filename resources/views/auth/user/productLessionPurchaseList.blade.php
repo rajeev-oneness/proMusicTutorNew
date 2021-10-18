@@ -202,6 +202,8 @@
                                 </div>
                             @endforeach
                         </div>
+                        <div class="float-right">{{ $userPurchase->links() }}</div>
+                        
                     @else
                         <div class="text-center">you donot have any history</div>
                     @endif
