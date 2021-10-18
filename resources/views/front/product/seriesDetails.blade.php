@@ -85,7 +85,7 @@
     @if(count($lessions) > 0)
         <section class="pt-5 pb-5 mb-5 bg-light">
             <div class="container">
-                <div class="row mb-5">
+                <div class="row mb-5 align-items-center">
                     <div class="col-md-6">
                         <div class="d-flex">
                             <h5 class="pt-2">LESSONS</h5>
@@ -103,28 +103,28 @@
                             @endguest
                         </div>
                     </div>
-                    <div class="col-6 text-right pt-2">
+                    <div class="col-md-6 text-right pt-2 filter_section">
                         <!-- Filter -->
                         <form method="post" action="{{route('product.series.details',$data->id)}}" class="form-inline justify-content-end">
                             @csrf
-                            <div class="mr-3">
+                            <div class="mr-1">
                                 <select class="form-control form-control-sm" name="currency">
-                                    <option value="" selected="" hidden="">Price</option>
+                                    <option value="" selected="" disabled>Currency</option>
                                     <option selected value="usd">$ USD</option>
                                     <option {{($req->currency == 'eur') ? 'selected' : ''}} value="eur">€ EUR</option>
                                     <option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
                                 </select>
                             </div>
-                            <div class="mr-3">
+                            <div class="mr-1">
                                 <select class="form-control form-control-sm" name="difficulty">
-                                    <option value="" selected="" hidden="">Difficulty</option>
+                                    <option value="" selected="" disabled>Difficulty</option>
                                     <option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
                                     <option {{($req->difficulty == 'Medium') ? 'selected' : ''}} value="Medium">Medium</option>
                                     <option {{($req->difficulty == 'Hard') ? 'selected' : ''}} value="Hard">Hard</option>
                                 </select>
                             </div>
-                            <button type="submit" name="" class="btn btn-sm btn-primary mr-3">Apply</button>
-                            <a href="{{route('product.series.details',$data->id)}}" class="btn btn-sm btn-light border">Reset</a>
+                            <button type="submit" name="" class="btn buyfull">Apply</button>
+                            <a href="{{route('product.series.details',$data->id)}}" class="btn detail">Reset</a>
                         </form>
                         <!-- Filter end -->
                     </div>

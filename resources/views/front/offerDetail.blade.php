@@ -14,25 +14,22 @@
                         <div class="col-12">
                             <form method="post" action="{{route('front.offers.detail', $data->id)}}" class="w-100">
                                 @csrf
-                                <div class="w-100 d-flex">
+                                <div class="w-100 d-flex filter_section justify-content-end">
                                     <div class="form-group mb-0 mr-2">
-                                        <label>Currency</label>
+                                        <!--<label>Currency</label>-->
                                         <select class="form-control form-control-sm" name="currency">
-                                            <option value="" selected="" hidden="">Price</option>
+                                            <option value="" selected="" disabled>Currency</option>
                                             <option selected value="usd">$ USD</option>
                                             <option {{($req->currency == 'eur') ? 'selected' : ''}} value="eur">€ EUR</option>
                                             <option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
                                         </select>
                                     </div>
-                                    <div class="form-group mb-0 mr-2" style="padding-top: 35px">
-                                        <button type="submit" class="btn btn-sm btn-primary">Apply</button>
-                                        <a href="{{route('front.offers.detail', $data->id)}}" class="btn btn-sm btn-light border">Reset</a>
+                                    <div class="form-group mb-0 mr-2">
+                                        <button type="submit" class="btn buyfull">Apply</button>
+                                        <a href="{{route('front.offers.detail', $data->id)}}" class="btn detail">Reset</a>
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                        <div class="col-12">
-                            <hr>
                         </div>
                     </div>
                     {{-- filter Filter end --}}

@@ -113,6 +113,16 @@ button:focus {
   outline: 0;
   box-shadow: inherit;
 }
+.filter_section .form-control{
+    border-radius: 0;
+    background: #ffffff;
+    border-color: #d7d7d7 !important;
+    font-weight: 500;
+    color: #6e6e6e;
+    font-size: 13px;
+    font-weight: 400;
+    height: 38px;
+}
 .rg-height230{
   height:230px;
 }
@@ -121,6 +131,9 @@ button:focus {
 }
 
 /*-------------header--------------*/
+.header-nav{
+  justify-content: flex-end;
+}
 
 .navbar-light .navbar-nav .nav-link {
   color: #ffffff !important;
@@ -2218,4 +2231,9 @@ h1, h2, h3, h4, h5, h6 {
     border: none;
     font-size: 14px;
     color: #fff;
+}
+
+.filter_section .detail{
+    padding:8px 20px;
+    height: 39px;
 }
