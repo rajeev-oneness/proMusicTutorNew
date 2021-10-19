@@ -4,7 +4,7 @@
 	<div class="thank-you">
         <div class="container">
             <div class="thamk-youmiddle">
-                <img src="{{asset('design/img/logopro.png')}}" alt="">
+                <!--<img src="{{asset('design/img/logopro.png')}}" alt="">-->
                 <div class="area-thank">
                     <h2>Thank You</h2>
                     <h3>For <span>Purchase</span> Product Series</h3>
