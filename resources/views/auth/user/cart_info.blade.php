@@ -12,7 +12,7 @@
                                 @php $cartCount++; $cartId[] = $usercart->id; @endphp
                                 <div class="card col-12 p-0 mb-3 userCartInfo">
                                     <div class="row no-gutters">
-                                        <div class="col-md-2 position-relative">
+                                        <div class="col-md-3 position-relative">
                                             <img src="{{asset($cartProduct->image)}}" class="card-img">
                                             @if($cartProduct->difficulty)
                                                 <div class="difficulty_section right-0">
@@ -20,9 +20,9 @@
                                                 </div>
                                             @endif
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="card-body position-relative p-0 ml-4">
-                                                <h5 class="card-title">{{words($cartProduct->title,30)}}</h5>
+                                        <div class="col-md-7">
+                                            <div class="card-body position-relative p-3 ml-1">
+                                                <h5 class="card-title text-gray">{{words($cartProduct->title,30)}}</h5>
                                                 <p class="card-text">{!! words($cartProduct->description,80) !!}</p>
                                                 <div class="float-right buynow-btn">
                                                     @php
@@ -39,9 +39,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 text-right">
-                                            <div><a class="mr-2 text-danger removeFromCart" data-details="{{json_encode($usercart)}}" href="javascript:void(0)">Remove</a></div>
-                                            <a class="mr-2" href="javascript:void(0)">{{currencySymbol($usercart->currency)}} {{$productPrice}}</a>
+                                        <div class="col-md-2 text-center pt-2 pt-md-4">
+                                            <a class="mr-2 text-danger removeFromCart w-100 d-block" data-details="{{json_encode($usercart)}}" href="javascript:void(0)">Remove</a>
+                                            <a class="mr-2 w-100 d-block pt-2 text-dark" href="javascript:void(0)"><h6>{{currencySymbol($usercart->currency)}} {{$productPrice}}</h6></a>
                                         </div>
                                     </div>
                                 </div>
