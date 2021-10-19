@@ -20,7 +20,7 @@
                         @enderror
                         <div class="row">
                             <div class="form-group image-upload-wrapper col-lg-6">
-                                <img src="{{$policy->image}}" height="auto" width="250">
+                                <img src="{{asset($policy->image)}}" height="auto" width="250">
                                 <input type="file" name="image" class="form-control">
                                 <button><i class="fas fa-pencil-alt"></i></button>
                             </div>    
