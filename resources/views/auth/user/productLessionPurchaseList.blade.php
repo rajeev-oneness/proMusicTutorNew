@@ -1,5 +1,5 @@
 @extends('layouts.auth.authMaster')
-@section('title','Lession')
+@section('title','Lesson')
 @section('content')
 <style>
     .single-purchase-card {
@@ -125,7 +125,7 @@
                                                                                         <ul>
                                                                                             @foreach(getPurchasedLessionUnderSeries($purchaseSeries) as $lessionIndex => $lession)
                                                                                                 @php $lessionData = $lession->product_series_lession_all; @endphp
-                                                                                                <li>Lession : {{$lessionData->title}}
+                                                                                                <li>Lesson : {{$lessionData->title}}
                                                                                                     <span>
                                                                                                         <div class="play-controller">
                                                                                                             <a href="javascript:void(0)" class="btn btn-sm btn-primary" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->preview_video)}}', '{{$lessionData->title}}')">Preview <i class="fa fa-play"></i> </a>
@@ -163,7 +163,7 @@
                                                                     <ul>
                                                                         @foreach(getPurchasedLessionUnderSeries($purchaseSeries) as $lessionIndex => $lession)
                                                                             @php $lessionData = $lession->product_series_lession_all; @endphp
-                                                                            <li>Lession : {{$lessionData->title}}
+                                                                            <li>Lesson : {{$lessionData->title}}
                                                                                 <span>
                                                                                     <div class="play-controller">
                                                                                         <a href="javascript:void(0)" class="btn btn-sm btn-primary" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->preview_video)}}', '{{$lessionData->title}}')">Preview <i class="fa fa-play"></i> </a>
@@ -185,7 +185,7 @@
                                                 <ul>
                                                     @foreach($purchase['lession'] as $lessionIndex => $lession)
                                                         @php $lessionData = $lession->product_series_lession_all; @endphp
-                                                        <li>Lession : {{$lessionData->title}}
+                                                        <li>Lesson : {{$lessionData->title}}
                                                             <span>
                                                                 <div class="play-controller">
                                                                     <a href="javascript:void(0)" class="btn btn-sm btn-primary" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->preview_video)}}', '{{$lessionData->title}}')">Preview <i class="fa fa-play"></i> </a>
