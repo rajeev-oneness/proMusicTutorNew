@@ -22,10 +22,10 @@
                             <tbody>
                             	@foreach($howitswork as $key=>$how)
                             		<tr>
-                            			<td><img src="{{asset($how->image)}}" height="200" width="200"></td>
+                            			<td><img src="{{asset($how->image)}}" height="auto" width="100"></td>
                             			<td>{{$how->heading}}</td>
                             			<td>{!! $how->description !!}</td>
-                            			<td><a href="{{route('admin.setting.howitWorks.edit',$how->id)}}">Edit</a></td>
+                            			<td><a href="{{route('admin.setting.howitWorks.edit',$how->id)}}"><i class="fas fa-edit"></i></a></td>
                             		</tr>
                             	@endforeach
                             </tbody>

@@ -7375,6 +7375,12 @@ Media Query
 }
 .image-upload-wrapper{
     position: relative;
+    background: transparent;
+    padding: 20px !important;
+    border: 1px solid;
+    border-radius: 5px;
+    text-align: center;
+    height: max-content;
 }
 .image-upload-wrapper input[type=file]{
     position: absolute;
@@ -7382,11 +7388,13 @@ Media Query
     left: 0;
     z-index: 9999;
     opacity: 0;
+    height: 40px;
+    width: 100%;
 }
 .image-upload-wrapper button{
     position: absolute;
     bottom: -20px;
-    left: 100px;
+    right: 0px;
     z-index: 9;
     border: none;
     border-radius: 50%;
@@ -7459,7 +7467,7 @@ th,td{
     vertical-align: middle !important;
 }
 td,td>*{
-    font-size: 15px !important;
+    font-size: 13px !important;
 }
 input[type="file"]{
     border: none !important;
@@ -7474,6 +7482,30 @@ td ol li{
 td ol li:first-child{
     display: block;
 }
-/* .readMore .addText{
+.readMore .addText{
     display: none;
-} */
+}
+.link{
+    color: #000;
+    font-weight: 700;
+}
+/**********19/10/21********/
+.actionbtn button{
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+}
+.actionbtn.addNew button{
+    background-color: green;
+}
+.actionbtn.remove button{
+    background-color: red;
+}
+@media only screen and (max-width:576px){
+    #example4_wrapper .col-sm-12>*{
+        float: left;
+    }
+    #example4_wrapper .col-sm-12{
+        padding: 0px;
+    }
+}

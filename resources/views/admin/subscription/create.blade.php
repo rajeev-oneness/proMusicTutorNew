@@ -49,14 +49,14 @@
                                             <td>
                                                 <input type="text" class="form-control" name="features_title[]" placeholder="Feature title" value="{{ old('features_title.'.$i)}}">
                                             </td>
-                                            <td class="align-middle text-center">
+                                            <td class="align-middle text-right">
                                                 @if(($i+1) == count(old('features_title')))
                                                     <a href="javascript:void(0)" class="actionbtn addNew">
-                                                        <button class="btn btn-sm btn-success"><i class="fas fa-plus"></i></button>
+                                                        <button><i class="fas fa-plus"></i></button>
                                                     </a>
                                                 @else
                                                     <a href="javascript:void(0)" class="actionbtn remove">
-                                                        <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                                                        <button><i class="fas fa-times"></i></button>
                                                     </a>
                                                 @endif
                                             </td>
@@ -68,9 +68,9 @@
                                             {{-- <label class="col-form-label">Title:</label> --}}
                                             <input type="text" class="form-control" name="features_title[]" placeholder="Feature title">
                                         </td>
-                                        <td class="align-middle text-center">
+                                        <td class="align-middle text-right">
                                             <a href="javascript:void(0)" class="actionbtn addNew">
-                                                <button class="btn btn-sm btn-success"><i class="fas fa-plus"></i></button>
+                                                <button><i class="fas fa-plus"></i></button>
                                             </a>
                                         </td>
                                     </tr>

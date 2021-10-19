@@ -31,7 +31,7 @@
                                         <td><img height="auto" width="100px" src="{{asset($testimonial->image)}}"></td>
                                         <td>{{$testimonial->name}}</td>
                                         <td>{{$testimonial->address}}</td>
-                                        <td>{{$testimonial->quote}}</td>
+                                        <td class="readMore">{{$testimonial->quote}}</td>
                                         <td>
                                             <a href="{{route('admin.testimonial.edit',$testimonial->id)}}"><i class="fas fa-edit text-primary"></i></a> | <a href="javascript:void(0)" class="deleteTestimonial text-danger" data-id="{{$testimonial->id}}"><i class="fas fa-trash-alt text-danger"></i></a>
                                         </td>

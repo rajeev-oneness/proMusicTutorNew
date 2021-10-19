@@ -22,10 +22,10 @@
                             <tbody>
                             	@foreach($policy as $key=>$pol)
                             		<tr>
-                            			<td><img src="{{asset($pol->image)}}" height="200" width="200"></td>
+                            			<td><img src="{{asset($pol->image)}}" height="auto" width="100px"></td>
                             			<td>{{$pol->heading}}</td>
                             			<td>{!! $pol->description !!}</td>
-                            			<td><a href="{{route('admin.setting.policy.edit',$pol->id)}}">Edit</a></td>
+                            			<td><a href="{{route('admin.setting.policy.edit',$pol->id)}}"><i class="fas fa-edit"></i></a></td>
                             		</tr>
                             	@endforeach
                             </tbody>

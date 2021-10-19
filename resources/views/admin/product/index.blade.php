@@ -39,11 +39,11 @@
                                     <tr>
                                         <td>{{$key + 1}}</td>
                                         <td class="small">{{$category->name}}</td>
-                                        <td><img src="{{asset($series->image)}}" height="100" width="100"></td>
+                                        <td><img src="{{asset($series->image)}}" height="auto" width="100"></td>
                                         <td class="small">{{ $series->title }}</td>
                                         <td><a href="{{route('admin.product.series.lession.list',[$instrument->id,$series->id])}}">{{count($lession)}} to view</a></td>
                                         <td class="small">{{ucwords($series->difficulty)}}</td>
-                                        <td class="small">{!! words($series->description,70) !!}</td>
+                                        <td class="small readMore">{!! $series->description !!}</td>
                                         <td>
                                             <video controls muted height="100">
                                                 <source src="{{asset($series->video_url)}}" type="video/mp4">

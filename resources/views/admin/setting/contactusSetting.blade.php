@@ -16,29 +16,29 @@
                             <span class="text-danger" role="alert">{{ $message }}</span>
                         @enderror
                         <div class="row">
-                            <img src="{{asset($contact->image)}}" height="250" width="250">
-                            <div class="form-group">
-                                <label for="image" class="col-form-label">Change Image:</label>
-                                <input type="file" name="image">
+                            <div class="form-group image-upload-wrapper col-lg-6">
+                                <img src="{{asset($contact->image)}}" height="auto" width="250">
+                                <input type="file" name="image" class="form-control">
+                                <button><i class="fas fa-pencil-alt"></i></button>
                             </div>    
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email" class="col-form-label">Email:</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email Address" value="@if(old('email')){{old('email')}}@else{{$contact->email}}@endif">
-                            @error('email')
-                                <span class="text-danger" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="email" class="col-form-label">Email:</label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email Address" value="@if(old('email')){{old('email')}}@else{{$contact->email}}@endif">
+                                @error('email')
+                                    <span class="text-danger" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
 
-                        <div class="form-group">
-                            <label for="facebook" class="col-form-label">Facebook Link:</label>
-                            <input type="url" class="form-control @error('facebook') is-invalid @enderror" id="facebook" name="facebook" placeholder="Facebook Link" value="@if(old('facebook')){{old('facebook')}}@else{{$contact->facebook}}@endif">
-                            @error('facebook')
-                                <span class="text-danger" role="alert">{{ $message }}</span>
-                            @enderror
+                            <div class="form-group">
+                                <label for="facebook" class="col-form-label">Facebook Link:</label>
+                                <input type="url" class="form-control @error('facebook') is-invalid @enderror" id="facebook" name="facebook" placeholder="Facebook Link" value="@if(old('facebook')){{old('facebook')}}@else{{$contact->facebook}}@endif">
+                                @error('facebook')
+                                    <span class="text-danger" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
-                        
+                        </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Update</button>
                         </div>
