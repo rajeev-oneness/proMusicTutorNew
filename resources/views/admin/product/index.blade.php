@@ -41,7 +41,7 @@
                                         <td class="small">{{$category->name}}</td>
                                         <td><img src="{{asset($series->image)}}" height="auto" width="100"></td>
                                         <td class="small">{{ $series->title }}</td>
-                                        <td><a href="{{route('admin.product.series.lession.list',[$instrument->id,$series->id])}}">{{count($lession)}} to view</a></td>
+                                        <td><a href="{{route('admin.product.series.lession.list',[$instrument->id,$series->id])}}" class="lesson-list">{{count($lession)}} to view</a></td>
                                         <td class="small">{{ucwords($series->difficulty)}}</td>
                                         <td class="small readMore">{!! $series->description !!}</td>
                                         <td>
@@ -57,7 +57,7 @@
                                                 <li>Email: {{$author->email}}</li>
                                             </ul>
                                         </td>
-                                        <td class="small"><a href="{{route('admin.product.series.edit',[$instrument->id,$series->id])}}"><i class="fas fa-edit text-primary"></i></a> | <a href="javascript:void(0)" class="text-danger seriesDelete" data-id="{{$series->id}}"><i class="fas fa-trash-alt text-danger"></i></a></td>
+                                        <td class="small"><a href="{{route('admin.product.series.edit',[$instrument->id,$series->id])}}"><i class="fas fa-edit"></i></a><a href="javascript:void(0)" class="seriesDelete" data-id="{{$series->id}}"><i class="fas fa-trash-alt"></i></a></td>
                                     </tr>
                                 @endforeach
                             </tbody>

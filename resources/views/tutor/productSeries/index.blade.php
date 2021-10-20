@@ -39,9 +39,9 @@
                                     <tr>
                                         <td>{{$key + 1}}</td>
                                         <td class="small">{{$category->name}}</td>
-                                        <td><img src="{{asset($series->image)}}" height="100" width="100"></td>
+                                        <td><img src="{{asset($series->image)}}" height="auto" width="100px"></td>
                                         <td class="small">{{ $series->title }}</td>
-                                        <td><a href="{{route('tutor.product.series.lession.list',[$instrument->id,$series->id])}}">{{count($lession)}} to view</a></td>
+                                        <td><a href="{{route('tutor.product.series.lession.list',[$instrument->id,$series->id])}}" class="lesson-list">{{count($lession)}} to view</a></td>
                                         <td class="small">{{($series->genre_data ? $series->genre_data->name : '')}}</td>
                                         <td class="small">{{ucwords($series->difficulty)}}</td>
                                         <td class="small">{!! words($series->description,50) !!}</td>
@@ -51,7 +51,7 @@
                                             </video>
                                             {{-- <a href="{{$series->video_url}}" target="_blank">Link</a> --}}
                                         </td>
-                                        <td><a href="{{route('tutor.product.series.edit',[$instrument->id,$series->id])}}" class="small">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesDelete small" data-id="{{$series->id}}">Delete</a></td>
+                                        <td><a href="{{route('tutor.product.series.edit',[$instrument->id,$series->id])}}" class="small"><i class="fas fa-edit"></i></a><a href="javascript:void(0)" class="text-danger seriesDelete small" data-id="{{$series->id}}"><i class="fas fa-trash-alt"></i></a></td>
                                     </tr>
                                 @endforeach
                             </tbody>

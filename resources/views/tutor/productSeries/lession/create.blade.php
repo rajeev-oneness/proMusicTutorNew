@@ -73,13 +73,13 @@
                         </div>
 
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-5">
                                 <label for="preview_video" class="col-form-label">Preview video:</label>
                                 <input type="file" class="form-control form-control-sm @error('preview_video') is-invalid @enderror" id="preview_video" name="preview_video" value="{{old('preview_video')}}">
                                 @error('preview_video')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-5 ml-2">
                                 <label for="video" class="col-form-label">Video:</label>
                                 <input type="file" class="form-control form-control-sm @error('video') is-invalid @enderror" id="video" name="video_url" value="{{old('video')}}">
                                 @error('video_url')<span class="text-danger" role="alert">{{$message}}</span>@enderror

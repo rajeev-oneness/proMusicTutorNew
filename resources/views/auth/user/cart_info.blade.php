@@ -52,12 +52,12 @@
 
                 @if($cartCount > 0)
                     <div class="col-md-4">
-                        <div class="billing-card">
+                        <div class="billing-card border-0 shadow-lg">
                             <h6 class="mb-2">Billing summary</h6>
-                        <div class="form-group">
-                            <label for="">Total :</label>
-                            <input type="text" value="{{number_format($cartPrice,2)}}" readonly="">
-                        </div>
+                            <div class="form-group">
+                                <label for="">Total :</label>
+                                <input type="text" value="{{number_format($cartPrice,2)}}" readonly="">
+                            </div>
                         <!-- <div class="form-group">
                             <label for="">Discount :</label>
                             <input type="text" value="1449">

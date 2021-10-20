@@ -33,7 +33,7 @@
                                         <td>{{$testimonial->address}}</td>
                                         <td class="readMore">{{$testimonial->quote}}</td>
                                         <td>
-                                            <a href="{{route('admin.testimonial.edit',$testimonial->id)}}"><i class="fas fa-edit text-primary"></i></a> | <a href="javascript:void(0)" class="deleteTestimonial text-danger" data-id="{{$testimonial->id}}"><i class="fas fa-trash-alt text-danger"></i></a>
+                                            <a href="{{route('admin.testimonial.edit',$testimonial->id)}}"><i class="fas fa-edit"></i></a><a href="javascript:void(0)" class="deleteTestimonial" data-id="{{$testimonial->id}}"><i class="fas fa-trash-alt"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

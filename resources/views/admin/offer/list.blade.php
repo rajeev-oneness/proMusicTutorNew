@@ -68,7 +68,7 @@
                                             </ol>
                                         </td>
                                         <td>
-                                            <a href="{{route('admin.offer.edit', $offer->id)}}"><i class="fas fa-edit text-primary"></i></a> | <a href="javascript:void(0)" class="text-danger seriesDelete" data-id="{{$offer->id}}"><i class="fas fa-trash-alt text-danger"></i></a>
+                                            <a href="{{route('admin.offer.edit', $offer->id)}}"><i class="fas fa-edit"></i></a>  <a href="javascript:void(0)" class="seriesDelete" data-id="{{$offer->id}}"><i class="fas fa-trash-alt"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

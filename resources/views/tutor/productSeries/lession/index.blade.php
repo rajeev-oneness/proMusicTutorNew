@@ -6,11 +6,13 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="mb-0">{{ucwords($instrument->name)}} Lession List ({{$productSeries->title}})
-                            <a class="headerbuttonforAdd" href="{{route('tutor.product.series.list',[$instrument->id])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
-                            <a class="headerbuttonforAdd" href="{{route('tutor.product.series.lession.create',[$instrument->id,$productSeries->id])}}">
-                                <i class="fa fa-plus" aria-hidden="true"></i>Add Lession
-                            </a>
+                        <h5 class="mb-0 button-h5">{{ucwords($instrument->name)}} Lession List ({{$productSeries->title}})
+                            <div class="button-container">
+                                <a class="headerbuttonforAdd ml-1" href="{{route('tutor.product.series.list',[$instrument->id])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                                <a class="headerbuttonforAdd ml-1" href="{{route('tutor.product.series.lession.create',[$instrument->id,$productSeries->id])}}">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>Add Lession
+                                </a>
+                            </div>
                         </h5>
                     </div>
                     <div class="card-body">
@@ -37,7 +39,7 @@
                                             <td class="small">{{$lession->title}}</td>
                                             <td class="small">$ {{$lession->price_usd}}</td>
                                             <td class="small">{{ucwords($lession->difficulty)}}</td>
-                                            <td class="small">{!! words($lession->description,50) !!}</td>
+                                            <td class="small readMore">{!! words($lession->description,50) !!}</td>
                                             <td>
                                                 @if ($lession->preview_video)
                                                 <video height="100" controls>
@@ -52,7 +54,7 @@
                                                 </video>
                                                 @endif
                                             </td>
-                                            <td><a href="{{route('tutor.product.series.lession.edit',[$instrument->id,$productSeries->id,$lession->id])}}" class="small">Edit</a> | <a href="javascript:void(0)" class="text-danger seriesLessionDelete small" data-id="{{$lession->id}}">Delete</a></td>
+                                            <td><a href="{{route('tutor.product.series.lession.edit',[$instrument->id,$productSeries->id,$lession->id])}}" class="small"><i class="fas fa-edit"></i></a> <a href="javascript:void(0)" class="text-danger seriesLessionDelete small" data-id="{{$lession->id}}"><i class="fas fa-trash-alt"></i></a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
