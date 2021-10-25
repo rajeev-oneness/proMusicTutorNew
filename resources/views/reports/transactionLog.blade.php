@@ -11,9 +11,9 @@
                 </div>
                 <div class="card-body">
                     <p>
-                        <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-filter"></i> Filter</button>
+                        <button class="headerbuttonforAdd d-block mb-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-filter"></i> Filter</button>
                     </p>
-                    <div class="collapse show" id="collapseExample">
+                    <div class="collapse hide" id="collapseExample">
                     {{-- <div class="collapse {{(isset($req->teacherId) || isset($req->seriesId) || isset($req->lessionId)) ? 'show' : ''}}" id="collapseExample"> --}}
                         <div class="card card-body px-0 py-2 border-0 shadow-none">
                             <form class="form-inline" method="post" action="{{route('admin.report.transaction')}}">

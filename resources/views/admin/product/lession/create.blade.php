@@ -19,21 +19,17 @@
                         <input type="hidden" name="productSeriesId" value="{{$productSeries->id}}">
                         @error('productSeriesId')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="image" class="col-form-label">Image:</label>
                                 <input type="file" class="form-control form-control-sm @error('image') is-invalid @enderror" id="image" name="image" value="{{old('image')}}">
                                 @error('image')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
-
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="title" class="col-form-label">Title:</label>
                                 <input type="text" class="form-control form-control-sm @error('title') is-invalid @enderror" id="title" name="title" placeholder="Lession Title" value="{{old('title')}}">
                                 @error('title')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="difficulty" class="col-form-label">Difficulty:</label>
                                 <select class="form-control form-control-sm @error('difficulty') is-invalid @enderror" name="difficulty" id="difficulty">
                                     <option value="" hidden="" selected="">Select Difficulty</option>
@@ -43,51 +39,36 @@
                                 </select>
                                 @error('difficulty')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
-                        </div>
-
-                        <div class="row">
                             <div class="form-group col-md-4">
                                 <label for="price_usd" class="col-form-label">USD:</label>
                                 <input type="text" class="form-control form-control-sm @error('price_usd') is-invalid @enderror" id="price_usd" name="price_usd" placeholder="Price in USD" value="{{old('price_usd')}}" onkeypress="return isNumberKey(event);" maxlength="7">
                                 @error('price_usd')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
-
                             <div class="form-group col-md-4">
                                 <label for="price_euro" class="col-form-label">EURO:</label>
                                 <input type="text" class="form-control form-control-sm @error('price_euro') is-invalid @enderror" id="price_euro" name="price_euro" placeholder="Price in EURO" value="{{old('price_euro')}}" onkeypress="return isNumberKey(event);" maxlength="7">
                                 @error('price_euro')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
-
                             <div class="form-group col-md-4">
                                 <label for="price_gbp" class="col-form-label">GBP:</label>
                                 <input type="text" class="form-control form-control-sm @error('price_gbp') is-invalid @enderror" id="price_gbp" name="price_gbp" placeholder="Price in GBP" value="{{old('price_gbp')}}" onkeypress="return isNumberKey(event);" maxlength="7">
                                 @error('price_gbp')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="preview_video" class="col-form-label">Preview video:</label>
                                 <input type="file" class="form-control form-control-sm @error('preview_video') is-invalid @enderror" id="preview_video" name="preview_video" value="{{old('preview_video')}}">
                                 @error('preview_video')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
-
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="video" class="col-form-label">Video:</label>
                                 <input type="file" class="form-control form-control-sm @error('video') is-invalid @enderror" id="video" name="video_url" value="{{old('video')}}">
                                 @error('video_url')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-4">
                                 <label for="keywords" class="col-form-label">Keywords:</label>
                                 <input type="text" class="form-control form-control-sm @error('keywords') is-invalid @enderror" id="keywords" name="keywords" placeholder="PROVIDE A COMMA-SEPARATED LIST OF KEYWORDS" value="{{old('keywords')}}">
                                 @error('keywords')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
-                        </div>
-
-                        <div class="row">
                             <div class="form-group col-md-4">
                                 <label for="genre" class="col-form-label">Genre:</label>
                                 <select class="form-control form-control-sm @error('genre') is-invalid @enderror" name="genre" id="genre">
@@ -98,13 +79,11 @@
                                 </select>
                                 @error('genre')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
-
                             <div class="form-group col-md-4">
                                 <label for="item_clean_url" class="col-form-label">Item clean URL:</label>
                                 <input type="text" class="form-control form-control-sm @error('item_clean_url') is-invalid @enderror" id="item_clean_url" name="item_clean_url" placeholder="Item clean URL" value="{{old('item_clean_url')}}">
                                 @error('item_clean_url')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
-
                             <div class="form-group col-md-4">
                                 <label for="product_code" class="col-form-label">Product code:</label>
                                 <input type="text" class="form-control form-control-sm @error('product_code') is-invalid @enderror" id="product_code" name="product_code" placeholder="Product code" value="{{old('product_code')}}">

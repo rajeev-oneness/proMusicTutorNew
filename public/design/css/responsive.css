@@ -84,6 +84,9 @@
 
 }
 @media (max-width: 640px){
+   .header-nav{
+      justify-content: space-between;
+    }
   .testitext {
       position: relative;
       padding: 10px !important;
@@ -145,6 +148,38 @@
    
 }
 @media (max-width: 860px) {
+   .filter-flex{
+      flex-direction: column !important;
+   }
+   .filter-flex .form-group{
+      margin: 10px 0px;
+   }
+   .filter-flex .form-group:last-child{
+      justify-content: flex-end !important;
+   }
+   .filter-flex .form-group:last-child button{
+      margin-right: 5px;
+   }
+   .filter_section{
+      justify-content: space-between !important;
+      margin: 10px 0px !important;
+   }
+   .filter_section button{
+      margin-right: 5px;
+   }
+   .newsletter .form-group{
+      justify-content: center;
+   }
+   .form-inline{
+      justify-content: flex-start !important;
+   }
+   .signup-form .form-group{
+      flex-direction: column;
+   }
+   .signup-form .form-group label .btn-link{
+      padding-left: 0px;
+      font-size: 14px;
+   }
    .navbar-light .navbar-nav .signup-bg {
       padding: 12px;
       width: inherit;
@@ -166,9 +201,9 @@
       display: block !important;
       padding-top: 10px;
   }
-  .navbar-nav{
+  /* .navbar-nav{
      justify-content: center !important;
-  }
+  } */
   .navbar{
      padding: 0px;
   }

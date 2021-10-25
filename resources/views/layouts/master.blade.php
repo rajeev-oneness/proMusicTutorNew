@@ -4,9 +4,9 @@
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>{{config('app.name', 'Pro Music Tutor')}} - @yield('title')</title>
+	<title>{{config('app.name', 'Pro usic Tutor')}} - @yield('title')</title>
     <link rel="icon" href="{{asset('design/img/logo.png')}}" type="image/gif" sizes="any">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="{{asset('design/css/bootstrap.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('design/css/owl.carousel.min.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('design/css/owl.theme.default.min.css')}}">
@@ -103,6 +103,7 @@
     <script type="text/javascript" src="{{asset('design/js/jquery-3.6.0.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('design/js/popper.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('design/js/bootstrap.min.js')}}"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/js/all.min.js"></script>
 	<script type="text/javascript" src="{{asset('design/js/owl.carousel.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('design/js/aos.js')}}"></script>
 	<script type="text/javascript" src="{{asset('design/js/custom.js')}}"></script>
@@ -147,12 +148,17 @@
         // strpe payment gateway starts
         var stripePrice = 0,redirectURL = '',currencyToPayment = '';
         function stripePaymentStart(price,redirectionURL, currency = 'usd'){
-            stripePrice = price;redirectURL = redirectionURL,currencyToPayment = (currency ?? 'usd');
-            $('.currencySymbolToPay').text(currencySymbol(currency));
-            $('.amountToPay').text(price);
-            $('#stripePaymentModal').modal('show');
+            if(parseInt(price) < 1){
+                alert('Price must be at least '+ currencySymbol(currency) +' 1')
+            }else{
+                stripePrice = price;redirectURL = redirectionURL,currencyToPayment = (currency ?? 'usd');
+                $('.currencySymbolToPay').text(currencySymbol(currency));
+                $('.amountToPay').text(price);
+                $('#stripePaymentModal').modal('show');
+            }
             // console.log(stripePrice+' => '+redirectURL);
         }
+        
         @error('stripePaymentGateway')
             $('#stripePaymentModal').modal('show');
         @enderror
@@ -248,7 +254,8 @@
             $('#videoModal .modal-body').empty();
         });
 
-        function addOrRemoveUserProductCart(userId,productType,productId,action,currency = 'usd',cartId = '',userClickObject=''){
+        var itemCountForCart = @auth'{{count($user->cart_info)}}'@else{{('0')}}@endauth;
+        function addOrRemoveUserProductCart(userId,productType,productId,action,currency = 'usd',userClickObject='',cartId = ''){
             $('.loading-data').show();
             $.ajax({
                 url : "{{route('user.cartinfo.add_or_remove')}}",
@@ -261,11 +268,17 @@
                     currency : currency, cartId : cartId
                 },
                 success:function(response){
+                    console.log(response);
                     if(response.error == false){
-                        if(action == 'remove'){
-                            userClickObject.closest('.userCartInfo').remove();
+                        if(action == 'add'){
+                            itemCountForCart = parseInt(itemCountForCart) + parseInt(response.data.countToAddOrRemove);
+                        }
+                        else if(action == 'remove'){
+                            window.location.href="";
+                            // userClickObject.closest('.userCartInfo').remove();
                         }
                     }
+                    $('#itemCountForCart').text(itemCountForCart);
                     $('.loading-data').hide();
                 }
             });

@@ -433,7 +433,7 @@ class DefaultController extends Controller
     {
         $user = auth()->user();
         $data = [];
-        $userPurchase = UserProductLessionPurchase::where('userId',$user->id)->groupBy('transactionId')->latest()->get();
+        /*$userPurchase = UserProductLessionPurchase::where('userId',$user->id)->groupBy(['transactionId','type_of_product'])->latest()->get();
         foreach($userPurchase as $key => $purchase){
             $purchaseType = $purchase->type_of_product;$offer = [];$series = [];$lession = [];
             if($purchaseType == 'offer'){
@@ -456,7 +456,23 @@ class DefaultController extends Controller
                 'lession' => $lession,
             ];
         }
-        return view('auth.user.productLessionPurchaseList', compact('user','data'));
+        return view('auth.user.productLessionPurchaseList', compact('user','data'));*/
+
+        $userPurchase = UserProductLessionPurchase::where('userId',$user->id)->groupBy(['transactionId'])->latest()->paginate(10);
+        foreach ($userPurchase as $key => $userTrasaction) {
+
+            $offers = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$userTrasaction->transactionId)->where('type_of_product','offer')->groupBy('offerId')->get();
+            $series = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$userTrasaction->transactionId)->where('type_of_product','series')->groupBy('productSeriesId')->get();
+            $lessions = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$userTrasaction->transactionId)->where('type_of_product','lession')->groupBy('productSeriesLessionId')->get();
+            $data[] = [
+                'transaction' => $userTrasaction->transaction,
+                'offers' => $offers,
+                'series' => $series,
+                'lession' => $lessions,
+            ];
+        }
+        return view('auth.user.productLessionPurchaseList', compact('user','data','userPurchase'));
+
     }
 
     // Explote Tutor

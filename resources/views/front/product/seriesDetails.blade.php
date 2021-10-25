@@ -32,6 +32,9 @@
                                 <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                             @else
                                 <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
+
+                                <!-- Add To Cart -->
+                                <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','series','{{$data->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
                             @endif
                         @endguest
 
@@ -82,7 +85,7 @@
     @if(count($lessions) > 0)
         <section class="pt-5 pb-5 mb-5 bg-light">
             <div class="container">
-                <div class="row mb-5">
+                <div class="row mb-5 align-items-center">
                     <div class="col-md-6">
                         <div class="d-flex">
                             <h5 class="pt-2">LESSONS</h5>
@@ -93,32 +96,35 @@
                                     <a href="javascript:void(0)" class="purchased-Full ml-3 ml-md-5">Already Purchased</a>
                                 @else
                                     <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
+
+                                    <!-- Add To Cart -->
+                                    <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','series','{{$data->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
                                 @endif
                             @endguest
                         </div>
                     </div>
-                    <div class="col-6 text-right pt-2">
+                    <div class="col-md-6 text-right pt-2 filter_section">
                         <!-- Filter -->
                         <form method="post" action="{{route('product.series.details',$data->id)}}" class="form-inline justify-content-end">
                             @csrf
-                            <div class="mr-3">
+                            <div class="mr-1">
                                 <select class="form-control form-control-sm" name="currency">
-                                    <option value="" selected="" hidden="">Price</option>
+                                    <option value="" selected="" disabled>Currency</option>
                                     <option selected value="usd">$ USD</option>
                                     <option {{($req->currency == 'eur') ? 'selected' : ''}} value="eur">€ EUR</option>
                                     <option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
                                 </select>
                             </div>
-                            <div class="mr-3">
+                            <div class="mr-1">
                                 <select class="form-control form-control-sm" name="difficulty">
-                                    <option value="" selected="" hidden="">Difficulty</option>
+                                    <option value="" selected="" disabled>Difficulty</option>
                                     <option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
                                     <option {{($req->difficulty == 'Medium') ? 'selected' : ''}} value="Medium">Medium</option>
                                     <option {{($req->difficulty == 'Hard') ? 'selected' : ''}} value="Hard">Hard</option>
                                 </select>
                             </div>
-                            <button type="submit" name="" class="btn btn-sm btn-primary mr-3">Apply</button>
-                            <a href="{{route('product.series.details',$data->id)}}" class="btn btn-sm btn-light border">Reset</a>
+                            <button type="submit" name="" class="btn buyfull">Apply</button>
+                            <a href="{{route('product.series.details',$data->id)}}" class="btn detail">Reset</a>
                         </form>
                         <!-- Filter end -->
                     </div>
@@ -161,6 +167,9 @@
                                                     <a href="javascript:void(0)" class="purchased-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->video)}}', '{{$less->title}}')" id="watch_id{{$less->id}}">Watch <i class="fa fa-play ml-2"></i> </a>
                                                 @else
                                                     <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$display_lessionPrice}}','{{route('after.purchase.guitar_lession_series',$less->id)}}', '{{$data->currency}}');">Buy Now - {{currencySymbol($data->currency)}} {{$display_lessionPrice}}</a>
+
+                                                    <!-- Add To Cart -->
+                                                    <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','lession','{{$less->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
                                                 @endif
                                             @endguest
                                         </div>
@@ -202,6 +211,8 @@
                                             <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
                                         @else
                                             <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$otherSeries->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
+                                            <!-- Add To Cart -->
+                                            <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','series','{{$otherSeries->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
                                         @endif
                                     @endif
                                 </div>

@@ -15,16 +15,14 @@
                     <form method="post" action="{{route('admin.offer.update', $offer->id)}}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <div class="col-12">
+                            <div class="form-group col-md-4 image-upload-wrapper">
                                 <img src="{{asset($offer->image)}}" alt="offer-image" height="100">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="image" class="col-form-label">Image:</label>
                                 <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
+                                <button><i class="fas fa-pencil-alt"></i></button>
                                 @error('image')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="title" class="col-form-label">Title:</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Title" value="{{(old('title') ?? $offer->title)}}">
                                 @error('title')<span class="text-danger" role="alert">{{$message}}</span>@enderror
@@ -48,13 +46,13 @@
                                 @error('price_eur')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-4">
                                 <label for="description" class="col-form-label">Description:</label>
                                 <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Description">{{(old('description') ?? $offer->description)}}</textarea>
                                 @error('description')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-4">
                                 <label for="offer_description" class="col-form-label">Offer description:</label>
                                 <textarea class="form-control @error('offer_description') is-invalid @enderror" id="offer_description" name="offer_description" placeholder="Offer description">{{(old('offer_description') ?? $offer->offer_description)}}</textarea>
                                 @error('offer_description')<span class="text-danger" role="alert">{{$message}}</span>@enderror

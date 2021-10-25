@@ -6,10 +6,11 @@
                 <p class="navbar-nav w-75 justify-content-center d-md-block d-none text-center nav-text">
                     All downloads available in <span>FULL HD </span>or <span>stream</span>
                 </p>
-                <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+                <ul class="nav navbar-nav ml-auto w-100 header-nav">
                     <!-- <li class="nav-item">
                         <a class="nav-link search-icon" href="javascript:void(0)"><img src="{{asset('design/img/search_icon.png')}}"></a>
                     </li> -->
+                    <div class="d-flex">
                     @guest
                         @if(Route::has('register'))
                             <li class="nav-item">
@@ -27,9 +28,11 @@
                         </li>
                         <li class="nav-item position-relative">
                             <a class="nav-link signup-bg {{ Route::currentRouteName() == 'user.cart.info' ? 'bg-orange' : '' }}" href="{{route('user.cart.info')}}"><img src="{{asset('design/img/cart_icon.png')}}"></a>
-                            <div class="cart-count">{{count($user->cart_info)}}</div>
+                            <div class="cart-count itemCountForCart" id="itemCountForCart">{{count($user->cart_info)}}</div>
                         </li>
                     @endauth
+                    </div>
+                    <div>
                     <li class="nav-item">
                         <a class="nav-link search-icon" id="slide" href="javascript:void(0)"><img src="{{asset('design/img/menu_icon.png')}}"> <span class="pl-2">Menu</span></a>
                         <div class="hidden">
@@ -70,6 +73,7 @@
                             </div>
                         </div>
                     </li>
+                    </div>
                 </ul>
             </div>
         </nav>

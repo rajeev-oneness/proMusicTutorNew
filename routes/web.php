@@ -68,7 +68,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('after/purchase/subscription/{subscriptionId}', [DefaultController::class, 'afterPaymentSubscription'])->name('after.purchase.subscribe');
 	Route::get('subscription/purchase/successfull', [DefaultController::class, 'thankyouSubscriptionPurchase'])->name('subscription.purchase.thankyou');
 
-	// guitar Series Purchase
+	// Series Purchase
 	Route::get('after/purchase/product/series/{seriesId}', [DefaultController::class, 'afterPaymentProductSeries'])->name('after.purchase.guitar_series');
 	Route::get('product/series/purchase/successfull', [DefaultController::class, 'thankyouProductSeries'])->name('product.series.purchase.thankyou');
 
@@ -76,9 +76,13 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('after/purchase/offer/{offerId}/series', [DefaultController::class, 'afterPaymentOfferSeries'])->name('after.purchase.offer_series');
 	Route::get('offer/series/purchase/successfull', [DefaultController::class, 'thankyouOfferSeries'])->name('offer.series.purchase.thankyou');
 
-	// Guitar Lession Purchase
+	// Lession Purchase
 	Route::get('after/purchase/guitar/series/lession/{lessionId}', [DefaultController::class, 'afterPaymentGuitarSeriesLession'])->name('after.purchase.guitar_lession_series');
 
+	// Purchase From Cart
+	Route::get('after/checkout/from/cart/{cartinfo}', [CartController::class, 'afterPaymentCartCheckout'])->name('after.checkout.from_cart');
+	Route::get('user/cart/purchase/success/{cartinfo}',[CartController::class,'thankyouCartPurchase'])->name('cart.purchase.thankyou');
+	
 	Route::get('user/subscription', [DefaultController::class, 'userSubscription'])->name('user.subscription');
 	Route::get('user/instrument/lession', [DefaultController::class, 'userProductLessionPurchaseList'])->name('user.instrument.lession');
 	// Razorpay Payment Route
@@ -86,6 +90,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('user/cart-info',[CartController::class,'getUserCart'])->name('user.cart.info');
 	Route::post('user/cart-info/add_or_remove',[CartController::class,'addOrRemoveCartProduct'])->name('user.cartinfo.add_or_remove');
+	Route::post('user/cart-info/update_to_same_currency',[CartController::class,'convertCartToSameCurrency'])->name('user.cartinfo.change_to_same_currency');
 });
 
 // Stripe Payment Route

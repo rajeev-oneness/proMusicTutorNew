@@ -12,13 +12,13 @@
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{route('admin.testimonial.save')}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('admin.testimonial.save')}}" enctype="multipart/form-data" class="row">
                         @csrf
-                        <div class="form-group">
+                        <div class="form-group col-lg-6">
                             <label for="image" class="col-form-label">Image:</label>
                             <input type="file" class="form-control" id="image" name="image" value="{{old('image')}}">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-lg-6">
                             <label for="name" class="col-form-label">Name:</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Your name" value="{{old('name')}}">
                             @error('name')
@@ -27,7 +27,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-lg-6">
                             <label for="address" class="col-form-label">Address:</label>
                             <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" name="address" placeholder="Address" value="{{old('address')}}">
                             @error('address')
@@ -36,7 +36,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-lg-6">
                             <label for="quotation" class="col-form-label">Quotation:</label>
                             <textarea class="form-control @error('quote') is-invalid @enderror" id="quotation" name="quote" placeholder="your Quotation">{{old('quote')}}</textarea>
                             @error('quote')
@@ -45,8 +45,8 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Create</button>
+                        <div class="form-group col-lg-12">
+                            <button type="submit" class="headerbuttonforAdd">Create</button>
                         </div>
                     </form>
                 </div>

@@ -51,4 +51,9 @@ class UserProductLessionPurchase extends Model
     {
         return $this->belongsTo('App\Models\User', 'userId', 'id')->withTrashed();
     }
+
+    public function offers_details_all()
+    {
+        return $this->belongsTo('App\Models\Offer','offerId','id')->withTrashed();
+    }
 }

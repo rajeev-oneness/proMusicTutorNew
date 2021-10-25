@@ -170,6 +170,18 @@ function userLessionPurchased($lession_data = [])
 	return $return;
 }
 
+function getPurchasedLessionUnderSeries($seriesInfo){
+	$lession =  \App\Models\UserProductLessionPurchase::where('userId', $seriesInfo->userId)->where('productSeriesId', $seriesInfo->productSeriesId)->where('transactionId', $seriesInfo->transactionId)->where('type_of_product',$seriesInfo->type_of_product);
+	$lession = $lession->where('offerId',$seriesInfo->offerId);
+	$lession = $lession->get();
+	return $lession;
+}
+
+function getPurchaseSeriesUnderOffer($offer)
+{
+	return \App\Models\UserProductLessionPurchase::where('userId', $offer->userId)->where('offerId', $offer->offerId)->where('transactionId', $offer->transactionId)->where('type_of_product','offer')->groupBy('productSeriesId')->get();
+}
+
 function currencySymbol($type = '')
 {
 	$view = '$';

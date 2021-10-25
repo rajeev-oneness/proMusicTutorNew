@@ -19,30 +19,29 @@
                             <span class="text-danger" role="alert">{{ $message }}</span>
                         @enderror
                         <div class="row">
-                            <img src="{{$policy->image}}" height="250" width="250">
-                            <div class="form-group">
-                                <label for="image" class="col-form-label">Change Image:</label>
-                                <input type="file" name="image">
+                            <div class="form-group image-upload-wrapper col-lg-6">
+                                <img src="{{asset($policy->image)}}" height="auto" width="250">
+                                <input type="file" name="image" class="form-control">
+                                <button><i class="fas fa-pencil-alt"></i></button>
                             </div>    
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="heading" class="col-form-label">Heading:</label>
-                            <input type="text" class="form-control @error('heading') is-invalid @enderror" id="heading" name="heading" placeholder="Heading" value="@if(old('heading')){{old('heading')}}@else{{$policy->heading}}@endif">
-                            @error('heading')
-                                <span class="text-danger" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="heading" class="col-form-label">Heading:</label>
+                                <input type="text" class="form-control @error('heading') is-invalid @enderror" id="heading" name="heading" placeholder="Heading" value="@if(old('heading')){{old('heading')}}@else{{$policy->heading}}@endif">
+                                @error('heading')
+                                    <span class="text-danger" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
 
-                        <div class="form-group">
-                            <label for="description" class="col-form-label">Description:</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Description">@if(old('description')){{old('description')}}@else{{$policy->description}}@endif</textarea>
-                            @error('description')
-                                <span class="text-danger" role="alert">{{ $message }}</span>
-                            @enderror
+                            <div class="form-group">
+                                <label for="description" class="col-form-label">Description:</label>
+                                <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" placeholder="Description">@if(old('description')){{old('description')}}@else{{$policy->description}}@endif</textarea>
+                                @error('description')
+                                    <span class="text-danger" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
+                        <div class="form-group col-lg-12">
                             <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>

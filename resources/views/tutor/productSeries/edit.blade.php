@@ -18,15 +18,14 @@
                         @error('productSeriesId')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                         @csrf
                         <div class="row">
-                            <div class="form-group col-md-6">
-                                <img src="{{asset($productSeries->image)}}" height="200" width="250">
-                                <br>
-                                <label for="image" class="col-form-label">Image:</label>
+                            <div class="form-group col-md-6 image-upload-wrapper">
+                                <img src="{{asset($productSeries->image)}}" height="200" width="250">                             
                                 <input type="file" class="form-control form-control-sm @error('image') is-invalid @enderror" id="image" name="image">
+                                <button><i class="fas fa-pencil-alt"></i></button>
                                 @error('image')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
 
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-5 image-upload-wrapper ml-3">
                                 @if ($productSeries->video_url)
                                 <video height="200" muted controls>
                                     <source src="{{asset($productSeries->video_url)}}">
@@ -35,8 +34,8 @@
                                 <p class="text-danger">No video uploaded</p>
                                 @endif
                                 <br>
-                                <label for="media_link" class="col-form-label">Preview video:</label>
                                 <input type="file" class="form-control form-control-sm @error('media_link') is-invalid @enderror" id="media_link" name="media_link" value="">
+                                <button><i class="fas fa-pencil-alt"></i></button>
                                 @error('media_link')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
                         </div>

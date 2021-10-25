@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <div class="row mb-4">
                         <div class="col-12">
-                            <p class="text-muted mb-3">Welcome to the Dashboard</p>
+                            <p class="welcome-text mb-3">Welcome to the Dashboard</p>
                         </div>
                         <div class="col-md-3 dash-card-col">
                             <a href="{{route('admin.master.instrument.list')}}">

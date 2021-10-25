@@ -27,9 +27,9 @@
                             	@foreach($category as $key => $cat)
                             		<tr>
                                         <td>{{$cat->instrument->name}}</td>
-                            			<td><img src="{{asset($cat->image)}}" height="200" width="200"></td>
+                            			<td><img src="{{asset($cat->image)}}" height="auto" width="100"></td>
                             			<td>{{$cat->name}}</td>
-                            			<td><a href="{{route('admin.master.category.edit',$cat->id)}}">Edit</a> | <a href="javascript:void(0)" class="text-danger categoryDelete" data-id="{{$cat->id}}">Delete</a></td>
+                            			<td><a href="{{route('admin.master.category.edit',$cat->id)}}"><i class="fas fa-edit text-primary"></i></a> | <a href="javascript:void(0)" class="text-danger categoryDelete" data-id="{{$cat->id}}"><i class="fas fa-trash-alt text-danger"></i></a></td>
                             		</tr>
                             	@endforeach
                             </tbody>

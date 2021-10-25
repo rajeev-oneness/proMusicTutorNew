@@ -113,6 +113,16 @@ button:focus {
   outline: 0;
   box-shadow: inherit;
 }
+.filter_section .form-control{
+    border-radius: 0;
+    background: #ffffff;
+    border-color: #d7d7d7 !important;
+    font-weight: 500;
+    color: #6e6e6e;
+    font-size: 13px;
+    font-weight: 400;
+    height: 38px;
+}
 .rg-height230{
   height:230px;
 }
@@ -121,6 +131,9 @@ button:focus {
 }
 
 /*-------------header--------------*/
+.header-nav{
+  justify-content: flex-end;
+}
 
 .navbar-light .navbar-nav .nav-link {
   color: #ffffff !important;
@@ -360,7 +373,10 @@ footer{
   line-height: 25px;
   margin-bottom: 45px;
 }
-
+.card-img{
+    object-fit: cover;
+    height: 100%;
+}
 /*--------------My Teams--------------*/
 
 .my_teams h1{
@@ -1769,14 +1785,12 @@ footer{
 /**************** Thank You   *********************/
 .thank-you 
 {
-  background: url('../img/thank-you-image.jpg') no-repeat center;
-  background-size: cover;
-  padding: 150px 0;
+  padding: 70px 0;
 }
-.thamk-youmiddle {
+/*.thamk-youmiddle {
     width: 670px;
     margin: 0 auto;
-}
+}*/
 .area-thank h2  
 {
   font-size: 90px;
@@ -1785,10 +1799,11 @@ footer{
   line-height: 1;
 }
 .area-thank h3 {
-    font-size: 68px;
+    font-size: 37px;
     color: #161e1e;
     font-weight: 400;
-    line-height: 1;
+    line-height: 36px;
+    margin: 15px 0;
 }
 .area-thank h3 span 
 {
@@ -1798,7 +1813,7 @@ footer{
 .area-thank  
 {
   padding-left: 20px;
-  border-left: 5px solid #f43600;
+  /*border-left: 5px solid #f43600;*/
   margin: 40px 0;
 }
 .client-pic {
@@ -1825,7 +1840,31 @@ footer{
     padding-left: 15px;
 }
 
-
+.area-thank ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.area-thank ul li{
+    font-size: 15px;
+    line-height: 28px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+.area-thank ul li span{
+    font-weight: 400;
+    margin-left: 8px;
+    color: #ff5524;
+}
+.area-thank ul li a{
+    width: 160px;
+    background: #f43600;
+    color: #fff;
+    display: block;
+    text-align: center;
+    padding: 6px 0;
+    margin-top: 30px;
+}
 /*==============10/09/2021===============*/
 
 .tutor-list .item .card .card-text {
@@ -2179,4 +2218,48 @@ footer{
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: sans-serif !important;
+}
+
+/*Cart proceed to pay design*/
+.billing-card{
+  width: 300px;
+    border: 1px solid;
+    padding: 20px;
+}
+.billing-card h6{
+  color: #222;
+}
+.billing-card input{
+  width: 50%;
+    border: none;
+    text-align: right;
+}
+.form-group{
+  display: flex;
+  justify-content: space-between;
+}
+.input-group{
+    border: 1px solid;
+  justify-content: space-between;
+}
+.input-group input{
+  width: 70%;
+}
+.input-group input::placeholder{
+  color: #525252;
+  font-size: 12px;
+  text-align: center;
+  vertical-align: middle;
+}
+.btn-apply{
+  padding: 5px 10px;
+    background: #41ab41;
+    border: none;
+    font-size: 14px;
+    color: #fff;
+}
+
+.filter_section .detail{
+    padding:8px 20px;
+    height: 39px;
 }

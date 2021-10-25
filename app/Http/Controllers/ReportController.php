@@ -18,7 +18,7 @@ class ReportController extends Controller
         if (!empty($req->lessionId)) {
             $userPurchase = $userPurchase->where('productSeriesLessionId', $req->lessionId);
         }
-        $userPurchase = $userPurchase->groupBy('transactionId')->latest()->paginate(20);
+        $userPurchase = $userPurchase->groupBy(['transactionId','type_of_product'])->latest()->paginate(20);
         foreach($userPurchase as $key => $purchase){
             $offer = (object)[];$series = (object)[];$lession = (object)[];
             if($purchase->type_of_product == 'offer'){
