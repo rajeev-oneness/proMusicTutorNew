@@ -15,24 +15,10 @@
                         <h5 class="mb-0">Instrument Product Series</h5><br>
                         <div class="row m-0">
                             @foreach($data->instrument as $key => $instrument)
-                                {{-- <div class="col-12 col-md-3 mb-3">
-                                    <div class="card shadow-sm border-0">
-                                       <div class="card-body">
-                                            <a href="#" class="gpcVCf">
-                                                <div class="icon-sec w-25">
-                                                    <img src="{{asset($instrument->image)}}" height="50" width="50">
-                                                </div>
-                                                <div class="text-sec">
-                                                    <h3>0 <span>Total {{$instrument->name}}</span></h3>
-                                                </div>
-                                            </a>
-                                       </div>
-                                    </div>
-                                </div> --}}
                                 <div class="col-md-3 dash-card-col">
                                     <a href="{{route('tutor.product.series.list',[$instrument->id,'instrument='.$instrument->name])}}">
                                         <div class="card card-body mb-0" style="background-image: url({{asset($instrument->image)}})">
-                                            <h5 class="mb-2">{{$instrument->name}}</h5>
+                                            <h5 class="mb-2">{{$instrument->name}} ({{count($instrument->product)}})</h5>
                                             <p class="small mb-0">
                                                 View series' list
                                             </p>

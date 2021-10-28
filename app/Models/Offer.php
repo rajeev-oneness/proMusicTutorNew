@@ -14,4 +14,9 @@ class Offer extends Model
     {
         return $this->hasMany('App\Models\OfferSeries', 'offer_id', 'id');
     }
+
+    public function author()
+    {
+        return $this->belongsTo('App\Models\User','createdBy','id')->withTrashed();
+    }
 }

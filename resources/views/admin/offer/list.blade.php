@@ -23,6 +23,7 @@
                                     <th>Price</th>
                                     <th>Description</th>
                                     <th>Series</th>
+                                    <th>Author</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -32,18 +33,15 @@
                                         <td>{{$key + 1}}</td>
                                         <td><img src="{{asset($offer->image)}}" height="100"></td>
                                         <td>{{$offer->title}}</td>
-                                        <td>
+                                        <td style="width: 100px;">
                                             <p class="small mb-0 text-muted">
-                                                GBP :
-                                                <span class="text-dark">{{ $offer->price_gbp }}</span>
+                                                GBP :<span class="text-dark">{{ $offer->price_gbp }}</span>
                                             </p>
                                             <p class="small mb-0 text-muted">
-                                                USD :
-                                                <span class="text-dark">{{ $offer->price_usd }}</span>
+                                                USD :<span class="text-dark">{{ $offer->price_usd }}</span>
                                             </p>
                                             <p class="small mb-0 text-muted">
-                                                EUR :
-                                                <span class="text-dark">{{ $offer->price_euro }}</span>
+                                                EUR :<span class="text-dark">{{ $offer->price_euro }}</span>
                                             </p>
                                         </td>
                                         <td class="readMore">
@@ -66,6 +64,18 @@
                                                     </li>
                                                 @endforeach
                                             </ol>
+                                        </td>
+                                        <td>
+                                            @if($author = $offer->author)
+                                                <div class="media mb-3">
+                                                    <div class="media-body">
+                                                        <p class="mt-0 text-muted">{{$author->name}}</p>
+                                                        <p>{{$author->email}}</p>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                {{('N/A')}}
+                                            @endif
                                         </td>
                                         <td>
                                             <a href="{{route('admin.offer.edit', $offer->id)}}"><i class="fas fa-edit"></i></a>  <a href="javascript:void(0)" class="seriesDelete" data-id="{{$offer->id}}"><i class="fas fa-trash-alt"></i></a>

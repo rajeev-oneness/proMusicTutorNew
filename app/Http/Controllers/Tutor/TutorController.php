@@ -12,8 +12,12 @@ class TutorController extends Controller
 {
     public function dashboard(Request $req)
     {
+        $tutor = $req->user();
         $data = (object)[];
         $data->instrument = Instrument::get();
+        foreach ($data->instrument as $key => $instrument) {
+            $instrument->product = ProductSeries::where('instrumentId',$instrument->id)->where('createdBy',$tutor->id)->get();
+        }
         return view('tutor.dashboard',compact('data'));
     }
 
