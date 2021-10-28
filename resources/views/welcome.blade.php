@@ -4,10 +4,11 @@
     <section class="banner">
         <div class="container">
             <div class="row m-0">
-                <div class="col-12 col-md-5">
+                <div class="col-12 col-md-6">
                     <h1>Welcome to <span class="d-block">Pro Music Tutor</span></h1>
                     <p>
-                        Pro Music Tutor offers a range of high definition music tutoring videos and exceptional quality backing tracks. Our instructional videos feature tutors selected for their reputation and talent with the guitar and with the saxophone.
+                    Pro Music Tutor offers a range of high definition music tutoring videos and exceptional quality backing tracks. Our instructional videos feature tutors selected for their reputation and talent with the guitar and with the saxophone. These include individuals such as Micky Moody, a former member of Whitesnake, Andy Sheppard, one of the world’s leading saxophonists, and James Morton, one of the most exciting sax players in the UK.
+                    
                     </p>
                     <!-- <a href="javascript:void(0)" class="btn viewmore">View More</a> -->
                     @if(Route::has('register'))
@@ -39,9 +40,10 @@
                     @endforeach
                     <div class="col-12 col-md-4 position-relative newarival order-first order-md-12 mb-3">
                         <h1 class="text_orange">
-                            <span class="d-block">GET </span>STARTED <span class="d-block">NOW </span>
+                            <span class="">GET </span>STARTED <span class="">NOW </span>
                         </h1>
-                        <h6 class="text-muted mb-4 mt-3 w-50">BY CHOOSING YOUR INSTRUMENT.</h6>
+                        <h6 class="text-muted mb-4 mt-3 w-75">BY CHOOSING YOUR INSTRUMENT.</h6>
+                        <p>Covering a number of genres including rock, funk, and blues, Pro Music Tutor offers the opportunity to learn from experienced professional musicians, through streaming or downloading HD videos in the comfort of their own home, without the cost of hiring a tutor.</p>
                         @if(count($data->instrument) > 2)
                             <a href="{{route('explore.instrument')}}" class="btn viewmore">Explore More</a>
                         @endif

@@ -284,8 +284,8 @@ footer{
   background: url(../img/banner.png) no-repeat;
   background-position: center;
   background-size: cover;
-  height: 590px;
-  padding-top: 160px;
+  min-height: 590px;
+  padding: 100px 0;
 }
 .banner h1{
   font-size: 58px;
@@ -534,6 +534,7 @@ footer{
 .banner-about{
   background: url(../img/banner_about.png) no-repeat;
   background-position: center right;
+  background-size: cover;
 }
 .banner-about h1{
   font-size: 44px !important;
