@@ -118,6 +118,7 @@ class CartController extends Controller
                                             $newLessionPurchase->transactionId = $transaction->id;
                                             $newLessionPurchase->type_of_product = 'offer';
                                             $newLessionPurchase->offerId = $offer->id;
+                                            $newLessionPurchase->authorId = $offer->createdBy;
                                             $newLessionPurchase->save();
                                         }
                                     }
@@ -132,6 +133,7 @@ class CartController extends Controller
                                         $newLessionPurchase->productSeriesLessionId = $lession->id;
                                         $newLessionPurchase->transactionId = $transaction->id;
                                         $newLessionPurchase->type_of_product = 'series';
+                                        $newLessionPurchase->authorId = $productSeries->createdBy;
                                         $newLessionPurchase->save();
                                     }
                                 }
@@ -144,6 +146,7 @@ class CartController extends Controller
                                     $newLessionPurchase->productSeriesLessionId = $productLession->id;
                                     $newLessionPurchase->transactionId = $transaction->id;
                                     $newLessionPurchase->type_of_product = 'lession';
+                                    $newLessionPurchase->authorId = $productLession->createdBy;
                                     $newLessionPurchase->save();
                                 }
                             }

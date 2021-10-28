@@ -9,12 +9,9 @@ use App\Models\ProductSeries, App\Models\SubscriptionPlan;
 use App\Models\Transaction, App\Models\UserSubscription;
 use App\Models\UserProductLessionPurchase, App\Models\ProductSeriesLession;
 use App\Models\Setting, App\Models\UserRating;
-use App\Models\Offer;
-use App\Models\Wishlist;
-use App\Models\OfferSeries;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Models\Offer,App\Models\Wishlist;
+use App\Models\OfferSeries,Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth,DB;
 
 
 class DefaultController extends Controller
@@ -216,6 +213,7 @@ class DefaultController extends Controller
                             $newLessionPurchase->transactionId = $transaction->id;
                             $newLessionPurchase->type_of_product = 'offer';
                             $newLessionPurchase->offerId = $offer->id;
+                            $newLessionPurchase->authorId = $offer->createdBy;
                             $newLessionPurchase->save();
                         }
                     }
@@ -248,15 +246,12 @@ class DefaultController extends Controller
 
     public function browserProductDetails(Request $req, $seriesId)
     {
-        // $data = (object)[];
         $data = ProductSeries::where('id', $seriesId)->first();
-        // $data->currency = 'usd';
         $user = auth()->user();
         if ($data) {
             $data->view_count += 1;
             $data->last_count_increased_at = Carbon::now();
             $data->save();
-
             if (!empty($req->difficulty)) {
                 $data->lession = $data->lession->where('difficulty', $req->difficulty);
             }
@@ -363,6 +358,7 @@ class DefaultController extends Controller
                         $newLessionPurchase->productSeriesLessionId = $lession->id;
                         $newLessionPurchase->transactionId = $transaction->id;
                         $newLessionPurchase->type_of_product = 'series';
+                        $newLessionPurchase->authorId = $productSeries->createdBy;
                         $newLessionPurchase->save();
                     }
                     return redirect(route('product.series.purchase.thankyou') . '?productSeriesId=' . $productSeries->id);
@@ -391,6 +387,7 @@ class DefaultController extends Controller
                     $newLessionPurchase->productSeriesLessionId = $productLession->id;
                     $newLessionPurchase->transactionId = $transaction->id;
                     $newLessionPurchase->type_of_product = 'lession';
+                    $newLessionPurchase->authorId = $productLession->createdBy;
                     $newLessionPurchase->save();
                     return redirect(route('product.series.purchase.thankyou') . '?productSeriesId=' . $productLession->productSeriesId . '&productLessionId=' . $productLession->id);
                 } else {
@@ -460,7 +457,6 @@ class DefaultController extends Controller
 
         $userPurchase = UserProductLessionPurchase::where('userId',$user->id)->groupBy(['transactionId'])->latest()->paginate(10);
         foreach ($userPurchase as $key => $userTrasaction) {
-
             $offers = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$userTrasaction->transactionId)->where('type_of_product','offer')->groupBy('offerId')->get();
             $series = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$userTrasaction->transactionId)->where('type_of_product','series')->groupBy('productSeriesId')->get();
             $lessions = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$userTrasaction->transactionId)->where('type_of_product','lession')->groupBy('productSeriesLessionId')->get();

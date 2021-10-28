@@ -7,6 +7,7 @@ use Illuminate\Http\Request,DB;
 use App\Models\Instrument;
 use App\Models\Offer,App\Models\OfferSeries;
 use App\Models\ProductSeries;
+use App\Models\UserProductLessionPurchase;
 
 class TutorController extends Controller
 {
@@ -18,7 +19,39 @@ class TutorController extends Controller
         foreach ($data->instrument as $key => $instrument) {
             $instrument->product = ProductSeries::where('instrumentId',$instrument->id)->where('createdBy',$tutor->id)->get();
         }
-        return view('tutor.dashboard',compact('data'));
+        $data->offers = Offer::where('createdBy',$tutor->id)->get();
+        /***************** Most Viewed Series ****************/
+        $data->mostViewed = ProductSeries::where('view_count', '>', 0)->where('createdBy',$tutor->id);
+            if (!empty($req->mostViewedInstrumentId)) {
+                $data->mostViewed = $data->mostViewed->where('instrumentId', $req->mostViewedInstrumentId);
+            }
+            if (!empty($req->mostViewedDateFrom)) {
+                $data->mostViewed = $data->mostViewed->where('created_at', '>=', $req->mostViewedDateFrom);
+            }
+            if (!empty($req->mostViewedDateTo)) {
+                $data->mostViewed = $data->mostViewed->where('last_count_increased_at', '<=', date('Y-m-d', strtotime($req->mostViewedDateTo . '+ 1 day')));
+            }
+        $data->mostViewed = $data->mostViewed->orderBy('view_count', 'desc')->paginate(8);
+        /***************** Most Viewed Series End****************/
+        /***************** Transaction Log ****************/
+        $transactionLogData = [];
+        $userPurchaseTransaction = UserProductLessionPurchase::where('authorId',$tutor->id)->groupBy(['transactionId'])->latest()->paginate(8);
+        foreach ($userPurchaseTransaction as $key => $userTrasaction) {
+            $offersTransaction = UserProductLessionPurchase::with('offers_details_all')->where('authorId',$tutor->id)->where('transactionId',$userTrasaction->transactionId)->where('type_of_product','offer')->groupBy('offerId')->get();
+            $seriesTransaction = UserProductLessionPurchase::with('product_series_all')->where('authorId',$tutor->id)->where('transactionId',$userTrasaction->transactionId)->where('type_of_product','series')->groupBy('productSeriesId')->get();
+            $lessionsTransaction = UserProductLessionPurchase::with('product_series_lession_all')->where('authorId',$tutor->id)->where('transactionId',$userTrasaction->transactionId)->where('type_of_product','lession')->groupBy('productSeriesLessionId')->get();
+            $transactionLogData[] = [
+                'transaction' => $userTrasaction->transaction,
+                'offers' => $offersTransaction,
+                'series' => $seriesTransaction,
+                'lession' => $lessionsTransaction,
+                'date' => date('d M, Y',strtotime($userTrasaction->created_at)),
+                'time' => date('h:i:s A',strtotime($userTrasaction->created_at)),
+            ];
+        }
+        $data->transactionLog = $transactionLogData;
+        /***************** Transaction Log End****************/
+        return view('tutor.dashboard',compact('data','req'));
     }
 
     public function offersList(Request $req)
@@ -50,6 +83,7 @@ class TutorController extends Controller
         ]);
         DB::beginTransaction();
         try {
+            $tutor = $req->user();
             $offers = new Offer();
             if ($req->hasFile('image')) {
                 $image = $req->file('image');

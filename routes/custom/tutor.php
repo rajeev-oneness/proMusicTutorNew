@@ -2,7 +2,7 @@
     namespace App\Http\Controllers\Tutor;
     use Illuminate\Support\Facades\Route;
 
-    Route::get('dashboard',[TutorController::class,'dashboard'])->name('home');
+    Route::any('dashboard',[TutorController::class,'dashboard'])->name('home');
 
     // Product Series and Their Lession
     Route::group(['prefix' => 'instrument/{instrumentId}/product/series'],function(){

@@ -62,6 +62,7 @@ class ProductController extends Controller
         ]);
         $instrument = $this->getInstrument($instrumentId);
         if ($instrument) {
+            $tutor = $req->user();
             $newSeries = new ProductSeries();
             $newSeries->instrumentId = $instrument->id;
             $newSeries->categoryId = $req->category;
@@ -126,6 +127,7 @@ class ProductController extends Controller
         ]);
         $instrument = $this->getInstrument($instrumentId);
         if ($instrument) {
+            $tutor = $req->user();
             $updateSeries = ProductSeries::where('id', $seriesId)->first();
             $updateSeries->instrumentId = $instrument->id;
             $updateSeries->categoryId = $req->category;

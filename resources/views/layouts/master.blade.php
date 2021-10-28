@@ -145,7 +145,7 @@
 
         $('.razorpay-payment-button').remove();
 
-        // strpe payment gateway starts
+        // stripe payment gateway starts
         var stripePrice = 0,redirectURL = '',currencyToPayment = '';
         function stripePaymentStart(price,redirectionURL, currency = 'usd'){
             if(parseInt(price) < 1){
@@ -215,7 +215,7 @@
                 }
             }
         });
-        // strpe payment gateway ends
+        // stripe payment gateway ends
 
         // wishlist
         function wishlistToggle(id, type) {
