@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth,App\Models\Instrument,Hash;
+use App\Models\Notification;
 
 class HomeController extends Controller
 {

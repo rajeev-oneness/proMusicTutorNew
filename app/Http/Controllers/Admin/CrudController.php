@@ -12,20 +12,22 @@ use Carbon\Exceptions\Exception, Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash, App\Models\Genre;
 use App\Models\SubscriptionPlan, App\Models\SubscriptionPlanFeature;
 use App\Models\Offer,App\Models\OfferSeries;
-use App\Models\ProductSeries;
+use App\Models\ProductSeries,App\Models\Notification;
 
 class CrudController extends Controller
 {
     /****************************** Users ******************************/
     public function getUsers(Request $req)
     {
+        $userType = 'Tutors';
         $users = User::select('*')->where('user_type', 2)->orderBy('users.id', 'desc')->get();
-        return view('admin.user.index', compact('users'));
+        return view('admin.user.index', compact('users','userType'));
     }
     public function getStudents(Request $req)
     {
+        $userType = 'Students';
         $users = User::select('*')->where('user_type', 3)->orderBy('users.id', 'desc')->get();
-        return view('admin.user.index', compact('users'));
+        return view('admin.user.index', compact('users','userType'));
     }
 
     public function manageUser(Request $req)

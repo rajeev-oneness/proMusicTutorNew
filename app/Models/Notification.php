@@ -14,4 +14,18 @@ class Notification extends Model
     {
         return $this->belongsTo('App\Models\User','userId','id')->withTrashed();
     }
+
+
+    public function notificationMarkAsReadOrUnRead($userId,$status = true,$notificationId = 0)
+    {
+        $notification = Notification::where('userId',$userId);
+        if($notificationId > 0){
+            $notification = $notification->where('id',$notificationId);
+        }
+        $updateStatusTo = 1;
+        if(!$status){
+            $updateStatusTo = 0;
+        }
+        $notification = $notification->update(['read' => $updateStatusTo]);
+    }
 }

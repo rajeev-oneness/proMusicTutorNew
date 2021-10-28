@@ -51,10 +51,11 @@
                                     <th class="text-left">Notification</th>
                                     <th class="text-left">Date</th>
                                     <th class="text-left">Time</th>
+                                    <th class="text-left">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($notification as $noti)
+                                @forelse($notification as $noti)
                                     <tr>
                                         <td class="text-left">
                                             <div class="media">
@@ -67,8 +68,13 @@
                                         <td class="text-left">{{$noti->message}}</td>
                                         <td class="text-left">{{date('d M, Y',strtotime($noti->created_at))}}</td>
                                         <td class="text-left">{{date('h:i:s A',strtotime($noti->created_at))}}</td>
+                                        <td class="text-left">@if($noti->read){{('Read')}}@else{{('Un-Read')}}@endif</td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="100%" class="text-center"><em>No record found</em></td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                         <div class="float-right">{{ $notification->appends(request()->query())->links() }}</div>
