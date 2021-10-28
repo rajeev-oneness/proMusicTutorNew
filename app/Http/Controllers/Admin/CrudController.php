@@ -11,8 +11,7 @@ use App\Models\Instrument, App\Models\Category;
 use Carbon\Exceptions\Exception, Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash, App\Models\Genre;
 use App\Models\SubscriptionPlan, App\Models\SubscriptionPlanFeature;
-use App\Models\Offer;
-use App\Models\OfferSeries;
+use App\Models\Offer,App\Models\OfferSeries;
 use App\Models\ProductSeries;
 
 class CrudController extends Controller
@@ -48,6 +47,8 @@ class CrudController extends Controller
                 } elseif ($req->action == 'delete') {
                     $user->delete();
                 }
+                $data = ['message' => 'you account has been '.$req->action.'ed by admin'];
+                $notification = addNotification($user->id,$data);
                 return successResponse('status Updated Success', $user);
             }
             return errorResponse('Invalid User Id');
@@ -69,7 +70,7 @@ class CrudController extends Controller
             'name' => 'required|max:255|string',
             'email' => 'required|email|unique:users',
             'mobile' => 'required|digits:10|numeric',
-            'referral' => 'string|nullable|exists:referrals,code',
+            'referral' => 'string|nullable|exists:users,referral_code',
         ]);
         DB::beginTransaction();
         try {
@@ -84,11 +85,14 @@ class CrudController extends Controller
                 $user->image = imageUpload($image);
             }
             $user->password = Hash::make($random);
+            $user->referral_code = referralCodeGenerate();
             $user->save();
-            $this->setReferralCode($user, $req->referral);
+            $this->setReferrerBy($user,$req->referral);
+            $data = ['message' => 'Welcome you to ProMusicTutor your referral code is : '.$user->referral_code];
+            $notification = addNotification($user->id,$data);
             DB::commit();
             // sendMail();
-            return redirect(route('admin.users'))->with('Success', 'User Added SuccessFully');
+            return redirect(route('admin.users'))->with('Success', 'User added successFully');
         } catch (Exception $e) {
             DB::rollback();
             $errors['email'] = 'Something went wrong please try after sometime!';
@@ -110,9 +114,8 @@ class CrudController extends Controller
             'image' => 'nullable',
             'name' => 'required|max:255|string',
             'mobile' => 'nullable|digits:10|numeric',
-            'referral' => 'string|nullable|exists:referrals,code',
+            'referral' => 'string|nullable|exists:users,referral_code',
         ]);
-
         $user = User::findOrFail($req->user_id);
         $user->user_type = $req->user_type;
         $user->name = $req->name;
@@ -122,7 +125,9 @@ class CrudController extends Controller
             $user->image = imageUpload($image);
         }
         $user->save();
-        return redirect(route('admin.users'))->with('Success', 'User Updated SuccessFully');
+        $data = ['message' => 'your profile has successfully updated by Admin'];
+        $notification = addNotification($user->id,$data);
+        return redirect(route('admin.users'))->with('Success', 'User profile updated successFully');
     }
 
     /****************************** Contact Us ******************************/

@@ -16,6 +16,8 @@ class AdminController extends Controller
         $data->instruments = Instrument::latest()->get();
         $data->categories = Category::latest()->limit(2)->get();
         $data->genres = Genre::latest()->limit(2)->get();
+        $data->tutors = User::select('*')->where('user_type',2)->get();
+        $data->students = User::select('*')->where('user_type',3)->get();
         return view('admin.dashboard', compact('data'));
     }
 

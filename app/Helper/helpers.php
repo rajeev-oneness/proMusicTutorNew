@@ -49,11 +49,11 @@
 		});
 	}
 
-	function addNotification($data = []){
+	function addNotification($userId,$data = []){
 		$newNotification = new \App\Models\Notification;
 		if(!empty($data) && count($data) > 0){
 			$newNotification->userId = $userId;
-			$newNotification->message = $message;
+			$newNotification->message = emptyCheck($data['message']);
 			$newNotification->save();	
 		}
 		return $newNotification;

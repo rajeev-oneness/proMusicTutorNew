@@ -77,6 +77,8 @@ class LoginController extends Controller
                 }
                 if($userVerified){
                     auth()->login($user);
+                    $data = ['message' => 'you have successfully loggedin at '.date('d M,Y h:i:s A')];
+                    $notification = addNotification($user->id,$data);
                     return redirect()->intended('/home');
                 }
             }else{
@@ -115,6 +117,8 @@ class LoginController extends Controller
         }
         DB::commit();
         auth()->login($user);
+        $data = ['message' => 'you have successfully loggedin from social-login at '.date('d M,Y h:i:s A')];
+        $notification = addNotification($user->id,$data);
         return redirect()->intended('/home');
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth,App\Models\Instrument;
+use Auth,App\Models\Instrument,Hash;
 
 class HomeController extends Controller
 {
@@ -29,13 +29,6 @@ class HomeController extends Controller
                 // return redirect('user/dashboard');break;
         }
         return view('home');
-    }
-
-    public function logout(Request $request)
-    {
-        auth()->guard()->logout();
-        $request->session()->invalidate();
-        return redirect('/');
     }
 
     public function userProfile(Request $req)
@@ -79,6 +72,8 @@ class HomeController extends Controller
             $user->carrier_started = emptyCheck($req->carrier_started,true);
         }
         $user->save();
+        $data = ['message' => 'you have successfully updated your profile'];
+        $notification = addNotification($user->id,$data);
         return back()->with('Success','Profile updated successFully');
     }
 
@@ -101,6 +96,8 @@ class HomeController extends Controller
         if($passwordVerified){
             $user->password = Hash::make($req->password);
             $user->save();
+            $data = ['message' => 'you have successfully updated your password'];
+            $notification = addNotification($user->id,$data);
             return back()->with('Success','Password changed successFully');
         }
         $error['old_password'] = 'the password didnot match';
@@ -111,5 +108,14 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         return view('auth.user.point_info',compact('user'));
+    }
+
+    public function logout(Request $req)
+    {
+        $data = ['message' => 'you have loggedout at '.date('d M,Y h:i:s A')];
+        $notification = addNotification($req->user()->id,$data);
+        auth()->guard()->logout();
+        $req->session()->invalidate();
+        return redirect('/');
     }
 }

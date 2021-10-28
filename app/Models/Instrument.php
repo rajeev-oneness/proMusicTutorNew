@@ -9,4 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Instrument extends Model
 {
     use HasFactory,SoftDeletes;
+
+    public function product_series()
+    {
+        return $this->hasMany('App\Models\ProductSeries','instrumentId','id');
+    }
 }

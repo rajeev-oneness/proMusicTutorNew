@@ -99,6 +99,10 @@
                                 <a class="nav-link {{request()->routeIs('admin.report.contactus')?'active':''}}" href="{{route('admin.report.contactus')}}"><i class="fa fa-fw fa-user-circle"></i>Contact us</a>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link {{request()->routeIs('admin.report.user.notification')?'active':''}}" href="{{route('admin.report.user.notification')}}"><i class="fa fa-fw fa-user-circle"></i>Notification</a>
+                            </li>
+
                             <li class="nav-divider">Setting</li>
                             <li class="nav-item">
                                 <a class="nav-link {{(request()->is('admin/master/*')) ? 'active' : ''}}" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('admin.master.*')?'true':'false'}}" data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-fw fa-file"></i>Master Data</a>

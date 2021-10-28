@@ -6,6 +6,7 @@ use App\Models\Instrument,App\Models\ProductSeries;
 use App\Models\User,Illuminate\Http\Request;
 use App\Models\UserProductLessionPurchase,App\Models\Wishlist;
 use App\Models\Offer,App\Models\ProductSeriesLession;
+use App\Models\Notification;
 
 class ReportController extends Controller
 {
@@ -164,7 +165,8 @@ class ReportController extends Controller
         return view('reports.productsOrdered', compact('data', 'req', 'instruments'));
     }
 
-    public function wishlistCount(Request $req) {
+    public function wishlistCount(Request $req)
+    {
         $data = [];
         $wishlistData = Wishlist::select('product_id');
         if ($req->instrumentId) {
@@ -194,4 +196,21 @@ class ReportController extends Controller
         $instruments = Instrument::all();
         return view('reports.wishlists', compact('data', 'req', 'instruments'));
     }
+
+    public function userNotification(Request $req)
+    {
+        $notification = Notification::with('user_details')->latest();
+        if (!empty($req->dateFrom)) {
+            $notification = $notification->where('created_at', '>=', $req->dateFrom);
+        }
+        if (!empty($req->dateTo)) {
+            $notification = $notification->where('created_at', '<=', date('Y-m-d', strtotime($req->dateTo . '+ 1 day')));
+        }
+        if(!empty($req->search)){
+            $notification = $notification->where('message','like','%'.$req->search.'%');
+        }
+        $notification = $notification->paginate(30);
+        return view('admin.reports.userNotification',compact('notification','req'));
+    }
+
 }

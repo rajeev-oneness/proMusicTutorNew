@@ -6,17 +6,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', [DefaultController::class, 'welcome'])->name('welcome');
 Route::get('administrator',[LoginController::class,'adminLoginView'])->name('admin.login');
 Route::get('explore/instrument', [DefaultController::class, 'exploreInstruments'])->name('explore.instrument');
@@ -59,36 +48,29 @@ Route::post('/wishlists', [DefaultController::class, 'wishlistToggle'])->name('f
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('user/profile', [HomeController::class, 'userProfile'])->name('user.profile');
 	Route::post('user/profile', [HomeController::class, 'userProfileSave'])->name('user.profile.save');
-	// Route::get('user/change/password',[HomeController::class, 'index'])->name('user.changepassword');
 	Route::post('user/change/password', [HomeController::class, 'updateUserPassword'])->name('user.changepassword.save');
 	Route::get('user/points', [HomeController::class, 'userPoints'])->name('user.points');
-
 	Route::post('tutor/rating/post', [DefaultController::class, 'ratingTutor'])->name('tutor.rating.post');
-
 	// Subscription Purchase
 	Route::get('after/purchase/subscription/{subscriptionId}', [DefaultController::class, 'afterPaymentSubscription'])->name('after.purchase.subscribe');
 	Route::get('subscription/purchase/successfull', [DefaultController::class, 'thankyouSubscriptionPurchase'])->name('subscription.purchase.thankyou');
-
 	// Series Purchase
 	Route::get('after/purchase/product/series/{seriesId}', [DefaultController::class, 'afterPaymentProductSeries'])->name('after.purchase.guitar_series');
 	Route::get('product/series/purchase/successfull', [DefaultController::class, 'thankyouProductSeries'])->name('product.series.purchase.thankyou');
-
 	// OFFER SERIES PURCHASE
 	Route::get('after/purchase/offer/{offerId}/series', [DefaultController::class, 'afterPaymentOfferSeries'])->name('after.purchase.offer_series');
 	Route::get('offer/series/purchase/successfull', [DefaultController::class, 'thankyouOfferSeries'])->name('offer.series.purchase.thankyou');
-
 	// Lession Purchase
 	Route::get('after/purchase/guitar/series/lession/{lessionId}', [DefaultController::class, 'afterPaymentGuitarSeriesLession'])->name('after.purchase.guitar_lession_series');
-
-	// Purchase From Cart
+	/**************************** Purchase From Cart ****************************/
 	Route::get('after/checkout/from/cart/{cartinfo}', [CartController::class, 'afterPaymentCartCheckout'])->name('after.checkout.from_cart');
 	Route::get('user/cart/purchase/success/{cartinfo}',[CartController::class,'thankyouCartPurchase'])->name('cart.purchase.thankyou');
-	
+	/**************************** User Subscription ****************************/
 	Route::get('user/subscription', [DefaultController::class, 'userSubscription'])->name('user.subscription');
 	Route::get('user/instrument/lession', [DefaultController::class, 'userProductLessionPurchaseList'])->name('user.instrument.lession');
-	// Razorpay Payment Route
+	/**************************** Razorpay Payment Route ****************************/
 	Route::post('razorpay/payment', [PaymentController::class, 'storerazorePayPayment'])->name('razorpay.payment.store');
-
+	/**************************** Cart Info ****************************/
 	Route::get('user/cart-info',[CartController::class,'getUserCart'])->name('user.cart.info');
 	Route::post('user/cart-info/add_or_remove',[CartController::class,'addOrRemoveCartProduct'])->name('user.cartinfo.add_or_remove');
 	Route::post('user/cart-info/update_to_same_currency',[CartController::class,'convertCartToSameCurrency'])->name('user.cartinfo.change_to_same_currency');

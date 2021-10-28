@@ -92,4 +92,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\UserCart','userId','id')->where('status',1)->latest();
     }
+
+    public function notification()
+    {
+        return $this->hasMany('App\Models\Notification','userId','id')->latest();
+    }
 }
