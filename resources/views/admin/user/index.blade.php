@@ -24,10 +24,10 @@
                                     <th>Type</th>
                                     <th>Email</th>
                                     <th>Phone</th>
-                                    <th>Membership</th>
+                                    <!-- <th>Membership</th> -->
                                     <th>Referral Code</th>
                                     <th>Referred By</th>
-                                    <th>Count Referred To</th>
+                                    <th>Referred To</th>
                                     {{-- <th>Total Points</th> --}}
                                     <th>Action</th>
                                 </tr>
@@ -58,11 +58,11 @@
                                             <td>
                                                 <p class="small text-dark">{{$user->mobile}}</p>
                                             </td>
-                                            <td>
+                                            {{-- <td>
                                                 <p class="small text-dark">
                                                     {{($user->membership ? $user->membership->title : 'N/A')}}
                                                 </p>
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 <p class="small text-muted">{{$user->referral_code}}</p>
                                             </td>
@@ -93,10 +93,9 @@
                                                             $action = 'Unblock';
                                                         }
                                                     ?>
+                                                    <a href="javascript:void(0)" class="badge badge-dark blockUnblock" data-id="{{$user->id}}">{{$action}}</a><br>
                                                     <a href="{{route('admin.user.edit', $user->id)}}"><i class="fas fa-edit text-primary"></i></a>
-                                                    {{-- <a href="{{route('admin.user.edit', $user->id)}}" class="badge badge-primary">Edit</a> --}}
-                                                    <a href="javascript:void(0)" class="badge badge-dark blockUnblock" data-id="{{$user->id}}">{{$action}}</a>
-                                                    <a href="javascript:void(0)" data-id="{{$user->id}}"><i class="fas fa-trash-alt text-danger"></i></a>
+                                                    <a href="javascript:void(0)" data-id="{{$user->id}}" class="userDelete"><i class="fas fa-trash-alt text-danger"></i></a>
                                                 </td>
                                             @endif
                                         </tr>
@@ -173,6 +172,7 @@
 
         function allinOneManageUsers(userId,action,clickedBtn)
         {
+            $('.loading-data').show();
             $.ajax({
                 type:'POST',
                 dataType:'JSON',
@@ -193,6 +193,7 @@
                     }else{
                         swal('Error',data.message);
                     }
+                    $('.loading-data').hide();
                 }
             });
         }

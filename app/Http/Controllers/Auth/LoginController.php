@@ -45,14 +45,24 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+    public function adminLoginView(Request $req)
+    {
+        return view('auth.adminLogin');
+    }
+
     public function login(Request $req)
     {
         $req->validate([
+            'role' => 'required|string|in:administrator,others',
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
         $userVerified = false;
-        $user = User::where('email',$req->email)->first();
+        $userType = [2,3];
+        if($req->role == 'administrator'){
+            $userType = [1];
+        }
+        $user = User::where('email',$req->email)->whereIn('user_type',$userType)->first();
         if($user){
             if($user->status == 1){
                 if(Hash::check($req->password,$user->password)){

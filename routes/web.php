@@ -18,6 +18,7 @@ use App\Http\Controllers\Auth\LoginController;
 */
 
 Route::get('/', [DefaultController::class, 'welcome'])->name('welcome');
+Route::get('administrator',[LoginController::class,'adminLoginView'])->name('admin.login');
 Route::get('explore/instrument', [DefaultController::class, 'exploreInstruments'])->name('explore.instrument');
 Route::any('explore/tutor/{tutorId?}', [DefaultController::class, 'exploreTutor'])->name('explore.tutor');
 Route::get('explore/testimonials', [DefaultController::class, 'testimonialsList'])->name('explore.testimonials');
@@ -109,7 +110,9 @@ Route::group(['prefix' => 'user', 'middleware' => 'user'], function () {
 	require 'custom/user.php';
 });
 
-
 Route::get('payment', [TestController::class, 'payment'])->name('payment');
 Route::get('cancel', [TestController::class, 'cancel'])->name('payment.cancel');
 Route::get('payment/success', [TestController::class, 'success'])->name('payment.success');
+
+Route::get('twocheckout',[TestController::class,'checkoutTwo'])->name('payment.twocheckout');
+Route::get('twocheckout/callback',[TestController::class,'callbackCheckoutTwo'])->name('payment.callbackCheckoutTwo.callback');

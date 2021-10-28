@@ -54,4 +54,14 @@ class TestController extends Controller
   
         dd('Something is wrong.');
     }
+
+    public function checkoutTwo(Request $req)
+    {
+        return view('test.2checkout');
+    }
+
+    public function callbackCheckoutTwo(Request $req)
+    {
+        dd('2 Checkout Callback request',$req->all());
+    }
 }
