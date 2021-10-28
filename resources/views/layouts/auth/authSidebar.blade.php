@@ -40,6 +40,9 @@
                                         <a class="nav-link {{(request()->is('tutor/instrument/'.$instru->id.'*')) ? 'active' : ''}}" href="{{route('tutor.product.series.list',[$instru->id,'instrument='.$instru->name])}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a>
                                     </li>
                                 @endforeach
+                                {{-- <li class="nav-item">
+                                    <a class="nav-link {{request()->routeIs('tutor.offer.*') ? 'active':''}}" href="{{route('tutor.offer.list')}}"><i class="fa-solid fa-percent fa-fw"></i>Offers</a>
+                                </li> --}}
                             @endif
                             <!-- Tutor Sidebar -->
                             @if($userType == 2)
@@ -65,9 +68,6 @@
                             {{-- <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Students</a>
                             </li> --}}
-                            <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.offer.*') ? 'active':''}}" href="{{route('admin.offer.list')}}"><i class="fa-solid fa-percent fa-fw"></i>Offers</a>
-                            </li>
 
                             @if(count($instruments) > 0)
                                 <li class="nav-divider">Products</li>
@@ -76,6 +76,9 @@
                                         <a class="nav-link {{(request()->is('admin/instrument/'.$instru->id.'*')) ? 'active' : ''}}" href="{{route('admin.product.series.list',[$instru->id,'instrument='.$instru->name])}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a>
                                     </li>
                                 @endforeach
+                                <li class="nav-item">
+                                    <a class="nav-link {{request()->routeIs('admin.offer.*') ? 'active':''}}" href="{{route('admin.offer.list')}}"><i class="fa-solid fa-percent fa-fw"></i>Offers</a>
+                                </li>
                             @endif
 
                             <!-- Report Section -->

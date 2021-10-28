@@ -84,7 +84,7 @@
                                 @endphp
                                 <div class="form-group col-md-4">
                                     <label for="specialist" class="col-form-label">Specialist:</label>
-                                    <select id="specialist" name="specialist[]" multiple class="form-control selectAll @error('specialist') is-invalid @enderror">
+                                    <select id="specialist" name="specialist[]" multiple class="form-control sumoSelect @error('specialist') is-invalid @enderror">
                                         @foreach($instrument as $key => $ins)
                                             <option value="{{$ins->name}}" @if(in_array($ins->name,$specialist)){{('selected')}}@endif>{{$ins->name}}</option>
                                         @endforeach
@@ -157,7 +157,7 @@
                 $('#anniversaryInput').attr('required',false);
             }
         }
-        $('.selectAll').SumoSelect({search: true, searchText: 'Search Instruments.',placeholder: 'Search Instruments'});
+        $('.sumoSelect').SumoSelect({search: true, searchText: 'Search Instruments.',placeholder: 'Search Instruments.',captionFormatAllSelected : 'all Instruments Selected',captionFormat : '{0} instrument selected'});
     </script>
 @stop
 @endsection

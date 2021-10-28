@@ -57,20 +57,18 @@
                                 <textarea class="form-control @error('offer_description') is-invalid @enderror" id="offer_description" name="offer_description" placeholder="Offer description">{{(old('offer_description') ?? $offer->offer_description)}}</textarea>
                                 @error('offer_description')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
+                            <div class="form-group col-md-4">
+                                @php $offerSeries = $offer->offer_series->pluck('series_id')->toArray(); @endphp
+                                <label for="offer_description" class="col-form-label">Series</label>
+                                <select name="seriesId[]" id="" class="form-control sumoSelect" multiple>
+                                    @foreach ($series as $item)
+                                        <option value="{{$item->id}}" @if(in_array($item->id,$offerSeries)){{('selected')}}@endif>{{$item->title}}</option>
+                                    @endforeach
+                                </select>
+                                @error('seriesId')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                            </div>
                         </div>
-
-                        <hr>
-
-                        <h4 class="mb-0">Series</h4>
-                        @php $offerSeries = $offer->offer_series->pluck('series_id')->toArray();
-                        @endphp
-                        <label for="offer_description" class="col-form-label">Tap <em>ctrl</em> & select multiple series</label>
-                        <select name="seriesId[]" id="" class="form-control" multiple>
-                            <option value="" hidden>Select</option>
-                            @foreach ($series as $item)
-                                <option value="{{$item->id}}" @if(in_array($item->id,$offerSeries)){{('selected')}}@endif>{{$item->title}}</option>
-                            @endforeach
-                        </select>
+                        
                         <div class="form-group mt-3">
                             <button type="submit" class="btn btn-primary">Update</button>
                         </div>
@@ -83,5 +81,8 @@
 
 @section('script')
     <script type="text/javascript" src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        $('.sumoSelect').SumoSelect({search: true, searchText: 'Search Product Series.',placeholder: 'Search Product Series',captionFormatAllSelected : 'all Product Series Selected',captionFormat : '{0} product series selected',selectAll : true});
+    </script>
 @stop
 @endsection

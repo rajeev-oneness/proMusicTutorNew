@@ -708,9 +708,7 @@ class CrudController extends Controller
             'seriesId' => 'required|array',
             'seriesId.*' => 'required|numeric|min:1',
         ]);
-
         DB::beginTransaction();
-
         try {
             $offers = Offer::findOrfail($offerId);
             if ($req->hasFile('image')) {
