@@ -14,19 +14,23 @@
                                 @csrf
                                 <div class="form-group">
                                     <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email Id" value="{{ old('email') }}" autofocus id="email">
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                                    @enderror
                                 </div>
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                                <input type="hidden" name="role" value="others">
                                 <div class="form-group">
                                     <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" id="pwd">
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                                    @enderror
-                                    @error('socialite')
-                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                                    @enderror
                                 </div>
+                                @error('role')
+                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                                @error('socialite')
+                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
                                 @if (Route::has('password.request'))
                                     <div class="form-group">
                                         <p>Dont have an account? <a href="{{ route('password.request') }}">({{ __('Forgot Your Password?') }})</a></p>

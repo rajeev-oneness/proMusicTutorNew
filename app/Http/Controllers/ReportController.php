@@ -102,7 +102,7 @@ class ReportController extends Controller
                 'from' => date('Y-m-d', strtotime($list->orderBy('user_product_lession_purchases.id', 'DESC')->first()->created_at)),
                 'to' => date('Y-m-d', strtotime($list->latest()->first()->created_at)),
                 'seriesId' => $list->first()->productSeriesId,
-                'seriesName' => $list->first()->product_series->title,
+                'seriesName' => $list->first()->product_series_all->title,
                 'count' => $list->count(),
             ];
         }
