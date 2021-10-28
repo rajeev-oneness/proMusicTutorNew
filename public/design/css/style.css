@@ -718,9 +718,8 @@ footer{
   bottom: -28px;
 }
 .title-inner h1{
-  font-size: 40px;
+  font-size: 48px;
     color: #191919;
-    font-weight: 400;
 }
 
 /*----------------subscription--------------*/
@@ -1111,9 +1110,12 @@ footer{
 .under-formarea .form-group label
 {
     color: #232323;
-    font-weight: bold;
+    font-weight: 500;
     font-size: 13px;
     margin-bottom: 15px;
+    width: 50%;
+    display: flex;
+    align-items: center;
 }
 
 .under-formarea .form-group label span 
@@ -1133,8 +1135,12 @@ footer{
     padding: 0;
     border-bottom: 1px solid #c4c4c4;
     border-radius: 0;
+    width: 50%;
+    font-weight: 400;
 }
-
+.under-formarea label .btn-link{
+  padding: 0px;
+}
 .under-formarea .form-group .form-control:focus {
     color: #495057;
     background-color: transparent;
@@ -1142,12 +1148,14 @@ footer{
     outline: 0;
     box-shadow: none;
 }
-
+.under-formarea .form-group label .btn-link:focus{
+  box-shadow: none;
+  color: #f43600;
+}
 
 .confirmpw {
     position: absolute;
     right: 0;
-    bottom: 5px;
 }
 .already-have 
 {
@@ -2237,6 +2245,7 @@ h1, h2, h3, h4, h5, h6 {
 .form-group{
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .input-group{
     border: 1px solid;

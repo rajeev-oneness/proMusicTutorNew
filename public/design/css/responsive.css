@@ -48,13 +48,13 @@
 
 @media (max-width: 360px){
 	.navbar-light .navbar-nav .signup-bg {
-      padding: 18px 6px !important;
-      width: 63px !important;
+      padding: 18px 16px !important;
+      width: inherit !important;
       height: 62px !important;
   }
   .navbar-light .navbar-nav .search-icon {
-      padding: 18px 6px !important;
-      width: 63px !important;
+      padding: 18px 16px !important;
+      width: inherit !important;
       height: 62px !important;
    }
 
@@ -85,7 +85,7 @@
 }
 @media (max-width: 640px){
    .header-nav{
-      justify-content: space-between;
+      justify-content: center;
     }
   .testitext {
       position: relative;

@@ -70,15 +70,16 @@
 
     <section class="mt-5 mb-5 pt-5 pb-5 bg-light">
         <div class="container">
-            <div class="row">
                 @if(count($data->guitarSeries) > 0)
-                <div class="col-6 text-center title-inner">
+                <div class="text-center title-inner">
                     <h1 class="mb-5">All Series @if($data->instrument){{' Related to '.$data->instrument->name}}@endif</h1>
                 </div>
-                <div class="col-6 text-right pt-2">
-                    <form method="post" action="{{route('product.series',$instrumentParameter)}}" class="form-inline justify-content-end">
+                <div class="row mb-3">
+                <div class="col-12 col-md-12 filter_section">
+                    <form method="post" action="{{route('product.series',$instrumentParameter)}}" class="w-100">
                         @csrf
-                            <div class="mr-3">
+                        <div class="w-100 d-flex justify-content-end filter-flex">
+                            <div class="form-group mb-0 mr-2">
                                 {{-- <p class="mb-0 text-muted">Select Difficulty</p> --}}
                                 <select class="form-control form-control-sm" name="currency">
                                     <option value="" selected="" hidden="">Price</option>
@@ -87,7 +88,7 @@
                                     <option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
                                 </select>
                             </div>
-                            <div class="mr-3">
+                            <div class="form-group mb-0 mr-2">
                                 {{-- <p class="mb-0 text-muted">Select Difficulty</p> --}}
                                 <select class="form-control form-control-sm" name="difficulty">
                                     <option value="" selected="" hidden="">Difficulty</option>
@@ -96,9 +97,12 @@
                                     <option {{($req->difficulty == 'Hard') ? 'selected' : ''}} value="Hard">Hard</option>
                                 </select>
                             </div>
-                            <button type="submit" name="" class="btn btn-sm btn-primary mr-3">Apply</button>
-                            <a href="{{route('product.series',$instrumentParameter)}}" class="btn btn-sm btn-light border">Reset</a>
-                    </form>
+                            <div class="form-group mb-0 mr-2">
+                                <button type="submit" name="" class="btn buyfull">Apply</button>
+                                <a href="{{route('product.series',$instrumentParameter)}}" class="btn detail">Reset</a>
+                            </div>
+                          </div>
+                        </form>
                 </div>
                 @else
                 <div class="col-12 text-center title-inner">
