@@ -29,4 +29,9 @@ class ProductSeries extends Model
     {
         return $this->belongsTo('App\Models\Genre', 'genre', 'id');
     }
+
+    public function instrument_all()
+    {
+        return $this->belongsTo('App\Models\Instrument','instrumentId','id');
+    }
 }

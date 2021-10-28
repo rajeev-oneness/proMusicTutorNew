@@ -16,7 +16,7 @@ class AddNewColumntoOffersTableon28Oct2021 extends Migration
         Schema::table('offers', function (Blueprint $table) {
             $table->string('createdBy')->after('id');
         });
-        DB::table('offers')->update(['createdBy' => 1]);
+        DB::table('offers')->update(['createdBy' => 2]);
     }
 
     /**

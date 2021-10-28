@@ -114,7 +114,6 @@ class ReportController extends Controller
     public function mostViewed(Request $req)
     {
         $series = ProductSeries::where('view_count', '>', 0);
-
         if (!empty($req->instrumentId)) {
             $series = $series->where('instrumentId', $req->instrumentId);
         }
@@ -125,7 +124,6 @@ class ReportController extends Controller
             $series = $series->where('last_count_increased_at', '<=', date('Y-m-d', strtotime($req->dateTo . '+ 1 day')));
         }
         $series = $series->orderBy('view_count', 'desc')->get();
-
         $instruments = Instrument::all();
         return view('reports.mostViewed', compact('req', 'series', 'instruments'));
     }
@@ -149,7 +147,6 @@ class ReportController extends Controller
         }
 
         $purchaseList = $purchaseList->groupBy('productSeriesLessionId')->pluck('productSeriesLessionId')->toArray();
-
         foreach ($purchaseList as $key => $value) {
             $list = UserProductLessionPurchase::where('productSeriesLessionId', $value);
             $data[] = [
