@@ -653,9 +653,7 @@ class CrudController extends Controller
             'seriesId' => 'required|array',
             'seriesId.*' => 'required|numeric|min:1',
         ]);
-
         DB::beginTransaction();
-
         try {
             $offers = new Offer();
             if ($req->hasFile('image')) {
@@ -668,8 +666,8 @@ class CrudController extends Controller
             $offers->price_gbp = $req->price_gbp;
             $offers->description = $req->description;
             $offers->offer_description = $req->offer_description;
+            $offers->createdBy = auth()->user()->id;
             $offers->save();
-
             if (!empty($req->seriesId) && count($req->seriesId) > 0) {
                 foreach ($req->seriesId as $key => $series) {
                     $offerSeries = new OfferSeries();
@@ -678,7 +676,6 @@ class CrudController extends Controller
                     $offerSeries->save();
                 }
             }
-
             DB::commit();
             return redirect()->route('admin.offer.list')->with('Success', 'Offer Added successfully');
         } catch (\Throwable $th) {

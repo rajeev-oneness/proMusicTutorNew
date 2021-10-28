@@ -29,6 +29,7 @@
                                 <a class="nav-link" href="{{route('explore.tutor',[base64_encode($user->id),'tutor' => $user->name])}}"><i class="fa fa-fw fa-user-circle"></i>View Public Profile</a>
                             </li>
                         @endif
+
                         @if($userType != 1)
                             <!-- <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('user.points')?'active':''}}" href="{{route('user.points')}}"><i class="fa fa-fw fa-user-circle"></i>Your Points</a>
@@ -40,9 +41,9 @@
                                         <a class="nav-link {{(request()->is('tutor/instrument/'.$instru->id.'*')) ? 'active' : ''}}" href="{{route('tutor.product.series.list',[$instru->id,'instrument='.$instru->name])}}"><i class="fa fa-fw fa-user-circle"></i>{{$instru->name}}</a>
                                     </li>
                                 @endforeach
-                                {{-- <li class="nav-item">
+                                <li class="nav-item">
                                     <a class="nav-link {{request()->routeIs('tutor.offer.*') ? 'active':''}}" href="{{route('tutor.offer.list')}}"><i class="fa-solid fa-percent fa-fw"></i>Offers</a>
-                                </li> --}}
+                                </li>
                             @endif
                             <!-- Tutor Sidebar -->
                             @if($userType == 2)

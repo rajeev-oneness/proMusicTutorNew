@@ -210,4 +210,19 @@
 		return $slug;
 	}
 
+	function strQuotationCheck($string = "")
+	{
+		$returnString = '';
+		for ($i = 0; $i < strlen($string); $i++) {
+			if ($string[$i] == '"') {
+				$returnString .= '&#34;';
+			} else if ($string[$i] == "'") {
+				$returnString .= '&#39;';
+			} else {
+				$returnString .= $string[$i];
+			}
+		}
+		return $returnString;
+	}
+
 ?>

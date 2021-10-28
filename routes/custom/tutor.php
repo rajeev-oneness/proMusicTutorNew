@@ -22,4 +22,14 @@
             Route::post('delete',[ProductController::class,'productSeriesLessionDelete'])->name('tutor.product.series.lession.delete');
         });
     });
+
+    // Offers
+    Route::group(['prefix' => 'offers'],function(){
+        Route::get('/list',[TutorController::class,'offersList'])->name('tutor.offer.list');
+        Route::get('/create',[TutorController::class,'offerCreate'])->name('tutor.offer.create');
+        Route::post('/store',[TutorController::class,'offerStore'])->name('tutor.offer.save');
+        Route::get('/{id}/edit',[TutorController::class,'offerEdit'])->name('tutor.offer.edit');
+        Route::post('/{id}/update',[TutorController::class,'offerUpdate'])->name('tutor.offer.update');
+        Route::post('delete',[TutorController::class,'offerDelete'])->name('tutor.offer.delete');
+    });
 ?>
