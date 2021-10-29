@@ -502,7 +502,9 @@ footer{
   background-color: rgba(0,0,0,.01);
   border-bottom: 1px solid rgb(255, 255, 255, 0.20);
 }
-
+.faqs .accordion p{
+  color: #fff !important;
+}
 /*--------------Newsletter---------------*/
 
 .newsletter h6{

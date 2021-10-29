@@ -58,7 +58,7 @@
             <div class="col-12 col-lg-12">
                 <div class="Card border-0 mb-4 shadow-sm p-3">
                     <h4 class="mb-3">About Me</h4>
-                    {!! $tutor->about !!}
+                    <p>{!! $tutor->about !!}</p>
                 </div>
             </div>
 

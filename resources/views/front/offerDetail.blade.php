@@ -4,19 +4,43 @@
 @section('content')
     <section class="pt-0 pt-md-5 pb-5">
         <div class="container">
+            {{-- filter Filter start --}}
+            <div class="row m-0 mb-3">
+                <div class="col-12">
+                    <form method="post" action="{{route('front.offers.detail', $data->id)}}" class="w-100">
+                        @csrf
+                        <div class="w-100 d-flex filter_section justify-content-end">
+                            <div class="form-group mb-0 mr-2">
+                                <!--<label>Currency</label>-->
+                                <select class="form-control form-control-sm" name="currency">
+                                    <option value="" selected="" disabled>Currency</option>
+                                    <option selected value="usd">$ USD</option>
+                                    <option {{($req->currency == 'eur') ? 'selected' : ''}} value="eur">€ EUR</option>
+                                    <option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-0 mr-2">
+                                <button type="submit" class="btn buyfull">Apply</button>
+                                <a href="{{route('front.offers.detail', $data->id)}}" class="btn detail">Reset</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {{-- filter Filter end --}}
             <div class="row">
-                <div class="col-12 col-md-6 shadow-lg p-0 mb-4 mb-md-0">
+                <div class="col-12 col-md-6 p-0 mb-4 mb-md-0">
                     <img src="{{asset($data->image)}}" alt="" class="w-100">
                 </div>
                 <div class="col-md-6 col-12">
-                    {{-- filter Filter start --}}
+                    <!-- {{-- filter Filter start --}}
                     <div class="row m-0">
                         <div class="col-12">
                             <form method="post" action="{{route('front.offers.detail', $data->id)}}" class="w-100">
                                 @csrf
                                 <div class="w-100 d-flex filter_section justify-content-end">
                                     <div class="form-group mb-0 mr-2">
-                                        <!--<label>Currency</label>-->
+                                        <label>Currency</label>
                                         <select class="form-control form-control-sm" name="currency">
                                             <option value="" selected="" disabled>Currency</option>
                                             <option selected value="usd">$ USD</option>
@@ -32,9 +56,9 @@
                             </form>
                         </div>
                     </div>
-                    {{-- filter Filter end --}}
+                    {{-- filter Filter end --}} -->
 
-                    <div class="row m-0 mt-4">
+                    <div class="row m-0">
                         <h5 class="col-12 pt-2 pl-0 pl-md-3">{{$data->title}}</h5>
                         <div class="col-12 mt-4">
                         @php
@@ -62,15 +86,16 @@
                         @endguest
                         </div>
                     </div>
-                    <div class="col-12 pt-3 pl-0 pl-md-3">
-                        <h6 class="mb-3">Description</h6>
-                        <p>{!! $data->description !!}</p>
-                    </div>
+                    
                     <div class="col-12 pt-3 pl-0 pl-md-3">
                         <h6 class="mb-3">Offer Description</h6>
                         <p>{!! $data->offer_description !!}</p>
                     </div>
                 </div>
+                <div class="col-12 pt-3 pl-0 pl-md-3">
+                        <h6 class="mb-3">Description</h6>
+                        <p>{!! $data->description !!}</p>
+                    </div>
             </div>
         </div>
     </section>
