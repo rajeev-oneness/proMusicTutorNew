@@ -93,7 +93,13 @@ class CrudController extends Controller
             $data = ['message' => 'Welcome you to ProMusicTutor your referral code is : '.$user->referral_code];
             $notification = addNotification($user->id,$data);
             DB::commit();
-            // sendMail();
+            $data = [
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => $random,
+                'content' => 'Please use the Provided password below to login',
+            ];
+            sendMail($data,'userRegistration',$user->email,'Congratulation - Successful Registration !!!');
             return redirect(route('admin.users'))->with('Success', 'User added successFully');
         } catch (Exception $e) {
             DB::rollback();
@@ -129,6 +135,11 @@ class CrudController extends Controller
         $user->save();
         $data = ['message' => 'your profile has successfully updated by Admin'];
         $notification = addNotification($user->id,$data);
+        $data = [
+            'name' => $user->name,
+            'content' => 'Your profile has successfully updated',
+        ];
+        sendMail($data,'userRegistration',$user->email,'Profile Updated!!!');
         return redirect(route('admin.users'))->with('Success', 'User profile updated successFully');
     }
 

@@ -35,7 +35,7 @@ class TutorController extends Controller
         /***************** Most Viewed Series End****************/
         /***************** Transaction Log ****************/
         $transactionLogData = [];
-        $userPurchaseTransaction = UserProductLessionPurchase::where('authorId',$tutor->id)->groupBy(['transactionId'])->latest()->paginate(8);
+        $userPurchaseTransaction = UserProductLessionPurchase::where('authorId',$tutor->id)->groupBy(['transactionId'])->latest()->get();
         foreach ($userPurchaseTransaction as $key => $userTrasaction) {
             $offersTransaction = UserProductLessionPurchase::with('offers_details_all')->where('authorId',$tutor->id)->where('transactionId',$userTrasaction->transactionId)->where('type_of_product','offer')->groupBy('offerId')->get();
             $seriesTransaction = UserProductLessionPurchase::with('product_series_all')->where('authorId',$tutor->id)->where('transactionId',$userTrasaction->transactionId)->where('type_of_product','series')->groupBy('productSeriesId')->get();

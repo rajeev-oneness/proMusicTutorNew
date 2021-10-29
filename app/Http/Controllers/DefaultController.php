@@ -198,6 +198,7 @@ class DefaultController extends Controller
 
     public function afterPaymentOfferSeries(Request $req, $offerId)
     {
+        $user = $req->user();
         $message = '';
         if (!empty($req->transactionId)) {
             $transaction = Transaction::where('id', $req->transactionId)->first();
@@ -207,7 +208,7 @@ class DefaultController extends Controller
                     foreach ($offer->offer_series as $key => $offerSeries) {
                         foreach ($offerSeries->series_details->lession as $index => $lession) {
                             $newLessionPurchase = new UserProductLessionPurchase();
-                            $newLessionPurchase->userId = auth()->user()->id;
+                            $newLessionPurchase->userId = $user->id;
                             $newLessionPurchase->productSeriesId = $offerSeries->series_id;
                             $newLessionPurchase->productSeriesLessionId = $lession->id;
                             $newLessionPurchase->transactionId = $transaction->id;
@@ -217,6 +218,12 @@ class DefaultController extends Controller
                             $newLessionPurchase->save();
                         }
                     }
+                    $data = [
+                        'name' => $user->name,
+                        'content' => 'You have purchased Offer Successfully',
+                        'content2' => $offer->title. ' on amount : '.currencySymbol($transaction->currency).' '.($transaction->amount/100),
+                    ];
+                    sendMail($data,'userRegistration',$user->email,'Offer Purchased!!!');
                     return redirect(route('offer.series.purchase.thankyou') . '?offerId=' . $offer->id . '&transactionId=' . $req->transactionId);
                 } else {
                     $message = 'Invalid Offer Selected';
@@ -311,6 +318,7 @@ class DefaultController extends Controller
             $transaction = Transaction::where('id', $req->transactionId)->first();
             if ($transaction) {
                 $subscription = SubscriptionPlan::where('id', $subscriptionId)->first();
+                $user = $req->user();
                 if ($subscription) {
                     $userSubscription = new UserSubscription();
                     $userSubscription->userId = auth()->user()->id;
@@ -318,6 +326,12 @@ class DefaultController extends Controller
                     $userSubscription->transactionId = $transaction->id;
                     $userSubscription->valid_till = date('Y-m-d', strtotime('+' . $subscription->valid_for . ' month'));
                     $userSubscription->save();
+                    $data = [
+                        'name' => $user->name,
+                        'content' => 'You have purchased Subscription',
+                        'content2' => $subscription->title. ' on amount : '.currencySymbol($transaction->currency).' '.($transaction->amount/100),
+                    ];
+                    sendMail($data,'userRegistration',$user->email,'Subscription Purchased!!!');
                     return redirect(route('subscription.purchase.thankyou') . '?userSubscriptionId=' . $userSubscription->id);
                 } else {
                     $message = 'Invalid Subscription Plan Selected';
@@ -351,6 +365,7 @@ class DefaultController extends Controller
             if ($transaction) {
                 $productSeries = ProductSeries::where('id', $seriesId)->first();
                 if ($productSeries) {
+                    $user = $req->user();
                     foreach ($productSeries->lession as $key => $lession) {
                         $newLessionPurchase = new UserProductLessionPurchase();
                         $newLessionPurchase->userId = auth()->user()->id;
@@ -361,6 +376,12 @@ class DefaultController extends Controller
                         $newLessionPurchase->authorId = $productSeries->createdBy;
                         $newLessionPurchase->save();
                     }
+                    $data = [
+                        'name' => $user->name,
+                        'content' => 'You have purchased Series',
+                        'content2' => $productSeries->title. ' on amount : '.currencySymbol($transaction->currency).' '.($transaction->amount/100),
+                    ];
+                    sendMail($data,'userRegistration',$user->email,'Series Purchased!!!');
                     return redirect(route('product.series.purchase.thankyou') . '?productSeriesId=' . $productSeries->id);
                 } else {
                     $message = 'Invalid Product Series Plan Selected';
@@ -381,6 +402,7 @@ class DefaultController extends Controller
             if ($transaction) {
                 $productLession = ProductSeriesLession::where('id', $lessionId)->first();
                 if ($productLession) {
+                    $user = $req->user();
                     $newLessionPurchase = new UserProductLessionPurchase();
                     $newLessionPurchase->userId = auth()->user()->id;
                     $newLessionPurchase->productSeriesId = $productLession->productSeriesId;
@@ -389,6 +411,12 @@ class DefaultController extends Controller
                     $newLessionPurchase->type_of_product = 'lession';
                     $newLessionPurchase->authorId = $productLession->createdBy;
                     $newLessionPurchase->save();
+                    $data = [
+                        'name' => $user->name,
+                        'content' => 'You have purchased lession',
+                        'content2' => $productLession->title. ' on amount : '.currencySymbol($transaction->currency).' '.($transaction->amount/100),
+                    ];
+                    sendMail($data,'userRegistration',$user->email,'Lession Purchased!!!');
                     return redirect(route('product.series.purchase.thankyou') . '?productSeriesId=' . $productLession->productSeriesId . '&productLessionId=' . $productLession->id);
                 } else {
                     $message = 'Invalid Product Series Plan Selected';
@@ -430,31 +458,6 @@ class DefaultController extends Controller
     {
         $user = auth()->user();
         $data = [];
-        /*$userPurchase = UserProductLessionPurchase::where('userId',$user->id)->groupBy(['transactionId','type_of_product'])->latest()->get();
-        foreach($userPurchase as $key => $purchase){
-            $purchaseType = $purchase->type_of_product;$offer = [];$series = [];$lession = [];
-            if($purchaseType == 'offer'){
-                $offer = Offer::where('id',$purchase->offerId)->withTrashed()->first();
-                $offer->series = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$purchase->transactionId)->where('type_of_product',$purchaseType)->where('offerId',$purchase->offerId)->groupBy('productSeriesId')->get();
-                foreach ($offer->series as $index => $productSeries) {
-                    $productSeries->lession = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$purchase->transactionId)->where('type_of_product',$purchaseType)->where('offerId',$purchase->offerId)->where('productSeriesId',$productSeries->productSeriesId)->get();
-                }
-            }elseif ($purchaseType == 'series') {
-                $series = ProductSeries::where('id',$purchase->productSeriesId)->withTrashed()->first();
-                $series->lession = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$purchase->transactionId)->where('type_of_product',$purchaseType)->where('productSeriesId',$purchase->productSeriesId)->get();
-            }elseif ($purchaseType == 'lession') {
-                $lession = ProductSeriesLession::where('id',$purchase->productSeriesLessionId)->withTrashed()->first();
-            }
-            $data[] = [
-                'purchase' => $purchaseType,
-                'transaction' => $purchase->transaction,
-                'offer' => $offer,
-                'series' => $series,
-                'lession' => $lession,
-            ];
-        }
-        return view('auth.user.productLessionPurchaseList', compact('user','data'));*/
-
         $userPurchase = UserProductLessionPurchase::where('userId',$user->id)->groupBy(['transactionId'])->latest()->paginate(10);
         foreach ($userPurchase as $key => $userTrasaction) {
             $offers = UserProductLessionPurchase::where('userId',$user->id)->where('transactionId',$userTrasaction->transactionId)->where('type_of_product','offer')->groupBy('offerId')->get();

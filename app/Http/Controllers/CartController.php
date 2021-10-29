@@ -32,7 +32,7 @@ class CartController extends Controller
                 }
                 if($product){
                     $countToAddOrRemove = 0;
-                    $cart = UserCart::select('*')->where('userId',$user->id)->where('productId',$product->id)->where('type_of_product',$req->type_of_product)->first();
+                    $cart = UserCart::select('*')->where('userId',$user->id)->where('productId',$product->id)->where('type_of_product',$req->type_of_product)->where('status',1)->first();
                     if(!$cart && $req->action == 'add'){
                         $cart = new UserCart();
                         $cart->userId = $user->id;
@@ -102,6 +102,7 @@ class CartController extends Controller
             if(!empty($selectedCartId) && count($selectedCartId) > 0 && !empty($req->transactionId)){
                 $transaction = Transaction::where('id',$req->transactionId)->first();
                 if($transaction){
+                    $whatPurchased = [];
                     foreach ($selectedCartId as $key => $cartId) {
                         $cart = UserCart::where('id',$cartId)->where('userId',$user->id)->where('status',1)->first();
                         if($cart){
@@ -122,6 +123,7 @@ class CartController extends Controller
                                             $newLessionPurchase->save();
                                         }
                                     }
+                                    $whatPurchased[] = ['name' => $offer->title,'price' => calculateLessionPrice($offer,$transaction->currency,true)];
                                 }
                             }elseif($cart->type_of_product == 'series'){
                                 $productSeries = ProductSeries::where('id',$cart->productId)->withTrashed()->first();
@@ -136,6 +138,7 @@ class CartController extends Controller
                                         $newLessionPurchase->authorId = $productSeries->createdBy;
                                         $newLessionPurchase->save();
                                     }
+                                    $whatPurchased[] = ['name' => $productSeries->title,'price' => calculateLessionPrice($productSeries,$transaction->currency,true)];
                                 }
                             }elseif($cart->type_of_product == 'lession'){
                                 $productLession = ProductSeriesLession::where('id', $cart->productId)->withTrashed()->first();
@@ -148,11 +151,18 @@ class CartController extends Controller
                                     $newLessionPurchase->type_of_product = 'lession';
                                     $newLessionPurchase->authorId = $productLession->createdBy;
                                     $newLessionPurchase->save();
+                                    $whatPurchased[] = ['name' => $productLession->title,'price' => calculateLessionPrice($productLession,$transaction->currency,true)];
                                 }
                             }
                             $cart->save();
                         }
                     }
+                    $data = [
+                        'name' => $user->name,
+                        'content' => 'You have purchased the following via cart',
+                        'data' => $whatPurchased
+                    ];
+                    sendMail($data,'userCartPurchaseMail',$user->email,'Purchased Product!!!');
                     DB::commit();
                     return redirect(route('cart.purchase.thankyou',[$cartInfo,'transactionId'=>$transaction->id]));
                 }
