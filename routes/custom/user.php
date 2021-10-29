@@ -1,5 +1,8 @@
 <?php
-  Route::get('dashboard',function(){
-    return view('user.dashboard');
-  })->name('home');
+
+  namespace App\Http\Controllers;
+  use Illuminate\Support\Facades\Route;
+
+  Route::get('dashboard',[UserController::class,'dashboard'])->name('home');
+
 ?>

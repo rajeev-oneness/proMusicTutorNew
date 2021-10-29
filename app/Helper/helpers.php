@@ -120,20 +120,9 @@
 		return Str::limit($string, $words);
 	}
 
-	function calculateLessionPrice($seriesObject = [], $currency = 'usd',$priceFor='lessionWise')
+	function calculateLessionPrice($seriesObject = [], $currency = 'usd',$sign=false)
 	{
 		$totalPrice = 0;
-		// if($priceFor == 'lessionWise'){
-		// 	foreach ($seriesObject->lession as $lession) {
-		// 		if ($currency == 'usd') {
-		// 			$totalPrice += $lession->price_usd;
-		// 		} elseif ($currency == 'eur') {
-		// 			$totalPrice += $lession->price_euro;
-		// 		} else {
-		// 			$totalPrice += $lession->price_gbp;
-		// 		}
-		// 	}	
-		// }elseif($priceFor == 'seriesWise'){
 			if ($currency == 'usd') {
 				$totalPrice += $seriesObject->price_usd;
 			} elseif ($currency == 'eur') {
@@ -141,21 +130,8 @@
 			} else {
 				$totalPrice += $seriesObject->price_gbp;
 			}
-		// }
-		return $totalPrice;
-	}
-
-	function calculateLessionPriceOLD($lessionObject = [], $currency = 'usd')
-	{
-		$totalPrice = 0;
-		foreach ($lessionObject as $lession) {
-			if ($currency == 'usd') {
-				$totalPrice += $lession->price_usd;
-			} elseif ($currency == 'eur') {
-				$totalPrice += $lession->price_euro;
-			} else {
-				$totalPrice += $lession->price_gbp;
-			}
+		if($sign){
+			return currencySymbol($currency).' '.$totalPrice;
 		}
 		return $totalPrice;
 	}
