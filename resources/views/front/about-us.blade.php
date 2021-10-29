@@ -32,7 +32,7 @@
     <section class="pt-3 pb-3 mt-2 mb-5 bg-light">
         <div class="container">
             <div class="row">
-                <div class="col-12 pt-3">
+                <div class="col-12 pt-3 about-text">
                     {!! $data->aboutus->description2 !!}
                 </div>
             </div>

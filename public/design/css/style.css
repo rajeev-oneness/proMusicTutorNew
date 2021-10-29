@@ -546,7 +546,7 @@ footer{
   font-size: 14px;
   line-height: 26px;
   color: #191919;
-  margin-bottom: 15px;
+  margin-bottom: 5px !important;
 }
 
 /*--------------Guitar------------*/
@@ -2272,4 +2272,7 @@ h1, h2, h3, h4, h5, h6 {
 .filter_section .detail{
     padding:8px 20px;
     height: 39px;
+}
+textarea.form-control{
+  height: unset !important;
 }

@@ -57,7 +57,7 @@ $(document).ready(function(){
     $('#slide').click(function(){
     var hidden = $('.hidden');
     if (hidden.hasClass('visible')){
-        hidden.animate({"right":"-1920px"}, "slow").removeClass('visible');
+        hidden.animate({"right":"-100%"}, "slow").removeClass('visible'); //right = from -1920px to -100%
     } else {
         hidden.animate({"right":"0px"}, "slow").addClass('visible');
     }
