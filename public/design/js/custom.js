@@ -46,7 +46,7 @@
 
 	// 	console.log(id+' '+type);
 	// });
-	// wishlist func end
+	// wishlist func end 
 	
 	
 	
@@ -62,6 +62,18 @@ $(document).ready(function(){
         hidden.animate({"right":"0px"}, "slow").addClass('visible');
     }
     });
+
+
+	$('#noticeSlide').click(function(){
+	var noticeHidden = $('.noticeHidden');
+	if (noticeHidden.hasClass('visible')){
+		noticeHidden.animate({"right":"-100%"}, "slow").removeClass('visible'); //right = from -1920px to -100%
+	} else {
+		noticeHidden.animate({"right":"0px"}, "slow").addClass('visible');
+	}
+	});
+
+
 });
 
 

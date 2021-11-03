@@ -30,6 +30,92 @@
                             <a class="nav-link signup-bg {{ Route::currentRouteName() == 'user.cart.info' ? 'bg-orange' : '' }}" href="{{route('user.cart.info')}}"><img src="{{asset('design/img/cart_icon.png')}}"></a>
                             <div class="cart-count itemCountForCart" id="itemCountForCart">{{count($user->cart_info)}}</div>
                         </li>
+                        <li class="nav-item position-relative">
+                            <a class="nav-link signup-bg" href="javascript:void(0)" id="noticeSlide"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></a>
+                            <div class="badge notice-badge text-white position-absolute">999</div>
+                            <div class="noticeHidden">
+                                <div class="menu-section" style="overflow:scroll;">
+
+                                    <div class="position-fixed py-3 noticeMenuTop">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <a href="javascript:void(0)" class="text-white">See All</a>
+                                            <a href="javascript:void(0)" class="text-white">Mark all as read</a>
+                                        </div>
+                                    </div>
+
+                                    <ul class="r_menu_ul noticeMenu" style="padding:25px 50px">
+                                        <li>
+                                            <div class="card mb-3">
+                                                <div class="card-body">
+                                                    <h4>Lorem ipsum dolor sit amet consectetur.</h4>
+                                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio voluptatem voluptatibus qui.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card mb-3">
+                                                <div class="card-body">
+                                                    <h4>Lorem ipsum dolor sit amet consectetur.</h4>
+                                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio voluptatem voluptatibus qui.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card mb-3">
+                                                <div class="card-body">
+                                                    <h4>Lorem ipsum dolor sit amet consectetur.</h4>
+                                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio voluptatem voluptatibus qui.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card mb-3 bg-secondary">
+                                                <div class="card-body">
+                                                    <h4>Lorem ipsum dolor sit amet consectetur.</h4>
+                                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio voluptatem voluptatibus qui.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card mb-3 bg-secondary">
+                                                <div class="card-body">
+                                                    <h4>Lorem ipsum dolor sit amet consectetur.</h4>
+                                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio voluptatem voluptatibus qui.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card mb-3 bg-secondary">
+                                                <div class="card-body">
+                                                    <h4>Lorem ipsum dolor sit amet consectetur.</h4>
+                                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio voluptatem voluptatibus qui.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card mb-3 bg-secondary">
+                                                <div class="card-body">
+                                                    <h4>Lorem ipsum dolor sit amet consectetur.</h4>
+                                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio voluptatem voluptatibus qui.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="card mb-3 bg-secondary">
+                                                <div class="card-body">
+                                                    <h4>Lorem ipsum dolor sit amet consectetur.</h4>
+                                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio voluptatem voluptatibus qui.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
+                                    
+                                    <div class="orange_border"></div>
+                                </div>
+                            </div>
+                        </li>
+                        
                     @endauth
                     </div>
                     <div>
