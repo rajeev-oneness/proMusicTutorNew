@@ -16,6 +16,42 @@ use App\Models\ProductSeries,App\Models\Notification;
 
 class CrudController extends Controller
 {
+    public function notificationMarkAsReadOrUnRead(Request $req)
+    {
+        $rules = [
+            'userId' => 'required|min:1|numeric',
+            'status' => 'required|string|in:read,unread',
+            'notificationId' => 'nullable',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $notification = Notification::where('userId',$req->userId);
+            if(!empty($req->notificationId) && $req->notificationId > 0){
+                $notification = $notification->where('id',$req->notificationId);
+            }
+            $updateStatusTo = 0;
+            if($req->status == 'read'){
+                $updateStatusTo = 1;
+            }
+            $notification = $notification->update(['read' => $updateStatusTo]);
+            return successResponse('Notification Marked as Read',['markedTo' => $updateStatusTo]);
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
+    public function getUserNotification(Request $req)
+    {
+        $rules = [
+            'userId' => 'required|min:1|numeric',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $notification = Notification::where('userId',$req->userId)->latest()->get();
+            return successResponse('Notification List',$notification);
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
     /****************************** Users ******************************/
     public function getUsers(Request $req)
     {
@@ -23,6 +59,7 @@ class CrudController extends Controller
         $users = User::select('*')->where('user_type', 2)->orderBy('users.id', 'desc')->get();
         return view('admin.user.index', compact('users','userType'));
     }
+
     public function getStudents(Request $req)
     {
         $userType = 'Students';
@@ -49,7 +86,7 @@ class CrudController extends Controller
                 } elseif ($req->action == 'delete') {
                     $user->delete();
                 }
-                $data = ['message' => 'you account has been '.$req->action.'ed by admin'];
+                $data = ['title'=> 'Your account '.$req->action.'ed','message' => 'you account has been '.$req->action.'ed by admin'];
                 $notification = addNotification($user->id,$data);
                 return successResponse('status Updated Success', $user);
             }
@@ -90,7 +127,7 @@ class CrudController extends Controller
             $user->referral_code = referralCodeGenerate();
             $user->save();
             $this->setReferrerBy($user,$req->referral);
-            $data = ['message' => 'Welcome you to ProMusicTutor your referral code is : '.$user->referral_code];
+            $data = ['title' => 'Welcome to ProMusicTutor','message' => 'Welcome you to ProMusicTutor your referral code is : '.$user->referral_code];
             $notification = addNotification($user->id,$data);
             DB::commit();
             $data = [
@@ -133,7 +170,7 @@ class CrudController extends Controller
             $user->image = imageUpload($image);
         }
         $user->save();
-        $data = ['message' => 'your profile has successfully updated by Admin'];
+        $data = ['title'=>'Profile update by admin','message' => 'your profile has successfully updated by Admin'];
         $notification = addNotification($user->id,$data);
         $data = [
             'name' => $user->name,

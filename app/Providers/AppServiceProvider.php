@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use App\Models\ContactUs;
+use App\Models\Notification;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,16 +27,25 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \View::composer('*', function ($view) {
+            $notificationAppService = (object)[];
+            $notificationAppService->totalNewNotificationCount = 0;
+            $notificationAppService->limit_notification = [];
             if ($user = auth()->user()) {
                 $view->with('user', $user);
+                $notificationTableCheck = \Schema::hasTable('notifications');
+                if($notificationTableCheck){
+                    // $notificationAppService->limit_notification = Notification::select('*')->where('userId',$user->id)->latest()->limit(50)->get();
+                    // $notificationAppService->totalNewNotificationCount = Notification::select('*')->where('userId',$user->id)->where('read',0)->latest()->count();
+                }
             }
-            $contact = $this->contactData();
-            $tableCheck = \Schema::hasTable('contact_us');
-            if ($tableCheck) {
-                $contact = ContactUs::where('id', 1)->first();
-                if (!$contact) $contact = $this->contactData();
+            $contactAppService = $this->contactData();
+            $contactUsTableCheck = \Schema::hasTable('contact_us');
+            if ($contactUsTableCheck) {
+                $contactAppService = ContactUs::where('id', 1)->first();
+                if (!$contactAppService) $contactAppService = $this->contactData();
             }
-            $view->with('contact', $contact);
+            $view->with('contact', $contactAppService);
+            $view->with('notificationAppService',$notificationAppService);
         });
         Paginator::useBootstrap();
     }

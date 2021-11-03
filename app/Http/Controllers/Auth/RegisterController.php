@@ -74,7 +74,7 @@ class RegisterController extends Controller
             $user->referral_code = referralCodeGenerate();
         $user->save();
         $this->setReferrerBy($user,$data['referral_code']);
-        $data = ['message' => 'Welcome you to ProMusicTutor your referral code is : '.$user->referral_code];
+        $data = ['title'=>'Welcome to ProMusicTutor','message' => 'Welcome you to ProMusicTutor your referral code is : '.$user->referral_code];
         $notification = addNotification($user->id,$data);
         return $user;
     }

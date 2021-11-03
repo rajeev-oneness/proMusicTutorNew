@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\CrudController;
 
 Route::get('/', [DefaultController::class, 'welcome'])->name('welcome');
 Route::get('administrator',[LoginController::class,'adminLoginView'])->name('admin.login');
@@ -74,6 +75,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('user/cart-info',[CartController::class,'getUserCart'])->name('user.cart.info');
 	Route::post('user/cart-info/add_or_remove',[CartController::class,'addOrRemoveCartProduct'])->name('user.cartinfo.add_or_remove');
 	Route::post('user/cart-info/update_to_same_currency',[CartController::class,'convertCartToSameCurrency'])->name('user.cartinfo.change_to_same_currency');
+	Route::get('notification',[CrudController::class,'getUserNotification'])->name('user.notification.get');
+	Route::post('notification/mark_as_read',[CrudController::class,'notificationMarkAsReadOrUnRead'])->name('notification.markasread');
 });
 
 // Stripe Payment Route

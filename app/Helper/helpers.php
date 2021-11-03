@@ -53,6 +53,7 @@
 		$newNotification = new \App\Models\Notification;
 		if(!empty($data) && count($data) > 0){
 			$newNotification->userId = $userId;
+			$newNotification->title = emptyCheck($data['title']);
 			$newNotification->message = emptyCheck($data['message']);
 			$newNotification->save();	
 		}

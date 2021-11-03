@@ -20,7 +20,7 @@ class Controller extends BaseController
             if($referee){
                 $user->referred_by = $referee->id;
                 $user->save();
-                $data = ['message' => 'you friend '.$user->name.' joined by your referral code'];
+                $data = ['title' => 'You referred '.$user->name,'message' => 'you friend '.$user->name.' joined by your referral code'];
                 $notification = addNotification($referee->id,$data);
             }
         }

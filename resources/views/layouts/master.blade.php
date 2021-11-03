@@ -116,6 +116,65 @@
                 $('button').attr('disabled', 'disabled');
                 $('.loading-data').show();
             });
+
+            @auth
+                // markAllNotificationasRead from Header.blade.php
+                $(document).on('click','.markAllAsRead',function(){
+                    var clickedObject = $(this);status = 'read',notificationId = 0;
+                    markAsReadNotification(status,notificationId,clickedObject);
+                });
+
+                // seeAllNotification from Header.blade.php
+                $(document).on('click','.seeAllNotification',function(){
+                    seeAllNotification();
+                });
+
+                function seeAllNotification()
+                {
+                    $('.loading-data').show();
+                    $.ajax({
+                        url : "{{route('user.notification.get')}}",
+                        type : 'GET',
+                        dataType : 'JSON',
+                        data : { userId : '{{$user->id}}'},
+                        success:function(response){
+                            if(response.error == false){
+                                var notificationList = '';
+                                $.each(response.data,function(key,value){
+                                    notificationList += '<li><div class="card mb-3 notificationListasActiveInactiveHeader ';
+                                    if(value.read == 1){
+                                        notificationList += 'bg-secondary';
+                                    }
+                                    notificationList += '"><div class="card-body"><h4>'+value?.title+'</h4><p>'+value?.message+'</p></div></div></li>';
+                                });
+                                $('.seeAllNotificationDiv').empty().append(notificationList);
+                            }
+                            $('.loading-data').hide();
+                        }
+                    });
+                }
+
+                function markAsReadNotification(status,notificationId,clickedObject = null){
+                    $('.loading-data').show();
+                    $.ajax({
+                        url : "{{route('notification.markasread')}}",
+                        type : 'POST',
+                        dataType : 'JSON',
+                        data : { userId : '{{$user->id}}', _token:'{{csrf_token()}}', status:status, notificationId:notificationId},
+                        success:function(response){
+                            if(response.error == false){
+                                if(notificationId > 0){
+                                    
+                                }else{
+                                    $('.notificationCountChangingHeader').text('0');
+                                    $('.notificationListasActiveInactiveHeader').addClass('bg-secondary');
+                                }
+                            }
+                            $('.loading-data').hide();
+                        }
+                    });
+                }
+            @endauth
         });
         
         @if(Session::has('Success'))
@@ -215,6 +274,7 @@
                 }
             }
         });
+
         // stripe payment gateway ends
 
         // wishlist
