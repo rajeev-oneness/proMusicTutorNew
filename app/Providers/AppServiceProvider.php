@@ -34,8 +34,8 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('user', $user);
                 $notificationTableCheck = \Schema::hasTable('notifications');
                 if($notificationTableCheck){
-                    // $notificationAppService->limit_notification = Notification::select('*')->where('userId',$user->id)->latest()->limit(50)->get();
-                    // $notificationAppService->totalNewNotificationCount = Notification::select('*')->where('userId',$user->id)->where('read',0)->latest()->count();
+                    $notificationAppService->limit_notification = Notification::select('*')->where('userId',$user->id)->latest()->limit(50)->get();
+                    $notificationAppService->totalNewNotificationCount = Notification::select('*')->where('userId',$user->id)->where('read',0)->latest()->count();
                 }
             }
             $contactAppService = $this->contactData();
