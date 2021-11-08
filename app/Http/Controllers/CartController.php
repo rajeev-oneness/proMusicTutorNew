@@ -13,7 +13,8 @@ class CartController extends Controller
     {
         $rules = [
             'userId' => 'required|numeric|min:1',
-            'type_of_product' => 'required|string|in:offer,series,lession',
+            // 'type_of_product' => 'required|string|in:offer,series,lession',
+            'type_of_product' => 'required|string|in:offer,series',
             'productId' => 'required|numeric|min:1',
             'currency' => 'nullable|string|in:gbp,euro,eur,usd',
             'cartId' => 'nullable|numeric|min:1',
