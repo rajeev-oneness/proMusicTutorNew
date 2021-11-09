@@ -299,13 +299,17 @@
         }
 
         // purchased lesson preview video
-        function previewVideo(id, path, name) {
+        function previewVideo(id, path, name, download = '') {
             var targetModalId = '#videoModal';
             $(targetModalId).find('.modal-title').text(name);
             if (!path) {
                 $(targetModalId).find('.modal-body').html('<h5 class="text-muted">Nothing to display here !</h5>');
             } else {
-                $(targetModalId).find('.modal-body').html('<video class="w-100" controls loop controlsList="nodownload"><source src="'+path+'">Sorry, your browser doesn&apos;t support embedded videos.</video>');
+                var toAppend = '<video class="w-100" controls loop ';
+                if(download == 'download'){toAppend += 'controlsList="download"';}
+                else{toAppend += 'controlsList="nodownload"';}
+                toAppend += '><source src="'+path+'">Sorry, your browser doesn&apos;t support embedded videos.</video>';
+                $(targetModalId).find('.modal-body').html(toAppend);
             }
             $(targetModalId).modal('show');
         }

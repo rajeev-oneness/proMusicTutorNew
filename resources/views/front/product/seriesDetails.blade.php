@@ -162,7 +162,7 @@
                                                 {{-- <a href="javascript:void(0)" class="btn buyfull" onclick="alert('please login to continue')">Buy Now - {{currencySymbol($data->currency)}} {{$display_lessionPrice}}</a> --}}
                                             @else
                                                 @if(userLessionPurchased($less))
-                                                    <a href="javascript:void(0)" class="purchased-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->video)}}', '{{$less->title}}')" id="watch_id{{$less->id}}">Watch <i class="fa fa-play ml-2"></i> </a>
+                                                    <a href="javascript:void(0)" class="purchased-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->video)}}', '{{$less->title}}','download')" id="watch_id{{$less->id}}">Watch <i class="fa fa-play ml-2"></i> </a>
                                                 @else
                                                     {{-- <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$display_lessionPrice}}','{{route('after.purchase.guitar_lession_series',$less->id)}}', '{{$data->currency}}');">Buy Now - {{currencySymbol($data->currency)}} {{$display_lessionPrice}}</a>
                                                     <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','lession','{{$less->id}}','add','{{$data->currency}}')" title="Add to Cart"><i class="fas fa-cart-plus"></i></a> --}}
