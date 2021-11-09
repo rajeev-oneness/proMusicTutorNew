@@ -77,6 +77,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('user/cart-info/update_to_same_currency',[CartController::class,'convertCartToSameCurrency'])->name('user.cartinfo.change_to_same_currency');
 	Route::get('notification',[CrudController::class,'getUserNotification'])->name('user.notification.get');
 	Route::post('notification/mark_as_read',[CrudController::class,'notificationMarkAsReadOrUnRead'])->name('notification.markasread');
+
+	Route::get('user/{userId?}/my/favourite',[HomeController::class,'userWishlist'])->name('user.wishlist');
+	Route::get('user/wishlist/{wishlistId}/{userId}/delete',[HomeController::class,'userWishlistDelete'])->name('user.wishlist.remove');
 });
 
 // Stripe Payment Route

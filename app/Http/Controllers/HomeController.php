@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth,App\Models\Instrument,Hash;
-use App\Models\Notification;
+use App\Models\Notification, App\Models\Wishlist;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -76,6 +77,21 @@ class HomeController extends Controller
         $data = ['title' => 'Profile updated successfully','message' => 'you have successfully updated your profile'];
         $notification = addNotification($user->id,$data);
         return back()->with('Success','Profile updated successFully');
+    }
+
+    public function userWishlist(Request $req,$userId = 0)
+    {
+        $userWishlist = $req->user();
+        if($userId > 0){
+            $userWishlist = User::findorFail($userId);
+        }
+        return view('auth.user.userWishlist',compact('userWishlist'));
+    }
+
+    public function userWishlistDelete(Request $req, $wishlistId,$userId)
+    {
+        Wishlist::where('id',$wishlistId)->where('user_id',$userId)->delete();
+        return back()->with('Success','Wishlist Removed Success');
     }
 
     public function updateUserPassword(Request $req)

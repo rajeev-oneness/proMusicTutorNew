@@ -24,11 +24,12 @@
                                     <th>Type</th>
                                     <th>Email</th>
                                     <th>Phone</th>
-                                    <!-- <th>Membership</th> -->
+                                    @if($userType == 'Students')
+                                        <th>Wishlist</th>
+                                    @endif
                                     <th>Referral Code</th>
                                     <th>Referred By</th>
                                     <th>Referred To</th>
-                                    {{-- <th>Total Points</th> --}}
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -58,11 +59,15 @@
                                             <td>
                                                 <p class="small text-dark">{{$user->mobile}}</p>
                                             </td>
-                                            {{-- <td>
-                                                <p class="small text-dark">
-                                                    {{($user->membership ? $user->membership->title : 'N/A')}}
-                                                </p>
-                                            </td> --}}
+                                            @if($userType == 'Students')
+                                                <td>
+                                                    @if(count($user->user_wish_list) > 0)
+                                                        <a href="{{route('user.wishlist',[$user->id])}}" target="_blank">view</a>
+                                                    @else
+                                                        {{'N/A'}}
+                                                    @endif
+                                                </td>
+                                            @endif
                                             <td>
                                                 <p class="small text-muted">{{$user->referral_code}}</p>
                                             </td>

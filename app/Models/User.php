@@ -97,4 +97,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Notification','userId','id')->latest();
     }
+
+    public function user_wish_list()
+    {
+        return $this->hasMany('App\Models\Wishlist','user_id','id')->with('wishlist_series')->latest();
+    }
 }
