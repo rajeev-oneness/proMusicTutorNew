@@ -9,4 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class BlogCategory extends Model
 {
     use HasFactory, SoftDeletes;
+
+    public function blogs_data()
+    {
+        return $this->hasMany('App\Models\Blog','blogCategoryId','id');
+    }
 }

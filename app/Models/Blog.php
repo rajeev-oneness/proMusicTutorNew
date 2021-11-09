@@ -9,4 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Blog extends Model
 {
     use HasFactory, SoftDeletes;
+
+    public function blog_category()
+    {
+        return $this->belongsTo('App\Models\BlogCategory','blogCategoryId','id');
+    }
 }
