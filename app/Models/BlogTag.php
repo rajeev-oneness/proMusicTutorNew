@@ -10,8 +10,10 @@ class BlogTag extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public function blogs_data()
+    function blogs_data($blogTagId)
     {
+        $data = Blog::whereRaw('FIND_IN_SET("'.$blogTagId.'",tags)')->get();
+        return $data;
         return $this->hasMany('App\Models\Blog','tags','id');
     }
 }

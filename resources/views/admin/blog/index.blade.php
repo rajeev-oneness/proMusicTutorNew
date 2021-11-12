@@ -31,7 +31,15 @@
                                     	<td><img src="{{asset($blog->image)}}"></td>
                                     	<td>{{$blog->title}}</td>
                                     	<td>{{($blog->blog_category ? $blog->blog_category->title : 'N/A')}}</td>
-                                        <td>{{($blog->blog_tags ?? 'N/A')}}</td>
+                                        <td style="width: 10%!important">
+                                            <ul>
+                                                @forelse($blog->blog_tags as $tagKey => $tags)
+                                                    <li>{{$tagKey + 1}}:{{$tags->title}}</li>.
+                                                @empty
+                                                    <li>{{('N/A')}}</li>
+                                                @endforelse
+                                            </ul>
+                                        </td>
                                     	<td>{!! words($blog->description, 300) !!}</td>
                                     	<td>
                                             <a href="{{route('admin.blog.data.edit',[$blog->id,'title' => $blog->title])}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="deleteBlogData text-danger" data-id="{{$blog->id}}"><i class="fa fa-trash"></i></a>

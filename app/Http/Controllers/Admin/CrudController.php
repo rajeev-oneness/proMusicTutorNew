@@ -30,7 +30,7 @@ class CrudController extends Controller
         foreach ($data->blogs as $key => $blog) {
             $blog->blog_tags = [];
             if($blog->tags != ''){
-                $blog->blog_tags = BlogTag::select('title')->whereIn('id',explode(',', $blog->tags))->pluck('title');
+                $blog->blog_tags = BlogTag::select('title')->whereIn('id',explode(',', $blog->tags))->get();
             }
         }
         return view('admin.blog.index',compact('data'));
@@ -46,20 +46,82 @@ class CrudController extends Controller
 
     public function adminBlogsStore(Request $req)
     {
-        
+        $req->validate([
+            'title' => 'required|string|max:255',
+            'category' => 'required|min:1|numeric',
+            'tags' => 'required|array',
+            'tags.*' => 'required|numeric|min:1',
+            'description' => 'required|string',
+            'image' => 'nullable|image',
+            'facebook_link' => 'nullable|string|url',
+            'twitter_link' => 'nullable|string|url',
+            'instagram_link' => 'nullable|string|url',
+            'youtube_link' => 'nullable|string|url',
+            'google_link' => 'nullable|string|url',
+        ]);
+        $user = $req->user();
+        $newBlog = new Blog();
+        $newBlog->blogCategoryId = $req->category;
+        $newBlog->title = $req->title;
+        $newBlog->description = emptyCheck($req->description);
+        $newBlog->createdBy = $user->id;
+        $newBlog->tags = (!empty($req->tags) ? implode(',',$req->tags) : '');
+        $newBlog->facebook_link = emptyCheck($req->facebook_link);
+        $newBlog->twitter_link = emptyCheck($req->twitter_link);
+        $newBlog->instagram_link = emptyCheck($req->instagram_link);
+        $newBlog->youtube_link = emptyCheck($req->youtube_link);
+        $newBlog->google_link = emptyCheck($req->google_link);
+        $newBlog->save();
+        if ($req->hasFile('image')) {
+            $image = $req->file('image');
+            $newBlog->image = imageUpload($image);
+            $newBlog->save();
+        }
+        return redirect(route('admin.blog.data.list'))->with('Success','Blog Created SuccessFully');
     }
 
     public function adminBlogsEdit(Request $req, $blogId)
     {
         $data = Blog::findOrFail($blogId);
         $data->category = BlogCategory::select('*')->latest()->get();
-        $data->tags = BlogTag::select('*')->latest()->get();
+        $data->tagsData = BlogTag::select('*')->latest()->get();
         return view('admin.blog.edit',compact('data'));
     }
 
     public function adminBlogsUpdate(Request $req, $blogId)
     {
-        
+        $req->validate([
+            'blogId' => 'required|numeric|min:1|in:'.$blogId,
+            'title' => 'required|string|max:255',
+            'category' => 'required|min:1|numeric',
+            'tags' => 'required|array',
+            'tags.*' => 'required|numeric|min:1',
+            'description' => 'required|string',
+            'image' => 'nullable|image',
+            'facebook_link' => 'nullable|string|url',
+            'twitter_link' => 'nullable|string|url',
+            'instagram_link' => 'nullable|string|url',
+            'youtube_link' => 'nullable|string|url',
+            'google_link' => 'nullable|string|url',
+        ]);
+        $user = $req->user();
+        $updateBlog = Blog::find($blogId);
+        $updateBlog->blogCategoryId = $req->category;
+        $updateBlog->title = $req->title;
+        if ($req->hasFile('image')) {
+            $image = $req->file('image');
+            $updateBlog->image = imageUpload($image);
+        }
+        $updateBlog->description = emptyCheck($req->description);
+        $updateBlog->createdBy = $user->id;
+        $updateBlog->tags = (!empty($req->tags) ? implode(',',$req->tags) : '');
+        $updateBlog->facebook_link = emptyCheck($req->facebook_link);
+        $updateBlog->twitter_link = emptyCheck($req->twitter_link);
+        $updateBlog->instagram_link = emptyCheck($req->instagram_link);
+        $updateBlog->youtube_link = emptyCheck($req->youtube_link);
+        $updateBlog->google_link = emptyCheck($req->google_link);
+        $updateBlog->save();
+        return redirect(route('admin.blog.data.list'))->with('Success','Blog Updated SuccessFully');
     }
 
     public function adminBlogsDelete(Request $req)
