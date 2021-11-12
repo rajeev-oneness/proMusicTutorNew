@@ -135,10 +135,6 @@
 
 @section('script')
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#example4').DataTable();
-        });
-
         $(document).on('click','.getReferredByDetails',function(){
             var details = JSON.parse($(this).attr('data-details'));
             var data = '<h3>Name : '+details.name+'</h3>';

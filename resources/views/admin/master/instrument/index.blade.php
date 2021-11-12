@@ -40,10 +40,6 @@
 </div>
 @section('script')
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#example4').DataTable();
-        });
-
         $(document).on('click','.instrumentDelete',function(){
             var deleteInstrument = $(this);
             var instrumentId = $(this).attr('data-id');

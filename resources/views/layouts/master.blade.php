@@ -116,6 +116,15 @@
                 $('button').attr('disabled', 'disabled');
                 $('.loading-data').show();
             });
+            $('.table th').addClass('text-left');$('.table td').addClass('text-left');
+            $('#example4').DataTable({
+                responsive: true,
+                order : [],
+                language: {
+                search: "_INPUT_",
+                    searchPlaceholder: "Search records",
+                }
+            });
 
             @auth
                 // markAllNotificationasRead from Header.blade.php
@@ -348,24 +357,24 @@
             });
         }
 
-        // ######## turn off right click, f12, ctrl + u etc ########
-        // $('body').bind('cut copy paste', function(event) {
-        //     event.preventDefault();
-        // });
-        // document.oncontextmenu = new Function("return false");
-        // document.onkeypress = function (event) {
-        //     event = (event || window.event);
-        //     if (event.keyCode == 123) {return false;}
-        // }
-        // document.onmousedown = function (event) {
-        //     event = (event || window.event);
-        //     if (event.keyCode == 123) {return false;}
-        // }
-        // document.onkeydown = function (event) {
-        //     event = (event || window.event);
-        //     if (event.keyCode == 123) {return false;}
-        //     if(event.ctrlKey && event.keyCode == 85) {return false;}
-        // }
+        /************* turn off right click, f12, ctrl + u etc *************/
+        $('body').bind('cut copy paste', function(event) {
+            event.preventDefault();
+        });
+        document.oncontextmenu = new Function("return false");
+        document.onkeypress = function (event) {
+            event = (event || window.event);
+            if (event.keyCode == 123) {return false;}
+        }
+        document.onmousedown = function (event) {
+            event = (event || window.event);
+            if (event.keyCode == 123) {return false;}
+        }
+        document.onkeydown = function (event) {
+            event = (event || window.event);
+            if (event.keyCode == 123) {return false;}
+            if(event.ctrlKey && event.keyCode == 85) {return false;}
+        }
     </script>
     @yield('script')
 </body>

@@ -36,6 +36,12 @@ class CrudController extends Controller
         return view('admin.blog.index',compact('data'));
     }
 
+    public function viewBlogComments(Request $req, $blogId)
+    {
+        $data = Blog::findOrFail($blogId);
+        return view('admin.blog.commentList',compact('data'));
+    }
+
     public function adminBlogsCreate(Request $req)
     {
         $data = (object)[];

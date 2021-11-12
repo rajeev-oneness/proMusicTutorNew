@@ -122,6 +122,7 @@
 		Route::get('{blogId}/edit',[CrudController::class,'adminBlogsEdit'])->name('admin.blog.data.edit');
 		Route::post('{blogId}/update',[CrudController::class,'adminBlogsUpdate'])->name('admin.blog.data.update');
 		Route::post('{blogId}/delete',[CrudController::class,'adminBlogsDelete'])->name('admin.blog.data.delete');
+		Route::get('{blogId}/comment',[CrudController::class, 'viewBlogComments'])->name('admin.blog.data.comment');
 	});
 
 

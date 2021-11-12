@@ -17,17 +17,20 @@
                         <table id="example4" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>Blog Id</th>
                                 	<th>Image</th>
                                 	<th>Title</th>
                                 	<th>Category</th>
                                     <th>Tags</th>
                                 	<th>Description</th>
+                                    <th>Comments</th>
                                 	<th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($data->blogs as $blog)
                                     <tr>
+                                        <td>#{{$blog->id}}</td>
                                     	<td><img src="{{asset($blog->image)}}"></td>
                                     	<td>{{$blog->title}}</td>
                                     	<td>{{($blog->blog_category ? $blog->blog_category->title : 'N/A')}}</td>
@@ -41,6 +44,7 @@
                                             </ul>
                                         </td>
                                     	<td>{!! words($blog->description, 300) !!}</td>
+                                        <th><a href="{{route('admin.blog.data.comment',[$blog->id])}}" target="_blank">view</a></th>
                                     	<td>
                                             <a href="{{route('admin.blog.data.edit',[$blog->id,'title' => $blog->title])}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="deleteBlogData text-danger" data-id="{{$blog->id}}"><i class="fa fa-trash"></i></a>
                                         </td>

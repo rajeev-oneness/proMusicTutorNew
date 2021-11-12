@@ -18,6 +18,7 @@
                         <table id="example4" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>Category Id</th>
                                     <th>Name</th>
                                     <th>No. Of Blogs</th>
                                     <th>Action</th>
@@ -26,6 +27,7 @@
                             <tbody>
                                 @foreach($data->category as $cat)
                                     <tr>
+                                        <td>#{{$cat->id}}</td>
                                         <td>{{$cat->title}}</td>
                                         <th><a href="{{route('admin.blog.data.list',['categoryId'=>$cat->id,'categoryName'=>$cat->title])}}">{{count($cat->blogs_data)}}</a></th>
                                         <td>

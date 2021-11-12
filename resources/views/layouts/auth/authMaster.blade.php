@@ -59,6 +59,7 @@
                 $('button').attr('disabled', 'disabled');
                 $('.loading-data').show();
             });
+            $('.table th').addClass('text-left');$('.table td').addClass('text-left');            
             $('#example4').DataTable({
                 responsive: true,
                 order : [],
@@ -66,6 +67,25 @@
                 search: "_INPUT_",
                     searchPlaceholder: "Search records",
                 }
+            });
+
+            var max = 100;
+            $(".readMore").each(function() {
+                var str = $(this).text();
+                if ($.trim(str).length > max) {
+                    var subStr = str.substring(0, max);
+                    console.log(subStr);
+                    var hiddenStr = str.substring(max, $.trim(str).length);
+                    var lengthstring = hiddenStr.length;
+                    $(this).empty().html(subStr);
+                    $(this).append(' <a href="javascript:void(0);" class="link">Read more…</a>');
+                    $(this).append('<p class="addText">' + hiddenStr + '</p>');
+                }
+            });
+
+            $(".link").click(function() {
+                $(this).siblings(".addText").contents().unwrap();
+                $(this).remove();
             });
         });
         @if(Session::has('Success'))
@@ -80,6 +100,7 @@
             }
             return false;
         }
+        
         function currencySymbol($type = ''){
             $view = '$';
             switch ($type) {
@@ -111,27 +132,6 @@
             }
             $(targetModalId).modal('show');
         }
-    </script>
-    <script>
-    $(document).ready(function() {
-    var max = 100;
-    $(".readMore").each(function() {
-        var str = $(this).text();
-        if ($.trim(str).length > max) {
-            var subStr = str.substring(0, max);
-            console.log(subStr);
-            var hiddenStr = str.substring(max, $.trim(str).length);
-            var lengthstring = hiddenStr.length;
-            $(this).empty().html(subStr);
-            $(this).append(' <a href="javascript:void(0);" class="link">Read more…</a>');
-            $(this).append('<p class="addText">' + hiddenStr + '</p>');
-        }
-    });
-    $(".link").click(function() {
-        $(this).siblings(".addText").contents().unwrap();
-        $(this).remove();
-    });
-});
     </script>
     @yield('script')
 </body>

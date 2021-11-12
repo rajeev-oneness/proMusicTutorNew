@@ -17,6 +17,7 @@
                         <table id="example4" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>Tag Id</th>
                                     <th>Name</th>
                                     <th>No. Of Blogs</th>
                                     <th>Action</th>
@@ -25,6 +26,7 @@
                             <tbody>
                                 @foreach($data->tags as $tag)
                                     <tr>
+                                        <td>#{{$tag->id}}</td>
                                         <td>{{$tag->title}}</td>
                                         <th><a href="{{route('admin.blog.data.list',['tagId'=>$tag->id,'tagName'=>$tag->title])}}">{{count($tag->blogs_data($tag->id))}}</a></th>
                                         <td>

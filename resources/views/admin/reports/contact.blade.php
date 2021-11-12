@@ -115,9 +115,6 @@
 
 @section('script')
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#example4').DataTable();
-        });
 
         $(document).on('click','.seeDetails',function(){
             var Id = $(this).attr('data-id'),name = $(this).attr('data-name'),email = $(this).attr('data-email'),mobile = $(this).attr('data-mobile');

@@ -44,10 +44,6 @@
     </div>
 </div>
 @section('script')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#example4').DataTable();
-        });
-    </script>
+    <script type="text/javascript"></script>
 @stop
 @endsection

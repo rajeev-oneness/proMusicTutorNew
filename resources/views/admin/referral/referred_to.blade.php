@@ -93,9 +93,6 @@
 
 @section('script')
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#example4').DataTable();
-        });
         $(document).on('click','.userDelete',function(){
             var userId = $(this).attr('data-id');
             var thisClickedbtn = $(this);
