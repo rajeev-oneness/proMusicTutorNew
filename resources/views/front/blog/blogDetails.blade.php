@@ -45,10 +45,10 @@
                                 <div class="pull-right">
                                     <div class="post-title">Share This</div>
                                     <ul class="social-icon">
-                                        <li><a href="#"><span class="fab fa-twitter"></span></a></li>
-                                        <li><a href="#"><span class="fab fa-facebook"></span></a></li>
-                                        <li><a href="#"><span class="fab fa-google-plus"></span></a></li>
-                                        <li><a href="#"><span class="fab fa-pinterest-p"></span></a></li>
+                                        <li><a href="javascript:void(0)" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><span class="fab fa-twitter"></span></a></li>
+                                        <li><a href="javascript:void(0)" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><span class="fab fa-facebook"></span></a></li>
+                                        <li><a href="javascript:void(0)" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><span class="fab fa-google-plus"></span></a></li>
+                                        <li><a href="javascript:void(0)" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;"><span class="fab fa-pinterest-p"></span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -92,7 +92,23 @@
                         </div>
                     </div>
                 @endif
-
+                @auth
+                    <!-- Comment Form -->
+                    <div class="comment-form">
+                        <div class="group-title">
+                            <h5>Leave a comment</h5>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                <textarea class="" name="message" id="blogCommentInbox" placeholder="Your Message" spellcheck="false"></textarea>
+                            </div>
+                            <span class="text-danger commentError"></span>
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                <button class="btn-style-one mt-3 blogCommentSubmit" type="submit" name="submit-form">send comment</button>
+                            </div>
+                        </div>
+                    </div>
+                @endauth
                 <div class="comments-area py-5">
                     <div class="group-title">
                         <h5>Comments</h5>
@@ -116,24 +132,6 @@
                         @endforelse
                     </div>
                 </div>
-                
-                @auth
-                <!-- Comment Form -->
-                    <div class="comment-form">
-                        <div class="group-title">
-                            <h5>Post Reply</h5>
-                        </div>
-                        <div class="row clearfix">
-                            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                <textarea class="" name="message" id="blogCommentInbox" placeholder="Your Message" spellcheck="false"></textarea>
-                            </div>
-                            <span class="text-danger commentError"></span>
-                            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                <button class="btn-style-one mt-3 blogCommentSubmit" type="submit" name="submit-form">send comment</button>
-                            </div>
-                        </div>
-                    </div>
-                @endauth
             </div>
 
             <!-- Sidebar Side -->
