@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Category, Auth;
 use App\Models\ProductSeries, App\Models\ProductSeriesLession;
 use App\Models\Instrument, App\Models\Genre, App\Models\User;
+use App\Models\Blog,App\Models\BlogCategory,App\Models\BlogTag;
 
 class AdminController extends Controller
 {
@@ -14,10 +15,13 @@ class AdminController extends Controller
     {
         $data = (object)[];
         $data->instruments = Instrument::latest()->get();
-        $data->categories = Category::latest()->limit(2)->get();
-        $data->genres = Genre::latest()->limit(2)->get();
+        $data->categories = Category::latest()->get();
+        $data->genres = Genre::latest()->get();
         $data->tutors = User::select('*')->where('user_type',2)->get();
         $data->students = User::select('*')->where('user_type',3)->get();
+        $data->blogTags = BlogTag::select('*')->latest()->get();
+        $data->blogs = Blog::select('*')->latest()->get();
+        $data->blogCategory = BlogCategory::select('*')->latest()->get();
         return view('admin.dashboard', compact('data'));
     }
 

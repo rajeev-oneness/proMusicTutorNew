@@ -1,6 +1,5 @@
 @extends('layouts.auth.authMaster')
 @section('title','Dashboard')
-
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
@@ -21,7 +20,7 @@
                                     <p class="small mb-0">
                                         @foreach ($data->instruments as $key => $instrument)
                                             {{($loop->first ? '' : ', ').($instrument->name)}}
-                                            @php if ($key == 1) {echo '...';break;} @endphp
+                                            @php if ($key == 2) {echo '...';break;} @endphp
                                         @endforeach
                                     </p>
                                     <i class="fas fa-music"></i>
@@ -34,8 +33,9 @@
                                 <div class="card card-body mb-0">
                                     <h5 class="mb-2">Category ({{count($data->categories)}})</h5>
                                     <p class="small mb-0">
-                                        @foreach ($data->categories as $category)
-                                            {{($loop->first ? '' : ', ') . ($category->name) . ($loop->last ? '...' : '')}}
+                                        @foreach ($data->categories as $key=> $category)
+                                            {{($loop->first ? '' : ', ').($category->name)}}
+                                            @php if ($key == 2) {echo '...';break;} @endphp
                                         @endforeach
                                     </p>
                                     <i class="fas fa-list-alt"></i>
@@ -48,8 +48,9 @@
                                 <div class="card card-body mb-0">
                                     <h5 class="mb-2">Genre ({{count($data->genres)}})</h5>
                                     <p class="small mb-0">
-                                        @foreach ($data->genres as $genre)
-                                            {{($loop->first ? '' : ', ') . (ucwords($genre->name)) . ($loop->last ? '...' : '')}}
+                                        @foreach ($data->genres as $key => $genre)
+                                            {{($loop->first ? '' : ', ').($genre->name)}}
+                                            @php if ($key == 2) {echo '...';break;} @endphp
                                         @endforeach
                                     </p>
                                     <i class="fas fa-list"></i>
@@ -81,6 +82,38 @@
                                 </a>
                             </div>
                         @endforeach
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <p class="text-muted mb-3">Blogs</p>
+                        </div>
+                        <div class="col-md-3 dash-card-col">
+                            <a href="{{route('admin.blog.data.list')}}">
+                                <div class="card card-body mb-0">
+                                    <h5 class="mb-2">Blogs ({{count($data->blogs)}})</h5>
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-md-3 dash-card-col">
+                            <a href="{{route('admin.blog.tag.list')}}">
+                                <div class="card card-body mb-0">
+                                    <h5 class="mb-2">Blog tags ({{count($data->blogTags)}})</h5>
+                                    <i class="fas fa-box-open"></i>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-md-3 dash-card-col">
+                            <a href="{{route('admin.blog.category.list')}}">
+                                <div class="card card-body mb-0">
+                                    <h5 class="mb-2">Blog Category ({{count($data->blogCategory)}})</h5>
+                                    <i class="fas fa-box-open"></i>
+                                </div>
+                            </a>
+                        </div>
                     </div>
 
                     <div class="row mb-4">
