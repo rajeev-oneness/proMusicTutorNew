@@ -81,10 +81,9 @@
                                 <div class="tab-content pt-4" id="myTabContent">
                                     <div class="tab-pane fade show active" id="guitar" role="tabpanel" aria-labelledby="guitar-tab">
                                         <ul class="r_menu_ul">
-                                            <!-- <li><a href="javascript:void(0)">OFFERS</a></li> -->
+                                            <li><a href="{{route('welcome.blogs')}}">Blogs</a></li>
                                             <li><a href="{{route('browse.product.series')}}">ALL SERIES & PREVIEWS</a></li>
                                             <li><a href="{{route('front.offers')}}">OFFERS</a></li>
-                                            <!-- <li><a href="javascript:void(0)">MEET THE PROS</a></li> -->
                                             <li><a href="{{route('howitworks')}}">HOW IT WORKS</a></li>
                                             <li><a class="{{Route::currentRouteName()=='subscription.plan'?'active':''}}" href="{{route('subscription.plan')}}">SUBSCRIPTIONS</a></li>
                                             <li><a class="{{Route::currentRouteName()=='welcome.aboutus'?'active':''}}" href="{{route('welcome.aboutus')}}">About Us</a></li>
@@ -93,8 +92,8 @@
                                             @endauth
                                         </ul>
                                     </div>
-                                    <div class="tab-pane fade" id="sax" role="tabpanel" aria-labelledby="sax-tab">profile tab</div>
-                                    <div class="tab-pane fade" id="blog" role="tabpanel" aria-labelledby="blog-tab">contact tab</div>
+                                    <!-- <div class="tab-pane fade" id="sax" role="tabpanel" aria-labelledby="sax-tab">profile tab</div>
+                                    <div class="tab-pane fade" id="blog" role="tabpanel" aria-labelledby="blog-tab">contact tab</div> -->
                                 </div>
                                 <div class="orange_border"></div>
                             </div>
