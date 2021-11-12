@@ -27,7 +27,7 @@
                                 @foreach($data->category as $cat)
                                     <tr>
                                         <td>{{$cat->title}}</td>
-                                        <th><a href="javascript:void(0)">{{count($cat->blogs_data)}}</a></th>
+                                        <th><a href="{{route('admin.blog.data.list',['categoryId'=>$cat->id,'categoryName'=>$cat->title])}}">{{count($cat->blogs_data)}}</a></th>
                                         <td>
                                             <a href="javascript:void(0)" class="editBlogCategory" data-id="{{$cat->id}}" data-name="{{$cat->title}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="deleteBlogCategory text-danger" data-id="{{$cat->id}}"><i class="fa fa-trash"></i></a>
                                         </td>

@@ -16,6 +16,69 @@ use App\Models\ProductSeries,App\Models\Notification;
 use App\Models\Blog,App\Models\BlogCategory,App\Models\BlogTag;
 class CrudController extends Controller
 {
+    public function adminBlogs(Request $req)
+    {
+        $data = (object)[];
+        $data->blogs = Blog::select('*');
+        if(!empty($req->categoryId) && $req->categoryId > 0){
+            $data->blogs = $data->blogs->where('blogCategoryId',$req->categoryId);    
+        }
+        if(!empty($req->tagId) && $req->tagId > 0){
+            $data->blogs = $data->blogs->whereRaw('FIND_IN_SET("'.$req->tagId.'",tags)');
+        }
+        $data->blogs = $data->blogs->latest()->get();
+        foreach ($data->blogs as $key => $blog) {
+            $blog->blog_tags = [];
+            if($blog->tags != ''){
+                $blog->blog_tags = BlogTag::select('title')->whereIn('id',explode(',', $blog->tags))->pluck('title');
+            }
+        }
+        return view('admin.blog.index',compact('data'));
+    }
+
+    public function adminBlogsCreate(Request $req)
+    {
+        $data = (object)[];
+        $data->category = BlogCategory::select('*')->latest()->get();
+        $data->tags = BlogTag::select('*')->latest()->get();
+        return view('admin.blog.create',compact('data'));
+    }
+
+    public function adminBlogsStore(Request $req)
+    {
+        
+    }
+
+    public function adminBlogsEdit(Request $req, $blogId)
+    {
+        $data = Blog::findOrFail($blogId);
+        $data->category = BlogCategory::select('*')->latest()->get();
+        $data->tags = BlogTag::select('*')->latest()->get();
+        return view('admin.blog.edit',compact('data'));
+    }
+
+    public function adminBlogsUpdate(Request $req, $blogId)
+    {
+        
+    }
+
+    public function adminBlogsDelete(Request $req)
+    {
+        $rules = [
+            'id' => 'required|numeric|min:1',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $blog = Blog::findOrFail($req->id);
+            if($blog){
+                $blog->delete();
+                return successResponse('Blog Deleted Success');
+            }
+            return errorResponse('Invalid Blog Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
     public function adminBlogCategory(Request $req)
     {
         $data = (object)[];
@@ -136,15 +199,6 @@ class CrudController extends Controller
             return errorResponse('Invalid Blog Tag Id');
         }
         return errorResponse($validator->errors()->first());
-    }
-
-    public function adminBlogs(Request $req)
-    {
-        $data = (object)[];
-        $data->blogs = Blog::select('*')->get();
-        // $data->category = BlogCategory::select('*')->get();
-        // $data->tags = BlogTag::select('*')->get();
-        return view('admin.blog.index',compact('data'));
     }
 
     public function notificationMarkAsReadOrUnRead(Request $req)

@@ -26,7 +26,7 @@
                                 @foreach($data->tags as $tag)
                                     <tr>
                                         <td>{{$tag->title}}</td>
-                                        <th><a href="javascript:void(0)">{{count($tag->blogs_data)}}</a></th>
+                                        <th><a href="{{route('admin.blog.data.list',['tagId'=>$tag->id,'tagName'=>$tag->title])}}">{{count($tag->blogs_data)}}</a></th>
                                         <td>
                                             <a href="javascript:void(0)" class="editBlogCategory" data-id="{{$tag->id}}" data-name="{{$tag->title}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="deleteBlogCategory text-danger" data-id="{{$tag->id}}"><i class="fa fa-trash"></i></a>
                                         </td>

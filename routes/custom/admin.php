@@ -117,6 +117,11 @@
 
 	Route::group(['prefix' => 'blogs'],function(){
 		Route::get('list',[CrudController::class,'adminBlogs'])->name('admin.blog.data.list');
+		Route::get('create',[CrudController::class,'adminBlogsCreate'])->name('admin.blog.data.create');
+		Route::post('create',[CrudController::class,'adminBlogsStore'])->name('admin.blog.data.save');
+		Route::get('{blogId}/edit',[CrudController::class,'adminBlogsEdit'])->name('admin.blog.data.edit');
+		Route::post('{blogId}/update',[CrudController::class,'adminBlogsUpdate'])->name('admin.blog.data.update');
+		Route::post('{blogId}/delete',[CrudController::class,'adminBlogsDelete'])->name('admin.blog.data.delete');
 	});
 
 
