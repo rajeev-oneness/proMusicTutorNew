@@ -68,7 +68,7 @@
                                         data-wow-duration="1500ms"
                                         style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: fadeInRight;">
                                         <div class="image">
-                                            <a href="{{route('blogs.details',[$relatedpost->id,'title' => $relatedpost->title])}}"><img src="{{asset($relatedpost->image)}}" alt=""></a>
+                                            <a href="{{route('blogs.details',[$relatedpost->id,'title' => $relatedpost->title])}}"><img src="{{asset($relatedpost->image)}}"></a>
                                             <div class="post-date">{{date('M d, Y',strtotime($relatedpost->created_at))}}</div>
                                         </div>
                                         <div class="lower-content">
@@ -164,7 +164,7 @@
                             </div>
                             <ul class="cat-list-two">
                             @foreach($data->blogCategory as $catIndex => $catValue)
-                                <li><a href="{{route('welcome.blogs',['categoryId'=>$catValue->id,'categoryName'=>$catValue->title])}}">{{words(ucwords($catValue->title),30)}}</a></li>
+                                <li><a href="{{route('welcome.blogs',['categoryId'=>$catValue->id,'categoryName'=>$catValue->title])}}">{{words(ucwords($catValue->title),30)}} ({{(count($catValue->blogs_data))}})</a></li>
                             @endforeach
                         </div>
                     </div>
@@ -176,7 +176,7 @@
                                 <h5>Popular Tags</h5>
                             </div>
                             @foreach($data->blogTags as $tagIndex => $tagValue)
-                                <a href="{{route('welcome.blogs',['tagId'=>$tagValue->id,'tagName'=>$tagValue->title])}}">{{words(ucwords($tagValue->title),30)}}</a>
+                                <a href="{{route('welcome.blogs',['tagId'=>$tagValue->id,'tagName'=>$tagValue->title])}}">{{words(ucwords($tagValue->title),30)}} ({{count($tagValue->blogs_data($tagValue->id))}})</a>
                             @endforeach
                         </div>
                     </div>
