@@ -75,6 +75,18 @@
                                 <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Students</a>
                             </li> --}}
 
+                            <li class="nav-item">
+                                <a class="nav-link {{request()->routeIs('admin.blog.category.*')?'active':''}}" href="{{route('admin.blog.category.list')}}"><i class="fa fa-fw fa-user-circle"></i>Blog Category</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link {{request()->routeIs('admin.blog.tag.*')?'active':''}}" href="{{route('admin.blog.tag.list')}}"><i class="fa fa-fw fa-user-circle"></i>Blog Tags</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link {{request()->routeIs('admin.blog.data.*')?'active':''}}" href="{{route('admin.blog.data.list')}}"><i class="fa fa-fw fa-user-circle"></i>Blogs</a>
+                            </li>
+
                             @if(count($instruments) > 0)
                                 <li class="nav-divider">Products</li>
                                 @foreach($instruments as $index => $instru)

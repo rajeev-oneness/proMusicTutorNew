@@ -55,6 +55,18 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('.loading-data').hide();
+            $(document).on('submit', 'form', function() {
+                $('button').attr('disabled', 'disabled');
+                $('.loading-data').show();
+            });
+            $('#example4').DataTable({
+                responsive: true,
+                order : [],
+                language: {
+                search: "_INPUT_",
+                    searchPlaceholder: "Search records",
+                }
+            });
         });
         @if(Session::has('Success'))
             swal('Success','{{Session::get('Success')}}', 'success');

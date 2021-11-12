@@ -101,6 +101,25 @@
 		Route::any('user/notifications',[ReportController::class,'userNotification'])->name('admin.report.user.notification');
 	});
 
+	Route::group(['prefix' => 'blog/category'],function(){
+		Route::get('list',[CrudController::class,'adminBlogCategory'])->name('admin.blog.category.list');
+		Route::post('/save',[CrudController::class,'saveBlogCategory'])->name('admin.blog.category.save');
+		Route::post('/update',[CrudController::class,'updateBlogCategory'])->name('admin.blog.category.update');
+		Route::post('/{id}/delete', [CrudController::class,'deleteBlogCategory'])->name('admin.blog.category.delete');
+	});
+
+	Route::group(['prefix' => 'blog/tag'],function(){
+		Route::get('list',[CrudController::class,'adminBlogsTag'])->name('admin.blog.tag.list');
+		Route::post('/save',[CrudController::class,'saveBlogTag'])->name('admin.blog.tag.save');
+		Route::post('/update',[CrudController::class,'updateBlogTag'])->name('admin.blog.tag.update');
+		Route::post('/{id}/delete', [CrudController::class,'deleteBlogTag'])->name('admin.blog.tag.delete');
+	});
+
+	Route::group(['prefix' => 'blogs'],function(){
+		Route::get('list',[CrudController::class,'adminBlogs'])->name('admin.blog.data.list');
+	});
+
+
 	// Testimonials
 	Route::group(['prefix'=>'testimonial'],function(){
 		Route::get('/',[CrudController::class,'testimonials'])->name('admin.testimonial');

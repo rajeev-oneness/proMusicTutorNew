@@ -29,6 +29,9 @@ Route::get('terms-and-condition', [DefaultController::class, 'termsAndCondition'
 Route::get('privacy/policy', [DefaultController::class, 'privacyPolicy'])->name('privacy.policy');
 Route::get('refund/policy', [DefaultController::class, 'refundPolicy'])->name('policy.refund');
 
+Route::get('blog',[BlogController::class,'index'])->name('welcome.blogs');
+Route::get('blog/{blogId}/details',[BlogController::class,'blogDetails'])->name('blogs.details');
+
 Auth::routes(['logout' => false]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

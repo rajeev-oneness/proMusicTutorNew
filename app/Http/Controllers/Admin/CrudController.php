@@ -13,9 +13,140 @@ use Illuminate\Support\Facades\Hash, App\Models\Genre;
 use App\Models\SubscriptionPlan, App\Models\SubscriptionPlanFeature;
 use App\Models\Offer,App\Models\OfferSeries;
 use App\Models\ProductSeries,App\Models\Notification;
-
+use App\Models\Blog,App\Models\BlogCategory,App\Models\BlogTag;
 class CrudController extends Controller
 {
+    public function adminBlogCategory(Request $req)
+    {
+        $data = (object)[];
+        $data->category = BlogCategory::select('*')->latest()->get();
+        return view('admin.blog.category.index',compact('data'));
+    }
+
+    public function saveBlogCategory(Request $req)
+    {
+        $req->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $category = BlogCategory::where('title',$req->name)->first();
+        if(!$category){
+            $category = new BlogCategory();
+            $category->title = $req->name;
+            $category->save();
+            return back()->with('Success','Blog Category Added SuccessFully');
+        }
+        $errors['name'] = 'This Blog Category already exist!';
+        return back()->withErrors($errors)->withInput($req->all());
+    }
+
+    public function updateBlogCategory(Request $req)
+    {
+        $req->validate([
+            'blogCategoryId' => 'required|numeric|min:1',
+            'updatename' => 'required|string|max:255',
+        ]);
+        $category = BlogCategory::where('id','!=',$req->blogCategoryId)->where('title',$req->updatename)->first();
+        if(!$category){
+            $category = BlogCategory::where('id',$req->blogCategoryId)->first();
+            if($category){
+                $category->title = $req->updatename;
+                $category->save();
+                return back()->with('Success','Blog Category Updated SuccessFully');
+            }
+            $errors['updatename'] = 'Something went wrong please try after sometime!';
+            return back()->withErrors($errors)->withInput($req->all());
+        }
+        $errors['updatename'] = 'This Blog Category already exist!';
+        return back()->withErrors($errors)->withInput($req->all());
+    }
+
+    public function deleteBlogCategory(Request $req)
+    {
+        $rules = [
+            'id' => 'required|numeric|min:1',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $blogCategory = BlogCategory::findOrFail($req->id);
+            if($blogCategory){
+                $blogCategory->delete();
+                return successResponse('Blog Category Deleted Success');
+            }
+            return errorResponse('Invalid Blog Category Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
+    public function adminBlogsTag(Request $req)
+    {
+        $data = (object)[];
+        $data->tags = BlogTag::select('*')->latest()->get();
+        return view('admin.blog.tag.index',compact('data'));
+    }
+
+    public function saveBlogTag(Request $req)
+    {
+        $req->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $tag = BlogTag::where('title',$req->name)->first();
+        if(!$tag){
+            $tag = new BlogTag();
+            $tag->title = $req->name;
+            $tag->save();
+            return back()->with('Success','Blog Tag Added SuccessFully');
+        }
+        $errors['name'] = 'This Blog Tag already exist!';
+        return back()->withErrors($errors)->withInput($req->all());
+    }
+
+    public function updateBlogTag(Request $req)
+    {
+        $req->validate([
+            'blogTagId' => 'required|numeric|min:1',
+            'updatename' => 'required|string|max:255',
+        ]);
+        $tag = BlogTag::where('id','!=',$req->blogTagId)->where('title',$req->updatename)->first();
+        if(!$tag){
+            $tag = BlogTag::where('id',$req->blogTagId)->first();
+            if($tag){
+                $tag->title = $req->updatename;
+                $tag->save();
+                return back()->with('Success','Blog Tag Updated SuccessFully');
+            }
+            $errors['updatename'] = 'Something went wrong please try after sometime!';
+            return back()->withErrors($errors)->withInput($req->all());
+        }
+        $errors['updatename'] = 'This Blog Tag already exist!';
+        return back()->withErrors($errors)->withInput($req->all());
+    }
+
+    public function deleteBlogTag(Request $req)
+    {
+        $rules = [
+            'id' => 'required|numeric|min:1',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $blogTag = BlogTag::findOrFail($req->id);
+            if($blogTag){
+                $blogTag->delete();
+                return successResponse('Blog Tag Deleted Success');
+            }
+            return errorResponse('Invalid Blog Tag Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
+    public function adminBlogs(Request $req)
+    {
+        $data = (object)[];
+        $data->blogs = Blog::select('*')->get();
+        // $data->category = BlogCategory::select('*')->get();
+        // $data->tags = BlogTag::select('*')->get();
+        return view('admin.blog.index',compact('data'));
+    }
+
     public function notificationMarkAsReadOrUnRead(Request $req)
     {
         $rules = [

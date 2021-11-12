@@ -9,4 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class BlogTag extends Model
 {
     use HasFactory, SoftDeletes;
+
+    public function blogs_data()
+    {
+        return $this->hasMany('App\Models\Blog','tags','id');
+    }
 }
