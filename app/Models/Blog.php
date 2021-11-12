@@ -14,4 +14,14 @@ class Blog extends Model
     {
         return $this->belongsTo('App\Models\BlogCategory','blogCategoryId','id');
     }
+
+    public function author()
+    {
+        return $this->belongsTo('App\Models\User','createdBy','id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Models\BlogComment','blogId','id')->latest();
+    }
 }

@@ -83,6 +83,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('user/{userId?}/my/favourite',[HomeController::class,'userWishlist'])->name('user.wishlist');
 	Route::get('user/wishlist/{wishlistId}/{userId}/delete',[HomeController::class,'userWishlistDelete'])->name('user.wishlist.remove');
+	Route::post('user/blog/comment-post',[HomeController::class,'userBlogCommentPost'])->name('user.blog.comment.post');
 });
 
 // Stripe Payment Route

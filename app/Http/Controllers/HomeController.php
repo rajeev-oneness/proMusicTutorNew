@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth,App\Models\Instrument,Hash;
 use App\Models\Notification, App\Models\Wishlist;
-use App\Models\User;
+use App\Models\User, App\Models\BlogComment;
 
 class HomeController extends Controller
 {
@@ -125,6 +125,26 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         return view('auth.user.point_info',compact('user'));
+    }
+
+    public function userBlogCommentPost(Request $req)
+    {
+        $rules = [
+            'blogId' => 'required|numeric|min:1',
+            'userId' => 'required|numeric|min:1',
+            'comment' => 'required|string',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $newComment = new BlogComment();
+                $newComment->blogId = $req->blogId;
+                $newComment->userId = $req->userId;
+                $newComment->comment = strQuotationCheck($req->comment);
+            $newComment->save();
+            $newComment->now_time = date('d M, Y').' at '.date('h:i A');
+            return successResponse('Comment Posted Success',$newComment);
+        }
+        return errorResponse($validator->errors()->first());
     }
 
     public function logout(Request $req)
