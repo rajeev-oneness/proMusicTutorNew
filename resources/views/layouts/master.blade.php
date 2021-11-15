@@ -12,6 +12,8 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('design/css/owl.theme.default.min.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('design/css/style.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('design/css/responsive.css')}}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 	@yield('css')
 </head>
 <body>
@@ -109,6 +111,8 @@
 	<script type="text/javascript" src="{{asset('design/js/custom.js')}}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $('.loading-data').hide();
@@ -358,23 +362,23 @@
         }
 
         /************* turn off right click, f12, ctrl + u etc *************/
-        $('body').bind('cut copy paste', function(event) {
-            event.preventDefault();
-        });
-        document.oncontextmenu = new Function("return false");
-        document.onkeypress = function (event) {
-            event = (event || window.event);
-            if (event.keyCode == 123) {return false;}
-        }
-        document.onmousedown = function (event) {
-            event = (event || window.event);
-            if (event.keyCode == 123) {return false;}
-        }
-        document.onkeydown = function (event) {
-            event = (event || window.event);
-            if (event.keyCode == 123) {return false;}
-            if(event.ctrlKey && event.keyCode == 85) {return false;}
-        }
+        // $('body').bind('cut copy paste', function(event) {
+        //     event.preventDefault();
+        // });
+        // document.oncontextmenu = new Function("return false");
+        // document.onkeypress = function (event) {
+        //     event = (event || window.event);
+        //     if (event.keyCode == 123) {return false;}
+        // }
+        // document.onmousedown = function (event) {
+        //     event = (event || window.event);
+        //     if (event.keyCode == 123) {return false;}
+        // }
+        // document.onkeydown = function (event) {
+        //     event = (event || window.event);
+        //     if (event.keyCode == 123) {return false;}
+        //     if(event.ctrlKey && event.keyCode == 85) {return false;}
+        // }
     </script>
     @yield('script')
 </body>
