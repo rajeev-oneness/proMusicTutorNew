@@ -129,7 +129,8 @@
                                                                                                     <span>
                                                                                                         <div class="play-controller">
                                                                                                             <a href="javascript:void(0)" class="btn btn-sm btn-primary" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->preview_video)}}', '{{$lessionData->title}}')">Preview <i class="fa fa-play"></i> </a>
-                                                                                                            <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->video)}}', '{{$lessionData->title}}')">Watch <i class="fa fa-play"></i> </a>
+                                                                                                            <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->video)}}', '{{$lessionData->title}}','download')">Watch <i class="fa fa-play"></i> </a>
+                                                                                                            <a class="downloadVideo" href="{{asset($lessionData->video)}}" target="_blank" download><i class="fa fa-download" aria-hidden="true"></i></a>
                                                                                                         </div>
                                                                                                     </span>
                                                                                                 </li>
@@ -167,7 +168,8 @@
                                                                                 <span>
                                                                                     <div class="play-controller">
                                                                                         <a href="javascript:void(0)" class="btn btn-sm btn-primary" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->preview_video)}}', '{{$lessionData->title}}')">Preview <i class="fa fa-play"></i> </a>
-                                                                                        <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->video)}}', '{{$lessionData->title}}')">Watch <i class="fa fa-play"></i> </a>
+                                                                                        <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->video)}}', '{{$lessionData->title}}','download')">Watch <i class="fa fa-play"></i> </a>
+                                                                                        <a class="downloadVideo" href="{{asset($lessionData->video)}}" target="_blank" download><i class="fa fa-download" aria-hidden="true"></i></a>
                                                                                     </div>
                                                                                 </span>
                                                                             </li>
@@ -189,8 +191,8 @@
                                                             <span>
                                                                 <div class="play-controller">
                                                                     <a href="javascript:void(0)" class="btn btn-sm btn-primary" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->preview_video)}}', '{{$lessionData->title}}')">Preview <i class="fa fa-play"></i> </a>
-                                                                    <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->video)}}', '{{$lessionData->title}}')">Watch <i class="fa fa-play"></i> </a>
-                                                                    
+                                                                    <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="previewVideo({{$lessionData->id}}, '{{asset($lessionData->video)}}', '{{$lessionData->title}}','download')">Watch <i class="fa fa-play"></i> </a>
+                                                                    <a class="downloadVideo" href="{{asset($lessionData->video)}}" target="_blank" download><i class="fa fa-download" aria-hidden="true"></i></a>
                                                                 </div>
                                                             </span>
                                                         </li>
