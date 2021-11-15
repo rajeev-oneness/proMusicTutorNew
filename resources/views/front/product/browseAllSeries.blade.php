@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row m-0 my_teams">
             <div class="col-12 text-center">
-                <h1 class="mb-5">All Series</h1>
+                <h1 class="mb-5">ALL SERIES & PREVIEWS</h1>
             </div>
         </div>
 
@@ -67,9 +67,12 @@
 								@endforeach
 							</select>
 						</div>
-						<!-- if Search Module Happend
-							<input type="hidden" name="search" value="{{($req->search ?? '')}}"> 
-						-->
+						<div class="form-group mb-0 mr-2">
+							<input type="text" name="search" class="form-control" value="{{($req->search ?? '')}}" placeholder="Search ...">
+						</div>
+						<!-- if Search Module Happend -->
+						
+						
 						<div class="form-group mb-0 mr-2">
 							<button type="submit" class="btn buyfull">Apply</button>
 							<a href="{{route('browse.product.series')}}" class="btn detail">Reset</a>
@@ -120,7 +123,7 @@
 	            </div>
 	        </section>
 	    @else
-		    <div>No data found</div>
+		    <div>No Series found</div>
 	    @endif
     </div>
 </section>
