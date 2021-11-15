@@ -31,7 +31,7 @@
                         @endif
                         @if($userType == 3)
                             <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('user.wishlist')?'active':''}}" href="{{route('user.wishlist','0')}}"><i class="fa fa-fw fa-user-circle"></i>My Favourite</a>
+                                <a class="nav-link {{request()->routeIs('user.wishlist')?'active':''}}" href="{{route('user.wishlist','0')}}"><i class="fas fa-bookmark"></i>My Favourite</a>
                             </li>
                         @endif
 
@@ -66,14 +66,11 @@
                         <!-- Admin Sidebar -->
                         @if($userType == 1)
                             <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Tutors</a>
+                                <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fas fa-graduation-cap"></i>Tutors</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.users.students')?'active':''}}" href="{{route('admin.users.students')}}"><i class="fa fa-fw fa-user-circle"></i>Students</a>
+                                <a class="nav-link {{request()->routeIs('admin.users.students')?'active':''}}" href="{{route('admin.users.students')}}"><i class="fas fa-graduation-cap"></i> Students</a>
                             </li>
-                            {{-- <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Students</a>
-                            </li> --}}
 
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.blog.category.*')?'active':''}}" href="{{route('admin.blog.category.list')}}"><i class="fa fa-fw fa-user-circle"></i>Blog Category</a>
@@ -114,14 +111,14 @@
                                 <a class="nav-link {{request()->routeIs('admin.report.productsOrdered')?'active':''}}" href="{{route('admin.report.productsOrdered')}}"><i class="fa fa-fw fa-user-circle"></i>Products ordered</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.report.wishlistReport')?'active':''}}" href="{{route('admin.report.wishlistReport')}}"><i class="fa fa-fw fa-user-circle"></i>Wishlist</a>
+                                <a class="nav-link {{request()->routeIs('admin.report.wishlistReport')?'active':''}}" href="{{route('admin.report.wishlistReport')}}"><i class="fas fa-bookmark"></i>Wishlist</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.report.contactus')?'active':''}}" href="{{route('admin.report.contactus')}}"><i class="fa fa-fw fa-user-circle"></i>Contact us</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.report.user.notification')?'active':''}}" href="{{route('admin.report.user.notification')}}"><i class="fa fa-fw fa-user-circle"></i>Notification</a>
+                                <a class="nav-link {{request()->routeIs('admin.report.user.notification')?'active':''}}" href="{{route('admin.report.user.notification')}}"><i class="fas fa-bell-slash"></i>Notification</a>
                             </li>
 
                             <li class="nav-divider">Setting</li>
