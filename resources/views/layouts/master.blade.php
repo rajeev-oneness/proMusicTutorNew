@@ -12,8 +12,6 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('design/css/owl.theme.default.min.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('design/css/style.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('design/css/responsive.css')}}">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 	@yield('css')
 </head>
 <body>
@@ -111,8 +109,6 @@
 	<script type="text/javascript" src="{{asset('design/js/custom.js')}}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $('.loading-data').hide();
@@ -120,16 +116,6 @@
                 $('button').attr('disabled', 'disabled');
                 $('.loading-data').show();
             });
-            $('.table th').addClass('text-left');$('.table td').addClass('text-left');
-            $('#example4').DataTable({
-                responsive: true,
-                order : [],
-                language: {
-                search: "_INPUT_",
-                    searchPlaceholder: "Search records",
-                }
-            });
-
             @auth
                 // markAllNotificationasRead from Header.blade.php
                 $(document).on('click','.markAllAsRead',function(){

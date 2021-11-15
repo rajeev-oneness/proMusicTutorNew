@@ -59,7 +59,9 @@
                 $('button').attr('disabled', 'disabled');
                 $('.loading-data').show();
             });
+
             $('.table th').addClass('text-left');$('.table td').addClass('text-left');            
+            
             $('#example4').DataTable({
                 responsive: true,
                 order : [],
