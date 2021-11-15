@@ -17,7 +17,7 @@
                     <li><a href="javascript:void(0)" class="active">Tutor's</a></li>
                 </ul>
             </div>
-            <form class="col-12 col-lg-4">
+            <!-- <form class="col-12 col-lg-4">
 	            <div class="form-group row m-0 sortby">
 	                <label class="col-sm-4 col-form-label">Sort By</label>
 	                <div class="col-sm-8">
@@ -30,7 +30,7 @@
 		                </select>
 	                </div>
 	            </div>
-            </form>
+            </form> -->
         </div>
 
         <div class="row justify-content-start m-0">

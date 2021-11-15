@@ -81,14 +81,15 @@
                                 <div class="tab-content pt-4" id="myTabContent">
                                     <div class="tab-pane fade show active" id="guitar" role="tabpanel" aria-labelledby="guitar-tab">
                                         <ul class="r_menu_ul">
-                                            <li><a href="{{route('welcome.blogs')}}">Blogs</a></li>
-                                            <li><a href="{{route('browse.product.series')}}">ALL SERIES & PREVIEWS</a></li>
                                             <li><a href="{{route('front.offers')}}">OFFERS</a></li>
-                                            <li><a href="{{route('howitworks')}}">HOW IT WORKS</a></li>
+                                            <li><a href="{{route('browse.product.series')}}">ALL SERIES & PREVIEWS</a></li>
+                                            <li><a class="{{Route::currentRouteName()=='explore.tutor'?'active':''}}" href="{{route('explore.tutor')}}">Meet the Pros</a></li>
                                             <li><a class="{{Route::currentRouteName()=='subscription.plan'?'active':''}}" href="{{route('subscription.plan')}}">SUBSCRIPTIONS</a></li>
                                             <li><a class="{{Route::currentRouteName()=='welcome.aboutus'?'active':''}}" href="{{route('welcome.aboutus')}}">About Us</a></li>
+                                            <li><a href="{{route('howitworks')}}">HOW IT WORKS</a></li>
+                                            <li><a href="{{route('welcome.blogs')}}">Blogs</a></li>
                                             @auth
-                                            <li><a class="" href="{{route('logout')}}">Logout</a></li>
+                                                <li><a class="" href="{{route('logout')}}">Logout</a></li>
                                             @endauth
                                         </ul>
                                     </div>

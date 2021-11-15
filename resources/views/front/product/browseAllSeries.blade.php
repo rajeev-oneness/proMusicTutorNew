@@ -67,6 +67,9 @@
 								@endforeach
 							</select>
 						</div>
+						<!-- if Search Module Happend
+							<input type="hidden" name="search" value="{{($req->search ?? '')}}"> 
+						-->
 						<div class="form-group mb-0 mr-2">
 							<button type="submit" class="btn buyfull">Apply</button>
 							<a href="{{route('browse.product.series')}}" class="btn detail">Reset</a>

@@ -110,6 +110,12 @@ class DefaultController extends Controller
         $data->category = Category::select('*')->get();
         $data->tutor = User::where('user_type', 2)->get();
         $data->guitarSeries = ProductSeries::select('*');
+        if(!empty($req->search)){
+            $data->guitarSeries = $data->guitarSeries->where(function($query) use ($req){
+                $query->where('title', 'like', '%' . $req->search . '%')
+                ->orWhere('description','like', '%' . $req->search . '%');
+            });
+        }
         if (!empty($req->instrument)) {
             $data->guitarSeries = $data->guitarSeries->where('instrumentId', $req->instrument);
         }
