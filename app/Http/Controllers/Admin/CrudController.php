@@ -372,10 +372,12 @@ class CrudController extends Controller
             $user->name = $req->name;
             $user->email = $req->email;
             $user->mobile = $req->mobile;
+            $user->description = $req->description;
             if ($req->hasFile('image')) {
                 $image = $req->file('image');
                 $user->image = imageUpload($image);
             }
+            
             $user->password = Hash::make($random);
             $user->referral_code = referralCodeGenerate();
             $user->save();
@@ -418,6 +420,7 @@ class CrudController extends Controller
         $user->user_type = $req->user_type;
         $user->name = $req->name;
         $user->mobile = $req->mobile;
+        $user->description = $req->description;
         if ($req->hasFile('image')) {
             $image = $req->file('image');
             $user->image = imageUpload($image);
