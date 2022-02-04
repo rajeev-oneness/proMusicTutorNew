@@ -14,7 +14,7 @@ class AddFieldInUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('description')->after('aniversary')->nullable();
+            $table->taxt('description')->after('aniversary')->nullable();
         });
     }
 
