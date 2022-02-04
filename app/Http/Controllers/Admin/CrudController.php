@@ -372,7 +372,7 @@ class CrudController extends Controller
             $user->name = $req->name;
             $user->email = $req->email;
             $user->mobile = $req->mobile;
-            $user->description = $req->description;
+            $user->about = $req->about;
             if ($req->hasFile('image')) {
                 $image = $req->file('image');
                 $user->image = imageUpload($image);
@@ -420,7 +420,7 @@ class CrudController extends Controller
         $user->user_type = $req->user_type;
         $user->name = $req->name;
         $user->mobile = $req->mobile;
-        $user->description = $req->description;
+        $user->about = $req->about;
         if ($req->hasFile('image')) {
             $image = $req->file('image');
             $user->image = imageUpload($image);

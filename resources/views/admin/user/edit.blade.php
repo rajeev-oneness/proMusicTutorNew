@@ -63,10 +63,15 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-lg-12">
+                        <!-- <div class="form-group col-lg-12">
                             <label for="description" class="col-form-label">Description:</label>
                             <textarea required class="form-control form-control-sm @error('description') is-invalid @enderror" id="description" name="description" placeholder="Description">{{(old('description') ?? $editUser->description)}}</textarea>
                             @error('description')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                        </div> -->
+                        <div class="form-group col-lg-12">
+                            <label for="about" class="col-form-label">About:</label>
+                            <textarea required class="form-control form-control-sm @error('about') is-invalid @enderror" id="about" name="about" placeholder="About">{{(old('about') ?? $editUser->about)}}</textarea>
+                            @error('about')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                         </div>
 
                         <div class="form-group">
