@@ -70,7 +70,7 @@
 		Route::post('/{id}/delete', [CrudController::class, 'genreDelete'])->name('admin.master.genre.delete');
 	});
 
-	// Product Series and Their Lession
+	// Product Series and Their Lesson
     Route::group(['prefix' => 'instrument/{instrumentId}/product/series'],function(){
         Route::get('/',[AdminController::class,'productSeriesList'])->name('admin.product.series.list');
         Route::get('/create',[AdminController::class,'productSeriesCreate'])->name('admin.product.series.create');

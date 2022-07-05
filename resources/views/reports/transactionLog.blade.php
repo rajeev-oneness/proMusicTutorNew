@@ -17,7 +17,6 @@
                         <div class="card card-body px-0 py-2 border-0 shadow-none">
                             <form class="form-inline" method="post" action="{{route('admin.report.transaction')}}">
                             @csrf
-                            
                                 <select name="seriesId" id="seriesId" class="form-control form-control-sm mr-2" onchange="filterLesson(this)">
                                     <option value="" hidden selected>Select series</option>
                                     @foreach ($available_series as $item)
@@ -26,7 +25,7 @@
                                 </select>
 
                                 <select name="lessionId" id="lessionId" class="form-control form-control-sm mr-2">
-                                    <option value="" hidden selected>Select lession</option>
+                                    <option value="" hidden selected>Select Lesson</option>
                                     @foreach ($available_lessons as $item)
                                         <option value="{{$item->id}}" {{($item->id == $req->lessionId) ? 'selected' : ''}}>{{$item->title}}</option>
                                     @endforeach

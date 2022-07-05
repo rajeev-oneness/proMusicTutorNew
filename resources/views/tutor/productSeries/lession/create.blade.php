@@ -1,12 +1,12 @@
 @extends('layouts.auth.authMaster')
-@section('title','Add Lession under '.$instrument->name)
+@section('title','Add Lesson under '.$instrument->name)
 @section('content')
 <div class="container-fluid dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Add Lession Under {{$instrument->name}} ({{$productSeries->title}})
+                    <h5 class="mb-0">Add Lesson Under {{$instrument->name}} ({{$productSeries->title}})
                         <a class="headerbuttonforAdd" href="{{route('tutor.product.series.lession.list',[$instrument->id,$productSeries->id])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>

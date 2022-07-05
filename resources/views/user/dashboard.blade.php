@@ -20,7 +20,7 @@
                                     <th>Amount</th>
                                     <th>Offers</th>
                                     <th>Series</th>
-                                    <th>Lession</th>
+                                    <th>Lesson</th>
                                     <th>Date</th>
                                     <th>Time</th>
                                 </tr>
@@ -102,7 +102,7 @@
         var useFor = $(this).attr('data-userfor'),userPurchaseModalHeading = '',dataToPush = '';
         var allData = JSON.parse($(this).attr('data-details'));
         if(useFor == 'lession'){
-            userPurchaseModalHeading = 'Lession Purchase';
+            userPurchaseModalHeading = 'Lesson Purchase';
             $.each(allData,function(key,value){
                 dataToPush += '<tr><td><img height="70" width="100" src="{{url('')}}/'+value?.product_series_lession_all?.image+'"></td><td>'+value?.product_series_lession_all?.title+'</td></tr>';
             });

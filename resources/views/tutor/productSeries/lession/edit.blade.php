@@ -1,12 +1,12 @@
 @extends('layouts.auth.authMaster')
-@section('title','Edit Lession under '.$instrument->name)
+@section('title','Edit Lesson under '.$instrument->name)
 @section('content')
 <div class="container-fluid dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Edit Lession Under {{$instrument->name}} ({{$productLession->product_series->title}})
+                    <h5 class="mb-0">Edit Lesson Under {{$instrument->name}} ({{$productLession->product_series->title}})
                         <a class="headerbuttonforAdd" href="{{route('tutor.product.series.lession.list',[$instrument->id,$productLession->productSeriesId])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>
@@ -22,12 +22,10 @@
                                 @error('productSeriesId')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                                 @error('productLessionId')<span class="text-danger" role="alert">{{$message}}</span>@enderror
 
-                                        <img src="{{asset($productLession->image)}}" height="auto" width="200">
-
-
-                                        <input type="file" class="form-control form-control-sm @error('image') is-invalid @enderror" id="image" name="image">
-                                        <button><i class="fas fa-pencil-alt"></i></button>
-                                        @error('image')<span class="text-danger" role="alert">{{$message}}</span>@enderror
+                                <img src="{{asset($productLession->image)}}" height="auto" width="200">
+                                <input type="file" class="form-control form-control-sm @error('image') is-invalid @enderror" id="image" name="image">
+                                <button><i class="fas fa-pencil-alt"></i></button>
+                                @error('image')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="title" class="col-form-label">Title:</label>

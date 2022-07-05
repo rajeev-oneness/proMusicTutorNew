@@ -7,7 +7,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Products ordered (Lessions)</h5>
+                    <h5 class="mb-0">Products ordered (Lessons)</h5>
                 </div>
                 <div class="card-body">
                     <p>
@@ -54,7 +54,7 @@
                                 <tr>
                                     <th>Serial</th>
                                     <th>Period</th>
-                                    <th>Lession</th>
+                                    <th>Lesson</th>
                                     <th>Count</th>
                                 </tr>
                             </thead>

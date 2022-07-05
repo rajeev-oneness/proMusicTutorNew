@@ -1,5 +1,5 @@
 @extends('layouts.auth.authMaster')
-@section('title','Add Lession under '.$instrument->name)
+@section('title','Add Lesson under '.$instrument->name)
 
 @section('content')
 <div class="container-fluid dashboard-content">
@@ -7,7 +7,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Add Lession Under {{$instrument->name}} ({{$productSeries->title}})
+                    <h5 class="mb-0">Add Lesson Under {{$instrument->name}} ({{$productSeries->title}})
                         <a class="headerbuttonforAdd" href="{{route('admin.product.series.lession.list',[$instrument->id,$productSeries->id])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>
@@ -26,7 +26,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="title" class="col-form-label">Title:</label>
-                                <input type="text" class="form-control form-control-sm @error('title') is-invalid @enderror" id="title" name="title" placeholder="Lession Title" value="{{old('title')}}">
+                                <input type="text" class="form-control form-control-sm @error('title') is-invalid @enderror" id="title" name="title" placeholder="Lesson Title" value="{{old('title')}}">
                                 @error('title')<span class="text-danger" role="alert">{{$message}}</span>@enderror
                             </div>
                             <div class="form-group col-md-4">

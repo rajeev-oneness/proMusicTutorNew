@@ -22,7 +22,7 @@
                                     <th>Category</th>
                                     <th>Image</th>
                                     <th>Series Name</th>
-                                    <th>Lessions</th>
+                                    <th>Lessons</th>
                                     <th>Genre</th>
                                     <th>Difficulty</th>
                                     <th>Description</th>
