@@ -52,6 +52,8 @@
     <script src="{{asset('authDesign/vendor/slimscroll/jquery.slimscroll.js')}}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             $('.loading-data').hide();
@@ -135,6 +137,8 @@
             $(targetModalId).modal('show');
         }
     </script>
+
     @yield('script')
+
 </body>
 </html>

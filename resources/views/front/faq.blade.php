@@ -2,7 +2,7 @@
 @section('title','How it Works')
 @section('content')
     @if(count($data->faq) > 0)
-        <section class="pt-5 pb-5 bg-light-blue faqs">
+        <section class="pt-5 pb-5 bg-light-blue faqs faq_page">
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center title-inner">

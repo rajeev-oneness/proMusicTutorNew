@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title','Login')
 @section('content')
-    <div class="policy">
+    <div class="policy align-items-center">
         <div class="content-priv">
             <h3>{{$refundPolicy->heading}}</h3>
             {!! $refundPolicy->description !!}

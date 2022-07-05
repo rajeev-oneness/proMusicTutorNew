@@ -82,6 +82,18 @@ $(document).ready(function(){
 	});
 });
 
+$('#closebtn').click(function(){
+        var hidden = $('.hidden');
+        var noticeHidden = $('.noticeHidden');
+        if (hidden.hasClass('visible')){
+            hidden.animate({"right":"-100%"}, "slow").removeClass('visible'); //right = from -1920px to -100%
+        } else {
+            hidden.animate({"right":"0px"}, "slow").addClass('visible');
+        }
 
+        if (noticeHidden.hasClass('visible')){
+            noticeHidden.animate({"right":"-100%"}, "slow").removeClass('visible'); //right = from -1920px to -100%
+        }
+    });
 })(jQuery, window);
 

@@ -1,4 +1,4 @@
-<header class="bg-dark-blue">
+<header class="bg-dark-blue position">
     <div class="container p-0">
         <nav class="navbar navbar-light navbar-expand-md bg-faded justify-content-center pt-0 pb-0">
             <a href="{{url('/')}}" class="navbar-brand d-flex w-25 mr-auto"><img src="{{asset('design/img/logo.png')}}"></a>
@@ -64,6 +64,7 @@
                         <a class="nav-link search-icon" id="slide" href="javascript:void(0)"><img src="{{asset('design/img/menu_icon.png')}}"> <span class="pl-2">Menu</span></a>
                         <div class="hidden">
                             <div class="menu-section">
+                                <a id="closebtn" href="javascript:void(0)"><i class="fa fa-close fa-2x mb-5 text-white"></i></a>
                                 <div class="menulogo mb-5">
                                     <img src="{{asset('design/img/menu-logo.png')}}" class="w-100">
                                 </div>
@@ -81,6 +82,8 @@
                                 <div class="tab-content pt-4" id="myTabContent">
                                     <div class="tab-pane fade show active" id="guitar" role="tabpanel" aria-labelledby="guitar-tab">
                                         <ul class="r_menu_ul">
+                                            <li><a href="{{route('browse.guiter.series')}}">GUITER</a></li>
+                                            <li><a href="{{route('browse.sax.series')}}">SAX</a></li>
                                             <li><a href="{{route('front.offers')}}">OFFERS</a></li>
                                             <li><a href="{{route('browse.product.series')}}">ALL SERIES & PREVIEWS</a></li>
                                             <li><a class="{{Route::currentRouteName()=='explore.tutor'?'active':''}}" href="{{route('explore.tutor')}}">Meet the Pros</a></li>
@@ -105,4 +108,4 @@
             </div>
         </nav>
     </div>
-</header><!--header-part-->
+</header>

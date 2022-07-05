@@ -2,12 +2,12 @@
 @section('title','Login')
 @section('content')
     <div class="policy">
-        <div class="content-priv">
+        <div class="content-priv px-5">
             <h3>{{$privacy->heading}}</h3>
             {!! $privacy->description !!}
         </div>
-        <div class="privacy-image">
+       <!--  <div class="privacy-image">
             <img src="{{asset($privacy->image)}}">
-        </div>
+        </div> -->
     </div>
 @endsection

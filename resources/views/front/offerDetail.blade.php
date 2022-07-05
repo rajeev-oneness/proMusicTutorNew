@@ -2,7 +2,7 @@
 @section('title','Offer details')
 
 @section('content')
-    <section class="pt-0 pt-md-5 pb-5">
+    <section class="pt-0 pt-md-5 pb-5 off_det">
         <div class="container">
             {{-- filter Filter start --}}
             <div class="row m-0 mb-3">

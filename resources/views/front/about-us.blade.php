@@ -5,10 +5,10 @@
         <div class="container">
             <div class="row m-0">
                 <div class="col-12 col-md-7">
-                    <h1>Something Interesting
-                        <span class="d-block">About Pro Music Tutor</span></h1>
+                    <h1>Our aim is to provide our customers with
+                        <span class="d-block">high quality tuitional HD products</span></h1>
                     <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
+                        Our musicians/tutors are chosen based on their achivements, reputation, knowledge and musical ability. With this in mind we hope to pass on the skills that they have learned throughout their carrers to our customers.
                     </p>
                 </div>
             </div>

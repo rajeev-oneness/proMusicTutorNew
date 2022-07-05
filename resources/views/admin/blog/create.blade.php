@@ -74,7 +74,8 @@
     </div>
 </div>
 @section('script')
-    <script type="text/javascript" src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script type="text/javascript" src="{{ asset('/ckeditor/ckeditor.js') }}"></script>
+    {{-- <script src="https://cdn.ckeditor.com/4.19.0/standard-all/ckeditor.js"></script> --}}
     <script type="text/javascript">
         CKEDITOR.replace('description');
         $('.sumoSelect').SumoSelect({search: true, searchText: 'Search Category.',placeholder: 'Search Category',captionFormatAllSelected : 'all Category Selected',captionFormat : '{0} Category selected',selectAll : true});

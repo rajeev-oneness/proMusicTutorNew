@@ -11,14 +11,14 @@
         </div>
 
         <div class="row justify-content-between m-0 mb-5 align-items-center">
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-12 mb-4 mb-lg-5">
                 <ul class="bredcamb">
                     <li><a href="{{route('welcome')}}">Home</a></li>
                     <li>/</li>
                     <li><a href="javascript:void(0)" class="active">Series's</a></li>
                 </ul>
             </div>
-            <div class="col-12 col-md-9 filter_section">
+            <div class="col-12 col-md-12 filter_section">
 				<form method="post" action="{{route('browse.product.series')}}" class="w-100">
 					@csrf
 					<div class="w-100 d-flex justify-content-end filter-flex">
@@ -82,7 +82,7 @@
 			</div>
         </div>
         @if(count($data->guitarSeries) > 0)
-	        <section class="mt-5 mb-5 pt-5 pb-5 bg-light">
+	        <section class="mt-5 mb-5 pt-0 pb-5 bg-light">
 	            <div class="container">
 	                <div class="row m-0">
 	                    @foreach($data->guitarSeries as $key => $series)
@@ -116,7 +116,7 @@
 	                        </div>
 	                    @endforeach
 	                </div>
-	                <div class="col-12" style="margin-left: 100%;">{{ $data->guitarSeries->withQueryString()->links() }}</div>
+	                <div class="col-12 pg_pro">{{ $data->guitarSeries->withQueryString()->links() }}</div>
 	                <!-- <div class="text-center mt-5">
 	                    <a href="javascript:void(0)" class="btn viewmore">EXPLORE MORE</a>
 	                </div> -->

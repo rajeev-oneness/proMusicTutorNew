@@ -9,7 +9,7 @@
         $totalPrice = calculateLessionPrice($data, $data->currency);
     @endphp
 
-    <section class="pt-0 pt-md-5 pb-5">
+    <section class="pt-0 pt-md-5 pb-5 series_list">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-6 shadow-lg p-0 mb-4 mb-md-0">

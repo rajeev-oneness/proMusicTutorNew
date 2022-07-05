@@ -8,6 +8,7 @@ use App\Models\Category, Auth;
 use App\Models\ProductSeries, App\Models\ProductSeriesLession;
 use App\Models\Instrument, App\Models\Genre, App\Models\User;
 use App\Models\Blog,App\Models\BlogCategory,App\Models\BlogTag;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -22,6 +23,14 @@ class AdminController extends Controller
         $data->blogTags = BlogTag::select('*')->latest()->get();
         $data->blogs = Blog::select('*')->latest()->get();
         $data->blogCategory = BlogCategory::select('*')->latest()->get();
+
+        $data->salesReport = DB::select('SELECT up.created_at AS time, SUM(l.price_gbp) AS price_gbp, SUM(l.price_usd) AS price_usd, SUM(l.price_euro) AS price_euro FROM `user_product_lession_purchases` AS up 
+        INNER JOIN product_series_lessions AS l 
+        ON up.productSeriesLessionId = l.id 
+        GROUP BY MONTH(up.created_at) 
+        ORDER BY up.created_at ASC 
+        LIMIT 10');
+
         return view('admin.dashboard', compact('data'));
     }
 
@@ -63,10 +72,10 @@ class AdminController extends Controller
             'createdBy' => 'required|numeric|min:1',
             'instrumentId' => 'required|min:1|numeric|in:' . $instrumentId,
             'category' => 'required|min:1|numeric',
-            'image' => 'required|image',
+            'image' => 'nullable|image',
             'title' => 'required|string|max:200',
             'description' => 'nullable|string',
-            'media_link' => 'required',
+            'media_link' => 'nullable',
             'difficulty' => 'required|string|in:Easy,Medium,Hard',
             'genre' => 'required|min:1|numeric',
             'price_gbp' => 'nullable|min:1|numeric',
@@ -237,8 +246,8 @@ class AdminController extends Controller
             'description' => 'required|string',
             'image' => 'required|image',
             // 'preview_video' => 'required|mimes:mp4, 3gp, mkv, avi, flv, wmv, webm, ogx, oga, ogv, ogg, mov, m3u8, ts',
-            'preview_video' => 'required',
-            'video_url' => 'required',
+            'preview_video' => 'nullable',
+            'video_url' => 'nullable',
             'price_gbp' => 'nullable|min:1|numeric',
             'price_usd' => 'nullable|min:1|numeric',
             'price_euro' => 'nullable|min:1|numeric',

@@ -143,6 +143,92 @@ class DefaultController extends Controller
         }
         return view('front.product.browseAllSeries', compact('data', 'req'));
     }
+    
+    public function guiterSeriesAll(Request $req)
+    {
+        $data = (object)[];
+        $data->currency = 'usd';
+        $user = auth()->user();
+        //$data->instrument = Instrument::select('*')->get();
+        $data->category = Category::select('*')->get();
+        $data->tutor = User::where('user_type', 2)->get();
+        $data->guitarSeries = ProductSeries::select('*');
+        if(!empty($req->search)){
+            $data->guitarSeries = $data->guitarSeries->where(function($query) use ($req){
+                $query->where('title', 'like', '%' . $req->search . '%')
+                ->orWhere('description','like', '%' . $req->search . '%');
+            });
+        }
+        // if (!empty($req->instrument)) {
+        //     $data->guitarSeries = $data->guitarSeries->where('instrumentId', $req->instrument);
+        // }
+        if (!empty($req->category)) {
+            $data->guitarSeries = $data->guitarSeries->where('categoryId', $req->category);
+        }
+        if (!empty($req->difficulty)) {
+            $data->guitarSeries = $data->guitarSeries->where('difficulty', $req->difficulty);
+        }
+        if (!empty($req->tutor)) {
+            $data->guitarSeries = $data->guitarSeries->where('createdBy', $req->tutor);
+        }
+        if (!empty($req->currency)) {
+            $data->currency = $req->currency;
+        }
+        $data->guitarSeries = $data->guitarSeries->where('instrumentId','1')->paginate(12);
+        foreach ($data->guitarSeries as $key => $guitar) {
+            $guitar->userPurchased = false;
+            if ($user) {
+                $checkPurchase = UserProductLessionPurchase::where('userId', $user->id)->where('productSeriesId', $guitar->id)->first();
+                if ($checkPurchase) {
+                    $guitar->userPurchased = true;
+                }
+            }
+        }
+        return view('front.product.guiter', compact('data', 'req'));
+    }
+    
+    public function saxSeriesAll(Request $req)
+    {
+        $data = (object)[];
+        $data->currency = 'usd';
+        $user = auth()->user();
+        //$data->instrument = Instrument::select('*')->get();
+        $data->category = Category::select('*')->get();
+        $data->tutor = User::where('user_type', 2)->get();
+        $data->guitarSeries = ProductSeries::select('*');
+        if(!empty($req->search)){
+            $data->guitarSeries = $data->guitarSeries->where(function($query) use ($req){
+                $query->where('title', 'like', '%' . $req->search . '%')
+                ->orWhere('description','like', '%' . $req->search . '%');
+            });
+        }
+        // if (!empty($req->instrument)) {
+        //     $data->guitarSeries = $data->guitarSeries->where('instrumentId', $req->instrument);
+        // }
+        if (!empty($req->category)) {
+            $data->guitarSeries = $data->guitarSeries->where('categoryId', $req->category);
+        }
+        if (!empty($req->difficulty)) {
+            $data->guitarSeries = $data->guitarSeries->where('difficulty', $req->difficulty);
+        }
+        if (!empty($req->tutor)) {
+            $data->guitarSeries = $data->guitarSeries->where('createdBy', $req->tutor);
+        }
+        if (!empty($req->currency)) {
+            $data->currency = $req->currency;
+        }
+        $data->guitarSeries = $data->guitarSeries->where('instrumentId','2')->paginate(12);
+        foreach ($data->guitarSeries as $key => $guitar) {
+            $guitar->userPurchased = false;
+            if ($user) {
+                $checkPurchase = UserProductLessionPurchase::where('userId', $user->id)->where('productSeriesId', $guitar->id)->first();
+                if ($checkPurchase) {
+                    $guitar->userPurchased = true;
+                }
+            }
+        }
+        return view('front.product.sax', compact('data', 'req'));
+    }
 
     public function offersList(Request $req)
     {

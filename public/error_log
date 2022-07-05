@@ -1,0 +1,70 @@
+[30-Jun-2022 06:48:00 UTC] PHP Warning:  Undefined array key "script" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:48:00 UTC] PHP Warning:  Undefined array key "HTTP_X_FORWARDED_PREFIX" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:48:00 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_magic_quotes_gpc() in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php:20
+Stack trace:
+#0 /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php(169): remove_slashes(Array, false)
+#1 {main}
+  thrown in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 20
+[30-Jun-2022 06:48:08 UTC] PHP Warning:  Undefined array key "script" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:48:08 UTC] PHP Warning:  Undefined array key "HTTP_X_FORWARDED_PREFIX" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:48:08 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_magic_quotes_gpc() in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php:20
+Stack trace:
+#0 /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php(169): remove_slashes(Array, false)
+#1 {main}
+  thrown in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 20
+[30-Jun-2022 06:48:36 UTC] PHP Warning:  Undefined array key "script" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:48:36 UTC] PHP Warning:  Undefined array key "HTTP_X_FORWARDED_PREFIX" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:48:36 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_magic_quotes_gpc() in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php:20
+Stack trace:
+#0 /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php(169): remove_slashes(Array, false)
+#1 {main}
+  thrown in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 20
+[30-Jun-2022 06:48:47 UTC] PHP Warning:  Undefined array key "script" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:48:47 UTC] PHP Warning:  Undefined array key "HTTP_X_FORWARDED_PREFIX" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:48:47 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_magic_quotes_gpc() in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php:20
+Stack trace:
+#0 /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php(169): remove_slashes(Array, false)
+#1 {main}
+  thrown in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 20
+[30-Jun-2022 06:48:48 UTC] PHP Warning:  Undefined array key "script" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:48:48 UTC] PHP Warning:  Undefined array key "HTTP_X_FORWARDED_PREFIX" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:48:48 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_magic_quotes_gpc() in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php:20
+Stack trace:
+#0 /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php(169): remove_slashes(Array, false)
+#1 {main}
+  thrown in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 20
+[30-Jun-2022 06:48:48 UTC] PHP Warning:  Undefined array key "script" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:48:48 UTC] PHP Warning:  Undefined array key "HTTP_X_FORWARDED_PREFIX" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:48:48 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_magic_quotes_gpc() in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php:20
+Stack trace:
+#0 /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php(169): remove_slashes(Array, false)
+#1 {main}
+  thrown in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 20
+[30-Jun-2022 06:48:49 UTC] PHP Warning:  Undefined array key "script" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:48:49 UTC] PHP Warning:  Undefined array key "HTTP_X_FORWARDED_PREFIX" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:48:49 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_magic_quotes_gpc() in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php:20
+Stack trace:
+#0 /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php(169): remove_slashes(Array, false)
+#1 {main}
+  thrown in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 20
+[30-Jun-2022 06:48:49 UTC] PHP Warning:  Undefined array key "script" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:48:49 UTC] PHP Warning:  Undefined array key "HTTP_X_FORWARDED_PREFIX" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:48:49 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_magic_quotes_gpc() in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php:20
+Stack trace:
+#0 /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php(169): remove_slashes(Array, false)
+#1 {main}
+  thrown in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 20
+[30-Jun-2022 06:53:02 UTC] PHP Warning:  Undefined array key "script" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:53:02 UTC] PHP Warning:  Undefined array key "HTTP_X_FORWARDED_PREFIX" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 06:53:02 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_magic_quotes_gpc() in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php:20
+Stack trace:
+#0 /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php(169): remove_slashes(Array, false)
+#1 {main}
+  thrown in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 20
+[30-Jun-2022 07:56:53 UTC] PHP Warning:  Undefined array key "script" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 07:56:53 UTC] PHP Warning:  Undefined array key "HTTP_X_FORWARDED_PREFIX" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[30-Jun-2022 07:56:53 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_magic_quotes_gpc() in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php:20
+Stack trace:
+#0 /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php(169): remove_slashes(Array, false)
+#1 {main}
+  thrown in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 20

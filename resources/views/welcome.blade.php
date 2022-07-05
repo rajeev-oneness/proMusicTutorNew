@@ -7,15 +7,14 @@
                 <div class="col-12 col-md-6">
                     <h1>Welcome to <span class="d-block">Pro Music Tutor</span></h1>
                     <p>
-                    Pro Music Tutor offers a range of high definition music tutoring videos and exceptional quality backing tracks. Our instructional videos feature tutors selected for their reputation and talent with the guitar and with the saxophone. These include individuals such as Micky Moody, a former member of Whitesnake, Andy Sheppard, one of the world’s leading saxophonists, and James Morton, one of the most exciting sax players in the UK.
-                    
+                    Pro Music Tutor offers a range of high definition music tutoring videos and exceptional quality backing tracks. Our instructional videos feature tutors selected for their reputation and talent with the guitar and with the saxophone. These include individuals such as Micky Moody, a former member of Whitesnake, Andy Sheppard, one of the world's leading saxophonists, and James Morton, one of the most exciting sax players in the UK.
                     </p>
                     <!-- <a href="javascript:void(0)" class="btn viewmore">View More</a> -->
                     @if(Route::has('register'))
                         @guest
                             <a href="{{route('register')}}" class="btn signbtn">SIGN UP FOR FREE</a>
                         @else
-                            <a href="{{route('home')}}" class="btn signbtn">Dashboard</a>
+                            <a href="{{route('home')}}" class="btn signbtn d-none">Dashboard</a>
                         @endguest
                     @endif
                 </div>
@@ -102,7 +101,7 @@
                 </div>
                 @if(count($data->tutor) > 5)
                     <div class="text-center">
-                        <a href="{{route('explore.tutor')}}" class="btn viewmore">Expore</a>
+                        <a href="{{route('explore.tutor')}}" class="btn viewmore">Explore</a>
                     </div>
                 @endif
             </div>

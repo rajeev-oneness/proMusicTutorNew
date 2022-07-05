@@ -3,9 +3,9 @@
 @section('content')
     <div class="sidebar-page-container">
         <div class="container">
-            <div class="row clearfix">
+            <div class="row">
                 <!-- Content Side -->
-                <div class="mb-5 col-lg-8 col-md-12 col-sm-12">
+                <div class="mb-5 col-lg-8 col-md-8 col-sm-8">
                     <div class="our-blogs">
                         @forelse($data->blogs as $blogIndex => $blogValue)
                             <div class="news-block-two mb-5">
@@ -38,12 +38,13 @@
                         @empty
                             {{'No Data Found'}}
                         @endforelse
-                        <div class="float-right">{{$data->blogs->appends(request()->query())->links()}}</div>
+                        
                     </div>
+                   
                 </div>
 
                 <!-- Sidebar Side -->
-                <div class="mb-5 col-lg-4 col-md-12 col-sm-12">
+                <div class="mb-5 col-lg-4 col-md-4 col-sm-4">
                     <aside class="sidebar">
                         <!-- Search Widget -->
                         <div class="sidebar-widget search-widget">
@@ -156,7 +157,9 @@
 
                     </aside>
                 </div>
-
+                <div class="col-12 m-0 ">
+                     <div class="float-right">{{$data->blogs->appends(request()->query())->links()}}</div>
+                </div>
             </div>
         </div>
     </div>

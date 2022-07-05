@@ -1,5 +1,6 @@
 @extends('layouts.auth.authMaster')
 @section('title','Dashboard')
+
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
@@ -10,9 +11,50 @@
                 </div>
                 <div class="card-body">
                     <div class="row mb-4">
+                        @php
+                            $month = $price_gbp = $price_usd = $price_euro = [];
+                        @endphp
                         <div class="col-12">
-                            <!-- <p class="welcome-text mb-3">Welcome to the Dashboard</p> -->
+                            <canvas id="monthlyReport" height="70"></canvas>
                         </div>
+                        <div class="col-12">
+                            <table class="table table-sm table-hover">
+                                <tr>
+                                    <th>Time</th>
+                                    <th>GBP</th>
+                                    <th>USD</th>
+                                    <th>EUR</th>
+                                </tr>
+                            @php
+                                $content = '';
+
+                                foreach($data->salesReport as $reportKey => $reportValue) {
+                                    $monthData = date('F Y', strtotime($reportValue->time));
+
+                                    $month[] = $monthData;
+                                    $price_gbp[] = $reportValue->price_gbp;
+                                    $price_usd[] = $reportValue->price_usd;
+                                    $price_euro[] = $reportValue->price_euro;
+
+                                    $content .= '
+                                    <tr>
+                                        <td>'.$monthData.'</td>
+                                        <td>'.$reportValue->price_gbp.'</td>
+                                        <td>'.$reportValue->price_usd.'</td>
+                                        <td>'.$reportValue->price_euro.'</td>
+                                    </tr>
+                                    ';
+                                }
+                            @endphp
+
+                            {!! $content !!}
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        {{-- <div class="col-12">
+                            <p class="welcome-text mb-3">Welcome to the Dashboard</p>
+                        </div> --}}
                         <div class="col-md-3 dash-card-col">
                             <a href="{{route('admin.master.instrument.list')}}">
                                 <div class="card card-body mb-0">
@@ -221,4 +263,84 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+    <script>
+        // monthly report
+        var labelValues0 = [];
+        var dataValues0 = [];
+        var dataValues1 = [];
+        var dataValues2 = [];
+
+        labelValues0 = <?php echo json_encode($month); ?>;
+        dataValues0 = <?php echo json_encode($price_gbp); ?>;
+        dataValues1 = <?php echo json_encode($price_usd); ?>;
+
+        // console.log(dataValues0);
+
+        const ctx0 = document.getElementById('monthlyReport').getContext('2d');
+        const monthlyReport = new Chart(ctx0, {
+            type: 'line',
+            data: {
+                labels: labelValues0,
+                datasets: [{
+                    label: 'State report',
+                    datasets: [dataValues0, dataValues1],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)'
+                    ],
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // const labels = [
+        //     'January',
+        //     'February',
+        //     'March',
+        //     'April',
+        //     'May',
+        //     'June',
+        // ];
+
+        // const data = {
+        //     labels: labels,
+        //     datasets: [{
+        //         label: 'My First dataset',
+        //         // backgroundColor: 'rgb(255, 99, 132)',
+        //         // borderColor: 'rgb(255, 99, 132)',
+        //         data: [0, 10, 5, 2, 20, 30],
+        //     }]
+        // };
+
+        // const config = {
+        //     type: 'line',
+        //     data: data,
+        //     options: {
+        //         responsive: true,
+        //         plugins: {
+        //             legend: {
+        //                 position: 'top',
+        //             },
+        //             title: {
+        //                 display: true,
+        //                 // text: 'Chart.js Line Chart'
+        //             }
+        //         }
+        //     },
+        // };
+
+        // const myChart = new Chart(document.getElementById('monthlyReport'), config);
+    </script>
 @endsection

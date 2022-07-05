@@ -126,7 +126,10 @@
     font-size: 40px;
     margin-bottom: 18px;
 }
-
+.r_menu_ul {
+        height: 50vh;
+        padding-bottom:40px;
+}
 
 }
 @media (max-width: 768px){
@@ -139,12 +142,22 @@
   .viewmore{
      width: auto;
   }
+  .r_menu_ul {
+        height: 50vh;
+        padding-bottom:40px;
+}
   
 .content-priv {
     padding: 5% 5% 0 5%;
 }
 
-
+.menulogo {
+    width: 228px;
+    position: absolute;
+    top: 21px;
+    right: 30px;
+    margin-bottom: 0 !important;
+}
    
 }
 @media (max-width: 860px) {
@@ -331,6 +344,7 @@
       margin-top: -28px;
       width: 44px;
   }
+  
 }
 
 /*SignUp Style*/

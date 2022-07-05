@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>{{config('app.name', 'Pro usic Tutor')}} - @yield('title')</title>
-    <link rel="icon" href="{{asset('design/img/logo.png')}}" type="image/gif" sizes="any">
+    <link rel="icon" href="{{asset('design/img/favicon.gif')}}" type="image/gif" sizes="any">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="{{asset('design/css/bootstrap.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{asset('design/css/owl.carousel.min.css')}}">
@@ -19,8 +19,9 @@
     <div class="loading-data" style="display:block; color: #fff;">Loading&#8230;</div>
     <!-- Header Content -->
     @include('layouts.header')
-    
+
     @yield('content')
+
     <!-- stripe Payement -->
     <div class="modal fade align-modal" id="stripePaymentModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="stripePaymentModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">

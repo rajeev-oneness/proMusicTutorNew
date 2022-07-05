@@ -38,7 +38,7 @@
 	            <div class="col-12 col-lg-3 mb-3">
 	                <div class="card border-0">
 	                    <div class="item">
-                            <div class="card text-center">
+                            <div class="card text-center tutior_list_d">
                                 <img src="{{asset($tutor_data->image)}}" class="card-img-top" style="height: 180px;">
                                 <div class="card-body pb-1">
                                     <div class="img_border"></div>

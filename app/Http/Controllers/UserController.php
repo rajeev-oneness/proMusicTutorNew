@@ -29,6 +29,6 @@ class UserController extends Controller
         }
         $data->transactionLog = $transactionLogData;
         /***************** Transaction Log End****************/
-        return view('user.dashboard',compact('data','req'));
+        return view('user.dashboard', compact('data', 'req'));
     }
 }

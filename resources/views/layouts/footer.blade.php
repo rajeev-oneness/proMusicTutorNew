@@ -32,7 +32,7 @@
         </div>
     </section>
 @endif
-<footer class="pt-5 pb-3 mt-5 mt-md-0" id="contact">
+<footer class="pt-5 mt-5 mt-md-0" id="contact">
     <div class="container">
         <div class="row m-0 justify-content-center">
             <div class="col-md-3 col-12 p-0">

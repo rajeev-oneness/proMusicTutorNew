@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title','Cart')
 @section('content')
-    <section class="pt-5 pb-5 mb-5 bg-light">
+    <section class="pt-5 pb-5 mb-5 bg-light mt-85">
         @php $cartCount = 0;$cartPrice = 0;$cartId = [];@endphp
         <div class="container">
             <div class="row m-0">

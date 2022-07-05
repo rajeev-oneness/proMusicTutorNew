@@ -59,9 +59,9 @@
                                 <div class="form-group">
                                     <label for="inputAddress"> <img src="{{asset('design/img/password.png')}}"> PASSWORD 
                                         @if (Route::has('password.request'))
-                                            <span><a class="btn btn-link" href="{{ route('password.request') }}">
+                                            {{-- <span><a class="btn btn-link" href="{{ route('password.request') }}">
                                                 (Forgot)
-                                            </a></span>
+                                            </a></span> --}}
                                         @endif
                                     </label>
                                     <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password">
@@ -77,7 +77,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputAddress"> <img src="{{asset('design/img/password.png')}}"> Referral Code (optional) </label>
+                                    <label for="inputAddress"> <img src="{{asset('design/img/password.png')}}"> Referral Code </label>
                                     <input type="text" class="form-control" name="referral_code" placeholder="Referral Code (optional)" value="{{old('referral_code')}}">
                                     @error('referral_code')
                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
