@@ -12,26 +12,14 @@ class ReportController extends Controller
 {
     public function transactionLog(Request $req)
     {
-        $userPurchase = UserProductLessionPurchase::select('*')->join('transactions', 'transactions.id', '=', 'user_product_lession_purchases.transactionId')->get();
-        $old_search = "";
-        if (!empty($req->get('seriesId'))) {
+        $userPurchase = UserProductLessionPurchase::select('*');
+        if (!empty($req->seriesId)) {
             $userPurchase = $userPurchase->where('productSeriesId', $req->seriesId);
         }
-        if (!empty($req->get('lessionId'))) {
+        if (!empty($req->lessionId)) {
             $userPurchase = $userPurchase->where('productSeriesLessionId', $req->lessionId);
         }
-        if ($req->get('search_tutor')) {
-            $auth_id = User::where('name', 'like', '%' . $req->search_tutor . '%')->get('id')[0]->id;
-            $userPurchase = $userPurchase->where('authorId', $auth_id);
-            $old_search = $req->search_tutor;
-        }
-        dd($userPurchase);
-        // if (isset($req->price)) {
-        //     $userPurchase = $userPurchase->orderBy('transactions.id', 'desc')->paginate(20);
-        // } else {
-        $userPurchase = $userPurchase->latest()->paginate(20);
-        // }
-
+        $userPurchase = $userPurchase->groupBy(['transactionId', 'type_of_product'])->latest()->paginate(20);
         foreach ($userPurchase as $key => $purchase) {
             $offer = (object)[];
             $series = (object)[];
@@ -57,7 +45,7 @@ class ReportController extends Controller
         }
         $available_series = UserProductLessionPurchase::select('product_series.id', 'product_series.title', 'product_series.createdBy')->join('product_series', 'product_series.id', '=', 'user_product_lession_purchases.productSeriesId')->groupBy('product_series.title')->get();
         $available_lessons = UserProductLessionPurchase::select('product_series_lessions.id', 'product_series_lessions.title', 'product_series_lessions.createdBy', 'product_series_lessions.productSeriesId')->join('product_series_lessions', 'product_series_lessions.id', '=', 'user_product_lession_purchases.productSeriesLessionId')->groupBy('product_series_lessions.title')->get();
-        return view('reports.transactionLog', compact('userPurchase', 'req', 'available_series', 'available_lessons', 'old_search'));
+        return view('reports.transactionLog', compact('userPurchase', 'req', 'available_series', 'available_lessons'));
     }
 
     public function transactionLogOld(Request $req)
