@@ -1,16 +1,16 @@
 @extends('layouts.auth.authMaster')
-@section('title',ucwords($instrument->name).' Lession')
+@section('title',ucwords($instrument->name).' Lesson')
 @section('content')
     <div class="container-fluid dashboard-content">
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="mb-0">{{ucwords($instrument->name)}} Lession List ({{$productSeries->title}})
+                        <h5 class="mb-0">{{ucwords($instrument->name)}} Lesson List ({{$productSeries->title}})
                             <div class="button-container">
                                 <a class="headerbuttonforAdd ml-1" href="{{route('admin.product.series.list',[$instrument->id])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                                 <a class="headerbuttonforAdd ml-1" href="{{route('admin.product.series.lession.create',[$instrument->id,$productSeries->id])}}">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>Add Lession
+                                    <i class="fa fa-plus" aria-hidden="true"></i>Add Lesson
                                 </a>
                             </div>
                         </h5>
@@ -81,7 +81,7 @@
             var seriesLessionId = $(this).attr('data-id');
             swal({
                 title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this Product Lession!",
+                text: "Once deleted, you will not be able to recover this Product Lesson!",
                 buttons: true,
                 dangerMode: true,
             })
@@ -100,7 +100,7 @@
                         success:function(data){
                             if(data.error == false){
                                 seriesLessionDelete.closest('tr').remove();
-                                swal('Success',"Poof! Your Product Series Lession has been deleted!");
+                                swal('Success',"Poof! Your Product Series Lesson has been deleted!");
                             }else{
                                 swal('Error',data.message);
                             }

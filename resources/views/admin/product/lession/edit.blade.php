@@ -1,5 +1,5 @@
 @extends('layouts.auth.authMaster')
-@section('title','Edit Lession under '.$instrument->name)
+@section('title','Edit Lesson under '.$instrument->name)
 
 @section('content')
 <div class="container-fluid dashboard-content">
@@ -7,7 +7,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Edit Lession Under {{$instrument->name}} ({{$productLession->product_series->title}})
+                    <h5 class="mb-0">Edit Lesson Under {{$instrument->name}} ({{$productLession->product_series->title}})
                         <a class="headerbuttonforAdd" href="{{route('admin.product.series.lession.list',[$instrument->id,$productLession->productSeriesId])}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>

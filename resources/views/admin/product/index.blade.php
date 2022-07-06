@@ -21,7 +21,7 @@
                                     <th>Category</th>
                                     <th>Image</th>
                                     <th>Series</th>
-                                    <th>Lessions</th>
+                                    <th>Lessons</th>
                                     <th>Difficulty</th>
                                     <th>Description</th>
                                     <th>Media</th>

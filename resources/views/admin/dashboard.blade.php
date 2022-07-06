@@ -311,10 +311,10 @@
         var dataValues2 = [];
 
         // console.log("<?php echo json_encode($price_gbp); ?>");
-        labelValues0 = <?php echo json_encode($pr_month); ?>;
-        dataValues0 = <?php echo json_encode($pr_price_gbp); ?>;
-        dataValues1 = <?php echo json_encode($pr_price_usd); ?>;
-        dataValues2 = <?php echo json_encode($pr_price_euro); ?>;
+        labelValues0 = <?php echo json_encode(array_reverse($pr_month)); ?>;
+        dataValues0 = <?php echo json_encode(array_reverse($pr_price_gbp)); ?>;
+        dataValues1 = <?php echo json_encode(array_reverse($pr_price_usd)); ?>;
+        dataValues2 = <?php echo json_encode(array_reverse($pr_price_euro)); ?>;
 
         // labelValues0 = ['Hi', 'Hi2', 'Hi3'];
         // dataValues0 = [1, 2, 3];

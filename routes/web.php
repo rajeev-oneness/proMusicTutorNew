@@ -66,7 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
 	// OFFER SERIES PURCHASE
 	Route::get('after/purchase/offer/{offerId}/series', [DefaultController::class, 'afterPaymentOfferSeries'])->name('after.purchase.offer_series');
 	Route::get('offer/series/purchase/successfull', [DefaultController::class, 'thankyouOfferSeries'])->name('offer.series.purchase.thankyou');
-	// Lession Purchase
+	// Lesson Purchase
 	Route::get('after/purchase/guitar/series/lession/{lessionId}', [DefaultController::class, 'afterPaymentGuitarSeriesLession'])->name('after.purchase.guitar_lession_series');
 	/**************************** Purchase From Cart ****************************/
 	Route::get('after/checkout/from/cart/{cartinfo}', [CartController::class, 'afterPaymentCartCheckout'])->name('after.checkout.from_cart');
