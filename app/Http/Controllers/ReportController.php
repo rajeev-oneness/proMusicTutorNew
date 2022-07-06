@@ -7,57 +7,100 @@ use App\Models\User, Illuminate\Http\Request;
 use App\Models\UserProductLessionPurchase, App\Models\Wishlist;
 use App\Models\Offer, App\Models\ProductSeriesLession;
 use App\Models\Notification;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
     public function transactionLog(Request $req)
     {
-        $userPurchase = UserProductLessionPurchase::select('*')->join('transactions', 'transactions.id', '=', 'user_product_lession_purchases.transactionId')->get();
-        $old_search = "";
+        $userPurchase = DB::table('user_product_lession_purchases')
+            ->join('transactions as t', 't.id', '=', 'user_product_lession_purchases.transactionId')
+            ->join('users as u1', 'u1.id', '=', 'user_product_lession_purchases.userId')
+            ->join('users as u2', 'u2.id', '=', 'user_product_lession_purchases.authorId')
+            ->select(
+                't.order_id',
+                't.transactionId',
+                't.amount',
+                't.currency',
+                't.created_at',
+                'user_product_lession_purchases.transactionId AS tid',
+                'user_product_lession_purchases.type_of_product',
+                'u1.name AS customer_name',
+                'u1.email AS customer_email',
+                'u2.name AS author_name',
+            )
+            ->groupBy('tid');
+
+        $authors = [];
+        foreach ($userPurchase->get() as $value) {
+            array_push($authors, $value->author_name);
+        }
+
+        // print_r($authors);
+        // die;
+
         if (!empty($req->get('seriesId'))) {
             $userPurchase = $userPurchase->where('productSeriesId', $req->seriesId);
         }
         if (!empty($req->get('lessionId'))) {
             $userPurchase = $userPurchase->where('productSeriesLessionId', $req->lessionId);
         }
-        if ($req->get('search_tutor')) {
-            $auth_id = User::where('name', 'like', '%' . $req->search_tutor . '%')->get('id')[0]->id;
-            $userPurchase = $userPurchase->where('authorId', $auth_id);
-            $old_search = $req->search_tutor;
+        if (!empty($req->get('tutor'))) {
+            // dd($req->get('tutor'));
+            $userPurchase = $userPurchase->where('u2.name', 'like', '%' . $req->get('tutor') . '%');
+            $old_search = $req->get('tutor');
+            // dd($userPurchase);
         }
-        dd($userPurchase);
-        // if (isset($req->price)) {
-        //     $userPurchase = $userPurchase->orderBy('transactions.id', 'desc')->paginate(20);
-        // } else {
-        $userPurchase = $userPurchase->latest()->paginate(20);
-        // }
+        // dd($userPurchase);
 
-        foreach ($userPurchase as $key => $purchase) {
-            $offer = (object)[];
-            $series = (object)[];
-            $lession = (object)[];
-            if ($purchase->type_of_product == 'offer') {
-                $offer = Offer::where('id', $purchase->offerId)->withTrashed()->first();
-                $offer->series = UserProductLessionPurchase::where('transactionId', $purchase->transactionId)->where('type_of_product', $purchase->type_of_product)->where('offerId', $purchase->offerId)->groupBy('productSeriesId')->get();
-                foreach ($offer->series as $index => $productSeries) {
-                    $productSeries->lession = UserProductLessionPurchase::where('transactionId', $purchase->transactionId)->where('type_of_product', $purchase->type_of_product)->where('offerId', $purchase->offerId)->where('productSeriesId', $productSeries->productSeriesId)->get();
-                }
-            } elseif ($purchase->type_of_product == 'series') {
-                $series = ProductSeries::where('id', $purchase->productSeriesId)->withTrashed()->first();
-                $series->lession = UserProductLessionPurchase::where('transactionId', $purchase->transactionId)->where('type_of_product', $purchase->type_of_product)->where('productSeriesId', $purchase->productSeriesId)->get();
-            } elseif ($purchase->type_of_product == 'lession') {
-                $lession = ProductSeriesLession::where('id', $purchase->productSeriesLessionId)->withTrashed()->first();
-            }
-            // putting all the data in to the same Loop
-            $purchase->offer_data = $offer;
-            $purchase->series_data = $series;
-            $purchase->lession_data = $lession;
-            $purchase->transaction;
-            $purchase->users_details_all;
+        if (!empty($req->get('purchase_from')) && !empty($req->get('purchase_to'))) {
+            $userPurchase = $userPurchase->where('u2.name', 'like', '%' . $req->get('tutor') . '%');
+            $from = date('Y-m-d H:i:s', strtotime($req->get('purchase_from')));
+            $to = date('Y-m-d H:i:s', strtotime($req->get('purchase_to')));
+            $userPurchase = $userPurchase->where('t.created_at', '>=', $from)->where('t.created_at', '<=', $to);
         }
+
+        if (!empty($req->get('price'))) {
+            if ($req->get('price') == 1)
+                $userPurchase = $userPurchase->orderBy('t.amount', 'ASC');
+            else
+                $userPurchase = $userPurchase->orderBy('t.amount', 'DESC');
+        }
+
+        $userPurchase = $userPurchase->paginate(10);
+
+        // }
+        // echo "<pre>";
+        // print_r((array)$userPurchase);
+        // die;
+
+        // foreach ($userPurchase as $key => $purchase) {
+        //     $offer = (object)[];
+        //     $series = (object)[];
+        //     $lession = (object)[];
+        //     if ($purchase->type_of_product == 'offer') {
+        //         $offer = Offer::where('id', $purchase->offerId)->withTrashed()->first();
+        // $offer->series = UserProductLessionPurchase::where('transactionId', $purchase->transactionId)->where('type_of_product', $purchase->type_of_product)->where('offerId', $purchase->offerId)->groupBy('productSeriesId')->get();
+        //         foreach ($offer->series as $index => $productSeries) {
+        //             $productSeries->lession = UserProductLessionPurchase::where('transactionId', $purchase->transactionId)->where('type_of_product', $purchase->type_of_product)->where('offerId', $purchase->offerId)->where('productSeriesId', $productSeries->productSeriesId)->get();
+        //         }
+        //     } elseif ($purchase->type_of_product == 'series') {
+        //         $series = ProductSeries::where('id', $purchase->productSeriesId)->withTrashed()->first();
+        //         $series->lession = UserProductLessionPurchase::where('transactionId', $purchase->transactionId)->where('type_of_product', $purchase->type_of_product)->where('productSeriesId', $purchase->productSeriesId)->get();
+        //     } elseif ($purchase->type_of_product == 'lession') {
+        //         $lession = ProductSeriesLession::where('id', $purchase->productSeriesLessionId)->withTrashed()->first();
+        //     }
+        //     // putting all the data in to the same Loop
+        //     $purchase->offer_data = $offer;
+        //     $purchase->series_data = $series;
+        //     $purchase->lession_data = $lession;
+        //     $purchase->transaction;
+        //     $purchase->users_details_all;
+        // }
         $available_series = UserProductLessionPurchase::select('product_series.id', 'product_series.title', 'product_series.createdBy')->join('product_series', 'product_series.id', '=', 'user_product_lession_purchases.productSeriesId')->groupBy('product_series.title')->get();
         $available_lessons = UserProductLessionPurchase::select('product_series_lessions.id', 'product_series_lessions.title', 'product_series_lessions.createdBy', 'product_series_lessions.productSeriesId')->join('product_series_lessions', 'product_series_lessions.id', '=', 'user_product_lession_purchases.productSeriesLessionId')->groupBy('product_series_lessions.title')->get();
-        return view('reports.transactionLog', compact('userPurchase', 'req', 'available_series', 'available_lessons', 'old_search'));
+
+        return view('reports.transactionLog', compact('userPurchase', 'req', 'available_series', 'available_lessons', 'authors'));
     }
 
     public function transactionLogOld(Request $req)
