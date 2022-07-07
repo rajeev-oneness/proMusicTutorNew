@@ -25,13 +25,16 @@
         .swal2-popup.swal2-toast.swal2-icon-success {
             background-color: #4caf50;
         }
-        .swal2-popup.swal2-toast.swal2-icon-warning > .swal2-close {
+        .swal2-popup.swal2-toast.swal2-icon-success .swal2-title, .swal2-popup.swal2-toast.swal2-icon-warning .swal2-title {
             color: #fff;
         }
+        /* .swal2-popup.swal2-toast.swal2-icon-warning > .swal2-close {
+            color: #fff;
+        } */
         .swal2-icon.swal2-warning.swal2-icon-show > .swal2-icon-content {
             color: #fff;
         }
-        .swal2-title, .swal2-close{
+        .swal2-close{
             color: #fff;
         }
         .swal2-icon.swal2-success .swal2-success-ring {
@@ -141,10 +144,12 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('.loading-data').hide();
+
             $(document).on('submit', 'form', function() {
                 $('button').attr('disabled', 'disabled');
                 $('.loading-data').show();
             });
+
             @auth
                 // markAllNotificationasRead from Header.blade.php
                 $(document).on('click','.markAllAsRead',function(){
@@ -232,6 +237,27 @@
                 icon: type,
                 title: message,
                 // text: message
+            })
+        }
+
+        function confirmAlert(route){
+            Swal.fire({
+                title: 'Are you sure?',
+                showCancelButton: true,
+                confirmButtonText: 'Okay',
+                focusCancel: true,
+                customClass: {
+                    confirmButton: 'btn btn-danger',
+                },
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    // Swal.fire('Saved!', '', 'success')
+                    window.location = route;
+                }
+                // else if (result.isDenied) {
+                //     Swal.fire('Changes are not saved', '', 'info')
+                // }
             })
         }
 

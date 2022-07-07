@@ -73,9 +73,10 @@
                         </div>
 
                         <div class="form-group d-flex justify-content-end">
-                            <form action="{{ route('user.cart.empty') }}" method="POST">
-                                <button type="submit" class="btn btn-sm btn-primary checkoutCartBillPayment">Empty Cart</button>
-                            </form>
+                            {{-- <form method="POST" onsubmit="confirmAlert('{{ route('user.cart.empty') }}')">@csrf
+                                <button type="submit" class="btn btn-sm btn-primary">Empty Cart</button>
+                            </form> --}}
+                            <a href="javascript:void(0)" onclick="confirmAlert('{{ route('user.cart.empty') }}')">Empty cart</a>
                         </div>
 
                         <div class="form-group d-flex justify-content-end">

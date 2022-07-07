@@ -200,6 +200,14 @@ class CartController extends Controller
 
     public function emptyCart(Request $req)
     {
-        $user_id = auth()->user()->id;
+        // dd($req->all());
+        if (auth()->check()) {
+            $user_id = auth()->user()->id;
+
+            $data = UserCart::where('userId', $user_id)->delete();
+            return redirect()->back()->with('Success', 'Cart is empty');
+        } else {
+            return redirect()->back()->with('Errors', 'Login to continue');
+        }
     }
 }

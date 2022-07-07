@@ -101,8 +101,8 @@
                                 <button type="submit" name="" class="btn buyfull">Apply</button>
                                 <a href="{{route('product.series',$instrumentParameter)}}" class="btn detail">Reset</a>
                             </div>
-                          </div>
-                        </form>
+                        </div>
+                    </form>
                 </div>
                 @else
                 <div class="col-12 text-center title-inner">
