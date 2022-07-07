@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('title','Product Series')
+
 @section('content')
     @php
         $data->currency = 'usd';
@@ -145,6 +146,20 @@
                                         <div class="float-right buynow-btn">
                                             <a href="javascript:void(0)" class="preview-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->preview_video)}}', '{{$less->title}}')" id="watch_id{{$less->id}}">Preview <i class="fa fa-play ml-2"></i> </a>
 
+                                            {{-- add to cart here --}}
+                                            {{-- @guest
+                                                <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY NOW - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
+                                            @else
+                                                @if($data->userPurchased)
+                                                    <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
+                                                @else
+                                                    <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">BUY NOW - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
+
+                                                    <!-- Add To Cart -->
+                                                    <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','series','{{$data->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
+                                                @endif
+                                            @endguest --}}
+
                                             @php
                                                 $display_lessionPrice = $less->price_usd;
                                                 if(!empty($req->currency)) {
@@ -159,14 +174,14 @@
                                             @endphp
 
                                             @guest
-                                                {{-- <a href="javascript:void(0)" class="btn buyfull" onclick="alert('please login to continue')">Buy Now - {{currencySymbol($data->currency)}} {{$display_lessionPrice}}</a> --}}
+                                                <a href="javascript:void(0)" class="btn buyfull" onclick="alert('please login to continue')">Buy Now - {{currencySymbol($data->currency)}} {{$display_lessionPrice}}</a>
                                             @else
                                                 @if(userLessionPurchased($less))
                                                     <a href="javascript:void(0)" class="purchased-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->video)}}', '{{$less->title}}','download')" id="watch_id{{$less->id}}">Watch <i class="fa fa-play ml-2"></i> </a>
                                                     <a class="downloadVideo" href="{{asset($less->video)}}" target="_blank" download><i class="fa fa-download" aria-hidden="true"></i></a>
                                                 @else
-                                                    {{-- <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$display_lessionPrice}}','{{route('after.purchase.guitar_lession_series',$less->id)}}', '{{$data->currency}}');">Buy Now - {{currencySymbol($data->currency)}} {{$display_lessionPrice}}</a>
-                                                    <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','lession','{{$less->id}}','add','{{$data->currency}}')" title="Add to Cart"><i class="fas fa-cart-plus"></i></a> --}}
+                                                    <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$display_lessionPrice}}','{{route('after.purchase.guitar_lession_series',$less->id)}}', '{{$data->currency}}');">Buy Now - {{currencySymbol($data->currency)}} {{$display_lessionPrice}}</a>
+                                                    <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','lession','{{$less->id}}','add','{{$data->currency}}')" title="Add to Cart"><i class="fas fa-cart-plus"></i></a>
                                                 @endif
                                             @endguest
                                         </div>

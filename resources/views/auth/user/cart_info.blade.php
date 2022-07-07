@@ -73,6 +73,12 @@
                         </div>
 
                         <div class="form-group d-flex justify-content-end">
+                            <form action="{{ route('user.cart.empty') }}" method="POST">
+                                <button type="submit" class="btn btn-sm btn-primary checkoutCartBillPayment">Empty Cart</button>
+                            </form>
+                        </div>
+
+                        <div class="form-group d-flex justify-content-end">
                            <button class="btn btn-primary checkoutCartBillPayment">CHECKOUT</button>
                         </div>
                         <!-- <div class="coupon">

@@ -11,16 +11,19 @@ class CartController extends Controller
 {
     public function addOrRemoveCartProduct(Request $req)
     {
+        // dd($req->all());
         $rules = [
             'userId' => 'required|numeric|min:1',
-            // 'type_of_product' => 'required|string|in:offer,series,lession',
-            'type_of_product' => 'required|string|in:offer,series',
+            'type_of_product' => 'required|string|in:offer,series,lession',
+            // 'type_of_product' => 'required|string',
             'productId' => 'required|numeric|min:1',
             'currency' => 'nullable|string|in:gbp,euro,eur,usd',
             'cartId' => 'nullable|numeric|min:1',
             'action' => 'required|string|in:add,remove',
         ];
+
         $validator = validator()->make($req->all(), $rules);
+
         if (!$validator->fails()) {
             $user = User::where('id',$req->userId)->first();
             if($user){
@@ -45,8 +48,10 @@ class CartController extends Controller
                     }elseif($cart && $req->action == 'remove'){
                         $countToAddOrRemove -= 1;
                         $cart->status = 2;$cart->save();$cart->delete();
+                    } elseif($cart && $req->action == 'add'){
+                        return errorResponse('Product exists in cart');
                     }
-                    return successResponse('Cart Updated Success',['cart' => $cart,'countToAddOrRemove' => $countToAddOrRemove]);
+                    return successResponse('Cart Updated successfully', ['cart' => $cart,'countToAddOrRemove' => $countToAddOrRemove]);
                 }
                 return errorResponse('Invalid Product id for the '.$req->type_of_product);
             }
@@ -190,6 +195,11 @@ class CartController extends Controller
             }
             return view('payment.razorpay.cart.thankyou',compact('cart','transaction'));
         }
-        dd('Payment Success');
+        // dd('Payment Success');
+    }
+
+    public function emptyCart(Request $req)
+    {
+        $user_id = auth()->user()->id;
     }
 }

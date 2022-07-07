@@ -15,6 +15,32 @@
 	@yield('css')
 </head>
 <body>
+    <style>
+        .swal2-popup.swal2-toast {
+            padding: 0.5rem 1em;
+        }
+        .swal2-popup.swal2-toast.swal2-icon-warning {
+            background-color: #eb3601;
+        }
+        .swal2-popup.swal2-toast.swal2-icon-success {
+            background-color: #4caf50;
+        }
+        .swal2-popup.swal2-toast.swal2-icon-warning > .swal2-close {
+            color: #fff;
+        }
+        .swal2-icon.swal2-warning.swal2-icon-show > .swal2-icon-content {
+            color: #fff;
+        }
+        .swal2-title, .swal2-close{
+            color: #fff;
+        }
+        .swal2-icon.swal2-success .swal2-success-ring {
+            border: 0.25em solid rgb(255 255 255);
+        }
+        .swal2-icon.swal2-success [class^=swal2-success-line] {
+            background-color: #fff;
+        }
+    </style>
 	<!-- loader -->
     <div class="loading-data" style="display:block; color: #fff;">Loading&#8230;</div>
     <!-- Header Content -->
@@ -108,8 +134,10 @@
 	<script type="text/javascript" src="{{asset('design/js/owl.carousel.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('design/js/aos.js')}}"></script>
 	<script type="text/javascript" src="{{asset('design/js/custom.js')}}"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             $('.loading-data').hide();
@@ -176,12 +204,36 @@
                 }
             @endauth
         });
-        
+
         @if(Session::has('Success'))
-            swal('Success','{{Session::get('Success')}}');
+            // swal('Success','{{Session::get('Success')}}');
+            sweetalertFire('success', '{{Session::get('Success')}}');
         @elseif(Session::has('Errors'))
-            swal('Error','{{Session::get('Errors')}}');
+            // swal('Error','{{Session::get('Errors')}}');
+            sweetalertFire('warning', '{{Session::get('Errors')}}');
         @endif
+
+        // sweetalert function
+        function sweetalertFire(type, message) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                showCloseButton: true,
+                timer: 2000,
+                timerProgressBar: false,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: type,
+                title: message,
+                // text: message
+            })
+        }
 
         function isNumberKey(evt){
             if(evt.charCode >= 48 && evt.charCode <= 57 || evt.charCode <= 43){  
@@ -208,7 +260,8 @@
         var stripePrice = 0,redirectURL = '',currencyToPayment = '';
         function stripePaymentStart(price,redirectionURL, currency = 'usd'){
             if(parseInt(price) < 1){
-                alert('Price must be at least '+ currencySymbol(currency) +' 1')
+                // alert('Price must be at least '+ currencySymbol(currency) +' 1')
+                sweetalertFire('warning', 'Price must be at least '+ currencySymbol(currency) +' 1');
             }else{
                 stripePrice = price;redirectURL = redirectionURL,currencyToPayment = (currency ?? 'usd');
                 $('.currencySymbolToPay').text(currencySymbol(currency));
@@ -327,20 +380,26 @@
                 dataType : 'JSON',
                 data : {
                     _token : '{{csrf_token()}}',
-                    userId : userId,type_of_product:productType,
-                    productId : productId,action : action,
-                    currency : currency, cartId : cartId
+                    userId : userId,
+                    type_of_product:productType,
+                    productId : productId,
+                    action : action,
+                    currency : currency,
+                    cartId : cartId
                 },
                 success:function(response){
-                    console.log(response);
+                    // console.log(response);
                     if(response.error == false){
                         if(action == 'add'){
                             itemCountForCart = parseInt(itemCountForCart) + parseInt(response.data.countToAddOrRemove);
+                            sweetalertFire('success', response.message);
                         }
                         else if(action == 'remove'){
                             window.location.href="";
                             // userClickObject.closest('.userCartInfo').remove();
                         }
+                    } else {
+                        sweetalertFire('warning', response.message);
                     }
                     $('#itemCountForCart').text(itemCountForCart);
                     $('.loading-data').hide();
