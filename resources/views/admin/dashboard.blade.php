@@ -24,10 +24,10 @@
                             <div class="col-12">
                                 <table class="table table-sm table-hover">
                                     <tr>
-                                        <th>Time</th>
-                                        {{-- <th>GBP</th> --}}
+                                        <th>Month</th>
                                         <th class="text-right">USD</th>
-                                        {{-- <th>EUR</th> --}}
+                                        <th class="text-right">GBP</th>
+                                        <th class="text-right">EUR</th>
                                     </tr>
                                     @php
                                         $content = '';
@@ -35,86 +35,74 @@
                                             // $monthDataforUSD = date('F Y', strtotime($reportValue->time));
                                             // $monthDataforGBP = date('F Y', strtotime($reportValue->time));
                                             // $monthDataforEURO = date('F Y', strtotime($reportValue->time));
-
-
+                                        
                                             // $month[] = $monthData;
                                             if ($reportValue->currency == 'usd') {
                                                 $monthDataforUSD = date('F Y', strtotime($reportValue->time));
-                                                $monthUSD = $monthDataforUSD;
+                                                $monthUSD[] = $monthDataforUSD;
                                                 $price_usd[] = $reportValue->price;
-                                            }elseif ($reportValue->currency == 'gbp') {
+                                            } elseif ($reportValue->currency == 'gbp') {
                                                 $monthDataforGBP = date('F Y', strtotime($reportValue->time));
-                                                $monthGBP = $monthDataforGBP;
+                                                $monthGBP[] = $monthDataforGBP;
                                                 $price_gbp[] = $reportValue->price;
-                                            }else{
+                                            } else {
                                                 $monthDataforEURO = date('F Y', strtotime($reportValue->time));
-                                                $monthEURO = $monthDataforEURO;
+                                                $monthEURO[] = $monthDataforEURO;
                                                 $price_euro[] = $reportValue->price;
                                             }
                                         }
-                                        // dd('hi');
-
-                                        $existingMonthsDataCountForUSD = count($price_usd) ;
-                                        $existingMonthsDataCountForGBP = count($price_gbp) ;
-                                        $existingMonthsDataCountForEURO = count($price_euro) ;
-
-                                        $pr_month_usd = [];
-                                        $pr_month_gbp = [];
-                                        $pr_month_euro = [];
-
+                                        
+                                        $existingMonthsDataCountForUSD = count($price_usd) - 1;
+                                        $existingMonthsDataCountForGBP = count($price_gbp) - 1;
+                                        $existingMonthsDataCountForEURO = count($price_euro) - 1;
+                                        
                                         $pr_price_gbp = [];
                                         $pr_price_usd = [];
                                         $pr_price_euro = [];
-
+                                        
                                         for ($i = 0; $i < 12; $i++) {
-                                            $curr_month = date('F Y', strtotime(date('F Y') . ' - '.$i.' months'));
-
-                                            if (in_array($curr_month, $month)) {
-                                                $pr_month_gbp [$i] = $month[$existingMonthsDataCountForGBP];
-                                                $pr_month_usd[$i] = $month[$existingMonthsDataCountForUSD];
-                                                $pr_month_euro[$i] = $month[$existingMonthsDataCountForEURO];
-
-                                                $pr_price_gbp[$i] = $price_gbp[$existingMonthsDataCountForGBP];
+                                            $curr_month = date('F Y', strtotime(date('F Y') . ' - ' . $i . ' months'));
+                                            $pr_month[$i] = $curr_month;
+                                        
+                                            //USD
+                                            if (in_array($curr_month, $monthUSD)) {
                                                 $pr_price_usd[$i] = $price_usd[$existingMonthsDataCountForUSD];
-                                                $pr_price_euro[$i] = $price_euro[$existingMonthsDataCountForEURO];
-
                                                 $existingMonthsDataCountForUSD -= 1;
+                                            } else {
+                                                $pr_price_usd[$i] = 0;
+                                            }
+                                        
+                                            //GBP
+                                            if (in_array($curr_month, $monthGBP)) {
+                                                $pr_price_gbp[$i] = $price_gbp[$existingMonthsDataCountForGBP];
                                                 $existingMonthsDataCountForGBP -= 1;
+                                            } else {
+                                                $pr_price_gbp[$i] = 0;
+                                            }
+                                        
+                                            //EURO
+                                            if (in_array($curr_month, $monthEURO)) {
+                                                $pr_price_euro[$i] = $price_euro[$existingMonthsDataCountForEURO];
                                                 $existingMonthsDataCountForEURO -= 1;
                                             } else {
-                                                // $pr_month[$i] = $curr_month;
-                                                $pr_month_gbp [$i] = $curr_month;
-                                                $pr_month_usd[$i] = $curr_month;
-                                                $pr_month_euro[$i] = $curr_month;
-
-                                                $pr_price_gbp[$i] = 0;
-                                                $pr_price_usd[$i] = 0;
                                                 $pr_price_euro[$i] = 0;
                                             }
-
-                                            // $content .= '<tr><td>' . $pr_month[$i] . '</td><td class="text-right">$ ' . $pr_price_usd[$i] . '</td></tr>';
-                                            // $content .= '<tr><td>' . $pr_month[$i] . '</td><td>' . $pr_price_gbp[$i] . '</td><td>' . $pr_price_usd[$i] . '</td><td>' . $pr_price_euro[$i] . '</td></tr>';
+                                        
+                                            $content .= '<tr><td>' . $pr_month[$i] . '</td><td class="text-right">$ ' . $pr_price_usd[$i] . '</td><td class="text-right">€ ' . $pr_price_euro[$i] . '</td><td class="text-right">£' . $pr_price_gbp[$i] . '</td></tr>';
                                         }
-
-                                        // echo "<pre>";
-                                        // print_r($pr_month_usd);
-                                        // echo "--------------------";
-                                        // echo "<pre>";
-                                        // print_r($pr_month_gbp);
-                                        // echo "--------------------";
-                                        // echo "<pre>";
-                                        // print_r($pr_month_euro);
-                                        // echo "--------------------";
-                                        // echo "<pre>";
+                                        // echo '<pre>';
+                                        // print_r($pr_month);
+                                        // echo '--------------------';
+                                        // echo '<pre>';
                                         // print_r($pr_price_gbp);
-                                        // echo "--------------------";
-                                        // echo "<pre>";
+                                        // echo '--------------------';
+                                        // echo '<pre>';
                                         // print_r($pr_price_usd);
-                                        // echo "--------------------";
-                                        // echo "<pre>";
+                                        // echo '--------------------';
+                                        // echo '<pre>';
                                         // print_r($pr_price_euro);
-                                        // echo "--------------------";
-
+                                        // echo '--------------------';
+                                        
                                         // exit();
                                     @endphp
 
@@ -357,161 +345,47 @@
 
 @section('script')
     <script>
-        // monthly report
         var labelValues0 = [];
         var dataValues0 = [];
         var dataValues1 = [];
         var dataValues2 = [];
 
-        // console.log("<?php echo json_encode($price_gbp); ?>");
-        {{--labelValues0 = <?php echo json_encode(array_reverse($pr_month)); ?>;--}}
+        labelValues0 = <?php echo json_encode(array_reverse($pr_month)); ?>;
         dataValues0 = <?php echo json_encode(array_reverse($pr_price_gbp)); ?>;
         dataValues1 = <?php echo json_encode(array_reverse($pr_price_usd)); ?>;
         dataValues2 = <?php echo json_encode(array_reverse($pr_price_euro)); ?>;
 
-        // labelValues0 = ['Hi', 'Hi2', 'Hi3'];
-        // dataValues0 = [1, 2, 3];
-        // dataValues1 = [4, 5, 6];
-        // dataValues2 = [7, 8, 9];
-
-        // console.log(dataValues0);
-
         const ctx0 = document.getElementById('monthlyReport').getContext('2d');
         const monthlyReport = new Chart(ctx0, {
             type: 'line',
-            // data: {
-            //     labels: labelValues0,
-            //     datasets: [{
-            //         label: 'State report',
-            //         datasets: dataValues0,
-            //         backgroundColor: [
-            //             'rgba(255, 99, 132, 0.2)',
-            //             'rgba(54, 162, 235, 0.2)',
-            //             'rgba(255, 206, 86, 0.2)',
-            //             'rgba(75, 192, 192, 0.2)'
-            //         ],
-            //         borderWidth: 3
-            //     }]
-            // },
-            // options: {
-            //     scales: {
-            //         y: {
-            //             beginAtZero: true
-            //         }
-            //     }
-            // }
             data: {
                 labels: labelValues0,
                 datasets: [{
-                        label: 'GBP',
-                        data: dataValues0,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'USD',
+                        label: '$ USD',
                         data: dataValues1,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-
+                        backgroundColor: 'rgba(192, 244, 190, 0.6)',
+                        borderColor: 'black',
+                        borderWidth: 1,
+                        fill: true,
                     },
                     {
-                        label: "EURO",
+                        label: '£ GBP',
+                        data: dataValues0,
+                        borderWidth: 1,
+                        backgroundColor: 'rgba(238, 130, 238, 0.6)',
+                        borderColor: 'black',
+                        fill: true,
+                    },
+                    {
+                        label: "€ EURO",
                         data: dataValues2,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
+                        borderWidth: 1,
+                        backgroundColor: 'rgba(106, 90, 205, 0.6)',
+                        borderColor: 'black',
+                        fill: true,
                     }
                 ]
             },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
         });
-
-        // const labels = [
-        //     'January',
-        //     'February',
-        //     'March',
-        //     'April',
-        //     'May',
-        //     'June',
-        // ];
-
-        // const data = {
-        //     labels: labels,
-        //     datasets: [{
-        //         label: 'My First dataset',
-        //         // backgroundColor: 'rgb(255, 99, 132)',
-        //         // borderColor: 'rgb(255, 99, 132)',
-        //         data: [0, 10, 5, 2, 20, 30],
-        //     }]
-        // };
-
-        // const config = {
-        //     type: 'line',
-        //     data: data,
-        //     options: {
-        //         responsive: true,
-        //         plugins: {
-        //             legend: {
-        //                 position: 'top',
-        //             },
-        //             title: {
-        //                 display: true,
-        //                 // text: 'Chart.js Line Chart'
-        //             }
-        //         }
-        //     },
-        // };
-
-        // const myChart = new Chart(document.getElementById('monthlyReport'), config);
     </script>
 @endsection
