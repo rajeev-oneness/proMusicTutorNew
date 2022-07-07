@@ -19,50 +19,103 @@
                                 <canvas id="monthlyReport" height="100"></canvas>
                             </div>
 
-                            <h4 class="mx-3 border border-info p-2 rounded text-muted ">Data for the last 12 months:</h4>
+                            <h4 class="">Sales report for last 12 months:</h4>
+
                             <div class="col-12">
                                 <table class="table table-sm table-hover">
                                     <tr>
                                         <th>Time</th>
-                                        <th>GBP</th>
-                                        <th>USD</th>
-                                        <th>EUR</th>
+                                        {{-- <th>GBP</th> --}}
+                                        <th class="text-right">USD</th>
+                                        {{-- <th>EUR</th> --}}
                                     </tr>
                                     @php
                                         $content = '';
-                                        
                                         foreach ($data->salesReport as $reportKey => $reportValue) {
-                                            $monthData = date('F Y', strtotime($reportValue->time));
-                                        
-                                            $month[] = $monthData;
-                                            $price_gbp[] = $reportValue->price_gbp;
-                                            $price_usd[] = $reportValue->price_usd;
-                                            $price_euro[] = $reportValue->price_euro;
+                                            // $monthDataforUSD = date('F Y', strtotime($reportValue->time));
+                                            // $monthDataforGBP = date('F Y', strtotime($reportValue->time));
+                                            // $monthDataforEURO = date('F Y', strtotime($reportValue->time));
+
+
+                                            // $month[] = $monthData;
+                                            if ($reportValue->currency == 'usd') {
+                                                $monthDataforUSD = date('F Y', strtotime($reportValue->time));
+                                                $monthUSD = $monthDataforUSD;
+                                                $price_usd[] = $reportValue->price;
+                                            }elseif ($reportValue->currency == 'gbp') {
+                                                $monthDataforGBP = date('F Y', strtotime($reportValue->time));
+                                                $monthGBP = $monthDataforGBP;
+                                                $price_gbp[] = $reportValue->price;
+                                            }else{
+                                                $monthDataforEURO = date('F Y', strtotime($reportValue->time));
+                                                $monthEURO = $monthDataforEURO;
+                                                $price_euro[] = $reportValue->price;
+                                            }
                                         }
-                                        
-                                        $c = 3;
-                                        $pr_month = [];
+                                        // dd('hi');
+
+                                        $existingMonthsDataCountForUSD = count($price_usd) ;
+                                        $existingMonthsDataCountForGBP = count($price_gbp) ;
+                                        $existingMonthsDataCountForEURO = count($price_euro) ;
+
+                                        $pr_month_usd = [];
+                                        $pr_month_gbp = [];
+                                        $pr_month_euro = [];
+
                                         $pr_price_gbp = [];
                                         $pr_price_usd = [];
                                         $pr_price_euro = [];
-                                        
+
                                         for ($i = 0; $i < 12; $i++) {
-                                            $curr_month = date('F Y', strtotime(date('F Y') . " -$i months"));
+                                            $curr_month = date('F Y', strtotime(date('F Y') . ' - '.$i.' months'));
+
                                             if (in_array($curr_month, $month)) {
-                                                $pr_month[$i] = $month[$c];
-                                                $pr_price_gbp[$i] = $price_gbp[$c];
-                                                $pr_price_usd[$i] = $price_usd[$c];
-                                                $pr_price_euro[$i] = $price_euro[$c];
-                                                $c -= 1;
+                                                $pr_month_gbp [$i] = $month[$existingMonthsDataCountForGBP];
+                                                $pr_month_usd[$i] = $month[$existingMonthsDataCountForUSD];
+                                                $pr_month_euro[$i] = $month[$existingMonthsDataCountForEURO];
+
+                                                $pr_price_gbp[$i] = $price_gbp[$existingMonthsDataCountForGBP];
+                                                $pr_price_usd[$i] = $price_usd[$existingMonthsDataCountForUSD];
+                                                $pr_price_euro[$i] = $price_euro[$existingMonthsDataCountForEURO];
+
+                                                $existingMonthsDataCountForUSD -= 1;
+                                                $existingMonthsDataCountForGBP -= 1;
+                                                $existingMonthsDataCountForEURO -= 1;
                                             } else {
-                                                $pr_month[$i] = $curr_month;
+                                                // $pr_month[$i] = $curr_month;
+                                                $pr_month_gbp [$i] = $curr_month;
+                                                $pr_month_usd[$i] = $curr_month;
+                                                $pr_month_euro[$i] = $curr_month;
+
                                                 $pr_price_gbp[$i] = 0;
                                                 $pr_price_usd[$i] = 0;
                                                 $pr_price_euro[$i] = 0;
                                             }
-                                        
-                                            $content .= '<tr><td>' . $pr_month[$i] . '</td><td>' . $pr_price_gbp[$i] . '</td><td>' . $pr_price_usd[$i] . '</td><td>' . $pr_price_euro[$i] . '</td></tr>';
+
+                                            // $content .= '<tr><td>' . $pr_month[$i] . '</td><td class="text-right">$ ' . $pr_price_usd[$i] . '</td></tr>';
+                                            // $content .= '<tr><td>' . $pr_month[$i] . '</td><td>' . $pr_price_gbp[$i] . '</td><td>' . $pr_price_usd[$i] . '</td><td>' . $pr_price_euro[$i] . '</td></tr>';
                                         }
+
+                                        // echo "<pre>";
+                                        // print_r($pr_month_usd);
+                                        // echo "--------------------";
+                                        // echo "<pre>";
+                                        // print_r($pr_month_gbp);
+                                        // echo "--------------------";
+                                        // echo "<pre>";
+                                        // print_r($pr_month_euro);
+                                        // echo "--------------------";
+                                        // echo "<pre>";
+                                        // print_r($pr_price_gbp);
+                                        // echo "--------------------";
+                                        // echo "<pre>";
+                                        // print_r($pr_price_usd);
+                                        // echo "--------------------";
+                                        // echo "<pre>";
+                                        // print_r($pr_price_euro);
+                                        // echo "--------------------";
+
+                                        // exit();
                                     @endphp
 
                                     {!! $content !!}
@@ -311,7 +364,7 @@
         var dataValues2 = [];
 
         // console.log("<?php echo json_encode($price_gbp); ?>");
-        labelValues0 = <?php echo json_encode(array_reverse($pr_month)); ?>;
+        {{--labelValues0 = <?php echo json_encode(array_reverse($pr_month)); ?>;--}}
         dataValues0 = <?php echo json_encode(array_reverse($pr_price_gbp)); ?>;
         dataValues1 = <?php echo json_encode(array_reverse($pr_price_usd)); ?>;
         dataValues2 = <?php echo json_encode(array_reverse($pr_price_euro)); ?>;

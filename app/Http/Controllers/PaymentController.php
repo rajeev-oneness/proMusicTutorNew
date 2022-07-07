@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Stripe,Session,App\Models\StripeTransaction;
 use Razorpay\Api\Api,Exception;
 use App\Models\Transaction;
+use App\Models\UserOrder;
 
 class PaymentController extends Controller
 {
@@ -53,6 +54,16 @@ class PaymentController extends Controller
             "description" => "Test payment",
         ]);
         if($payment->status == 'succeeded'){
+            // user order save
+            $order = new UserOrder();
+            $order->user_id = auth()->user()->id;
+            $order->transactionId = $payment->id;
+            $order->amount = $payment->amount;
+            $order->currency = emptyCheck($payment->currency);
+            $order->order_id = emptyCheck($payment->balance_transaction);
+            $order->save();
+
+            // transaction save
             $newPayment = new Transaction();
             $newPayment->transactionId = $payment->id;
             $newPayment->order_id = emptyCheck($payment->balance_transaction);

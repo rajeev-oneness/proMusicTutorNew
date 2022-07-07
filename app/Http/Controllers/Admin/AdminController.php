@@ -24,12 +24,20 @@ class AdminController extends Controller
         $data->blogs = Blog::select('*')->latest()->get();
         $data->blogCategory = BlogCategory::select('*')->latest()->get();
 
-        $data->salesReport = DB::select('SELECT up.created_at AS time, SUM(l.price_gbp) AS price_gbp, SUM(l.price_usd) AS price_usd, SUM(l.price_euro) AS price_euro FROM `user_product_lession_purchases` AS up 
+        /* $data->salesReport = DB::select('SELECT up.created_at AS time, SUM(l.price_gbp) AS price_gbp, SUM(l.price_usd) AS price_usd, SUM(l.price_euro) AS price_euro FROM `user_product_lession_purchases` AS up 
         INNER JOIN product_series_lessions AS l 
         ON up.productSeriesLessionId = l.id 
         GROUP BY MONTH(up.created_at) 
         ORDER BY up.created_at ASC 
-        LIMIT 10');
+        LIMIT 10'); */
+
+        $data->salesReport = DB::select('SELECT created_at AS time, SUM(amount/100) AS price, currency FROM `transactions` AS t 
+        GROUP BY MONTH(created_at), currency 
+        ORDER BY created_at ASC 
+        LIMIT 12 
+        ');
+
+        // dd($data->salesReport );
 
         return view('admin.dashboard', compact('data'));
     }
