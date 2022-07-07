@@ -15,11 +15,13 @@
                                 type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
                                 aria-controls="collapseExample"><i class="fa fa-filter"></i>Filter</button>
 
+                            <button class="headerbuttonforAdd d-block mt-3 my-2 mr-2" style="float: right; outline: none;"
+                                type="button" onclick="htmlToCSV()"><i class="fas fa-check"></i> Export as
+                                CSV</button>
+
                             <div class="collapse show" id="collapseExample">
                                 <div class="card card-body px-0 py-2 border-0 shadow-none">
                                     <form class="form-inline" action="">
-                                        {{-- <input type="text" class="form-control form-control-sm mr-2" name="search_tutor"
-                                            placeholder="Search tutor" value="{{ $old_search }}"> --}}
                                         <select class="form-control form-control-sm mr-2" name="tutor">
                                             <option value="">--Select tutor--</option>
                                             @foreach ($authors as $a)
@@ -68,13 +70,13 @@
                                         <label for="purchase_from" class="form-label form-label-sm mr-2">Purchase from:
                                         </label>
                                         <input type="date" class="form-control form-control-sm mr-2" name="purchase_from"
-                                            id="purchase_from" value="{{ $this_month_first_date }}">
+                                            id="purchase_from"
+                                            value="{{ !empty(request()->input('purchase_from')) ? request()->input('purchase_from') : $this_month_first_date }}">
 
                                         <label for="purchase_to" class="form-label form-label-sm mr-2">Purchase to: </label>
                                         <input type="date" class="form-control form-control-sm mr-2" name="purchase_to"
-                                            id="purchase_to" value="{{ $curr_date }}">
-
-                                        <!-- <input type="text" class="form-control form-control-sm mr-2" name="keyword" placeholder="Type something..." value="{{ $req->keyword }}"> -->
+                                            id="purchase_to"
+                                            value="{{ !empty(request()->input('purchase_to')) ? request()->input('purchase_to') : $curr_date }}">
                                         <button type="submit" class="btn btn-sm btn-primary mr-2"> <i
                                                 class="fa fa-check"></i>
                                             Apply</button>
@@ -108,9 +110,10 @@
                                                 <td>
                                                     <div class="media">
                                                         <div class="media-body">
-                                                            <p class="mb-0">{{ $item->customer_name }}</p>
+                                                            {{-- <p class="mb-0">{{ $item->customer_name }}</p>
                                                             <p class="text-muted mb-0">{{ $item->customer_email }}
-                                                            </p>
+                                                            </p> --}}
+                                                            {{ $item->customer_name }}<br>{{ $item->customer_email }}
                                                         </div>
                                                     </div>
                                                 </td>
@@ -124,9 +127,6 @@
                                                             ->join('product_series_lessions as l', 'l.id', '=', 'user_product_lession_purchases.productSeriesLessionId')
                                                             ->select('l.title as lesson_name')
                                                             ->get();
-                                                        // echo '<pre>';
-                                                        // print_r($lessons[0]->lesson_name);
-                                                        // exit();
                                                     @endphp
                                                     @foreach ($lessons as $l)
                                                         {{ $l->lesson_name }}<br>
@@ -142,33 +142,18 @@
                                                             $currency = '€';
                                                         }
                                                     @endphp
-                                                    {{ $currency . ' ' . number_format($item->amount) }}
+                                                    {{ $currency . ' ' . number_format($item->amount / 100) }}
                                                 </td>
                                                 <td>
                                                     {{ $item->author_name }}
                                                 </td>
                                                 <td></td>
                                                 <td>
-                                                    <a href="" class="btn btn-info">Details</a>
-                                                    <a href="" class="btn btn-warning"
-                                                        style="margin-left: -5px;">Edit</a>
+                                                    <a href="{{ route('admin.report.transaction.details', $item->tid) }}"
+                                                        class="btn btn-info">Details</a>
+                                                    {{-- <a href="" class="btn btn-warning"
+                                                        style="margin-left: -5px;">Edit</a> --}}
                                                 </td>
-                                                {{-- <td>{{ strtoupper($item[0]->type_of_product) }}</td>
-                                                <td>
-                                                    @if ($item[0]->type_of_product == 'offer')
-                                                        {{ $item[0]->offer_data->title }}
-                                                    @elseif($item[0]->type_of_product == 'series')
-                                                        {{ $item[0]->series_data->title }}
-                                                    @elseif($item[0]->type_of_product == 'lession')
-                                                        {{ $item[0]->lession_data->title }}
-                                                    @endif
-                                                </td>
-                                                <td>{{ $item[0]->order_id }}</td>
-                                                <td>{{ currencySymbol($item[0]->currency) }}
-                                                    {{ number_format($item[0]->amount / 100, 2) }}</td>
-                                                <td>{{ $item[0]->author_details->name }}</td>
-                                                <td>{{ date('M d, Y h:i A', strtotime($item[0]->created_at)) }}
-                                                </td> --}}
                                             </tr>
                                         @empty
                                             <tr>
@@ -182,60 +167,6 @@
                                     {{ $userPurchase->appends($_GET)->links() }}
                                 </div>
                             </div>
-
-                            {{-- <div class="table-responsive">
-                        <table id="example5" class="table table-sm table-hover table-striped table-bordered" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Serial</th>
-                                    <th>User info</th>
-                                    <th>Product Series</th>
-                                    <th>Lesson info</th>
-                                    <th>TXN_ID</th>
-                                    <th>TXN_AMOUNT</th>
-                                    <th>Purchase date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($transaction as $key => $item)
-                                <tr>
-                                    <td>{{$key +1}}</td>
-                                    <td>
-                                        <div class="media">
-                                            <img class="mr-3 rounded-circle" src="{{asset($item->users_details->image)}}" alt="user-image" style="height: 50px;width: 50px;">
-                                            <div class="media-body">
-                                                <p class="mb-0">{{$item->users_details->name}}</p>
-                                                <p class="text-muted mb-0">{{$item->users_details->email}}</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0">{{$item->product_series->title}}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0">{{$item->product_series_lession->title}}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0">#{{$item->transactionId}}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0">${{$item->product_series_lession->price}}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 text-muted">{{date('j M, Y g:i a', strtotime($item->created_at))}}</p>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="100%" class="text-center text-muted"><em>No record found</em></td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                        <div class="test float-right">
-                            {{$transaction->links()}}
-                        </div>
-                    </div> --}}
                         </div>
                     </div>
                 </div>
@@ -265,5 +196,49 @@
                     $('#lessionId').empty().append(options);
                 }
             </script>
+
+            <script>
+                function htmlToCSV() {
+                    var data = [];
+                    var rows = document.querySelectorAll("#example5 tbody tr");
+
+                    data.push("SR NO.,Order ID,User Email,Date of purchase,Lesson/ Series name,Amount,Tutor");
+
+                    for (var i = 0; i < rows.length; i++) {
+                        var row = [],
+                            cols = rows[i].querySelectorAll("td");
+
+                        for (var j = 0; j < cols.length; j++) {
+                            console.log(cols[j].innerText);
+                            // row.push(cols[j].innerText);
+                        }
+                        data.push(row.join(","));
+                    }
+                    console.log(data.join("\n"));
+
+                    // downloadCSVFile(data.join("\n"), 'SalesReport.csv');
+                }
+
+                function downloadCSVFile(csv, filename) {
+                    var csv_file, download_link;
+
+                    csv_file = new Blob([csv], {
+                        type: "text/csv"
+                    });
+
+                    download_link = document.createElement("a");
+
+                    download_link.download = filename;
+
+                    download_link.href = window.URL.createObjectURL(csv_file);
+
+                    download_link.style.display = "none";
+
+                    document.body.appendChild(download_link);
+
+                    download_link.click();
+                }
+            </script>
+
         @stop
     @endsection

@@ -7,6 +7,7 @@ use App\Models\User, Illuminate\Http\Request;
 use App\Models\UserProductLessionPurchase, App\Models\Wishlist;
 use App\Models\Offer, App\Models\ProductSeriesLession;
 use App\Models\Notification;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
@@ -101,6 +102,21 @@ class ReportController extends Controller
         $available_lessons = UserProductLessionPurchase::select('product_series_lessions.id', 'product_series_lessions.title', 'product_series_lessions.createdBy', 'product_series_lessions.productSeriesId')->join('product_series_lessions', 'product_series_lessions.id', '=', 'user_product_lession_purchases.productSeriesLessionId')->groupBy('product_series_lessions.title')->get();
 
         return view('reports.transactionLog', compact('userPurchase', 'req', 'available_series', 'available_lessons', 'authors'));
+    }
+
+    public function transactionLogDet($tid)
+    {
+        $data = DB::table('user_product_lession_purchases')->where('transactionId', $tid)->join('product_series_lessions', 'product_series_lessions.id', '=', 'user_product_lession_purchases.productSeriesLessionId')->get();
+
+        $transaction_data = Transaction::FindOrFail($tid);
+
+        $user_id = $data[0]->userId;
+        $user_data = User::FindOrFail($user_id);
+
+        $productSeriesId = $data[0]->productSeriesId;
+        $productSeries_data = ProductSeries::FindOrFail($productSeriesId);
+
+        return view('reports.transaction_details', compact('data', 'user_data', 'productSeries_data', 'transaction_data'));
     }
 
     public function transactionLogOld(Request $req)
