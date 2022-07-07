@@ -31,12 +31,10 @@
                                     </tr>
                                     @php
                                         $content = '';
+                                        $monthEURO = [];
+                                        $monthUSD = [];
+                                        $monthGBP = [];
                                         foreach ($data->salesReport as $reportKey => $reportValue) {
-                                            // $monthDataforUSD = date('F Y', strtotime($reportValue->time));
-                                            // $monthDataforGBP = date('F Y', strtotime($reportValue->time));
-                                            // $monthDataforEURO = date('F Y', strtotime($reportValue->time));
-                                        
-                                            // $month[] = $monthData;
                                             if ($reportValue->currency == 'usd') {
                                                 $monthDataforUSD = date('F Y', strtotime($reportValue->time));
                                                 $monthUSD[] = $monthDataforUSD;
