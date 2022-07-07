@@ -136,6 +136,10 @@
                                                     @php
                                                         if ($item->currency == 'usd') {
                                                             $currency = '$';
+                                                        } elseif ($item->currency == 'gbp') {
+                                                            $currency = '£';
+                                                        } else {
+                                                            $currency = '€';
                                                         }
                                                     @endphp
                                                     {{ $currency . ' ' . number_format($item->amount) }}
