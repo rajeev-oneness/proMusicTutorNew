@@ -24,6 +24,7 @@ class ReportController extends Controller
                 't.amount',
                 't.currency',
                 't.created_at',
+                't.id',
                 'user_product_lession_purchases.transactionId AS tid',
                 'user_product_lession_purchases.type_of_product',
                 'u1.name AS customer_name',
@@ -68,7 +69,7 @@ class ReportController extends Controller
                 $userPurchase = $userPurchase->orderBy('t.amount', 'DESC');
         }
 
-        $userPurchase = $userPurchase->paginate(10);
+        $userPurchase = $userPurchase->paginate(5);
 
         // }
         // echo "<pre>";

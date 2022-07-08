@@ -105,7 +105,7 @@
                                     <tbody>
                                         @forelse($userPurchase as $key => $item)
                                             <tr>
-                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $item->id }}</td>
                                                 <td>{{ $item->order_id }}</td>
                                                 <td>
                                                     <div class="media">
@@ -201,6 +201,17 @@
                 function htmlToCSV() {
                     var data = [];
                     var rows = document.querySelectorAll("#example5 tbody tr");
+                    @php
+                        if (!request()->input('page')) {
+                            $page = 1;
+                        } else {
+                            $page = request()->input('page');
+                        }
+                    @endphp
+
+                    var page = "{{ $page }}";
+
+                    var regex = /<br\s*[\/]?>/gi;
 
                     data.push("SR NO.,Order ID,User Email,Date of purchase,Lesson/ Series name,Amount,Tutor");
 
@@ -208,15 +219,20 @@
                         var row = [],
                             cols = rows[i].querySelectorAll("td");
 
-                        for (var j = 0; j < cols.length; j++) {
-                            console.log(cols[j].innerText);
-                            // row.push(cols[j].innerText);
+                        for (var j = 0; j < cols.length - 1; j++) {
+                            var text = cols[j].innerText.split(',');
+                            var new_text = text.join('-');
+                            if (j == 2)
+                                var comtext = new_text.replace(/\n/g, "-");
+                            else
+                                var comtext = new_text.replace(/\n/g, ";");
+                            row.push(comtext);
                         }
                         data.push(row.join(","));
                     }
                     console.log(data.join("\n"));
 
-                    // downloadCSVFile(data.join("\n"), 'SalesReport.csv');
+                    downloadCSVFile(data.join("\n"), 'SalesReport_page_' + page + '.csv');
                 }
 
                 function downloadCSVFile(csv, filename) {
