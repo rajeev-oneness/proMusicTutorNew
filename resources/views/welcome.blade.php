@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('title','Welcome')
+
 @section('content')
     <section class="banner">
         <div class="container">
@@ -157,10 +158,10 @@
                     <div id="accordion" class="accordion">
                         <div class="card mb-0 border-0 bg-transparent">
                             @foreach($data->faq as $key => $faq)
-                                <div class="card-header collapsed" data-toggle="collapse" href="#collapseFaq{{$key}}">
+                                <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseFaq{{$key}}" aria-expanded="false" aria-controls="collapseFaq{{$key}}">
                                     <a class="card-title text-white"> {{$faq->title}} </a>
                                 </div>
-                                <div id="collapseFaq{{$key}}" class="card-body collapse" data-parent="#accordion">
+                                <div id="collapseFaq{{$key}}" class="card-body collapse py-0" data-parent="#accordion">
                                     <p class="text-white"> {!! $faq->description !!} </p>
                                 </div>
                             @endforeach

@@ -43,7 +43,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center title-inner">
-                        <h1 class="mb-5">Choose Your Category</h1>
+                        <h1>{{ $req->instrumentName }} {{ ($req->categoryName) ? '- '.$req->categoryName : '' }}</h1>
+                        <h5 class="text-muted mb-5">Choose Your Category</h5>
                         <!-- <h1 class="mb-5">Choose Your Guitar Series Category</h1> -->
                     </div>
                 </div>
@@ -54,8 +55,8 @@
                             $categoryParameter['categoryId'] = $cat->id;
                             $categoryParameter['categoryName'] = $cat->name;
                         @endphp
-                        <div class="col-12 col-sm-6 col-md-4 mb-3">
-                            <div class="card border-0 ">
+                        <div class="col-12 col-sm-6 col-md-3 mb-3">
+                            <div class="card border-0">
                                 <img src="{{asset($cat->image)}}" class="card-img-top">
                                 <div class="card-body p-0">
                                   <a href="{{route('product.series',$categoryParameter)}}" class="btn signbtn">{{$cat->name}}</a>

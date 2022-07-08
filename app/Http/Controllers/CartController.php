@@ -168,12 +168,13 @@ class CartController extends Controller
                         'content' => 'You have purchased the following via cart',
                         'data' => $whatPurchased
                     ];
-                    sendMail($data,'userCartPurchaseMail',$user->email,'Purchased Product!!!');
+                    // sendMail($data,'userCartPurchaseMail',$user->email,'Promusictutor - New purchase');
                     DB::commit();
                     return redirect(route('cart.purchase.thankyou',[$cartInfo,'transactionId'=>$transaction->id]));
                 }
             }
         } catch (Exception $e) {
+            throw $e;
             DB::rollback();
         }
     }
@@ -206,6 +207,29 @@ class CartController extends Controller
 
             $data = UserCart::where('userId', $user_id)->delete();
             return redirect()->back()->with('Success', 'Cart is empty');
+        } else {
+            return redirect()->back()->with('Errors', 'Login to continue');
+        }
+    }
+
+    public function updateCurrency(Request $req)
+    {
+        $req->validate([
+            'currency' => 'required|string|in:usd,eur,gbp'
+        ]);
+
+        if (auth()->check()) {
+            $user_id = auth()->user()->id;
+            $cartData = UserCart::where('userId', $user_id)->get();
+
+            if (count($cartData) > 0) {
+                $cartUpdate = UserCart::where('userId', $user_id)->update([
+                    'currency' => $req->currency
+                ]);
+                return redirect()->back()->with('Success', 'Currency updated to '.strtoupper($req->currency));
+            } else {
+                return redirect()->back()->with('Errors', 'No data found');
+            }
         } else {
             return redirect()->back()->with('Errors', 'Login to continue');
         }

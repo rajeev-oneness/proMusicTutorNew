@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('title','Cart')
+
 @section('content')
     <section class="pt-5 pb-5 mb-5 bg-light mt-85">
         @php $cartCount = 0;$cartPrice = 0;$cartId = [];@endphp
@@ -53,43 +54,67 @@
                 @if($cartCount > 0)
                     <div class="col-md-4">
                         <div class="billing-card border-0 shadow-lg">
+                        @if(count($cart->currency_array) > 1)
+                            <p class="small text-danger">Multiple currencies found in your cart. Please select a specific currency.</p>
+                        @else
                             <h6 class="mb-2">Billing summary</h6>
                             <div class="form-group">
                                 <label for="">Total :</label>
-                                <input type="text" value="{{number_format($cartPrice,2)}}" readonly="">
+                                <input type="text" value="{{currencySymbol($usercart->currency)}} {{number_format($cartPrice, 2)}}" readonly="">
                             </div>
-                        <!-- <div class="form-group">
-                            <label for="">Discount :</label>
-                            <input type="text" value="1449">
-                        </div> -->
-                        <!-- <div class="form-group">
-                            <label for="">Delivery :</label>
-                            <input type="text" value="Free">
-                        </div> -->
-                        <hr>
-                        <div class="form-group">
-                            <label for=""><b>Pay</b></label>
-                            <input type="text" value="{{number_format($cartPrice,2)}}" readonly="">
-                        </div>
-
-                        <div class="form-group d-flex justify-content-end">
-                            {{-- <form method="POST" onsubmit="confirmAlert('{{ route('user.cart.empty') }}')">@csrf
-                                <button type="submit" class="btn btn-sm btn-primary">Empty Cart</button>
-                            </form> --}}
-                            <a href="javascript:void(0)" onclick="confirmAlert('{{ route('user.cart.empty') }}')">Empty cart</a>
-                        </div>
-
-                        <div class="form-group d-flex justify-content-end">
-                           <button class="btn btn-primary checkoutCartBillPayment">CHECKOUT</button>
-                        </div>
-                        <!-- <div class="coupon">
-                            <div class="input-group">
-                                <input type="text" placeholder="Apply Coupon Code">
-                                <button class="btn-apply">APPLY</button>
+                            <hr>
+                            <div class="form-group">
+                                <label for=""><b>Pay</b></label>
+                                <input type="text" value="{{currencySymbol($usercart->currency)}} {{number_format($cartPrice, 2)}}" readonly="">
                             </div>
-                        </div> -->
+
+                            <div class="form-group d-flex justify-content-end">
+                                <a href="javascript:void(0)" onclick="confirmAlert('{{ route('user.cart.empty') }}')">Empty cart</a>
+                            </div>
+
+                            <button class="btn btn-primary checkoutCartBillPayment">PAY NOW</button>
+                        @endif
+                            <div class="">
+                                <div class="w-100">
+                                    <p class="small text-muted">Update currency</p>
+                                    <form method="post" action="{{ route('user.cart.currency.update') }}" class="w-100">
+                                        @csrf
+                                        <div class="w-100 d-flex">
+                                            <div class="form-group mb-0 mr-2">
+                                                <select class="form-control form-control-sm" name="currency">
+                                                    <option value="usd" selected>$ USD</option>
+                                                    <option value="eur">€ EUR</option>
+                                                    <option value="gbp">£ GBP</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group mb-0 mr-2">
+                                                <button type="submit" name="" class="btn buyfull">Apply</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    {{-- <div class="w-100">
+                        <p class="small text-muted">Update currency</p>
+                        <form method="post" action="{{ route('user.cart.currency.update') }}" class="w-100">
+                            @csrf
+                            <div class="w-100 d-flex">
+                                <div class="form-group mb-0 mr-2">
+                                    <select class="form-control form-control-sm" name="currency">
+                                        <option value="usd" selected>$ USD</option>
+                                        <option value="eur">€ EUR</option>
+                                        <option value="gbp">£ GBP</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mb-0 mr-2">
+                                    <button type="submit" name="" class="btn buyfull">Apply</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div> --}}
                 @else
                     <div class="col-12 text-center"><h4>No item in cart <i class="fas fa-shopping-cart"></i></h4></div>
                     <div class="col-12 mt-5 text-center"><a href="{{route('welcome')}}" class="btn btn-sm btn-light border shadow"><i class="fas fa-chevron-left"> </i> Go back to home</a></div>
@@ -126,7 +151,7 @@
 
             $(document).on('click','.checkoutCartBillPayment',function(){
                 @if(count($cart->currency_array) > 1)
-                    alert('currenty type must be same for all product');
+                    sweetalertFire('warning', 'Currenty type mismatch');
                     return false;
                 @elseif(count($cart->currency_array) == 1)
                     var cartPrice = "{{number_format($cartPrice,2)}}";

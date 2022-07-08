@@ -82,7 +82,7 @@
                                 <div class="tab-content pt-4" id="myTabContent">
                                     <div class="tab-pane fade show active" id="guitar" role="tabpanel" aria-labelledby="guitar-tab">
                                         <ul class="r_menu_ul">
-                                            <li><a href="{{route('browse.guiter.series')}}">GUITER</a></li>
+                                            <li><a href="{{route('browse.guiter.series')}}">GUITAR</a></li>
                                             <li><a href="{{route('browse.sax.series')}}">SAX</a></li>
                                             <li><a href="{{route('front.offers')}}">OFFERS</a></li>
                                             <li><a href="{{route('browse.product.series')}}">ALL SERIES & PREVIEWS</a></li>
