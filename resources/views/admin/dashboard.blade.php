@@ -122,7 +122,7 @@
                                             $pr_month[$i] = $curr_month;
 
                                             $start_date = date('Y-m-01', strtotime($curr_month));
-                                            $end_date = date('Y-m-d');
+                                            $end_date = date('Y-m-t', strtotime($curr_month));
 
                                             //USD
                                             if (in_array($curr_month, $monthUSD)) {

@@ -31,7 +31,8 @@ class ReportController extends Controller
                 'u1.email AS customer_email',
                 'u2.name AS author_name',
             )
-            ->groupBy('tid');
+            ->groupBy('tid')
+            ->orderBy('tid', 'DESC');
 
         $authors = [];
         foreach ($userPurchase->get() as $value) {
