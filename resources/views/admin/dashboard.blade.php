@@ -10,6 +10,65 @@
                         <h5 class="mb-0">Dashboard</h5>
                     </div>
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 col-md-2">
+                                <div class="card shadow">
+                                    <div class="card-body text-center p-1">
+                                        <p class="small mb-0">Today's Sale</p>
+                                        <h5 class="mb-0">61</h5>
+                                        <p class="mb-0">$ 55.76</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-2">
+                                <div class="card shadow">
+                                    <div class="card-body text-center p-1">
+                                        <p class="small mb-0">Weekly Sale</p>
+                                        <h5 class="mb-0">61</h5>
+                                        <p class="mb-0">$ 55.76</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-2">
+                                <div class="card shadow">
+                                    <div class="card-body text-center p-1">
+                                        <p class="small mb-0">Monthly Sale</p>
+                                        <h5 class="mb-0">61</h5>
+                                        <p class="mb-0">$ 55.76</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-2">
+                                <div class="card shadow">
+                                    <div class="card-body text-center p-1">
+                                        <p class="small mb-0">most purchased series</p>
+                                        <h5 class="mb-0">Lorem ipsum dolor sit amet.</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-2">
+                                <div class="card shadow">
+                                    <div class="card-body text-center p-1">
+                                        <p class="small mb-0">most purchased lesson</p>
+                                        <h5 class="mb-0">Lorem ipsum dolor sit amet.</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-2">
+                                <div class="card shadow">
+                                    <div class="card-body text-center p-1">
+                                        <p class="small mb-0">Today's User count</p>
+                                        <h5 class="mb-0">6</h5>
+                                        <p class="mb-0">11,890 (total)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row mb-4">
                             @php
                                 $month = $price_gbp = $price_usd = $price_euro = [];
@@ -49,19 +108,22 @@
                                                 $price_euro[] = $reportValue->price;
                                             }
                                         }
-                                        
+
                                         $existingMonthsDataCountForUSD = count($price_usd) - 1;
                                         $existingMonthsDataCountForGBP = count($price_gbp) - 1;
                                         $existingMonthsDataCountForEURO = count($price_euro) - 1;
-                                        
+
                                         $pr_price_gbp = [];
                                         $pr_price_usd = [];
                                         $pr_price_euro = [];
-                                        
+
                                         for ($i = 0; $i < 12; $i++) {
                                             $curr_month = date('F Y', strtotime(date('F Y') . ' - ' . $i . ' months'));
                                             $pr_month[$i] = $curr_month;
-                                        
+
+                                            $start_date = date('Y-m-01', strtotime($curr_month));
+                                            $end_date = date('Y-m-d');
+
                                             //USD
                                             if (in_array($curr_month, $monthUSD)) {
                                                 $pr_price_usd[$i] = $price_usd[$existingMonthsDataCountForUSD];
@@ -69,7 +131,7 @@
                                             } else {
                                                 $pr_price_usd[$i] = 0;
                                             }
-                                        
+
                                             //GBP
                                             if (in_array($curr_month, $monthGBP)) {
                                                 $pr_price_gbp[$i] = $price_gbp[$existingMonthsDataCountForGBP];
@@ -77,7 +139,7 @@
                                             } else {
                                                 $pr_price_gbp[$i] = 0;
                                             }
-                                        
+
                                             //EURO
                                             if (in_array($curr_month, $monthEURO)) {
                                                 $pr_price_euro[$i] = $price_euro[$existingMonthsDataCountForEURO];
@@ -85,8 +147,8 @@
                                             } else {
                                                 $pr_price_euro[$i] = 0;
                                             }
-                                        
-                                            $content .= '<tr><td>' . $pr_month[$i] . '</td><td class="text-right">$ ' . $pr_price_usd[$i] . '</td><td class="text-right">€ ' . $pr_price_euro[$i] . '</td><td class="text-right">£' . $pr_price_gbp[$i] . '</td></tr>';
+
+                                            $content .= '<tr><td><a href="'.route('admin.report.transaction', ['purchase_from' => $start_date, 'purchase_to' => $end_date]).'">' . $pr_month[$i] . '</a></td><td class="text-right">$ ' . $pr_price_usd[$i] . '</td><td class="text-right">€ ' . $pr_price_euro[$i] . '</td><td class="text-right">£' . $pr_price_gbp[$i] . '</td></tr>';
                                         }
                                         // echo '<pre>';
                                         // print_r($pr_month);
@@ -100,7 +162,7 @@
                                         // echo '<pre>';
                                         // print_r($pr_price_euro);
                                         // echo '--------------------';
-                                        
+
                                         // exit();
                                     @endphp
 
