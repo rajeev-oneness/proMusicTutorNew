@@ -6,10 +6,10 @@
     <div class="container">
         <div class="row m-0 my_teams">
             <div class="col-12 text-center">
-                <h1 class="mb-5">Choose Your Guitar Series Category</h1>
+                <h1 class="mb-5">Guitar Series</h1>
                 <div class="col-12 pt-3">
                     <p>Our guitar lessons are bought to you by a combination of famous faces and some of the most in-demand session musicians in the world. Our featured guitar tutors include Whitesnake’s Micky Moody, as well as Jerry Crozier Cole, and Denny Ilett, who has toured New Orleans to great acclaim and is hugely popular.</p>
-                    <p>Whether it’s learning the best pro licks to improve your improvisation skills or discovering how to play an all-time rock classic from start to finish, we have guitar lessons for everyone here at Pro Music Tutor.</p>
+                    <p>Whether it's learning the best pro licks to improve your improvisation skills or discovering how to play an all-time rock classic from start to finish, we have guitar lessons for everyone here at Pro Music Tutor.</p>
                 </div>
             </div>
         </div>
@@ -19,7 +19,7 @@
                 <ul class="bredcamb">
                     <li><a href="{{route('welcome')}}">Home</a></li>
                     <li>/</li>
-                    <li><a href="javascript:void(0)" class="active">Guiter</a></li>
+                    <li><a href="javascript:void(0)" class="active">Guitar</a></li>
                 </ul>
             </div>
             <div class="col-12 col-md-12 filter_section">

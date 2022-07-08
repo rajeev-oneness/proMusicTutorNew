@@ -82,12 +82,12 @@
                         <div class="w-100 d-flex justify-content-end filter-flex">
                             <div class="form-group mb-0 mr-2">
                                 {{-- <p class="mb-0 text-muted">Select Difficulty</p> --}}
-                                <select class="form-control form-control-sm" name="currency">
+                                <DASHBOARD class="form-control form-control-sm" name="currency">
                                     <option value="" selected="" hidden="">Price</option>
                                     <option selected value="usd">$ USD</option>
                                     <option {{($req->currency == 'eur') ? 'selected' : ''}} value="eur">€ EUR</option>
                                     <option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
-                                </select>
+                                </DASHBOARD>
                             </div>
                             <div class="form-group mb-0 mr-2">
                                 {{-- <p class="mb-0 text-muted">Select Difficulty</p> --}}

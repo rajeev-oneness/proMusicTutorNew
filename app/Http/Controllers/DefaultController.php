@@ -150,7 +150,7 @@ class DefaultController extends Controller
         $data->currency = 'usd';
         $user = auth()->user();
         //$data->instrument = Instrument::select('*')->get();
-        $data->category = Category::select('*')->get();
+        $data->category = Category::where('instrumentId', 1)->select('*')->get();
         $data->tutor = User::where('user_type', 2)->get();
         $data->guitarSeries = ProductSeries::select('*');
         if(!empty($req->search)){
@@ -193,7 +193,7 @@ class DefaultController extends Controller
         $data->currency = 'usd';
         $user = auth()->user();
         //$data->instrument = Instrument::select('*')->get();
-        $data->category = Category::select('*')->get();
+        $data->category = Category::where('instrumentId', 2)->select('*')->get();
         $data->tutor = User::where('user_type', 2)->get();
         $data->guitarSeries = ProductSeries::select('*');
         if(!empty($req->search)){
