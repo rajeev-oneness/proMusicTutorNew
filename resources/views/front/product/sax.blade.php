@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row m-0 my_teams">
             <div class="col-12 text-center">
-                <h1 class="mb-5">Choose Your Sax Series Category</h1>
+                <h1 class="mb-5">Sax Series</h1>
                 <div class="col-12 pt-3">
                     <p>These easy to engage with and learn from video tutorials feature tutors who are famous for their abilities with the saxophone. Featured tutors here in our saxophone lessons include legendary jazz saxophonist Andy Sheppard and James Morton, one of the most exciting sax players to come out of the UK in recent years.</p>
                     <p>These saxophone lessons cover a number of playing techniques and genres; from controlling your breathing up to learning the skills you need to produce a consistent and clear sound from your sax, all delivered by some of the biggest names in the business, and you can stream through our website or download them in clear high definition.</p>

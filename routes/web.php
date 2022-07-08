@@ -16,7 +16,7 @@ Route::get('explore/testimonials', [DefaultController::class, 'testimonialsList'
 Route::get('about-us', [DefaultController::class, 'aboutus'])->name('welcome.aboutus');
 Route::any('product/series', [DefaultController::class, 'browserProduct'])->name('product.series');
 Route::any('browse/product/series', [DefaultController::class, 'browseProductSeriesAll'])->name('browse.product.series');
-Route::any('guiter', [DefaultController::class, 'guiterSeriesAll'])->name('browse.guiter.series');
+Route::any('guitar', [DefaultController::class, 'guiterSeriesAll'])->name('browse.guiter.series');
 Route::any('sax', [DefaultController::class, 'saxSeriesAll'])->name('browse.sax.series');
 Route::any('product/series/{seriesId}/details', [DefaultController::class, 'browserProductDetails'])->name('product.series.details');
 Route::get('subscription/plan', [DefaultController::class, 'subscription'])->name('subscription.plan');
