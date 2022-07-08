@@ -70,7 +70,12 @@ class ReportController extends Controller
                 $userPurchase = $userPurchase->orderBy('t.amount', 'DESC');
         }
 
-        $userPurchase = $userPurchase->paginate(10);
+        if (!empty($req->get('export_all')) && $req->get('export_all') == true) {
+            $total = count($userPurchase->get());
+            $userPurchase = $userPurchase->paginate($total + 1);
+        } else {
+            $userPurchase = $userPurchase->paginate(10);
+        }
 
         // }
         // echo "<pre>";
@@ -118,7 +123,10 @@ class ReportController extends Controller
         $productSeriesId = $data[0]->productSeriesId;
         $productSeries_data = ProductSeries::FindOrFail($productSeriesId);
 
-        return view('reports.transaction_details', compact('data', 'user_data', 'productSeries_data', 'transaction_data'));
+        $offerSeriesId = $data[0]->offerId;
+        $offerSeries_data = Offer::FindOrFail($offerSeriesId);
+
+        return view('reports.transaction_details', compact('data', 'user_data', 'productSeries_data', 'transaction_data', 'offerSeries_data'));
     }
 
     public function transactionLogOld(Request $req)

@@ -29,20 +29,28 @@
                                         
                                             if ($data[0]->type_of_product == 'series') {
                                                 $b_price = number_format($productSeries_data->price_usd);
+                                            } elseif ($data[0]->type_of_product == 'offer') {
+                                                $b_price = number_format($offerSeries_data->price_usd);
                                             } else {
                                                 $b_price = number_format($data[0]->price_usd);
                                             }
                                         } elseif ($transaction_data->currency == 'gbp') {
                                             $curr = '£ ';
+                                        
                                             if ($data[0]->type_of_product == 'series') {
                                                 $b_price = number_format($productSeries_data->price_gbp);
+                                            } elseif ($data[0]->type_of_product == 'offer') {
+                                                $b_price = number_format($offerSeries_data->price_gbp);
                                             } else {
                                                 $b_price = number_format($data[0]->price_gbp);
                                             }
                                         } else {
                                             $curr = '€ ';
+                                        
                                             if ($data[0]->type_of_product == 'series') {
                                                 $b_price = number_format($productSeries_data->price_euro);
+                                            } elseif ($data[0]->type_of_product == 'offer') {
+                                                $b_price = number_format($offerSeries_data->price_euro);
                                             } else {
                                                 $b_price = number_format($data[0]->price_euro);
                                             }
