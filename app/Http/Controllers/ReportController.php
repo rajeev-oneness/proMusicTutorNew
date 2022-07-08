@@ -38,9 +38,6 @@ class ReportController extends Controller
             array_push($authors, $value->author_name);
         }
 
-        // print_r($authors);
-        // die;
-
         if (!empty($req->get('seriesId'))) {
             $userPurchase = $userPurchase->where('productSeriesId', $req->seriesId);
         }
@@ -48,15 +45,11 @@ class ReportController extends Controller
             $userPurchase = $userPurchase->where('productSeriesLessionId', $req->lessionId);
         }
         if (!empty($req->get('tutor'))) {
-            // dd($req->get('tutor'));
             $userPurchase = $userPurchase->where('u2.name', 'like', '%' . $req->get('tutor') . '%');
             $old_search = $req->get('tutor');
-            // dd($userPurchase);
         }
-        // dd($userPurchase);
 
         if (!empty($req->get('purchase_from')) && !empty($req->get('purchase_to'))) {
-            $userPurchase = $userPurchase->where('u2.name', 'like', '%' . $req->get('tutor') . '%');
             $from = date('Y-m-d H:i:s', strtotime($req->get('purchase_from')));
             $to = date('Y-m-d H:i:s', strtotime($req->get('purchase_to') . '+1 days'));
             $userPurchase = $userPurchase->where('t.created_at', '>=', $from)->where('t.created_at', '<=', $to);
