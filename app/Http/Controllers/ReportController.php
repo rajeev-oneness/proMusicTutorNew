@@ -58,7 +58,7 @@ class ReportController extends Controller
         if (!empty($req->get('purchase_from')) && !empty($req->get('purchase_to'))) {
             $userPurchase = $userPurchase->where('u2.name', 'like', '%' . $req->get('tutor') . '%');
             $from = date('Y-m-d H:i:s', strtotime($req->get('purchase_from')));
-            $to = date('Y-m-d H:i:s', strtotime($req->get('purchase_to')));
+            $to = date('Y-m-d H:i:s', strtotime($req->get('purchase_to') . '+1 days'));
             $userPurchase = $userPurchase->where('t.created_at', '>=', $from)->where('t.created_at', '<=', $to);
         }
 
@@ -69,7 +69,7 @@ class ReportController extends Controller
                 $userPurchase = $userPurchase->orderBy('t.amount', 'DESC');
         }
 
-        $userPurchase = $userPurchase->paginate(5);
+        $userPurchase = $userPurchase->paginate(10);
 
         // }
         // echo "<pre>";
@@ -153,8 +153,14 @@ class ReportController extends Controller
 
     public function bestSeller(Request $req)
     {
-        $purchase_list = UserProductLessionPurchase::select('user_product_lession_purchases.productSeriesId');
+        $purchase_list = UserProductLessionPurchase::where('type_of_product', 'series')->select('user_product_lession_purchases.productSeriesId');
+
+        $purchase_list_lesson = UserProductLessionPurchase::where('type_of_product', 'lession')->select('user_product_lession_purchases.productSeriesLessionId');
+
+        $purchase_list_offer = UserProductLessionPurchase::where('type_of_product', 'offer')->select('user_product_lession_purchases.offerId');
+
         $series = $purchase_list->groupBy('user_product_lession_purchases.productSeriesId')->get();
+
         if (!empty($req->seriesId)) {
             $purchase_list = $purchase_list->where('user_product_lession_purchases.productSeriesId', $req->seriesId);
         }
@@ -169,20 +175,64 @@ class ReportController extends Controller
         if (!empty($req->dateTo)) {
             $purchase_list = $purchase_list->where('user_product_lession_purchases.created_at', '<=', date('Y-m-d', strtotime($req->dateTo . '+ 1 day')));
         }
+
         $purchase_list = $purchase_list->groupBy('user_product_lession_purchases.productSeriesId')->pluck('user_product_lession_purchases.productSeriesId')->toArray();
+
+        $purchase_list_lesson = $purchase_list_lesson->groupBy('user_product_lession_purchases.productSeriesLessionId')->pluck('user_product_lession_purchases.productSeriesLessionId')->toArray();
+
+        $purchase_list_offer = $purchase_list_offer->groupBy('user_product_lession_purchases.offerId')->pluck('user_product_lession_purchases.offerId')->toArray();
+
+        // dd($purchase_list_lesson);
+
         $data = [];
         foreach ($purchase_list as $key => $value) {
-            $list = UserProductLessionPurchase::where('user_product_lession_purchases.productSeriesId', $value);
+            $list = UserProductLessionPurchase::where('type_of_product', 'series')->select('productSeriesId', 'transactionId', 'created_at', 'id')->groupBy('transactionId')->where('user_product_lession_purchases.productSeriesId', $value)->get();
+
             $data[] = [
-                'from' => date('Y-m-d', strtotime($list->orderBy('user_product_lession_purchases.id', 'DESC')->first()->created_at)),
-                'to' => date('Y-m-d', strtotime($list->latest()->first()->created_at)),
+                'from' => date('Y-m-d', strtotime($list[0]->created_at)),
+                'to' => date('Y-m-d', strtotime($list[(count($list) - 1)]->created_at)),
                 'seriesId' => $list->first()->productSeriesId,
                 'seriesName' => $list->first()->product_series_all->title,
                 'count' => $list->count(),
             ];
         }
+        $counts = array_column($data, 'count');
+        array_multisort($counts, SORT_DESC, $data);
+
+
+        $data_lesson = [];
+        foreach ($purchase_list_lesson as $key => $value) {
+            $list_lesson = UserProductLessionPurchase::where('type_of_product', 'lession')->select('productSeriesLessionId', 'transactionId', 'created_at', 'id')->groupBy('transactionId')->where('user_product_lession_purchases.productSeriesLessionId', $value)->get();
+
+            $data_lesson[] = [
+                'from' => date('Y-m-d', strtotime($list_lesson[0]->created_at)),
+                'to' => date('Y-m-d', strtotime($list_lesson[(count($list_lesson) - 1)]->created_at)),
+                'seriesId' => $list_lesson->first()->productSeriesLessionId,
+                'seriesName' => $list_lesson->first()->product_series_lession_all->title,
+                'count' => $list_lesson->count(),
+            ];
+        }
+        $counts = array_column($data_lesson, 'count');
+        array_multisort($counts, SORT_DESC, $data_lesson);
+
+
+        $data_offer = [];
+        foreach ($purchase_list_offer as $key => $value) {
+            $list_offer = UserProductLessionPurchase::where('type_of_product', 'offer')->select('offerId', 'transactionId', 'created_at', 'id')->groupBy('transactionId')->where('user_product_lession_purchases.offerId', $value)->get();
+
+            $data_offer[] = [
+                'from' => date('Y-m-d', strtotime($list_offer[0]->created_at)),
+                'to' => date('Y-m-d', strtotime($list_offer[(count($list_offer) - 1)]->created_at)),
+                'seriesId' => $list_offer->first()->offerId,
+                'seriesName' => $list_offer->first()->offers_details_all->title,
+                'count' => $list_offer->count(),
+            ];
+        }
+        $counts = array_column($data_offer, 'count');
+        array_multisort($counts, SORT_DESC, $data_offer);
+
         $instruments = Instrument::all();
-        return view('reports.bestSeller', compact('data', 'req', 'series', 'instruments'));
+        return view('reports.bestSeller', compact('data', 'data_lesson', 'data_offer', 'req', 'series', 'instruments'));
     }
 
     public function mostViewed(Request $req)
