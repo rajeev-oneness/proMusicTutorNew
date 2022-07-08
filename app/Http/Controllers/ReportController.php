@@ -69,7 +69,12 @@ class ReportController extends Controller
                 $userPurchase = $userPurchase->orderBy('t.amount', 'DESC');
         }
 
-        $userPurchase = $userPurchase->paginate(10);
+        if (!empty($req->get('export_all')) && $req->get('export_all') == true) {
+            $total = count($userPurchase->get());
+            $userPurchase = $userPurchase->paginate($total + 1);
+        } else {
+            $userPurchase = $userPurchase->paginate(10);
+        }
 
         // }
         // echo "<pre>";

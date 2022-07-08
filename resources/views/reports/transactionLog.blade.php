@@ -16,8 +16,12 @@
                                 aria-controls="collapseExample"><i class="fa fa-filter"></i>Filter</button>
 
                             <button class="headerbuttonforAdd d-block mt-3 my-2 mr-2" style="float: right; outline: none;"
-                                type="button" onclick="htmlToCSV()"><i class="fas fa-check"></i> Export as
+                                type="button" onclick="htmlToCSV()"><i class="fas fa-check"></i> Export filtered data as
                                 CSV</button>
+
+                            <button class="headerbuttonforAdd d-block mt-3 my-2 mr-2" style="float: right; outline: none;"
+                                type="button" id="export_all"> Export all
+                                data</button>
 
                             <div class="collapse show" id="collapseExample">
                                 <div class="card card-body px-0 py-2 border-0 shadow-none">
@@ -198,20 +202,22 @@
             </script>
 
             <script>
+                $('#export_all').click(function() {
+                    window.location.href = "http://127.0.0.1:8000/admin/report/sales/log?export_all=true"
+                });
+
                 function htmlToCSV() {
                     var data = [];
                     var rows = document.querySelectorAll("#example5 tbody tr");
                     @php
                         if (!request()->input('page')) {
-                            $page = 1;
+                            $page = '1';
                         } else {
                             $page = request()->input('page');
                         }
                     @endphp
 
                     var page = "{{ $page }}";
-
-                    var regex = /<br\s*[\/]?>/gi;
 
                     data.push("SR NO.,Order ID,User Email,Date of purchase,Lesson/ Series name,Amount,Tutor");
 
@@ -230,7 +236,6 @@
                         }
                         data.push(row.join(","));
                     }
-                    console.log(data.join("\n"));
 
                     downloadCSVFile(data.join("\n"), 'SalesReport_page_' + page + '.csv');
                 }
@@ -255,6 +260,11 @@
                     download_link.click();
                 }
             </script>
-
+            @if (request()->input('export_all') == true)
+                <script>
+                    htmlToCSV();
+                    window.location.href = "{{ route('admin.report.transaction') }}";
+                </script>
+            @endif
         @stop
     @endsection
