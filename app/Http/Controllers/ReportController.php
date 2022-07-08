@@ -122,7 +122,10 @@ class ReportController extends Controller
         $productSeriesId = $data[0]->productSeriesId;
         $productSeries_data = ProductSeries::FindOrFail($productSeriesId);
 
-        return view('reports.transaction_details', compact('data', 'user_data', 'productSeries_data', 'transaction_data'));
+        $offerSeriesId = $data[0]->offerId;
+        $offerSeries_data = Offer::FindOrFail($offerSeriesId);
+
+        return view('reports.transaction_details', compact('data', 'user_data', 'productSeries_data', 'transaction_data', 'offerSeries_data'));
     }
 
     public function transactionLogOld(Request $req)
