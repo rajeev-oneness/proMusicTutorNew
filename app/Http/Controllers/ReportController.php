@@ -31,8 +31,8 @@ class ReportController extends Controller
                 'u1.email AS customer_email',
                 'u2.name AS author_name',
             )
-            ->groupBy('tid')
-            ->orderBy('tid', 'DESC');
+            ->groupBy('tid');
+        // ->orderBy('tid', 'DESC');
 
         $authors = [];
         foreach ($userPurchase->get() as $value) {
@@ -42,9 +42,11 @@ class ReportController extends Controller
         if (!empty($req->get('seriesId'))) {
             $userPurchase = $userPurchase->where('productSeriesId', $req->seriesId);
         }
+
         if (!empty($req->get('lessionId'))) {
             $userPurchase = $userPurchase->where('productSeriesLessionId', $req->lessionId);
         }
+
         if (!empty($req->get('tutor'))) {
             $userPurchase = $userPurchase->where('u2.name', 'like', '%' . $req->get('tutor') . '%');
             $old_search = $req->get('tutor');
@@ -57,10 +59,13 @@ class ReportController extends Controller
         }
 
         if (!empty($req->get('price'))) {
-            if ($req->get('price') == 1)
-                $userPurchase = $userPurchase->orderBy('t.amount', 'ASC');
-            else
-                $userPurchase = $userPurchase->orderBy('t.amount', 'DESC');
+            if ($req->get('price') == 1) {
+                $userPurchase = $userPurchase->orderBy('amount', 'asc');
+            } else {
+                $userPurchase = $userPurchase->orderBy('amount', 'desc');
+            }
+        } else {
+            $userPurchase = $userPurchase->orderBy('tid', 'DESC');
         }
 
         if (!empty($req->get('export_all')) && $req->get('export_all') == true) {
