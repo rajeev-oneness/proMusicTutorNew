@@ -168,7 +168,9 @@ class CartController extends Controller
                         'content' => 'You have purchased the following via cart',
                         'data' => $whatPurchased
                     ];
+
                     // sendMail($data,'userCartPurchaseMail',$user->email,'Promusictutor - New purchase');
+
                     DB::commit();
                     return redirect(route('cart.purchase.thankyou',[$cartInfo,'transactionId'=>$transaction->id]));
                 }
