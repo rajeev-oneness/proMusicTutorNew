@@ -45,8 +45,8 @@
                                 <div class="card shadow">
                                     <div class="card-body text-center p-1">
                                         <p class="small mb-0">most purchased series</p>
-                                        <h5 class="mb-0">{{ $top_data->top_series }}</h5>
-                                        <p class="mb-0">({{ 2 }})</p>
+                                        <h5 class="mb-0">{{ $top_data->best_series[0] }}</h5>
+                                        <p class="mb-0">({{ $top_data->best_series[1] }})</p>
                                     </div>
                                 </div>
                             </div>
@@ -55,8 +55,8 @@
                                 <div class="card shadow">
                                     <div class="card-body text-center p-1">
                                         <p class="small mb-0">most purchased lesson</p>
-                                        <h5 class="mb-0">{{ $top_data->best_lesson }}</h5>
-                                        <p>({{ 3 }})</p>
+                                        <h5 class="mb-0">{{ $top_data->best_lesson[0] }}</h5>
+                                        <p>({{ $top_data->best_lesson[1] }})</p>
                                     </div>
                                 </div>
                             </div>

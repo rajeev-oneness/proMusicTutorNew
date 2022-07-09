@@ -77,9 +77,24 @@ class AdminController extends Controller
         $top_data->user_this_month = count(UserProductLessionPurchase::where('created_at', '>', date('Y-m-d', strtotime("yesterday")))->select('userID')->groupBy('transactionId')->get());
         $top_data->total_user = User::where('user_type', 3)->count('*');
 
-        $top_data->top_series = UserProductLessionPurchase::select('productSeriesId')->groupBy('transactionId')->orderBy('productSeriesId', 'ASC')->first()->product_series_all->title;
+        //top series
+        $best_series_data = array_count_values(array_column(UserProductLessionPurchase::where('type_of_product', 'series')->select('productSeriesId')->groupBy('transactionId')->orderBy('productSeriesId', 'ASC')->get()->toArray(), 'productSeriesId'));
 
-        $top_data->best_lesson = UserProductLessionPurchase::select('productSeriesLessionId')->groupBy('transactionId')->orderBy('productSeriesLessionId', 'ASC')->first()->product_series_lession_all->title;
+        arsort($best_series_data);
+
+        $best_series_name = DB::table('product_series')->where('id', (int)array_key_first($best_series_data))->get()[0]->title;
+
+        $top_data->best_series = [$best_series_name, $best_series_data[(int)array_key_first($best_series_data)]];
+
+
+        //top lesson
+        $best_lesson_data = (array_count_values(array_column(UserProductLessionPurchase::where('type_of_product', 'lession')->select('productSeriesLessionId')->groupBy('transactionId')->orderBy('productSeriesLessionId', 'ASC')->get()->toArray(), 'productSeriesLessionId')));
+
+        arsort($best_lesson_data);
+
+        $best_lesson_name =  DB::table('product_series_lessions')->where('id', (int)array_key_first($best_lesson_data))->get()[0]->title;
+
+        $top_data->best_lesson = [$best_lesson_name, $best_lesson_data[(int)array_key_first($best_lesson_data)]];
 
         // echo "<pre>";
         // print_r($top_data);
