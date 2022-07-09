@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Category, Auth;
 use App\Models\ProductSeries, App\Models\ProductSeriesLession;
 use App\Models\Instrument, App\Models\Genre, App\Models\User;
-use App\Models\Blog,App\Models\BlogCategory,App\Models\BlogTag;
+use App\Models\Blog, App\Models\BlogCategory, App\Models\BlogTag;
+use App\Models\Transaction;
+use App\Models\UserProductLessionPurchase;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -18,8 +20,8 @@ class AdminController extends Controller
         $data->instruments = Instrument::latest()->get();
         $data->categories = Category::latest()->get();
         $data->genres = Genre::latest()->get();
-        $data->tutors = User::select('*')->where('user_type',2)->get();
-        $data->students = User::select('*')->where('user_type',3)->get();
+        $data->tutors = User::select('*')->where('user_type', 2)->get();
+        $data->students = User::select('*')->where('user_type', 3)->get();
         $data->blogTags = BlogTag::select('*')->latest()->get();
         $data->blogs = Blog::select('*')->latest()->get();
         $data->blogCategory = BlogCategory::select('*')->latest()->get();
@@ -37,9 +39,54 @@ class AdminController extends Controller
         LIMIT 12 
         ');
 
+        $top_data = (object)[];
+
+        $top_data->todays_total_sale = Transaction::where([
+            ['created_at', '>', date('Y-m-d', strtotime("yesterday"))],
+            ['currency', '=', 'usd']
+        ])->count();
+        $top_data->todays_total_sale_amount = Transaction::where([
+            ['created_at', '>', date('Y-m-d', strtotime("yesterday"))],
+            ['currency', '=', 'usd']
+        ])->sum('amount') / 100;
+
+
+        // dd($top_data);
+        // dd(date('Y-m-d', strtotime("monday this week")));
+
+        $top_data->weekly_total_sale = Transaction::where([
+            ['created_at', '>', date('Y-m-d', strtotime("monday this week"))],
+            ['currency', '=', 'usd']
+        ])->count();
+        $top_data->weekly_total_sale_amount = Transaction::where([
+            ['created_at', '>', date('Y-m-d', strtotime("monday this week"))],
+            ['currency', '=', 'usd']
+        ])->sum('amount') / 100;
+
+
+
+        $top_data->monthly_total_sale = Transaction::where([
+            ['created_at', '>', date('Y-m-01')],
+            ['currency', '=', 'usd']
+        ])->count();
+        $top_data->monthly_total_sale_amount = Transaction::where([
+            ['created_at', '>', date('Y-m-01')],
+            ['currency', '=', 'usd']
+        ])->sum('amount') / 100;
+
+        $top_data->user_this_month = count(UserProductLessionPurchase::where('created_at', '>', date('Y-m-d', strtotime("yesterday")))->select('userID')->groupBy('transactionId')->get());
+        $top_data->total_user = User::where('user_type', 3)->count('*');
+
+        $top_data->top_series = UserProductLessionPurchase::select('productSeriesId')->groupBy('transactionId')->orderBy('productSeriesId', 'ASC')->first()->product_series_all->title;
+
+        $top_data->best_lesson = UserProductLessionPurchase::select('productSeriesLessionId')->groupBy('transactionId')->orderBy('productSeriesLessionId', 'ASC')->first()->product_series_lession_all->title;
+
+        // echo "<pre>";
+        // print_r($top_data);
+        // die;
         // dd($data->salesReport );
 
-        return view('admin.dashboard', compact('data'));
+        return view('admin.dashboard', compact('data', 'top_data'));
     }
 
     // Get Instrument by Providing InstrumentId

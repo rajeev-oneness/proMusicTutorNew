@@ -127,6 +127,11 @@ class ReportController extends Controller
         return view('reports.transaction_details', compact('data', 'user_data', 'productSeries_data', 'transaction_data', 'offerSeries_data'));
     }
 
+    public function transactionLogEdit(Request $req, $tid)
+    {
+        return view('reports.transaction_edit');
+    }
+
     public function transactionLogOld(Request $req)
     {
         $transaction = UserProductLessionPurchase::select('*')->join('transactions', 'transactions.id', 'user_product_lession_purchases.transactionId');

@@ -155,8 +155,8 @@
                                                 <td>
                                                     <a href="{{ route('admin.report.transaction.details', $item->tid) }}"
                                                         class="btn btn-info">Details</a>
-                                                    {{-- <a href="" class="btn btn-warning"
-                                                        style="margin-left: -5px;">Edit</a> --}}
+                                                    <a href="{{ route('admin.report.transaction.edit', $item->tid) }}"
+                                                        class="btn btn-warning" style="margin-left: -5px;">Edit</a>
                                                 </td>
                                             </tr>
                                         @empty
