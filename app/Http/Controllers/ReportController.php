@@ -111,25 +111,43 @@ class ReportController extends Controller
 
     public function transactionLogDet($tid)
     {
+
         $data = DB::table('user_product_lession_purchases')->where('transactionId', $tid)->join('product_series_lessions', 'product_series_lessions.id', '=', 'user_product_lession_purchases.productSeriesLessionId')->get();
 
         $transaction_data = Transaction::FindOrFail($tid);
 
+
         $user_id = $data[0]->userId;
         $user_data = User::FindOrFail($user_id);
+
 
         $productSeriesId = $data[0]->productSeriesId;
         $productSeries_data = ProductSeries::FindOrFail($productSeriesId);
 
         $offerSeriesId = $data[0]->offerId;
-        $offerSeries_data = Offer::FindOrFail($offerSeriesId);
+        $offerSeries_data = Offer::find($offerSeriesId);
 
         return view('reports.transaction_details', compact('data', 'user_data', 'productSeries_data', 'transaction_data', 'offerSeries_data'));
     }
 
     public function transactionLogEdit(Request $req, $tid)
     {
-        return view('reports.transaction_edit');
+        $all_user = User::where('user_type', 3)->get();
+        $all_series = ProductSeries::all();
+
+        $data = DB::table('user_product_lession_purchases')->where('transactionId', $tid)->get();
+        $transaction_data = Transaction::FindOrFail($tid);
+
+        $lessons = ProductSeriesLession::where('productSeriesId', $data[0]->productSeriesId)->select('id', 'productSeriesId', 'title')->get();
+
+        $tid = $tid;
+        return view('reports.transaction_edit', compact('all_user', 'all_series', 'data', 'lessons', 'tid', 'transaction_data'));
+    }
+
+    public function transactionLogUpdate(Request $req, $tid)
+    {
+        UserProductLessionPurchase::where('transactionId', $tid)->update(['userId' => $req->userId]);
+        return redirect()->back();
     }
 
     public function transactionLogOld(Request $req)

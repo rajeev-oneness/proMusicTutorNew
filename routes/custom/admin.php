@@ -95,8 +95,10 @@ Route::group(['prefix' => 'report'], function () {
 	Route::get('contact-us', [CrudController::class, 'contactUs'])->name('admin.report.contactus');
 	Route::post('contact-us/remark/save', [CrudController::class, 'saveRemarkOfContactUs'])->name('admin.report.contactUsSaveRemark');
 	Route::any('sales/log', [ReportController::class, 'transactionLog'])->name('admin.report.transaction');
-	Route::any('sales/log/edit/{tid}', [ReportController::class, 'transactionLogEdit'])->name('admin.report.transaction.edit');
-	Route::get('sales/log/description/{tid}', [ReportController::class, 'transactionLogEdit'])->name('admin.report.transaction.details');
+	Route::get('sales/log/edit/{tid}', [ReportController::class, 'transactionLogEdit'])->name('admin.report.transaction.edit');
+	Route::post('sales/log/edit/{tid}', [ReportController::class, 'transactionLogUpdate'])->name('admin.report.transaction.update');
+
+	Route::get('sales/log/order/details/{tid}', [ReportController::class, 'transactionLogDet'])->name('admin.report.transaction.details');
 	Route::any('best-seller', [ReportController::class, 'bestSeller'])->name('admin.report.bestSeller');
 	Route::any('most-viewed', [ReportController::class, 'mostViewed'])->name('admin.report.mostViewed');
 	Route::any('products-ordered', [ReportController::class, 'productsOrdered'])->name('admin.report.productsOrdered');
