@@ -17,7 +17,9 @@
                             <div class="col-8">
                                 <input type="email" name="email" class="form-control @error('email'){{('is-invalid')}}@enderror" id="inputPassword2" placeholder="Enter your email address..." value="{{old('email')}}">
                             </div>
-                            <button type="submit" class="btn viewmore mb-2">Submit</button>
+                            <div class="col-4">
+                                <button type="submit" class="btn viewmore">Submit</button>
+                            </div>
                         </div>
                         @error('email')<p class="mb-0 small text-danger ml-3" style="font-size: 14px;">{{$message}}</p>@enderror
                         <div class="form-check ml-3">

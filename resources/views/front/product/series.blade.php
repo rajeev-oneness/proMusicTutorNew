@@ -39,7 +39,7 @@
         }
     @endphp
     @if(count($data->category) > 0)
-        <section class="pt-5 pb-5 series_list">
+        <section class="pt-5 pb-5 header_padding series_list">
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center title-inner">
@@ -55,7 +55,7 @@
                             $categoryParameter['categoryId'] = $cat->id;
                             $categoryParameter['categoryName'] = $cat->name;
                         @endphp
-                        <div class="col-12 col-sm-6 col-md-3 mb-3">
+                        <div class="col-12 col-sm-6 col-lg-3 mb-3">
                             <div class="card border-0">
                                 <img src="{{asset($cat->image)}}">
                                 <div class="card-body p-0">
@@ -114,7 +114,7 @@
             @if(count($data->guitarSeries) > 0)
                 <div class="row m-0 series-row">
                     @foreach($data->guitarSeries as $key => $series)
-                        <div class="col-12 col-sm-6 col-md-4 single-series">
+                        <div class="col-12 col-sm-6 col-lg-4 single-series">
                             <div class="card border-0 bg-transparent more-course">
                                 <img src="{{asset($series->image)}}" class="card-img-top">
                                 <div class="card-body text-center">
@@ -135,15 +135,15 @@
                                     @endguest
                                 </div>
                                 <div class="card-footer d-flex border-0 p-0">
-                                    <a href="{{route('product.series.details',$series->id)}}" class="btn detail col-6">Details</a>
-                                    <a href="javascript:void(0)" class="btn preview col-6" onclick="previewVideo('{{$series->id}}', '{{asset($series->video_url)}}', '{{$series->title}}')">PREVIEW <i class="fa fa-play ml-2"></i></a>
+                                    <a href="{{route('product.series.details',$series->id)}}" class="btn detail col-12 col-md-6">Details</a>
+                                    <a href="javascript:void(0)" class="btn preview col-12 col-md-6" onclick="previewVideo('{{$series->id}}', '{{asset($series->video_url)}}', '{{$series->title}}')">PREVIEW <i class="fa fa-play ml-2"></i></a>
                                     {{-- @guest
-                                        <a href="javascript: void(0)" class="btn preview col-6 wishlist" onclick="walert('please login to continue')"> <i class="fa fa-heart"></i> WISHLIST</a>
+                                        <a href="javascript: void(0)" class="btn preview col-12 col-md-6 wishlist" onclick="walert('please login to continue')"> <i class="fa fa-heart"></i> WISHLIST</a>
                                     @else
                                         @if ($series->userWishlisted)
-                                            <a href="javascript: void(0)" class="btn preview col-6 wishlist wishlisted" onclick="wishlistToggle({{$series->id}}, 'series')"> <i class="fa fa-heart"></i> WISHLISTED</a>
+                                            <a href="javascript: void(0)" class="btn preview col-12 col-md-6 wishlist wishlisted" onclick="wishlistToggle({{$series->id}}, 'series')"> <i class="fa fa-heart"></i> WISHLISTED</a>
                                         @else
-                                            <a href="javascript: void(0)" class="btn preview col-6 wishlist not-wishlisted" onclick="wishlistToggle({{$series->id}}, 'series')"> <i class="fa fa-heart"></i> WISHLIST</a>
+                                            <a href="javascript: void(0)" class="btn preview col-12 col-md-6 wishlist not-wishlisted" onclick="wishlistToggle({{$series->id}}, 'series')"> <i class="fa fa-heart"></i> WISHLIST</a>
                                         @endif
                                     @endguest --}}
                                 </div>

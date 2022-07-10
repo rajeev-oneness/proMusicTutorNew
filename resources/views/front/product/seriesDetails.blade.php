@@ -89,9 +89,9 @@
                                 <a href="javascript:void(0)" class="buyfull" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
                             @else
                                 @if($data->userPurchased)
-                                    <a href="javascript:void(0)" class="purchased-Full ml-3">Already Purchased</a>
+                                    <a href="javascript:void(0)" class="purchased-Full">Already Purchased</a>
                                 @else
-                                    <a href="javascript:void(0)" class="buyfull ml-3" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">
+                                    <a href="javascript:void(0)" class="buyfull " onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">
                                         BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}
                                     </a>
                                     <!-- Add To Cart -->
@@ -128,9 +128,9 @@
                         <!-- Filter end -->
                     </div>
                 </div>
-                <div class="row m-0">
+                <!-- <div class="row m-0"> -->
                     @foreach($lessions as $key => $less)
-                        <div class="card col-12 p-0 mb-3">
+                        <div class="card seriesListingCard mb-3">
                             <div class="row no-gutters">
                                 <div class="col-md-4 position-relative">
                                     <img src="{{asset($less->image)}}" class="card-img">
@@ -142,17 +142,17 @@
                                     <div class="card-body position-relative">
                                         <h5 class="card-title">{{$less->title}}</h5>
                                         <p class="card-text">{!! words($less->description,1000) !!}</p>
-                                        <div class="float-right buynow-btn">
+                                        <div class="buynow-btn">
                                             <a href="javascript:void(0)" class="preview-Full btn" onclick="previewVideo({{$less->id}}, '{{asset($less->preview_video)}}', '{{$less->title}}')" id="watch_id{{$less->id}}">Preview <i class="fa fa-play ml-2"></i> </a>
 
                                             {{-- add to cart here --}}
                                             {{-- @guest
-                                                <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY NOW - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
+                                                <a href="javascript:void(0)" class="btn buyfull" onclick="alert('please login to continue')">BUY NOW - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
                                             @else
                                                 @if($data->userPurchased)
-                                                    <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
+                                                    <a href="javascript:void(0)" class="btn purchased-Full">Already Purchased</a>
                                                 @else
-                                                    <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">BUY NOW - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
+                                                    <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">BUY NOW - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
 
                                                     <!-- Add To Cart -->
                                                     <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','series','{{$data->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
@@ -189,7 +189,7 @@
                             </div>
                         </div>
                     @endforeach
-                </div>
+                <!-- </div> -->
                 <!-- <div class="text-center mt-5">
                     <a href="javascript:void(0)" class="btn viewmore">EXPLORE MORE</a>
                 </div> -->
@@ -216,12 +216,12 @@
                                     <p class="card-text">{!! words($otherSeries->description,200) !!}</p>
                                     <?php $seriesPrice = calculateLessionPrice($otherSeries, $data->currency); ?>
                                     @guest
-                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
+                                        <a href="javascript:void(0)" class="btn buyfull" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                     @else
                                         @if($otherSeries->userPurchased)
-                                            <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
+                                            <a href="javascript:void(0)" class="btn purchased-Full">Already Purchased</a>
                                         @else
-                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$otherSeries->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
+                                            <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$otherSeries->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                             <!-- Add To Cart -->
                                             <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','series','{{$otherSeries->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
                                         @endif

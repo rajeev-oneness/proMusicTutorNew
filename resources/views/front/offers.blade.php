@@ -65,20 +65,20 @@
                                         @endphp
 
                                         @guest
-	                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY NOW - {{currencySymbol($data->currency)}} {{$offerPrice}}</a>
+	                                        <a href="javascript:void(0)" class="btn buyfull" onclick="alert('please login to continue')">BUY NOW - {{currencySymbol($data->currency)}} {{$offerPrice}}</a>
 	                                    @else
 	                                        @if($offer->userPurchased)
-	                                            <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
+	                                            <a href="javascript:void(0)" class="btn purchased-Full">Already Purchased</a>
 	                                        @else
-	                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$offerPrice}}','{{route('after.purchase.offer_series', $offer->id)}}', '{{$data->currency}}');">BUY NOW - {{currencySymbol($data->currency)}} {{$offerPrice}}</a>
+	                                            <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$offerPrice}}','{{route('after.purchase.offer_series', $offer->id)}}', '{{$data->currency}}');">BUY NOW - {{currencySymbol($data->currency)}} {{$offerPrice}}</a>
 	                                            <!-- Add To Cart -->
 	                                            <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','offer','{{$offer->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
 	                                        @endif
 	                                    @endguest
 	                                </div>
 	                                <div class="card-footer d-flex border-0 p-0">
-	                                    <a href="{{route('front.offers.detail', $offer->id)}}" class="btn detail col-6">Details</a>
-	                                    <a href="javascript:void(0)" class="btn preview col-6">PREVIEW</a>
+	                                    <a href="{{route('front.offers.detail', $offer->id)}}" class="btn detail col-12 col-md-6">Details</a>
+	                                    <a href="javascript:void(0)" class="btn preview col-12 col-md-6">PREVIEW</a>
 	                                </div>
 	                            </div>
 	                        </div>

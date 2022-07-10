@@ -2,7 +2,7 @@
 @section('title','Cart')
 
 @section('content')
-    <section class="pt-5 pb-5 mb-5 bg-light mt-85">
+    <section class="pt-5 pb-5 bg-light header_padding">
         @php $cartCount = 0;$cartPrice = 0;$cartId = [];@endphp
         <div class="container">
             <div class="row m-0">
@@ -13,7 +13,7 @@
                                 @php $cartCount++; $cartId[] = $usercart->id; @endphp
                                 <div class="card col-12 p-0 mb-3 userCartInfo">
                                     <div class="row no-gutters">
-                                        <div class="col-md-3 position-relative">
+                                        <div class="col-3 position-relative">
                                             <img src="{{asset($cartProduct->image)}}" class="card-img">
                                             @if($cartProduct->difficulty)
                                                 <div class="difficulty_section right-0">
@@ -21,8 +21,8 @@
                                                 </div>
                                             @endif
                                         </div>
-                                        <div class="col-md-7">
-                                            <div class="card-body position-relative p-3 ml-1">
+                                        <div class="col-7">
+                                            <div class="card-body position-relative">
                                                 <h5 class="card-title text-gray">{{words($cartProduct->title,30)}}</h5>
                                                 <p class="card-text">{!! words($cartProduct->description,80) !!}</p>
                                                 <div class="float-right buynow-btn">
@@ -40,7 +40,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-2 text-center pt-2 pt-md-4">
+                                        <div class="col-2 text-center pt-2 pt-md-4">
                                             <a class="mr-2 text-danger removeFromCart w-100 d-block" data-details="{{json_encode($usercart)}}" href="javascript:void(0)">Remove</a>
                                             <a class="mr-2 w-100 d-block pt-2 text-dark" href="javascript:void(0)"><h6>{{currencySymbol($usercart->currency)}} {{$productPrice}}</h6></a>
                                         </div>
@@ -53,46 +53,42 @@
 
                 @if($cartCount > 0)
                     <div class="col-md-4">
-                        <div class="billing-card border-0 shadow-lg">
+                        <div class="billing-card border-0 shadow-sm">
                         @if(count($cart->currency_array) > 1)
                             <p class="small text-danger">Multiple currencies found in your cart. Please select a specific currency.</p>
                         @else
-                            <h6 class="mb-2">Billing summary</h6>
+                            <h6 class="mb-3">Billing summary</h6>
                             <div class="form-group">
-                                <label for="">Total :</label>
-                                <input type="text" value="{{currencySymbol($usercart->currency)}} {{number_format($cartPrice, 2)}}" readonly="">
-                            </div>
-                            <hr>
-                            <div class="form-group">
-                                <label for=""><b>Pay</b></label>
-                                <input type="text" value="{{currencySymbol($usercart->currency)}} {{number_format($cartPrice, 2)}}" readonly="">
+                                <label for=""><b>Total :</b></label>
+                                <input class="form-control" type="text" value="{{currencySymbol($usercart->currency)}} {{number_format($cartPrice, 2)}}" readonly="">
                             </div>
 
-                            <div class="form-group d-flex justify-content-end">
+                            <div class="form-group">
+                                <label for=""><b>Pay</b></label>
+                                <input class="form-control" type="text" value="{{currencySymbol($usercart->currency)}} {{number_format($cartPrice, 2)}}" readonly="">
+                            </div>
+
+                            <div class="form-group justify-content-end">
                                 <a href="javascript:void(0)" onclick="confirmAlert('{{ route('user.cart.empty') }}')">Empty cart</a>
                             </div>
 
-                            <button class="btn btn-primary checkoutCartBillPayment">PAY NOW</button>
+                            <button class="btn checkoutCartBillPayment">pay now</button>
                         @endif
-                            <div class="">
-                                <div class="w-100">
-                                    <p class="small text-muted">Update currency</p>
-                                    <form method="post" action="{{ route('user.cart.currency.update') }}" class="w-100">
-                                        @csrf
-                                        <div class="w-100 d-flex">
-                                            <div class="form-group mb-0 mr-2">
-                                                <select class="form-control form-control-sm" name="currency">
-                                                    <option value="usd" selected>$ USD</option>
-                                                    <option value="eur">€ EUR</option>
-                                                    <option value="gbp">£ GBP</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group mb-0 mr-2">
-                                                <button type="submit" name="" class="btn buyfull">Apply</button>
-                                            </div>
+                            <div class="updateCurrency">
+                                <p class="small text-muted">Update currency</p>
+                                <form method="post" action="{{ route('user.cart.currency.update') }}" class="w-100">
+                                    @csrf
+                                    <div class="currencyDiv">
+                                        <div class="form-group mb-0">
+                                            <select class="form-control form-control-sm" name="currency">
+                                                <option value="usd" selected>$ USD</option>
+                                                <option value="eur">€ EUR</option>
+                                                <option value="gbp">£ GBP</option>
+                                            </select>
+                                            <button type="submit" name="" class="btn buyfull">Apply</button>
                                         </div>
-                                    </form>
-                                </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

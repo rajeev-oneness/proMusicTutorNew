@@ -1,7 +1,7 @@
 <header class="bg-dark-blue position">
     <div class="container p-0">
         <nav class="navbar navbar-light navbar-expand-md bg-faded justify-content-center pt-0 pb-0">
-            <a href="{{url('/')}}" class="navbar-brand d-flex w-25 mr-auto"><img src="{{asset('design/img/logo.png')}}"></a>
+            <a href="{{url('/')}}" class="navbar-brand"><img src="{{asset('design/img/logo.png')}}"></a>
             <div class="navbar-collapse w-100">
                 <p class="navbar-nav w-75 justify-content-center d-md-block d-none text-center nav-text">
                     All downloads available in <span>FULL HD </span>or <span>stream</span>
@@ -44,15 +44,13 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                                 <span class="notice-badge">{{$notificationAppService->totalNewNotificationCount}}</span>
                             </a>
-                            <div class="noticeHidden">
-                                <div class="menu-section" style="overflow:scroll;">
-                                    <div class="position-fixed py-3 noticeMenuTop">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <a href="javascript:void(0)" class="text-white seeAllNotification">See All</a>
-                                            <a href="javascript:void(0)" class="text-white markAllAsRead">Mark all as read</a>
-                                        </div>
+                            <div class="hidden" id="noticeHidden">
+                                <div class="menu-section">
+                                    <div class="noticeMenuTop">
+                                        <a href="javascript:void(0)" class="text-white seeAllNotification">See All</a>
+                                        <a href="javascript:void(0)" class="text-white markAllAsRead">Mark all as read</a>
                                     </div>
-                                    <ul class="r_menu_ul noticeMenu seeAllNotificationDiv" style="padding:25px 50px">
+                                    <ul class="r_menu_ul noticeMenu seeAllNotificationDiv" style="padding-right:10px">
                                         @foreach($notificationAppService->limit_notification as $appServiceNotification)
                                             <li>
                                                 <div class="card mb-3 notificationListasActiveInactiveHeader @if($appServiceNotification->read == 1){{('bg-secondary')}}@endif">
@@ -71,24 +69,17 @@
                     @endauth
                     <li class="nav-item">
                         <a class="nav-link search-icon" id="slide" href="javascript:void(0)"><img src="{{asset('design/img/menu_icon.png')}}"> <span class="pl-2">Menu</span></a>
-                        <div class="hidden">
+                        <div class="hidden" id="menuHidden">
                             <div class="menu-section">
-                                <a id="closebtn" href="javascript:void(0)"><i class="fa fa-close fa-2x mb-5 text-white"></i></a>
-                                <div class="menulogo mb-5">
-                                    <img src="{{asset('design/img/menu-logo.png')}}" class="w-100">
+                                <div class="nav-side-top">
+                                    <a id="closebtn" href="javascript:void(0)">
+                                        <i class="fas fa-times fa-2x mb-5 text-white"></i>
+                                    </a>
+                                    <div class="menulogo">
+                                        <img src="{{asset('design/img/menu-logo.png')}}" class="w-100">
+                                    </div>
                                 </div>
-                                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                    <!-- <li class="nav-item">
-                                        <a class="nav-link active border-right" id="guitar-tab" data-toggle="tab" href="#guitar" role="tab" aria-controls="guitar" aria-selected="true">Guitar</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link border-right" id="sax-tab" data-toggle="tab" href="#sax" role="tab" aria-controls="sax" aria-selected="false">Sax</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="blog-tab" data-toggle="tab" href="#blog" role="tab" aria-controls="blog" aria-selected="false">Blog</a>
-                                    </li> -->
-                                </ul>
-                                <div class="tab-content pt-4" id="myTabContent">
+                                <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="guitar" role="tabpanel" aria-labelledby="guitar-tab">
                                         <ul class="r_menu_ul">
                                             <li><a href="{{route('browse.guiter.series')}}">GUITAR</a></li>

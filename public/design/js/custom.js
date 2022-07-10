@@ -55,8 +55,8 @@
 
 	$(document).ready(function () {
 		$('#slide').click(function () {
-			var hidden = $('.hidden');
-			var noticeHidden = $('.noticeHidden');
+			var hidden = $('#menuHidden');
+			var noticeHidden = $('#noticeHidden');
 			if (hidden.hasClass('visible')) {
 				hidden.animate({ "right": "-100%" }, "slow").removeClass('visible'); //right = from -1920px to -100%
 			} else {
@@ -69,8 +69,8 @@
 		});
 
 		$('#noticeSlide').click(function () {
-			var noticeHidden = $('.noticeHidden');
-			var hidden = $('.hidden');
+			var hidden = $('#menuHidden');
+			var noticeHidden = $('#noticeHidden');
 			if (noticeHidden.hasClass('visible')) {
 				noticeHidden.animate({ "right": "-100%" }, "slow").removeClass('visible'); //right = from -1920px to -100%
 			} else {
@@ -83,8 +83,8 @@
 	});
 
 	$('#closebtn').click(function () {
-		var hidden = $('.hidden');
-		var noticeHidden = $('.noticeHidden');
+		var hidden = $('#menuHidden');
+		var noticeHidden = $('#noticeHidden');
 		if (hidden.hasClass('visible')) {
 			hidden.animate({ "right": "-100%" }, "slow").removeClass('visible'); //right = from -1920px to -100%
 		} else {
