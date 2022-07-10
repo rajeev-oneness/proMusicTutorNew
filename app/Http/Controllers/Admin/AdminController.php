@@ -42,11 +42,11 @@ class AdminController extends Controller
         $top_data = (object)[];
 
         $top_data->todays_total_sale = Transaction::where([
-            ['created_at', '>', date('Y-m-d', strtotime("yesterday"))],
+            ['created_at', '>=', date('Y-m-d H:i:s', strtotime("today"))],
             ['currency', '=', 'usd']
         ])->count();
         $top_data->todays_total_sale_amount = Transaction::where([
-            ['created_at', '>', date('Y-m-d', strtotime("yesterday"))],
+            ['created_at', '>=', date('Y-m-d H:i:s', strtotime("today"))],
             ['currency', '=', 'usd']
         ])->sum('amount') / 100;
 
@@ -74,7 +74,7 @@ class AdminController extends Controller
             ['currency', '=', 'usd']
         ])->sum('amount') / 100;
 
-        $top_data->user_this_month = count(UserProductLessionPurchase::where('created_at', '>', date('Y-m-d', strtotime("yesterday")))->select('userID')->groupBy('transactionId')->get());
+        $top_data->user_this_month = count(UserProductLessionPurchase::where('created_at', '>=', date('Y-m-d H:i:s', strtotime("today")))->select('userID')->groupBy('transactionId')->get());
         $top_data->total_user = User::where('user_type', 3)->count('*');
 
         //top series

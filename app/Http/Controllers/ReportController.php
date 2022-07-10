@@ -34,6 +34,18 @@ class ReportController extends Controller
             ->groupBy('tid');
         // ->orderBy('tid', 'DESC');
 
+        if ($req->get('series') == true) {
+            $userPurchase = $userPurchase->where('user_product_lession_purchases.type_of_product', 'series');
+        }
+
+        if ($req->get('offers') == true) {
+            $userPurchase = $userPurchase->where('user_product_lession_purchases.type_of_product', 'offer');
+        }
+
+        if ($req->get('lesson') == true) {
+            $userPurchase = $userPurchase->where('user_product_lession_purchases.type_of_product', 'lession');
+        }
+
         $authors = [];
         foreach ($userPurchase->get() as $value) {
             array_push($authors, $value->author_name);

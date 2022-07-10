@@ -26,6 +26,19 @@
                             <div class="collapse show" id="collapseExample">
                                 <div class="card card-body px-0 py-2 border-0 shadow-none">
                                     <form class="form-inline" action="">
+
+                                        @if (request()->input('series'))
+                                            <input type="hidden" name="series" value="true">
+                                        @endif
+
+                                        @if (request()->input('lesson'))
+                                            <input type="hidden" name="lesson" value="true">
+                                        @endif
+
+                                        @if (request()->input('offers'))
+                                            <input type="hidden" name="offers" value="true">
+                                        @endif
+
                                         <select class="form-control form-control-sm mr-2" name="tutor">
                                             <option value="">--Select tutor--</option>
                                             @foreach ($authors as $a)
