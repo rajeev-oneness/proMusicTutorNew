@@ -7,32 +7,43 @@
                     All downloads available in <span>FULL HD </span>or <span>stream</span>
                 </p>
                 <ul class="nav navbar-nav ml-auto w-100 header-nav">
-                    <!-- <li class="nav-item">
-                        <a class="nav-link search-icon" href="javascript:void(0)"><img src="{{asset('design/img/search_icon.png')}}"></a>
-                    </li> -->
-                    <div class="d-flex">
                     @guest
                         @if(Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link signup-bg {{ Route::currentRouteName() == 'register' ? 'bg-orange' : '' }}" href="{{route('register')}}">Sign Up</a>
+                                <a class="nav-link signup-bg {{ Route::currentRouteName() == 'register' ? 'bg-orange' : '' }}" href="{{route('register')}}">
+                                    <i class="fas fa-user-plus"></i>
+                                    Sign Up
+                                </a>
                             </li>
                         @endif
                         @if(Route::has('login'))
                             <li class="nav-item">
-                                <a class="nav-link signup-bg login-bg {{ Route::currentRouteName() == 'login' ? 'bg-orange' : '' }}" href="{{route('login')}}"><i class="fas fa-user mr-1"></i> Login</a>
+                                <a class="nav-link signup-bg login-bg {{ Route::currentRouteName() == 'login' ? 'bg-orange' : '' }}" href="{{route('login')}}">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                    Login
+                                </a>
                             </li>
                         @endif
                     @else
                         <li class="nav-item">
-                            <a class="nav-link signup-bg login-bg {{ Route::currentRouteName() == 'home' ? 'bg-orange' : '' }}" href="{{route('home')}}"><i class="fas fa-user mr-1"></i> Dashboard</a>
+                            <a class="nav-link signup-bg login-bg {{ Route::currentRouteName() == 'home' ? 'bg-orange' : '' }}" href="{{route('home')}}">
+                                <i class="fas fa-user"></i>
+                                Dashboard
+                            </a>
                         </li>
                         <li class="nav-item position-relative">
-                            <a class="nav-link signup-bg {{ Route::currentRouteName() == 'user.cart.info' ? 'bg-orange' : '' }}" href="{{route('user.cart.info')}}"><img src="{{asset('design/img/cart_icon.png')}}"></a>
-                            <div class="cart-count itemCountForCart" id="itemCountForCart">{{count($user->cart_info)}}</div>
+                            <a class="nav-link signup-bg {{ Route::currentRouteName() == 'user.cart.info' ? 'bg-orange' : '' }}" href="{{route('user.cart.info')}}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                <span class="cart-count itemCountForCart notice-badge" id="itemCountForCart">
+                                    {{count($user->cart_info)}}
+                                </span>
+                            </a>
                         </li>
                         <li class="nav-item position-relative">
-                            <a class="nav-link signup-bg" href="javascript:void(0)" id="noticeSlide"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></a>
-                            <div class="badge notice-badge text-white position-absolute notificationCountChangingHeader">{{$notificationAppService->totalNewNotificationCount}}</div>
+                            <a class="nav-link signup-bg" href="javascript:void(0)" id="noticeSlide">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                                <span class="notice-badge">{{$notificationAppService->totalNewNotificationCount}}</span>
+                            </a>
                             <div class="noticeHidden">
                                 <div class="menu-section" style="overflow:scroll;">
                                     <div class="position-fixed py-3 noticeMenuTop">
@@ -58,8 +69,6 @@
                             </div>
                         </li>
                     @endauth
-                    </div>
-                    <div>
                     <li class="nav-item">
                         <a class="nav-link search-icon" id="slide" href="javascript:void(0)"><img src="{{asset('design/img/menu_icon.png')}}"> <span class="pl-2">Menu</span></a>
                         <div class="hidden">
@@ -103,7 +112,6 @@
                             </div>
                         </div>
                     </li>
-                    </div>
                 </ul>
             </div>
         </nav>

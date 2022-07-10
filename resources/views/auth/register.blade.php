@@ -3,10 +3,11 @@
 <head>
     <meta charset="utf-8">
     <title>{{config('app.name', 'Pro Music Tutor')}} - Signup</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="{{asset('design/css/bootstrap.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('design/css/style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('design/css/responsive.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('design/css/font-awesome.min.css')}}">
+    <!-- <link rel="stylesheet" type="text/css" href="{{asset('design/css/font-awesome.min.css')}}"> -->
 </head>
 <body>
     <div class="signup pt-5 pb-5">
@@ -72,8 +73,11 @@
 
                                 <div class="form-group">
                                     <label for="inputAddress"> <img src="{{asset('design/img/password.png')}}"> CONFIRM PASSWORD </label>
-                                    <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password">
-                                    <a class="confirmpw" href="javascript:void(0)"><img src="{{asset('design/img/eye.png')}}"></a>
+                                    <input type="password" id="cPass" class="form-control" name="password_confirmation" placeholder="Confirm Password">
+                                    <a class="confirmpw" href="javascript:void(0)">
+                                        <!-- <img src="{{asset('design/img/eye.png')}}"> -->
+                                        <i class="fa fa-eye"></i>
+                                    </a>
                                 </div>
 
                                 <div class="form-group">
@@ -99,5 +103,16 @@
         </div>
     </div>
     <script type="text/javascript" src="{{asset('design/js/jquery-3.6.0.min.js')}}"></script>
+    <script>
+        $(".confirmpw i").click(function () {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $('#cPass');
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+    </script>
 </body>
 </html>

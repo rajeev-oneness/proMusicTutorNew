@@ -6,9 +6,9 @@
             <div class="modal fade modal-fullscreen" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">  
-                        <button type="button" class="close login_close" data-dismiss="modal" aria-label="Close">
+                        <a href="{{url('/')}}" class="close login_close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&#8592; &nbsp; Back to Home</span>
-                        </button>
+                        </a>
                         <div class="modal-body">
                             <!-- <div class="google-login">
                                 <a href="{{route('socialite.login','google')}}">Login with Google</a>

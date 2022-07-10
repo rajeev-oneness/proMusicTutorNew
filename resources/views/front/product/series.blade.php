@@ -57,7 +57,7 @@
                         @endphp
                         <div class="col-12 col-sm-6 col-md-3 mb-3">
                             <div class="card border-0">
-                                <img src="{{asset($cat->image)}}" class="card-img-top">
+                                <img src="{{asset($cat->image)}}">
                                 <div class="card-body p-0">
                                   <a href="{{route('product.series',$categoryParameter)}}" class="btn signbtn">{{$cat->name}}</a>
                                 </div>
@@ -82,12 +82,12 @@
                         <div class="w-100 d-flex justify-content-end filter-flex">
                             <div class="form-group mb-0 mr-2">
                                 {{-- <p class="mb-0 text-muted">Select Difficulty</p> --}}
-                                <DASHBOARD class="form-control form-control-sm" name="currency">
+                                <select class="form-control form-control-sm" name="currency">
                                     <option value="" selected="" hidden="">Price</option>
                                     <option selected value="usd">$ USD</option>
                                     <option {{($req->currency == 'eur') ? 'selected' : ''}} value="eur">€ EUR</option>
                                     <option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
-                                </DASHBOARD>
+                                </select>
                             </div>
                             <div class="form-group mb-0 mr-2">
                                 {{-- <p class="mb-0 text-muted">Select Difficulty</p> --}}
@@ -122,12 +122,12 @@
                                     <p class="card-text">{!! words($series->description,200) !!}</p>
                                     <?php $seriesPrice = calculateLessionPrice($series, $data->currency); ?>
                                     @guest
-                                        <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
+                                        <a href="javascript:void(0)" class="btn buyfull " onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
                                     @else
                                         @if($series->userPurchased)
-                                            <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
+                                            <a href="javascript:void(0)" class="btn purchased-Full ">Already Purchased</a>
                                         @else
-                                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$series->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
+                                            <a href="javascript:void(0)" class="btn buyfull " onclick="stripePaymentStart('{{$seriesPrice}}','{{route('after.purchase.guitar_series',$series->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$seriesPrice}}</a>
 
                                             <!-- Add To Cart -->
                                             <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','series','{{$series->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
