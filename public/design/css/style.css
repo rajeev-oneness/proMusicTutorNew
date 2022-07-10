@@ -151,12 +151,16 @@ button:focus {
 .navbar-light .navbar-nav .nav-link {
     color: #ffffff !important;
 }
-.navbar-light .navbar-nav .signup-bg {
+.navbar-light .navbar-nav .signup-bg{
     background: #262c32;
-    padding: 30px 10px;
-    width: 95px;
-    height: 85px;
+    padding: 0 15px;
+    height: 100%;
     text-align: center;
+    display: flex;
+    align-items: center;
+}
+.navbar-light .navbar-nav .signup-bg i{
+    margin-right: 8px;
 }
 .navbar-light .navbar-nav .search-icon {
     padding: 30px 10px;
@@ -173,7 +177,7 @@ button:focus {
 .nav-text span {
     color: #f43600;
 }
-.cart-count {
+/* .cart-count {
     position: absolute;
     width: 18px;
     height: 18px;
@@ -185,7 +189,7 @@ button:focus {
     padding-top: 2px;
     top: 25px;
     right: 23px;
-}
+} */
 /*----------------footer--------------*/
 footer {
     background: #0d1115;
@@ -1477,7 +1481,7 @@ padding: 5px 138px 15px 30px;
     border-color: transparent;
 }
 
-.full-loginmodal button.close {
+.full-loginmodal .close {
     padding: 0;
     background-color: transparent;
     border: 0;
@@ -2286,14 +2290,6 @@ padding: 5px 138px 15px 30px;
 .not-wishlisted:focus {
     box-shadow: 0 0 0 0.2rem #b5b5b561;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: sans-serif !important;
-}
 
 /*Cart proceed to pay design*/
 .billing-card {
@@ -2344,13 +2340,19 @@ textarea.form-control {
 }
 
 .notice-badge {
+    position: absolute;
     top: 20px;
-    right: 20px;
+    left: 30px;
     background-color: #f43603;
     border-radius: 50%;
-    padding: 5px;
     font-size: 10px;
     font-weight: 400;
+    min-width: 18px;
+    min-height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
 }
 
 /****************************************** Blogs *********************************************/
@@ -3100,7 +3102,7 @@ textarea.form-control {
 .tutor-list{
     margin-top:85px;
 }
-.teacher_profile, .series_list, .off_det, .subs_sec{
+.teacher_profile, .off_det, .subs_sec{
     margin-top:85px;
 }
 
@@ -3122,8 +3124,9 @@ textarea.form-control {
 }
 .card-img-top{
     width: 100%;
-    height: 380px;
+    height: 300px;
     object-fit: cover;
+    object-position: top;
 }
 .pg_pro .pagination .page-item a{
     width: 25px;
@@ -3232,4 +3235,46 @@ textarea.form-control {
     left: 0;
     left:0;
     color:#fff !important;
+}
+.series_list .card-body{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 300ms ease-in-out;
+}
+.series_list .card{
+    overflow: hidden;
+}
+.series_list .btn{
+    background: #f43600;
+}
+.series_list .btn:hover{
+    background: #fff;
+    color: #191919;
+}
+.series_list .card img{
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    transition: all 300ms ease-in-out;
+}
+.series_list .card:hover img{
+    transform: scale(1.2);
+}
+.series_list .card:hover .card-body{
+    opacity: 1;
+    visibility: visible;
+}
+.seriesDetails h5{
+    font-size: 24px;
+    margin-bottom: 15px;
 }

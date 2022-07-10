@@ -10,10 +10,10 @@
         $totalPrice = calculateLessionPrice($data, $data->currency);
     @endphp
 
-    <section class="pt-0 pt-md-5 pb-5 series_list">
+    <section class="py-3 py-md-5 mt-85">
         <div class="container">
-            <div class="row">
-                <div class="col-12 col-md-6 shadow-lg p-0 mb-4 mb-md-0">
+            <div class="row seriesDetails">
+                <div class="col-12 col-md-6 mb-4 mb-md-0">
                     <div class="embed-responsive embed-responsive-16by9">
                         {{-- <iframe class="embed-responsive-item" src="{{asset($data->video_url)}}" allowfullscreen></iframe> --}}
 
@@ -23,36 +23,32 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-12">
-                    <div class="row m-0">
-                        <h5 class="col-6 pt-2 pl-0 pl-md-3">{{$data->title}}</h5>
-                        @guest
-                            <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
-                        @else
-                            @if($data->userPurchased)
-                                <a href="javascript:void(0)" class="btn purchased-Full mb-3">Already Purchased</a>
-                            @else
-                                <a href="javascript:void(0)" class="btn buyfull mb-3" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
-
-                                <!-- Add To Cart -->
-                                <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','series','{{$data->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
-                            @endif
-                        @endguest
-
-                        @guest
-                            <a href="javascript: void(0)" class="btn wishlist not-wishlisted rounded-0 mb-3" onclick="alert('please login to continue')" title="Wishlist now"> <i class="fa fa-heart text-light pe-none"></i></a>
-                        @else
-                            @if ($data->userWishlisted)
-                                <a href="javascript: void(0)" class="btn wishlist wishlisted rounded-0 mb-3" onclick="wishlistToggle({{$req->seriesId}}, 'series')" title="Wishlisted"> <i class="fa fa-heart text-light pe-none"></i></a>
-                            @else
-                                <a href="javascript: void(0)" class="btn wishlist not-wishlisted rounded-0 mb-3" onclick="wishlistToggle({{$req->seriesId}}, 'series')" title="Wishlist now"> <i class="fa fa-heart text-light pe-none"></i></a>
-                            @endif
-                        @endguest
-
+                    <h5>{{$data->title}}</h5>
+                    <div class="text-left">
+                        {!! $data->description !!}
                     </div>
-                    <div class="col-12 pt-4 pl-0 pl-md-3">
-                        <h6 class="mb-3">Series Description</h6>
-                        <p>{!! $data->description !!}</p>
-                    </div>
+                    @guest
+                        <a href="javascript:void(0)" class="btn buyfull" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
+                    @else
+                        @if($data->userPurchased)
+                            <a href="javascript:void(0)" class="btn purchased-Full">Already Purchased</a>
+                        @else
+                            <a href="javascript:void(0)" class="btn buyfull" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
+
+                            <!-- Add To Cart -->
+                            <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','series','{{$data->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
+                        @endif
+                    @endguest
+
+                    @guest
+                        <a href="javascript: void(0)" class="btn wishlist not-wishlisted rounded-0" onclick="alert('please login to continue')" title="Wishlist now"> <i class="fa fa-heart text-light pe-none"></i></a>
+                    @else
+                        @if ($data->userWishlisted)
+                            <a href="javascript: void(0)" class="btn wishlist wishlisted rounded-0" onclick="wishlistToggle({{$req->seriesId}}, 'series')" title="Wishlisted"> <i class="fa fa-heart text-light pe-none"></i></a>
+                        @else
+                            <a href="javascript: void(0)" class="btn wishlist not-wishlisted rounded-0" onclick="wishlistToggle({{$req->seriesId}}, 'series')" title="Wishlist now"> <i class="fa fa-heart text-light pe-none"></i></a>
+                        @endif
+                    @endguest
                 </div>
                 <?php $tutor = $data->author;?>
                 @if($tutor)
@@ -83,22 +79,25 @@
     <?php $lessions = $data->lession; ?>
 
     @if(count($lessions) > 0)
-        <section class="pt-5 pb-5 mb-5 bg-light">
+        <section class="py-3 py-md-5 bg-light">
             <div class="container">
                 <div class="row mb-5 align-items-center">
                     <div class="col-md-6">
-                        <div class="d-flex">
-                            <h5 class="pt-2">LESSONS</h5>
+                        <div class="d-flex align-items-center">
+                            <h5>LESSONS</h5>
                             @guest
-                                <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
+                                <a href="javascript:void(0)" class="buyfull" onclick="alert('please login to continue')">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
                             @else
                                 @if($data->userPurchased)
-                                    <a href="javascript:void(0)" class="purchased-Full ml-3 ml-md-5">Already Purchased</a>
+                                    <a href="javascript:void(0)" class="purchased-Full ml-3">Already Purchased</a>
                                 @else
-                                    <a href="javascript:void(0)" class="buyfull ml-3 ml-md-5" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}</a>
-
+                                    <a href="javascript:void(0)" class="buyfull ml-3" onclick="stripePaymentStart('{{$totalPrice}}','{{route('after.purchase.guitar_series',$data->id)}}', '{{$data->currency}}');">
+                                        BUY FULL SERIES - {{currencySymbol($data->currency)}} {{$totalPrice}}
+                                    </a>
                                     <!-- Add To Cart -->
-                                    <a class="btn btn-lg" onclick="addOrRemoveUserProductCart('{{$user->id}}','series','{{$data->id}}','add','{{$data->currency}}')"><i class="fas fa-cart-plus"></i></a>
+                                    <a class="btn" onclick="addOrRemoveUserProductCart('{{$user->id}}','series','{{$data->id}}','add','{{$data->currency}}')">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </a>
                                 @endif
                             @endguest
                         </div>
@@ -200,7 +199,7 @@
 
     <!-- Other Guitar Series You may Like -->
     @if(count($data->otherGuitarSeries) > 0)
-        <section class="pt-2 mb-5">
+        <section class="py-3 py-md-5">
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center title-inner">

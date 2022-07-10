@@ -82,3 +82,24 @@ Stack trace:
 #0 /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php(169): remove_slashes(Array, false)
 #1 {main}
   thrown in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 20
+[09-Jul-2022 14:54:01 UTC] PHP Warning:  Undefined array key "script" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[09-Jul-2022 14:54:01 UTC] PHP Warning:  Undefined array key "HTTP_X_FORWARDED_PREFIX" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[09-Jul-2022 14:54:01 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_magic_quotes_gpc() in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php:20
+Stack trace:
+#0 /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php(169): remove_slashes(Array, false)
+#1 {main}
+  thrown in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 20
+[09-Jul-2022 14:54:17 UTC] PHP Warning:  Undefined array key "script" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[09-Jul-2022 14:54:17 UTC] PHP Warning:  Undefined array key "HTTP_X_FORWARDED_PREFIX" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[09-Jul-2022 14:54:17 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_magic_quotes_gpc() in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php:20
+Stack trace:
+#0 /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php(169): remove_slashes(Array, false)
+#1 {main}
+  thrown in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 20
+[09-Jul-2022 14:56:54 UTC] PHP Warning:  Undefined array key "script" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[09-Jul-2022 14:56:54 UTC] PHP Warning:  Undefined array key "HTTP_X_FORWARDED_PREFIX" in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 169
+[09-Jul-2022 14:56:54 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_magic_quotes_gpc() in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php:20
+Stack trace:
+#0 /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php(169): remove_slashes(Array, false)
+#1 {main}
+  thrown in /home1/demo9dtx/public_html/dev/proMusicTutor/public/adminer.php on line 20
