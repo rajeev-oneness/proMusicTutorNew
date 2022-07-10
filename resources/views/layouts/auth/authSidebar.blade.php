@@ -60,7 +60,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('tutor.offer.*') ? 'active' : '' }}"
                                         href="{{ route('tutor.offer.list') }}"><i
-                                            class="fa-solid fa-percent fa-fw"></i>Offers</a>
+                                            class="fas fa-percent fa-fw"></i>Offers</a>
                                 </li>
                             @endif
                             <!-- Tutor Sidebar -->
@@ -121,7 +121,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('admin.offer.*') ? 'active' : '' }}"
                                         href="{{ route('admin.offer.list') }}"><i
-                                            class="fa-solid fa-percent fa-fw"></i>Offers</a>
+                                            class="fas fa-percent fa-fw"></i>Offers</a>
                                 </li>
                             @endif
 

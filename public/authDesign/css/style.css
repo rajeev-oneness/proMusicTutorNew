@@ -1,9 +1,17 @@
 .headerbuttonforAdd {
-    float: right;
+    /* float: right; */
     border: 1px solid #eae4e4;
     width: auto;
     padding: 5px;
     color: #1e3acc;
+}
+.exportSec{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.dashboard-content .form-control, .dashboard-content .btn{
+    border-radius: 0 !important;
 }
 /*Tooltip Design*/
 .tooltip {
@@ -7364,7 +7372,7 @@ Media Query
     font-size: 17px;
     border: 0;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     overflow: hidden;
     transition: all 0.5s;
 }
@@ -7384,7 +7392,7 @@ Media Query
     right: 0;
     transform: translate(0%, -50%) rotate(350deg);
     font-size: 70px;
-    transition: inherit;
+    transition: all 300ms ease-in;
 }
 .dash-card-col:hover a {
     text-decoration: none;
@@ -7397,7 +7405,8 @@ Media Query
     color: #fff;
 }
 .dash-card-col:hover .card p {
-    color: #9c8f8f;
+    /* color: #9c8f8f; */
+    color: #fff;
 }
 .dash-card-col:hover .card i {
     transform: translate(0%, -50%) rotate(340deg);
@@ -7453,7 +7462,7 @@ Media Query
 .headerbuttonforAdd {
     background: #f43600;
     padding: 6px 10px;
-    border-radius: 5px;
+    border-radius: 0;
     border: none;
     color: #fff;
     font-size: 13px;
@@ -7461,10 +7470,19 @@ Media Query
     line-height: 20px;
     font-weight: 400;
     letter-spacing: 0.8px;
+    display: block;
+    margin-right: 10px;
+    transition: all 300ms ease;
 }
 .headerbuttonforAdd:hover {
     color: #fff;
     text-decoration: none;
+    background-color: #3d405c;
+}
+.headerbuttonforAdd:focus{
+    border: 0;
+    outline: 0;
+    background-color: #ff5722;
 }
 .headerbuttonforAdd i {
     font-size: 15px;

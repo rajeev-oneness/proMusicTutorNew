@@ -11,17 +11,21 @@
                     </div>
                     <div class="card-body">
                         <div class="card-body">
-                            <button class="headerbuttonforAdd d-block mt-3 my-2" style="float: right; outline: none;"
-                                type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
-                                aria-controls="collapseExample"><i class="fa fa-filter"></i>Filter</button>
+                            <div class="exportSec">
+                                <button class="headerbuttonforAdd" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                    <i class="fa fa-filter"></i>
+                                    Filter
+                                </button>
 
-                            <button class="headerbuttonforAdd d-block mt-3 my-2 mr-2" style="float: right; outline: none;"
-                                type="button" onclick="htmlToCSV()"><i class="fas fa-check"></i> Export filtered data as
-                                CSV</button>
+                                <button class="headerbuttonforAdd" type="button" onclick="htmlToCSV()">
+                                    <i class="fas fa-check"></i>
+                                    Export filtered data as CSV
+                                </button>
 
-                            <button class="headerbuttonforAdd d-block mt-3 my-2 mr-2" style="float: right; outline: none;"
-                                type="button" id="export_all"> Export all
-                                data</button>
+                                <button class="headerbuttonforAdd" type="button" id="export_all">
+                                    Export all data
+                                </button>
+                            </div>
 
                             <div class="collapse show" id="collapseExample">
                                 <div class="card card-body px-0 py-2 border-0 shadow-none">

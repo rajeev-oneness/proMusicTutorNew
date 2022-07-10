@@ -4,23 +4,22 @@
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">Your Profile</h5>
-                    <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
-                </div>
+            <div class="card-header">
+                <h5 class="mb-0">Your Profile</h5>
+                <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
+            </div>
+            <div class="card shadow">
                 <div class="card-body">
                     <form method="post" action="{{route('user.profile.save')}}" enctype="multipart/form-data">
                         @csrf
-                        <div class="row">
-                            <div class="form-group col-md-3 image-upload-wrapper">
-                                <img src="{{asset($user->image)}}" width="100">
-                                <input type="file" class="form-control" id="image" name="image">
-                                <button><i class="fas fa-pencil-alt"></i></button>
+                        <div class="row m-0">
+                            <div class="form-group col-md-3">
+                                <div class="image-upload-wrapper">
+                                    <img src="{{asset($user->image)}}" width="100">
+                                    <input type="file" class="form-control" id="image" name="image">
+                                    <button><i class="fas fa-pencil-alt"></i></button>
+                                </div>
                             </div>
-                            <!-- <div class="form-group col-md-3">
-                                <label for="image" class="col-form-label">Image:</label>
-                            </div> -->
                             <div class="form-group col-md-3">
                                 <label for="name" class="col-form-label">Name:</label>
                                 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Name" value="{{(old('name') ? old('name') : $user->name)}}" autofocus="">
@@ -106,29 +105,28 @@
             </div>
         </div>
 
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">Change Password</h5>
-                    <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
-                </div>
+        <div class=" col-md-6 col-sm-12 col-12">
+            <div class="card-header">
+                <h5 class="mb-0">Change Password</h5>
+            </div>
+            <div class="card shadow">
                 <div class="card-body">
                     <form method="post" action="{{route('user.changepassword.save')}}">
                         @csrf
                         <div class="row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-12">
                                 <label for="old_password" class="col-form-label">Old Password</label>
                                 <input type="password" name="old_password" class="form-control @error('old_password') is-invalid @enderror" autofocus="" placeholder="Old password" value="{{old('old_password')}}">
                                 @error('old_password')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-12">
                                 <label for="password" class="col-form-label">New Password</label>
                                 <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="New password">
                                 @error('password')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-12">
                                 <label for="password_confirmation" class="col-form-label">Confirm Password</label>
                                 <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm password">
                             </div>

@@ -11,62 +11,80 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-6 col-md-2">
+                            <div class="col-6 col-md-2 dash-card-col">
                                 <div class="card shadow">
-                                    <div class="card-body text-center p-1">
-                                        <p class="small mb-0">Today's Sale</p>
-                                        <h5 class="mb-0">{{ $top_data->todays_total_sale }}</h5>
-                                        <p class="mb-0">($ {{ $top_data->todays_total_sale_amount }})</p>
+                                    <div class="card-body">
+                                        <p class="">Today's Sale</p>
+                                        <h5 class="mb-0">
+                                            {{ $top_data->todays_total_sale }}
+                                            <span class="mb-0">($ {{ $top_data->todays_total_sale_amount }})</span>
+                                        </h5>
+                                        <i class="fas fa-dollar-sign"></i>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-6 col-md-2">
+                            <div class="col-6 col-md-2 dash-card-col">
                                 <div class="card shadow">
-                                    <div class="card-body text-center p-1">
-                                        <p class="small mb-0">Weekly Sale</p>
-                                        <h5 class="mb-0">{{ $top_data->weekly_total_sale }}</h5>
-                                        <p class="mb-0">($ {{ $top_data->weekly_total_sale_amount }})</p>
+                                    <div class="card-body">
+                                        <p class="">Weekly Sale</p>
+                                        <h5 class="mb-0">
+                                            {{ $top_data->weekly_total_sale }}
+                                            <span class="mb-0">($ {{ $top_data->weekly_total_sale_amount }})</span>
+                                        </h5>
+                                        <i class="fas fa-dollar-sign"></i>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-6 col-md-2">
+                            <div class="col-6 col-md-2 dash-card-col">
                                 <div class="card shadow">
-                                    <div class="card-body text-center p-1">
-                                        <p class="small mb-0">Monthly Sale</p>
-                                        <h5 class="mb-0">{{ $top_data->weekly_total_sale }}</h5>
-                                        <p class="mb-0">($ {{ $top_data->weekly_total_sale_amount }})</p>
+                                    <div class="card-body">
+                                        <p class="">Monthly Sale</p>
+                                        <h5 class="mb-0">
+                                            {{ $top_data->weekly_total_sale }}
+                                            <span class="mb-0">($ {{ $top_data->weekly_total_sale_amount }})</span>
+                                        </h5>
+                                        <i class="fas fa-dollar-sign"></i>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-6 col-md-2">
+                            <div class="col-6 col-md-2 dash-card-col">
                                 <div class="card shadow">
-                                    <div class="card-body text-center p-1">
-                                        <p class="small mb-0">most purchased series</p>
-                                        <h5 class="mb-0">{{ $top_data->best_series[0] }}</h5>
-                                        <p class="mb-0">({{ $top_data->best_series[1] }})</p>
+                                    <div class="card-body">
+                                        <p class="">most purchased series</p>
+                                        <h5 class="mb-0">
+                                            {{ $top_data->best_series[0] }}
+                                            <span class="mb-0">({{ $top_data->best_series[1] }})</span>
+                                        </h5>
+                                        <i class="fas fa-chart-bar"></i>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-6 col-md-2">
+                            <div class="col-6 col-md-2 dash-card-col">
                                 <div class="card shadow">
-                                    <div class="card-body text-center p-1">
-                                        <p class="small mb-0">most purchased lesson</p>
-                                        <h5 class="mb-0">{{ $top_data->best_lesson[0] }}</h5>
-                                        <p>({{ $top_data->best_lesson[1] }})</p>
+                                    <div class="card-body">
+                                        <p class="">most purchased lesson</p>
+                                        <h5 class="mb-0">
+                                            {{ $top_data->best_lesson[0] }}
+                                            <span>({{ $top_data->best_lesson[1] }})</span>
+                                        </h5>
+                                        <i class="fas fa-chart-bar"></i>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-6 col-md-2">
+                            <div class="col-6 col-md-2 dash-card-col">
                                 <div class="card shadow">
-                                    <div class="card-body text-center p-1">
-                                        <p class="small mb-0">Today's User count</p>
-                                        <h5 class="mb-0">{{ $top_data->user_this_month }}</h5>
-                                        <p class="mb-0">{{ $top_data->total_user }} (total)</p>
+                                    <div class="card-body">
+                                        <p class="">Today's User count</p>
+                                        <h5 class="mb-0">
+                                            {{ $top_data->user_this_month }}
+                                            <span class="mb-0">{{ $top_data->total_user }} (total)</span>
+                                        </h5>
+                                        <i class="fas fa-chart-bar"></i>
                                     </div>
                                 </div>
                             </div>
