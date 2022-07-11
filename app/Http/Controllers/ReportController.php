@@ -59,6 +59,10 @@ class ReportController extends Controller
             $userPurchase = $userPurchase->where('productSeriesLessionId', $req->lessionId);
         }
 
+        if (!empty($req->get('offerId'))) {
+            $userPurchase = $userPurchase->where('offerId', $req->offerId);
+        }
+
         if (!empty($req->get('tutor'))) {
             $userPurchase = $userPurchase->where('u2.name', 'like', '%' . $req->get('tutor') . '%');
             $old_search = $req->get('tutor');
@@ -117,8 +121,10 @@ class ReportController extends Controller
         // }
         $available_series = UserProductLessionPurchase::select('product_series.id', 'product_series.title', 'product_series.createdBy')->join('product_series', 'product_series.id', '=', 'user_product_lession_purchases.productSeriesId')->groupBy('product_series.title')->get();
         $available_lessons = UserProductLessionPurchase::select('product_series_lessions.id', 'product_series_lessions.title', 'product_series_lessions.createdBy', 'product_series_lessions.productSeriesId')->join('product_series_lessions', 'product_series_lessions.id', '=', 'user_product_lession_purchases.productSeriesLessionId')->groupBy('product_series_lessions.title')->get();
+        $available_offers = UserProductLessionPurchase::select('offers.id', 'offers.title', 'offers.createdBy')->join('offers', 'offers.id', '=', 'user_product_lession_purchases.offerId')->groupBy('offers.title')->get();
+        // dd($available_offers);
 
-        return view('reports.transactionLog', compact('userPurchase', 'req', 'available_series', 'available_lessons', 'authors'));
+        return view('reports.transactionLog', compact('userPurchase', 'req', 'available_series', 'available_lessons', 'available_offers', 'authors'));
     }
 
     public function transactionLogDet($tid)

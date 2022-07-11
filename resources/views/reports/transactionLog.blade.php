@@ -12,7 +12,8 @@
                     <div class="card-body">
                         <div class="card-body">
                             <div class="exportSec">
-                                <button class="headerbuttonforAdd" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                <button class="headerbuttonforAdd" type="button" data-toggle="collapse"
+                                    data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                     <i class="fa fa-filter"></i>
                                     Filter
                                 </button>
@@ -33,17 +34,42 @@
 
                                         @if (request()->input('series'))
                                             <input type="hidden" name="series" value="true">
+                                            @section('script')
+                                                <script>
+                                                    $('#tutor').hide();
+                                                    $('#seriesId').show();
+                                                    $('#lessionId').hide();
+                                                    $('#price').hide();
+                                                </script>
+                                            @endsection
                                         @endif
 
                                         @if (request()->input('lesson'))
                                             <input type="hidden" name="lesson" value="true">
+                                            @section('script')
+                                                <script>
+                                                    $('#tutor').hide();
+                                                    $('#seriesId').hide();
+                                                    $('#lessionId').show();
+                                                    $('#price').hide();
+                                                </script>
+                                            @endsection
                                         @endif
 
                                         @if (request()->input('offers'))
                                             <input type="hidden" name="offers" value="true">
+                                            @section('script')
+                                                <script>
+                                                    $('#tutor').hide();
+                                                    $('#seriesId').hide();
+                                                    $('#lessionId').hide();
+                                                    $('#offerId').show();
+                                                    $('#price').hide();
+                                                </script>
+                                            @endsection
                                         @endif
 
-                                        <select class="form-control form-control-sm mr-2" name="tutor">
+                                        <select class="form-control form-control-sm mr-2" id="tutor" name="tutor">
                                             <option value="">--Select tutor--</option>
                                             @foreach ($authors as $a)
                                                 <option value="{{ $a }}"
@@ -73,9 +99,19 @@
                                             @endforeach
                                         </select>
 
+                                        <select name="offerId" id="offerId" class="form-control form-control-sm mr-2">
+                                            <option value="">--Select offers--</option>
+                                            @foreach ($available_offers as $item)
+                                                <option
+                                                    value="{{ $item->id }}"{{ $item->id == $req->offerId ? 'selected' : '' }}>
+                                                    {{ $item->title }}</option>
+                                            @endforeach
+                                        </select>
+
                                         <select name="price" id="price" class="form-control form-control-sm mr-2">
                                             <option value="">--Select price filter--</option>
-                                            <option value="1" {{ request()->input('price') == 1 ? 'selected' : '' }}>
+                                            <option value="1"
+                                                {{ request()->input('price') == 1 ? 'selected' : '' }}>
                                                 Price low to high
                                             </option>
                                             <option value="2"

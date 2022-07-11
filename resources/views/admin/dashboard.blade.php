@@ -42,8 +42,8 @@
                                     <div class="card-body">
                                         <p class="">Monthly Sale</p>
                                         <h5 class="mb-0">
-                                            {{ $top_data->weekly_total_sale }}
-                                            <span class="mb-0">($ {{ $top_data->weekly_total_sale_amount }})</span>
+                                            {{ $top_data->monthly_total_sale }}
+                                            <span class="mb-0">($ {{ $top_data->monthly_total_sale_amount }})</span>
                                         </h5>
                                         <i class="fas fa-dollar-sign"></i>
                                     </div>

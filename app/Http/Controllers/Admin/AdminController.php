@@ -77,6 +77,8 @@ class AdminController extends Controller
         $top_data->user_this_month = count(UserProductLessionPurchase::where('created_at', '>=', date('Y-m-d H:i:s', strtotime("today")))->select('userID')->groupBy('transactionId')->get());
         $top_data->total_user = User::where('user_type', 3)->count('*');
 
+        // dd($top_data);
+
         //top series
         $best_series_data = array_count_values(array_column(UserProductLessionPurchase::where('type_of_product', 'series')->select('productSeriesId')->groupBy('transactionId')->orderBy('productSeriesId', 'ASC')->get()->toArray(), 'productSeriesId'));
 
