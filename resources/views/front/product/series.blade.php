@@ -38,17 +38,37 @@
             ];
         }
     @endphp
+
     @if(count($data->category) > 0)
         <section class="pt-5 pb-5 header_padding series_list">
             <div class="container">
-                <div class="row">
-                    <div class="col-12 text-center title-inner">
-                        <h1>{{ $req->instrumentName }} {{ ($req->categoryName) ? '- '.$req->categoryName : '' }}</h1>
-                        <h5 class="text-muted mb-5">Choose Your Category</h5>
-                        <!-- <h1 class="mb-5">Choose Your Guitar Series Category</h1> -->
+                <div class="row mx-0">
+                    <div class="col-12 mb-3">
+                        <div class="d-flex">
+                            <a href="{{URL::to('/')}}">Home</a>
+                            <div class="arrow">></div>
+                            <a href="{{route('product.series',$instrumentParameter)}}" class="{{ (request()->input('categoryId') && request()->input('categoryName')) ? '' : 'active' }}">{{$instrumentParameter['instrumentName']}}</a>
+                            @if (request()->input('categoryId') && request()->input('categoryName'))
+                                <div class="arrow">></div>
+                                <a href="#" class="active">{{request()->input('categoryName')}}</a>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="row mx-0">
+                    <div class="col-12 title-inner">
+                        <h1 class="mb-3">{{ $req->instrumentName }} {{ ($req->categoryName) ? '- '.$req->categoryName : '' }}</h1>
+                        @if (request()->input('categoryId') && request()->input('categoryName'))
+                            <div class="mb-3 text-muted">{!! $data->categoryDetails->description !!}</div>
+                        @else
+                            <div class="mb-3 text-muted">{!! $data->instrument->description !!}</div>
+                        @endif
                     </div>
                 </div>
                 <div class="row m-0">
+                    <div class="col-12">
+                        <h5 class="text-muted mb-3">Choose Your Category</h5>
+                    </div>
                     @foreach($data->category as $index => $cat)
                         @php
                             $categoryParameter = $instrumentParameter;
@@ -56,7 +76,7 @@
                             $categoryParameter['categoryName'] = $cat->name;
                         @endphp
                         <div class="col-12 col-sm-6 col-lg-3 mb-3">
-                            <div class="card border-0">
+                            <div class="card border-0 {{ (request()->input('categoryName') == $cat->name) ? 'active' : ''}}">
                                 <img src="{{asset($cat->image)}}">
                                 <div class="card-body p-0">
                                   <a href="{{route('product.series',$categoryParameter)}}" class="btn signbtn">{{$cat->name}}</a>
@@ -73,7 +93,13 @@
         <div class="container">
                 @if(count($data->guitarSeries) > 0)
                 <div class="text-center title-inner">
-                    <h1 class="mb-5">All Series @if($data->instrument){{' Related to '.$data->instrument->name}}@endif</h1>
+                    @if (request()->input('categoryId') && request()->input('categoryName'))
+                        <h1 class="mb-5">All Series Related to {{request()->input('categoryName')}}</h1>
+                    @elseif (!empty($req->difficulty) || !empty($req->search) || !empty($req->currency))
+                        <h1 class="mb-5">Filtered Series Related to {{request()->input('instrumentName')}}</h1>
+                    @else
+                        <h1 class="mb-5">All Series @if($data->instrument){{' Related to '.$data->instrument->name}}@endif</h1>
+                    @endif
                 </div>
                 <div class="row mb-3">
                 <div class="col-12 col-md-12 filter_section">
@@ -81,22 +107,23 @@
                         @csrf
                         <div class="w-100 d-flex justify-content-end filter-flex">
                             <div class="form-group mb-0 mr-2">
-                                {{-- <p class="mb-0 text-muted">Select Difficulty</p> --}}
                                 <select class="form-control form-control-sm" name="currency">
-                                    <option value="" selected="" hidden="">Price</option>
+                                    <option value="" disabled="">Currency</option>
                                     <option selected value="usd">$ USD</option>
                                     <option {{($req->currency == 'eur') ? 'selected' : ''}} value="eur">€ EUR</option>
                                     <option {{($req->currency == 'gbp') ? 'selected' : ''}} value="gbp">£ GBP</option>
                                 </select>
                             </div>
                             <div class="form-group mb-0 mr-2">
-                                {{-- <p class="mb-0 text-muted">Select Difficulty</p> --}}
                                 <select class="form-control form-control-sm" name="difficulty">
-                                    <option value="" selected="" hidden="">Difficulty</option>
+                                    <option value="" selected="" disabled="">Difficulty</option>
                                     <option {{($req->difficulty == 'Easy') ? 'selected' : ''}} value="Easy">Easy</option>
                                     <option {{($req->difficulty == 'Medium') ? 'selected' : ''}} value="Medium">Medium</option>
                                     <option {{($req->difficulty == 'Hard') ? 'selected' : ''}} value="Hard">Hard</option>
                                 </select>
+                            </div>
+                            <div class="form-group mb-0 mr-2">
+                                <input type="text" name="search" class="form-control form-control-sm" placeholder="Search keyword" value="{{$req->search}}">
                             </div>
                             <div class="form-group mb-0 mr-2">
                                 <button type="submit" name="" class="btn buyfull">Apply</button>
@@ -111,6 +138,7 @@
                 </div>
                 @endif
             </div>
+
             @if(count($data->guitarSeries) > 0)
                 <div class="row m-0 series-row">
                     @foreach($data->guitarSeries as $key => $series)
@@ -154,13 +182,17 @@
                         </div>
                     @endforeach
                 </div>
+
+                <div class="paginate">
+                    {{$data->guitarSeries->appends($_GET)->links()}}
+                </div>
                 <!-- <div class="text-center mt-5">
                     <a href="javascript:void(0)" class="btn viewmore">EXPLORE MORE</a>
                 </div> -->
             @else
                 <div class="text-center">
                     <p class="text-muted mb-4">No Series found</p>
-                    <a href="{{route('welcome')}}" class="btn btn-light border shadow"><i class="fas fa-chevron-left"></i> Back to Home</a>
+                    <a href="{{route('product.series',$instrumentParameter)}}" class="btn btn-light border shadow"><i class="fas fa-chevron-left"></i> Go Back</a>
                 </div>
             @endif
         </div>

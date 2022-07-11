@@ -53,11 +53,13 @@ class DefaultController extends Controller
 
     public function browserProduct(Request $req)
     {
+        // dd($req->all());
         $data = (object)[];
         $data->currency = 'usd';
         $user = auth()->user();
         $data->instrument = [];
         $data->category = Category::select('*');
+        $data->categoryDetails = Category::select('*');
         $data->guitarSeries = ProductSeries::select('*');
         $data->wishlist = Wishlist::select('*');
         if (!empty($req->instrumentId)) {
@@ -68,16 +70,22 @@ class DefaultController extends Controller
         }
         if (!empty($req->categoryId)) {
             $data->guitarSeries = $data->guitarSeries->where('categoryId', $req->categoryId);
+            $data->categoryDetails = $data->categoryDetails->where('id', $req->categoryId);
         }
         if (!empty($req->difficulty)) {
             $data->guitarSeries = $data->guitarSeries->where('difficulty', $req->difficulty);
+        }
+        if (!empty($req->search)) {
+            $data->guitarSeries = $data->guitarSeries->where('title', 'LIKE', '%'.$req->search.'%');
         }
         if (!empty($req->currency)) {
             $data->currency = $req->currency;
         }
 
         $data->category = $data->category->get();
-        $data->guitarSeries = $data->guitarSeries->get();
+        $data->categoryDetails = $data->categoryDetails->first();
+        // $data->guitarSeries = $data->guitarSeries->get();
+        $data->guitarSeries = $data->guitarSeries->paginate(15);
         $data->wishlist = $data->wishlist->get();
 
         foreach ($data->guitarSeries as $key => $guitar) {
