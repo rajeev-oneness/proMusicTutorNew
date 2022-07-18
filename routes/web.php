@@ -94,6 +94,10 @@ Route::group(['middleware' => 'auth'], function () {
 Route::post('stripe/payment/form_submit', [PaymentController::class, 'stripePostForm_Submit'])->name('stripe.payment.form_submit');
 Route::get('payment/successfull/thankyou/{stripeTransactionId}', [PaymentController::class, 'thankyouPayment'])->name('payment.successfull.thankyou');
 
+// paypal payment route
+Route::post('paypal/payment/store', [PaymentController::class, 'paypalPaymentSave'])->name('paypal.payment.store');
+Route::get('payment-failure', [PaymentController::class, 'paymentFailure'])->name('paypal.payment.failure');
+
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 	require 'custom/admin.php';
 });

@@ -11,8 +11,7 @@ use App\Models\UserOrder;
 class PaymentController extends Controller
 {
 
-/************************* RazorPay Payement Work ****************************/
-
+    /************************* RazorPay Payement Work ****************************/
     public function razorPayPaymentView(Request $req)
     {
         $key = env('RAZORPAY_KEY');
@@ -129,8 +128,7 @@ class PaymentController extends Controller
         return response()->json(['error' => true,'message' => 'Payment Not done, your money will be refunded withing 7 days']);
     }
 
-
-/************************* Stripe Payement Work ****************************/
+    /************************* Stripe Payement Work ****************************/
     public function stripeView(Request $req)
     {
         $data = [
@@ -177,5 +175,111 @@ class PaymentController extends Controller
     {
         $stripe = StripeTransaction::findOrfail($transactionId);
         return view('payment.stripe.thankyou',compact('stripe'));
+    }
+
+    public function paymentFailure(Request $request)
+    {
+        return view('payment.paypal.failure');
+    }
+
+    public function paypalPaymentSave(Request $request)
+    {
+        // dd($request->all());
+        $ch = curl_init();
+        // remove "sandbox" from URL when live
+        curl_setopt($ch, CURLOPT_URL, 'https://api-m.sandbox.paypal.com/v1/oauth2/token');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "grant_type=client_credentials");
+        // {client_id}:{client_secret}
+        // curl_setopt($ch, CURLOPT_USERPWD, '{client_id}:{client_secret}');
+        // PROD
+        curl_setopt($ch, CURLOPT_USERPWD, '{AWpRwHkC7M1TJ2hiPWUhD9kj5sAw0EZNN_ozScNbTyvHxm2Ntx4rOgoO_uG4H4PrGNB3C1y-iMbLWuQ_}:{EJ3ltnidetYNj2RPjtfYUKceO-w0m02LQdYj9sZ996_uX_NpgimMC1eyIcE8Ewl3uc3t6IF1kgDq_FWC}');
+        // SANDBOX
+        // curl_setopt($ch, CURLOPT_USERPWD, '{Adqys1kmmR1q-yFM-f4GLdU2uirN1uVPcGBiksWNrqfI1DDTfza1uJk8pyvOQro00YzQqaYTFPcB9rCi}:{ELicq2zxGZAXzWzSH0gvDzBjGTe0ZdY0lNGDtrVBCmfDcA2Oo9ciDOXJRSCOyMS7SM5YCWO6mn6tbOPx}');
+
+        // Headers
+        $headers = array();
+        $headers[] = 'Accept: application/json';
+        $headers[] = 'Accept-Language: en_US';
+        $headers[] = 'Content-Type: application/x-www-form-urlencoded';
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $result = curl_exec($ch);
+
+        // dd(json_decode($result));
+
+        $result = json_decode($result);
+
+        // Token generate err are caught here
+        /* if (curl_errno($ch)) {
+            echo json_encode([
+                "status" => "error",
+                "message" => curl_error($ch)
+            ]);
+            exit();
+        } */
+
+        if (!empty($result->error)) {
+            return response()->json([
+                "status" => "error",
+                "message" => $result->error_description
+            ]);
+        }
+
+        curl_close($ch);
+
+        // Response
+        // $result = json_decode($result);
+        // dd($result);
+        $access_token = $result->access_token;
+
+        // Only need the second part of orderID
+        $payment_token_parts = explode("-", $_POST["orderID"]);
+        $payment_id = "";
+
+        if (count($payment_token_parts) > 1) {
+            $payment_id = $payment_token_parts[1];
+        }
+
+        // initialize another CURL for verifying the order
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, 'https://api-m.sandbox.paypal.com/v2/checkout/orders/'.$payment_id);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
+
+        // Headers
+        $headers = array();
+        $headers[] = 'Content-Type: application/json';
+        $headers[] = 'Authorization: Bearer ' . $access_token;
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $result = curl_exec($curl);
+
+        // check for error
+        if (curl_errno($curl))
+        {
+            // echo json_encode([
+            //     "status" => "error",
+            //     "message" => "Payment not verified. " . curl_error($curl)
+            // ]);
+            // exit();
+
+            return response()->json([
+                "status" => "error",
+                "message" => "Payment not verified. " . curl_error($curl)
+            ]);
+        }
+        curl_close($curl);
+        $result = json_decode($result);
+
+        // you can use the following if statement to make sure the payment is verified
+        if ($result->status == "COMPLETED") {
+            // send the response back to client
+            echo json_encode([
+                "status" => "success",
+                "message" => "Payment verified.",
+                "result" => $result
+            ]);
+            exit();
+        }
     }
 }

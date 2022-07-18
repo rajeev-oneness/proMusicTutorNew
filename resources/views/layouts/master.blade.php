@@ -3,7 +3,8 @@
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> --}}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>{{config('app.name', 'Pro usic Tutor')}} - @yield('title')</title>
     <link rel="icon" href="{{asset('design/img/favicon.gif')}}" type="image/gif" sizes="any">
 	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"> -->
@@ -139,8 +140,18 @@
 	<script type="text/javascript" src="{{asset('design/js/aos.js')}}"></script>
 	<script type="text/javascript" src="{{asset('design/js/custom.js')}}"></script>
     {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
+    {{-- Stripe --}}
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{-- Paypal --}}
+    {{-- <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&locale=en_US"></script> --}}
+    <script src="https://www.paypal.com/sdk/js?client-id=Adqys1kmmR1q-yFM-f4GLdU2uirN1uVPcGBiksWNrqfI1DDTfza1uJk8pyvOQro00YzQqaYTFPcB9rCi&locale=en_US&components=buttons"></script>
+
+    {{-- <script src="https://www.paypalobjects.com/api/checkout.js" data-version-4></script>
+    <script src="https://js.braintreegateway.com/web/3.39.0/js/client.min.js"></script>
+    <script src="https://js.braintreegateway.com/web/3.39.0/js/paypal-checkout.min.js"></script> --}}
+
 
     <script type="text/javascript">
         $(document).ready(function() {
